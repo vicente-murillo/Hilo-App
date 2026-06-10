@@ -217,12 +217,43 @@ svg{display:block;flex-shrink:0}
 .btn-rrhh-report{display:flex;align-items:center;gap:8px;width:100%;padding:8px 14px;background:var(--human-soft);border:1px solid var(--border-human);border-radius:var(--radius-md);color:var(--human);font-family:var(--font-body);font-size:12px;cursor:pointer;transition:150ms ease;margin-bottom:8px}
 .btn-rrhh-report:hover{background:var(--human-mid);border-color:rgba(217,79,46,.4)}
 .btn-rrhh-report .rrhh-arrow{margin-left:auto;color:var(--text-muted);font-size:12px}
-.rrhh-overlay,.project-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:10005;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .2s}
-.rrhh-overlay.open,.project-overlay.open{opacity:1;pointer-events:auto}
+.rrhh-overlay,.project-overlay,.offboarding-overlay,.knowledge-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:10005;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .2s}
+.rrhh-overlay.open,.project-overlay.open,.offboarding-overlay.open,.knowledge-overlay.open{opacity:1;pointer-events:auto}
 .rrhh-modal,.project-modal{background:var(--bg-surface);border-radius:var(--radius-xl);padding:24px;max-width:400px;width:100%;max-height:90vh;overflow-y:auto;transform:scale(.95);opacity:0;transition:transform .2s ease,opacity .2s ease;position:relative}
 .rrhh-overlay.open .rrhh-modal,.project-overlay.open .project-modal{transform:scale(1);opacity:1}
 .rrhh-modal{border:1px solid var(--border-human)}
 .project-modal{border:1px solid var(--border-accent)}
+.offboarding-modal{background:var(--bg-surface);border:1px solid var(--border-data);border-radius:var(--radius-xl);padding:24px;width:90%;max-width:560px;max-height:80vh;overflow-y:auto;transform:scale(.95);opacity:0;transition:transform .2s ease,opacity .2s ease;position:relative}
+.offboarding-overlay.open .offboarding-modal,.knowledge-overlay.open .knowledge-modal{transform:scale(1);opacity:1}
+.knowledge-modal{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-xl);max-width:520px;width:100%;max-height:85vh;overflow-y:auto;transform:scale(.95);opacity:0;transition:transform .2s ease,opacity .2s ease;position:relative;padding:0}
+.knowledge-modal-header{background:var(--bg-base);padding:24px;position:relative;border-radius:var(--radius-xl) var(--radius-xl) 0 0}
+.knowledge-modal-body{padding:24px}
+.offboard-chat-messages{display:flex;flex-direction:column;gap:14px;margin:16px 0}
+.offboard-msg{max-width:88%;display:flex;gap:8px}
+.offboard-msg.hilo{align-self:flex-start}
+.offboard-msg.user{align-self:flex-end;flex-direction:row-reverse}
+.offboard-msg .msg-bubble{padding:12px 14px;border-radius:14px;font-size:13px;line-height:1.55}
+.offboard-msg.hilo .msg-bubble{background:var(--bg-card);border:1px solid var(--border);border-bottom-left-radius:4px}
+.offboard-msg.user .msg-bubble{background:var(--data-soft);border:1px solid var(--border-data);color:var(--text-primary);border-bottom-right-radius:4px}
+.offboard-quote{background:rgba(255,255,255,0.05);border-radius:8px;padding:12px;border:1px dashed var(--border-data);font-size:13px;line-height:1.55;margin:10px 0}
+.offboard-progress-label{font-size:12px;color:var(--text-secondary);margin-bottom:6px}
+.offboard-progress-bar{height:6px;background:var(--progress-track);border-radius:3px;overflow:hidden;margin-bottom:6px}
+.offboard-progress-fill{height:100%;background:var(--data);border-radius:3px}
+.capture-card{background:var(--data-soft);border-left:3px solid var(--data);border-radius:var(--radius-md);padding:14px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.monday-summary{background:var(--bg-card);border-left:3px solid var(--accent);border-radius:var(--radius-lg);padding:14px 16px;margin-bottom:16px;border:1px solid var(--border);border-left-width:3px}
+.monday-row{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:13px}
+.monday-row .monday-detail{flex:1;font-size:12px;color:var(--text-secondary)}
+.security-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.security-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px}
+.security-highlight{display:flex;gap:12px;align-items:flex-start;background:var(--accent-soft);border:1px solid var(--border-accent);border-radius:var(--radius-md);padding:14px 16px;margin-top:14px}
+.onboard-active-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;margin-bottom:16px}
+.onboard-task-row{display:flex;align-items:center;gap:8px;font-size:13px;padding:6px 0;color:var(--text-secondary)}
+.onboard-task-row.done{color:var(--text-primary)}
+.onboard-task-row.warn{color:var(--data-text)}
+.onboard-obs-card{background:var(--data-soft);border:1px solid var(--border-data);border-radius:var(--radius-md);padding:12px 14px;margin-top:14px;font-size:13px;line-height:1.5}
+.onboard-note-card{background:var(--accent-soft);border:1px solid var(--border-accent);border-radius:var(--radius-md);padding:12px 14px;margin-top:14px;font-size:13px;line-height:1.5}
+.btn-data{background:var(--data);color:#0C1B15;border:none;font-weight:600}
+.btn-data-outline{background:transparent;color:var(--data-text);border:1px solid var(--border-data)}
 .rrhh-modal h2,.project-modal h2{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;margin:0 0 6px;padding-right:28px}
 .rrhh-modal .modal-sub,.project-modal .modal-sub{font-size:13px;color:var(--text-secondary);margin-bottom:16px;line-height:1.5}
 .rrhh-close{position:absolute;top:16px;right:16px;width:28px;height:28px;border:1px solid var(--border);background:transparent;color:var(--text-secondary);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center}
@@ -697,6 +728,7 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
   .two-col{grid-template-columns:1fr}
   .chart-grid{grid-template-columns:1fr}
   .radio-cards{grid-template-columns:1fr}
+  .security-grid{grid-template-columns:1fr}
 }
 @media(max-width:768px){
   :root{--sidebar-w:64px}
@@ -1050,6 +1082,34 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
       <section class="screen" id="screen-equipo" data-screen="equipo">
         <h1>Tu equipo · Producto Digital</h1>
         <p class="page-sub">8 personas · 2 en onboarding activo</p>
+        <div class="monday-summary">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M12 3l1.5 4.5H18l-3.5 2.5 1.5 4.5L12 12l-4 2.5 1.5-4.5L6 7.5h4.5z"/></svg>
+              Tu resumen del lunes
+            </div>
+            <span style="font-size:11px;color:var(--text-muted)">Hoy · Lunes 9:00am</span>
+          </div>
+          <div class="monday-row">
+            <span>🔴</span>
+            <div style="flex:1"><strong>2 alertas activas</strong><div class="monday-detail">Roberto y Sofía requieren atención</div></div>
+            <button class="btn btn-ghost btn-sm" id="mondayAlertsBtn">Ver →</button>
+          </div>
+          <div class="monday-row">
+            <span>✨</span>
+            <div style="flex:1"><strong>1 momento sugerido urgente</strong><div class="monday-detail">Habla con Roberto esta semana</div></div>
+            <button class="btn btn-ghost btn-sm" id="mondayMomentosBtn">Ver →</button>
+          </div>
+          <div class="monday-row">
+            <span>📊</span>
+            <div style="flex:1"><strong>5 de 8 check-ins respondidos</strong><div class="monday-detail">Diego y Roberto aún no responden</div></div>
+          </div>
+          <div style="border-top:1px solid var(--border);margin:10px 0 8px"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:11px;color:var(--text-muted)">Generado por Hilo · Actualizado hace 2 min</span>
+            <button type="button" class="btn btn-ghost btn-sm" style="font-size:11px;color:var(--accent-text);padding:0" id="mondayEquipoBtn">Ver equipo completo →</button>
+          </div>
+        </div>
         <div class="metrics-row">
           <div class="metric-card"><div class="metric-label">Estado general</div><div class="metric-value" style="font-size:22px;display:inline-flex;align-items:center;gap:6px"><span class="status-dot good" role="img" aria-label="Estado: Bien" title="Bien"></span><span aria-hidden="true">Bueno 🟢</span></div><div class="metric-delta neutral">6 personas estables · 2 en onboarding</div></div>
           <div class="metric-card"><div class="metric-label">Alertas activas</div><div class="metric-value metric-pulse" style="color:var(--human-text)">2</div><div class="metric-delta down">Requieren atención esta semana</div></div>
@@ -1151,30 +1211,51 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
       <!-- MANAGER: Onboarding Activo -->
       <section class="screen" id="screen-onboarding-activo" data-screen="onboarding-activo">
         <h1>Onboarding Activo</h1>
-        <p class="page-sub">2 empleados en proceso de integración</p>
-        <div class="onboard-card">
-          <div class="onboard-header">
+        <p class="page-sub">2 personas en proceso de integración en tu equipo.</p>
+        <div class="onboard-active-card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:14px">
             <div style="display:flex;align-items:center;gap:12px">
               <div class="avatar" data-init="SM">SM</div>
-              <div><div style="font-weight:500">Sofía Martínez</div><div style="font-size:12px;color:var(--text-secondary)">Product Designer</div></div>
+              <div>
+                <div style="font-weight:500;font-size:15px">Sofía Martínez</div>
+                <div style="font-size:12px;color:var(--text-secondary)">Product Designer · Día 15 de 90</div>
+              </div>
             </div>
-            <span class="onboard-progress">15/90 días</span>
+            <span style="font-size:10px;font-weight:600;padding:4px 10px;border-radius:20px;background:var(--data-soft);color:var(--data-text);border:1px solid var(--border-data)">Atención</span>
           </div>
-          <div class="progress-bar"><div class="progress-fill" style="width:16.67%"></div></div>
-          <p style="font-size:13px;color:var(--text-secondary);margin-top:10px">2 tareas pendientes hoy · 1:1 con María no agendado</p>
-          <button class="btn btn-secondary btn-sm" style="margin-top:12px">Ver detalle</button>
+          <div style="font-size:12px;color:var(--text-secondary);margin-bottom:6px">Semanas 1–2 · Conocer</div>
+          <div class="progress-bar" style="height:6px"><div class="progress-fill" style="width:37%;background:var(--data)"></div></div>
+          <p style="font-size:12px;color:var(--text-secondary);margin:8px 0 12px">3 de 8 tareas completadas esta fase</p>
+          <div class="onboard-task-row done">✅ Reunión con Carlos Herrera · Completado</div>
+          <div class="onboard-task-row done">✅ Setup herramientas · Completado</div>
+          <div class="onboard-task-row done">✅ Leer documentación marca · Completado</div>
+          <div class="onboard-task-row">⬜ Explorar Design System · Pendiente</div>
+          <div class="onboard-task-row">⬜ Unirse a #producto-digital · Pendiente</div>
+          <div class="onboard-task-row warn">⬜ Conocer a María Paz · No agendado ⚠️</div>
+          <div class="onboard-task-row warn">⬜ Conocer a Roberto · No agendado ⚠️</div>
+          <div class="onboard-task-row warn">⬜ Conocer a Camila · No agendado ⚠️</div>
+          <div class="onboard-obs-card">
+            Sofía aún no ha conocido a 3 personas clave de su equipo. En el día 15 debería tenerlas ya agendadas.
+            <button class="btn btn-data-outline btn-sm" style="margin-top:10px;width:100%">Ver sugerencia de Hilo →</button>
+          </div>
         </div>
-        <div class="onboard-card">
-          <div class="onboard-header">
+        <div class="onboard-active-card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:14px">
             <div style="display:flex;align-items:center;gap:12px">
               <div class="avatar" data-init="MG">MG</div>
-              <div><div style="font-weight:500">Matías González</div><div style="font-size:12px;color:var(--text-secondary)">UX Designer</div></div>
+              <div>
+                <div style="font-weight:500;font-size:15px">Matías González</div>
+                <div style="font-size:12px;color:var(--text-secondary)">UX Designer · Día 3 de 90</div>
+              </div>
             </div>
-            <span class="onboard-progress">3/90 días</span>
+            <span style="font-size:10px;font-weight:600;padding:4px 10px;border-radius:20px;background:var(--accent-soft);color:var(--accent-text)">Bien</span>
           </div>
-          <div class="progress-bar"><div class="progress-fill" style="width:3.3%"></div></div>
-          <p style="font-size:13px;color:var(--text-secondary);margin-top:10px"><span class="integration-status"><span class="status-dot good" role="img" aria-label="Estado: Bien" title="Bien"></span><span aria-hidden="true">Fase 1 · Conocer · 🟢 Bien</span></span></p>
-          <button class="btn btn-secondary btn-sm" style="margin-top:12px">Ver detalle</button>
+          <div style="font-size:12px;color:var(--text-secondary);margin-bottom:6px">Semanas 1–2 · Conocer</div>
+          <div class="progress-bar" style="height:6px"><div class="progress-fill" style="width:12%"></div></div>
+          <p style="font-size:12px;color:var(--text-secondary);margin:8px 0 12px">1 de 8 tareas completadas</p>
+          <div class="onboard-task-row done">✅ Reunión de bienvenida · Completado</div>
+          <button type="button" class="btn btn-ghost btn-sm" style="margin-top:4px;padding-left:0;font-size:12px">Ver todas las tareas →</button>
+          <div class="onboard-note-card">Matías está en sus primeros días. Todo va según lo esperado.</div>
         </div>
       </section>
 
@@ -1207,6 +1288,16 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
         <div class="rule-banner" style="border-left:3px solid var(--accent);background:rgba(0,212,160,0.08)">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-text)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           <div>Solo se activa para renuncias voluntarias y jubilaciones. Nunca en despidos. Cada registro es aprobado por la persona antes de guardarse.</div>
+        </div>
+        <div class="capture-card">
+          <div style="display:flex;align-items:flex-start;gap:12px;flex:1;min-width:200px">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--data)" stroke-width="2" style="flex-shrink:0;margin-top:2px"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            <div>
+              <div style="font-size:14px;font-weight:500;margin-bottom:4px">Proceso de captura en curso</div>
+              <div style="font-size:12px;color:var(--text-secondary);line-height:1.5">Gabriela Rojas · Product Designer Senior<br>Sesión 2 de 3 · En progreso</div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-data-outline btn-sm" id="btnOffboardingChat">Ver entrevista en curso →</button>
         </div>
         <div class="search-wrap" style="margin-bottom:16px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><input type="text" placeholder="Buscar en la memoria de Tectonic..." style="width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:10px 14px 10px 40px;color:var(--text-primary)"></div>
         <div class="filter-pills" style="margin-bottom:16px"><button class="pill active">Todos</button><button class="pill">Tecnología</button><button class="pill">Producto</button><button class="pill">Procesos</button><button class="pill">Relaciones</button></div>
@@ -1256,10 +1347,79 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
         <div class="config-section">
           <h3>¿Cómo se comunica tu equipo?</h3>
           <div class="radio-cards" id="commRadios">
-            <div class="radio-card selected"><h4>◉ Slack</h4><p>Check-ins directos en DM. 0 costo adicional.</p></div>
-            <div class="radio-card"><h4>○ Email corporativo</h4><p>Universal. $20–100/mes incluido.</p></div>
-            <div class="radio-card"><h4>○ WhatsApp Business</h4><p>Para equipos en terreno. ~$50/mes incluido.</p></div>
-            <div class="radio-card"><h4>○ Combinación</h4><p>Configura por equipo.</p></div>
+            <div class="radio-card selected" data-comm="slack"><h4>◉ Slack</h4><p>Check-ins directos en DM. 0 costo adicional.</p></div>
+            <div class="radio-card" data-comm="email"><h4>○ Email corporativo</h4><p>Universal. $20–100/mes incluido.</p></div>
+            <div class="radio-card" data-comm="whatsapp"><h4>○ WhatsApp Business</h4><p>Para equipos en terreno. ~$50/mes incluido.</p></div>
+            <div class="radio-card" data-comm="combo"><h4>○ Combinación</h4><p>Configura por equipo.</p></div>
+          </div>
+          <div id="commMockupWrap" style="margin-top:16px">
+            <p style="font-size:12px;color:var(--text-secondary);margin-bottom:10px;text-align:center">Así le llega a cada empleado:</p>
+            <div id="commMockupSlack" class="comm-mockup">
+              <div style="background:#1A1D21;border-radius:12px;padding:14px;max-width:320px;margin:0 auto">
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:12px">
+                  <span style="width:8px;height:8px;border-radius:50%;background:#FF5F57"></span>
+                  <span style="width:8px;height:8px;border-radius:50%;background:#FFBD2E"></span>
+                  <span style="width:8px;height:8px;border-radius:50%;background:#28CA41"></span>
+                  <span style="flex:1;text-align:center;font-family:system-ui;font-size:12px;color:#fff">Direct Messages</span>
+                </div>
+                <div style="margin-bottom:14px">
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+                    <div style="width:24px;height:24px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#0C1B15">H</div>
+                    <span style="font-family:system-ui;font-size:12px;color:#fff;font-weight:700">Hilo</span>
+                    <span style="font-family:system-ui;font-size:11px;color:rgba(255,255,255,0.5)">Lunes 9:00am</span>
+                  </div>
+                  <div style="background:#222529;border-radius:8px;padding:10px 12px;font-family:system-ui;font-size:12px;color:#fff;line-height:1.5">Buenos días Sofía 👋<br>¿Cómo llegas a esta semana?</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+                    <span style="background:#2a2d31;border:1px solid rgba(255,255,255,0.15);border-radius:16px;padding:4px 10px;font-family:system-ui;font-size:12px;color:#fff">😊 Con energía</span>
+                    <span style="background:#2a2d31;border:1px solid rgba(255,255,255,0.15);border-radius:16px;padding:4px 10px;font-family:system-ui;font-size:12px;color:#fff">😐 Normal</span>
+                    <span style="background:#2a2d31;border:1px solid rgba(255,255,255,0.15);border-radius:16px;padding:4px 10px;font-family:system-ui;font-size:12px;color:#fff">😔 Pesado</span>
+                  </div>
+                </div>
+                <div style="text-align:center;font-size:11px;color:rgba(255,255,255,0.35);margin:8px 0">···</div>
+                <div>
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+                    <div style="width:24px;height:24px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#0C1B15">H</div>
+                    <span style="font-family:system-ui;font-size:12px;color:#fff;font-weight:700">Hilo</span>
+                    <span style="font-family:system-ui;font-size:11px;color:rgba(255,255,255,0.5)">Viernes 12:00pm</span>
+                  </div>
+                  <div style="background:#222529;border-radius:8px;padding:10px 12px;font-family:system-ui;font-size:12px;color:#fff;line-height:1.5">¿Cómo estuvo tu semana?</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+                    <span style="background:#2a2d31;border:1px solid rgba(255,255,255,0.15);border-radius:16px;padding:4px 10px;font-family:system-ui;font-size:12px;color:#fff">😊 Buena</span>
+                    <span style="background:#2a2d31;border:1px solid rgba(255,255,255,0.15);border-radius:16px;padding:4px 10px;font-family:system-ui;font-size:12px;color:#fff">😐 Regular</span>
+                    <span style="background:#2a2d31;border:1px solid rgba(255,255,255,0.15);border-radius:16px;padding:4px 10px;font-family:system-ui;font-size:12px;color:#fff">😔 Difícil</span>
+                  </div>
+                </div>
+              </div>
+              <p style="font-size:11px;color:var(--text-muted);text-align:center;margin-top:10px">5 segundos. Sin abrir ninguna app. Responde directamente en Slack.</p>
+            </div>
+            <div id="commMockupEmail" class="comm-mockup" style="display:none">
+              <div style="background:#fff;border-radius:12px;padding:14px;max-width:360px;margin:0 auto;box-shadow:0 2px 12px rgba(0,0,0,0.08);border:1px solid rgba(0,0,0,0.06)">
+                <p style="font-size:12px;color:#666;margin-bottom:4px">De: Hilo &lt;hola@hilohq.com&gt;</p>
+                <p style="font-size:14px;font-weight:600;color:#111;margin-bottom:10px">¿Cómo llegas a esta semana? 🌟</p>
+                <p style="font-size:13px;color:#333;line-height:1.5">Hola Sofía, es lunes.<br>¿Cómo llegaste a esta semana?</p>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px">
+                  <span style="background:var(--accent);color:var(--btn-on-accent);border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600">😊 Con energía</span>
+                  <span style="background:var(--accent);color:var(--btn-on-accent);border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600">😐 Normal</span>
+                  <span style="background:var(--accent);color:var(--btn-on-accent);border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600">😔 Pesado</span>
+                </div>
+              </div>
+              <p style="font-size:11px;color:var(--text-muted);text-align:center;margin-top:10px">Responde directamente desde tu email. Sin contraseñas. Sin apps.</p>
+            </div>
+            <div id="commMockupWhatsapp" class="comm-mockup" style="display:none">
+              <div style="background:#0B141A;border-radius:12px;padding:14px;max-width:320px;margin:0 auto">
+                <div style="background:#1F2C34;border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:8px;margin-bottom:12px">
+                  <span style="width:8px;height:8px;border-radius:50%;background:#25D366"></span>
+                  <span style="font-family:system-ui;font-size:13px;color:#fff;font-weight:600">Hilo</span>
+                  <span style="font-size:11px;color:#25D366">en línea</span>
+                </div>
+                <div style="background:#1F2C34;border-radius:12px 12px 12px 4px;padding:10px 12px;font-family:system-ui;font-size:12px;color:#fff;line-height:1.5;max-width:85%">Buenos días! 👋<br>¿Cómo llegas a esta semana?<br>Toca una opción:</div>
+                <div style="display:flex;flex-direction:column;gap:6px;margin-top:10px;max-width:85%">
+                  <span style="background:#1F2C34;border-radius:8px;padding:8px 12px;font-family:system-ui;font-size:12px;color:#53BDEB;text-align:center">😊 Con energía</span>
+                  <span style="background:#1F2C34;border-radius:8px;padding:8px 12px;font-family:system-ui;font-size:12px;color:#53BDEB;text-align:center">😐 Normal</span>
+                  <span style="background:#1F2C34;border-radius:8px;padding:8px 12px;font-family:system-ui;font-size:12px;color:#53BDEB;text-align:center">😔 Pesado</span>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="card" style="margin-top:16px;font-size:13px">
             <p>📅 Lunes · 9:00am — ¿Cómo llegas a la semana?</p>
@@ -1276,6 +1436,35 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             <div class="toggle-row"><div><strong class="tag-mapa">✅ Mapa de Conocimiento</strong></div><span style="color:var(--accent-text);font-size:12px">Activo</span></div>
           </div>
           <p style="font-size:12px;color:var(--text-secondary);margin-top:12px">Plan Completo · 320 empleados · $9 USD/emp/mes</p>
+        </div>
+        <div class="config-section">
+          <h3 style="font-size:12px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.06em">Seguridad y privacidad</h3>
+          <div class="security-grid">
+            <div class="security-card">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="margin-bottom:8px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+              <div style="font-size:13px;font-weight:500;margin-bottom:4px">Encriptación total</div>
+              <p style="font-size:12px;color:var(--text-secondary);line-height:1.5">AES-256 en reposo. TLS 1.3 en tránsito. Ni el equipo de Hilo puede leer tus datos.</p>
+            </div>
+            <div class="security-card">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="margin-bottom:8px"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+              <div style="font-size:13px;font-weight:500;margin-bottom:4px">IA propia · Sin OpenAI</div>
+              <p style="font-size:12px;color:var(--text-secondary);line-height:1.5">El modelo de IA de Hilo corre en servidores propios. Tus datos nunca pasan por OpenAI ni Anthropic.</p>
+            </div>
+            <div class="security-card">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="margin-bottom:8px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <div style="font-size:13px;font-weight:500;margin-bottom:4px">Datos aislados</div>
+              <p style="font-size:12px;color:var(--text-secondary);line-height:1.5">Los datos de Tectonic no se mezclan nunca con los de otras empresas. Aislamiento total garantizado.</p>
+            </div>
+            <div class="security-card">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="margin-bottom:8px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <div style="font-size:13px;font-weight:500;margin-bottom:4px">Tus datos, tu control</div>
+              <p style="font-size:12px;color:var(--text-secondary);line-height:1.5">Exporta o elimina todos tus datos en cualquier momento. Sin retención. Sin penalizaciones.</p>
+            </div>
+          </div>
+          <div class="security-highlight">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="flex-shrink:0"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <p style="font-size:13px;line-height:1.5">Hilo está en camino de obtener certificación SOC 2 Type II. Disponible para auditoría bajo solicitud.</p>
+          </div>
         </div>
       </section>
     </div>
@@ -1340,6 +1529,62 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
       <button type="button" class="btn btn-primary" id="projectDone" style="width:100%;margin-top:16px">Listo ✓</button>
     </div>
   </div>
+</div>
+<div class="offboarding-overlay" id="offboardingOverlay">
+  <div class="offboarding-modal" role="dialog" aria-labelledby="offboardingTitle">
+    <button type="button" class="rrhh-close" id="offboardingCloseTop" aria-label="Cerrar">✕</button>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:16px;padding-right:28px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="avatar" data-init="GR" style="width:40px;height:40px;font-size:14px">GR</div>
+        <div>
+          <div style="font-weight:500;font-size:15px" id="offboardingTitle">Gabriela Rojas</div>
+          <div style="font-size:12px;color:var(--text-secondary)">Product Designer Senior · 3 años</div>
+        </div>
+      </div>
+      <span style="font-size:10px;font-weight:600;padding:4px 10px;border-radius:20px;background:var(--data-soft);color:var(--data-text);border:1px solid var(--border-data);white-space:nowrap">Sesión 2 de 3</span>
+    </div>
+    <div class="offboard-progress-label">Conocimiento capturado</div>
+    <div class="offboard-progress-bar"><div class="offboard-progress-fill" style="width:58%"></div></div>
+    <p style="font-size:11px;color:var(--text-muted);margin-bottom:16px">Gabriela debe aprobar cada respuesta antes de guardarse.</p>
+    <div class="offboard-chat-messages">
+      <div class="offboard-msg hilo">
+        <div class="avatar sm" style="background:var(--bg-card);border:1px solid var(--border);color:var(--accent-text);font-size:10px">◇</div>
+        <div class="msg-bubble">Gabriela, en tu tiempo en Tectonic gestionaste la relación con la agencia de diseño externo. ¿Qué debería saber la persona que llegue después sobre cómo trabajar con ellos?</div>
+      </div>
+      <div class="offboard-msg user">
+        <div class="msg-bubble">Sí. La agencia se llama Estudio Forma. El contacto directo es Valentina Ruiz. Lo importante es que SIEMPRE hay que mandarles el brief con 5 días de anticipación, no 3 como dice el contrato. Si mandas con 3 días la calidad baja notablemente. Aprendimos eso de la peor manera en 2023.</div>
+      </div>
+      <div class="offboard-msg hilo">
+        <div class="avatar sm" style="background:var(--bg-card);border:1px solid var(--border);color:var(--accent-text);font-size:10px">◇</div>
+        <div>
+          <div class="msg-bubble">Entendido. ¿Puedo guardar esto?<br>Puedes editarlo antes de confirmar.</div>
+          <div class="offboard-quote">La agencia externa (Estudio Forma, contacto: Valentina Ruiz) necesita briefings con 5 días de anticipación mínimo, no 3. Calidad se resiente con menos tiempo. (Aprendido 2023)</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+            <button type="button" class="btn btn-data btn-sm">✓ Aprobar y guardar</button>
+            <button type="button" class="btn btn-data-outline btn-sm">Editar antes de guardar</button>
+          </div>
+        </div>
+      </div>
+      <div class="offboard-msg user">
+        <div class="msg-bubble">Perfecto. Una cosa más: el proceso de aprobación con Carlos. Él SIEMPRE pide ver el problema antes que la solución. Si le llevas la solución primero, te pide empezar de nuevo. Eso no está escrito en ningún lado.</div>
+      </div>
+      <div class="offboard-msg hilo">
+        <div class="avatar sm" style="background:var(--bg-card);border:1px solid var(--border);color:var(--accent-text);font-size:10px">◇</div>
+        <div>
+          <div class="msg-bubble">Dato clave. ¿Lo guardo también?</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+            <button type="button" class="btn btn-ghost btn-sm">Sí, guardar</button>
+            <button type="button" class="btn btn-ghost btn-sm">Editar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:11px;color:var(--text-muted);margin:16px 0;line-height:1.5">Esta conversación es entre Gabriela y Hilo. HR solo verá el documento final aprobado.</p>
+    <button type="button" class="btn btn-secondary btn-sm" id="offboardingCloseBtn" style="width:100%">Cerrar</button>
+  </div>
+</div>
+<div class="knowledge-overlay" id="knowledgeOverlay">
+  <div class="knowledge-modal" id="knowledgeModalContent" role="dialog"></div>
 </div>
 <div class="panel-overlay" id="panelOverlay"></div>
 <aside class="right-panel" id="rightPanel">
@@ -1442,6 +1687,7 @@ const NAV={
   ],
   manager:[
     {id:'equipo',label:'Mi Equipo',icon:'<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>'},
+    {id:'onboarding-activo',label:'Onboarding Activo',icon:'<path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 0v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/>'},
     {id:'chat',label:'Pregúntale a Hilo',icon:'<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>'},
     {id:'alertas',label:'Alertas',badge:'2',icon:'<path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/>'},
     {id:'momentos',label:'Momentos Sugeridos',icon:'<path d="M12 3l1.5 4.5H18l-3.5 2.5 1.5 4.5L12 12l-4 2.5 1.5-4.5L6 7.5h4.5z"/>'}
@@ -2969,11 +3215,97 @@ function renderHrTeams(){
   });
 }
 
+function openGabrielaKnowledgeModal(){
+  const el=$('#knowledgeModalContent');
+  if(!el)return;
+  el.innerHTML=`
+    <button type="button" class="rrhh-close" id="knowledgeCloseTop" aria-label="Cerrar" style="position:absolute;top:16px;right:16px;z-index:2">✕</button>
+    <div class="knowledge-modal-header">
+      <div style="display:flex;align-items:center;gap:14px;padding-right:32px">
+        <div class="avatar" data-init="GR" style="width:52px;height:52px;font-size:18px">GR</div>
+        <div>
+          <div style="font-size:18px;font-weight:600">Gabriela Rojas</div>
+          <div style="font-size:13px;color:var(--text-secondary);margin-top:2px">Product Designer Senior · 3 años en Tectonic</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:4px">Documentado: Marzo 2024</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+            <span style="font-size:10px;font-weight:600;padding:4px 10px;border-radius:20px;background:var(--accent-soft);color:var(--success-text)">Renuncia voluntaria</span>
+            <span style="font-size:10px;font-weight:600;padding:4px 10px;border-radius:20px;background:var(--accent-soft);color:var(--accent-text)">Aprobado por Gabriela</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="knowledge-modal-body">
+      <h4 style="font-size:13px;font-weight:600;margin-bottom:10px">Responsabilidades clave</h4>
+      <ul style="list-style:none;padding:0;margin:0 0 20px;font-size:13px;color:var(--text-secondary);line-height:1.7">
+        <li style="display:flex;gap:8px;margin-bottom:6px"><span style="color:var(--accent)">●</span><span>Gestión de la agencia de diseño externa (Estudio Forma — contacto Valentina Ruiz)</span></li>
+        <li style="display:flex;gap:8px;margin-bottom:6px"><span style="color:var(--accent)">●</span><span>Mantenimiento del Design System de Tectonic (última versión: v2.3)</span></li>
+        <li style="display:flex;gap:8px"><span style="color:var(--accent)">●</span><span>Facilitación de sesiones de design review con stakeholders</span></li>
+      </ul>
+      <h4 style="font-size:13px;font-weight:600;margin-bottom:10px">Procesos que solo yo conocía</h4>
+      <div style="background:var(--data-soft);border-left:3px solid var(--data);border-radius:var(--radius-md);padding:12px 14px;margin-bottom:10px">
+        <div style="font-size:13px;font-weight:500;margin-bottom:4px">Briefings a la agencia externa</div>
+        <p style="font-size:12px;color:var(--text-secondary);line-height:1.5">Siempre 5 días de anticipación, no 3. La calidad baja notablemente con menos tiempo. Aprendido en 2023.</p>
+      </div>
+      <div style="background:var(--data-soft);border-left:3px solid var(--data);border-radius:var(--radius-md);padding:12px 14px;margin-bottom:10px">
+        <div style="font-size:13px;font-weight:500;margin-bottom:4px">Proceso de aprobación con Carlos</div>
+        <p style="font-size:12px;color:var(--text-secondary);line-height:1.5">Carlos Herrera siempre pide ver el problema antes que la solución. Si llevas la solución primero, pide empezar de nuevo. Ahorra tiempo si preparas el contexto primero.</p>
+      </div>
+      <div style="background:var(--data-soft);border-left:3px solid var(--data);border-radius:var(--radius-md);padding:12px 14px;margin-bottom:20px">
+        <div style="font-size:13px;font-weight:500;margin-bottom:4px">Prioridad en design reviews</div>
+        <p style="font-size:12px;color:var(--text-secondary);line-height:1.5">Los viernes después de las 15:00 no se agenda nada con el equipo. Hay un acuerdo no escrito de no interrumpir el foco de fin de semana.</p>
+      </div>
+      <h4 style="font-size:13px;font-weight:600;margin-bottom:10px">Relaciones y contactos clave</h4>
+      <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:12px;font-size:13px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="flex-shrink:0;margin-top:2px"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <div><strong>Valentina Ruiz</strong> · Estudio Forma (agencia)<br><span style="font-size:12px;color:var(--text-secondary)">Contacto principal. Responde rápido por WhatsApp, no por email.</span></div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:12px;font-size:13px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="flex-shrink:0;margin-top:2px"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <div><strong>Rodrigo Espinoza</strong> · Stakeholder negocio<br><span style="font-size:12px;color:var(--text-secondary)">Aprueba cambios que afecten métricas de conversión. Prefiere reuniones cortas de 15 min.</span></div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:20px;font-size:13px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="flex-shrink:0;margin-top:2px"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <div><strong>Camila Torres</strong> · PM Tectonic<br><span style="font-size:12px;color:var(--text-secondary)">Coordinación diaria. Bloquea tiempo los lunes 10am para sincronizar.</span></div>
+      </div>
+      <h4 style="font-size:13px;font-weight:600;margin-bottom:10px">Lo que le diría a quien llegue</h4>
+      <div style="background:var(--accent-soft);border:1px solid var(--border-accent);border-radius:var(--radius-md);padding:14px;font-size:13px;line-height:1.6;font-style:italic;color:var(--text-secondary);margin-bottom:20px">"Invierte la primera semana en conocer a Carlos y entender cómo piensa antes de proponer cualquier cambio. Y confía en el equipo — son los mejores con quienes he trabajado."</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding-top:16px;border-top:1px solid var(--border)">
+        <span style="font-size:11px;color:var(--text-muted)">Aprobado por Gabriela Rojas · Marzo 2024</span>
+        <div style="display:flex;gap:8px">
+          <button type="button" class="btn btn-secondary btn-sm">Descargar PDF →</button>
+          <button type="button" class="btn btn-primary btn-sm" id="knowledgeCloseBtn">Cerrar</button>
+        </div>
+      </div>
+    </div>`;
+  syncAvatarColors(el);
+  $('#knowledgeOverlay')?.classList.add('open');
+  $('#knowledgeCloseTop')?.addEventListener('click',closeKnowledgeModal);
+  $('#knowledgeCloseBtn')?.addEventListener('click',closeKnowledgeModal);
+}
+
+function closeKnowledgeModal(){$('#knowledgeOverlay')?.classList.remove('open');}
+
+function openMemoryModal(m){
+  const s=m.sections;
+  $('#modalTitle').textContent=m.name;
+  $('#modalBody').innerHTML=`
+    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px">${m.role} · <span style="color:var(--accent-text)">${m.badge}</span> · ${m.date}</p>
+    <h4 style="margin:16px 0 8px">Responsabilidades clave</h4><ul style="padding-left:18px;font-size:14px;color:var(--text-secondary)">${s.resp.map(r=>`<li>${r}</li>`).join('')}</ul>
+    <h4 style="margin:16px 0 8px">Procesos que solo yo conocía</h4><ul style="padding-left:18px;font-size:14px;color:var(--text-secondary)">${s.proc.map(r=>`<li>${r}</li>`).join('')}</ul>
+    <h4 style="margin:16px 0 8px">Relaciones y contactos importantes</h4><ul style="padding-left:18px;font-size:14px;color:var(--text-secondary)">${s.rel.map(r=>`<li>${r}</li>`).join('')}</ul>
+    <h4 style="margin:16px 0 8px">Decisiones históricas y por qué</h4><ul style="padding-left:18px;font-size:14px;color:var(--text-secondary)">${s.dec.map(r=>`<li>${r}</li>`).join('')}</ul>
+    <h4 style="margin:16px 0 8px">Lo que le diría a quien llegue después</h4><p style="font-size:14px;color:var(--text-secondary);font-style:italic">"${s.futuro}"</p>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:20px;padding-top:16px;border-top:1px solid var(--border)">Aprobado por ${m.name} · ${m.date.replace('Documentado: ','')}</p>
+    <button class="btn btn-primary btn-sm" style="margin-top:16px" id="modalCloseBtn">Cerrar</button>`;
+  openModal();
+  document.getElementById('modalCloseBtn')?.addEventListener('click',closeModal);
+}
+
 function renderMemory(){
   const list=$('#memoryList');
   if(!list)return;
   list.innerHTML=MEMORY.map((m,i)=>`
-    <div class="card memory-item" data-idx="${i}" style="margin-bottom:12px;cursor:pointer">
+    <div class="card memory-item" data-idx="${i}" style="margin-bottom:12px">
       <div style="display:flex;gap:14px;align-items:flex-start">
         <div class="avatar" data-init="${m.init}">${m.init}</div>
         <div style="flex:1">
@@ -2983,29 +3315,43 @@ function renderMemory(){
           <p style="font-size:11px;color:var(--text-muted);margin-top:6px">${m.date}</p>
           <div class="pc-tags" style="justify-content:flex-start;margin:8px 0">${m.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
           <p style="font-size:13px;color:var(--text-secondary)">${m.preview}</p>
-          <button class="btn btn-ghost btn-sm" style="margin-top:8px">Ver conocimiento completo →</button>
+          <button type="button" class="btn btn-ghost btn-sm memory-full-btn" data-idx="${i}" style="margin-top:8px">Ver conocimiento completo →</button>
         </div>
       </div>
     </div>
   `).join('');
   syncAvatarColors(list);
-  list.querySelectorAll('.memory-item').forEach(item=>{
-    item.addEventListener('click',()=>{
-        const m=MEMORY[item.dataset.idx];
-        const s=m.sections;
-        $('#modalTitle').textContent=m.name;
-        $('#modalBody').innerHTML=`
-          <p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px">${m.role} · <span style="color:var(--accent-text)">${m.badge}</span> · ${m.date}</p>
-          <h4 style="margin:16px 0 8px">Responsabilidades clave</h4><ul style="padding-left:18px;font-size:14px;color:var(--text-secondary)">${s.resp.map(r=>`<li>${r}</li>`).join('')}</ul>
-          <h4 style="margin:16px 0 8px">Procesos que solo yo conocía</h4><ul style="padding-left:18px;font-size:14px;color:var(--text-secondary)">${s.proc.map(r=>`<li>${r}</li>`).join('')}</ul>
-          <h4 style="margin:16px 0 8px">Relaciones y contactos importantes</h4><ul style="padding-left:18px;font-size:14px;color:var(--text-secondary)">${s.rel.map(r=>`<li>${r}</li>`).join('')}</ul>
-          <h4 style="margin:16px 0 8px">Decisiones históricas y por qué</h4><ul style="padding-left:18px;font-size:14px;color:var(--text-secondary)">${s.dec.map(r=>`<li>${r}</li>`).join('')}</ul>
-          <h4 style="margin:16px 0 8px">Lo que le diría a quien llegue después</h4><p style="font-size:14px;color:var(--text-secondary);font-style:italic">"${s.futuro}"</p>
-          <p style="font-size:12px;color:var(--text-muted);margin-top:20px;padding-top:16px;border-top:1px solid var(--border)">Aprobado por ${m.name} · ${m.date.replace('Documentado: ','')}</p>
-          <button class="btn btn-primary btn-sm" style="margin-top:16px" id="modalCloseBtn">Cerrar</button>
-        `;
-        openModal();
-        document.getElementById('modalCloseBtn')?.addEventListener('click',closeModal);
+  list.querySelectorAll('.memory-full-btn').forEach(btn=>{
+    btn.addEventListener('click',e=>{
+      e.stopPropagation();
+      const idx=btn.dataset.idx;
+      if(idx==='0')openGabrielaKnowledgeModal();
+      else openMemoryModal(MEMORY[idx]);
+    });
+  });
+}
+
+function setupOffboardingModal(){
+  const overlay=$('#offboardingOverlay');
+  function openOff(){overlay?.classList.add('open');syncAvatarColors(overlay);}
+  function closeOff(){overlay?.classList.remove('open');}
+  $('#btnOffboardingChat')?.addEventListener('click',openOff);
+  $('#offboardingCloseBtn')?.addEventListener('click',closeOff);
+  $('#offboardingCloseTop')?.addEventListener('click',closeOff);
+  overlay?.addEventListener('click',e=>{if(e.target===overlay)closeOff();});
+}
+
+function setupCommMockup(){
+  const map={slack:'commMockupSlack',email:'commMockupEmail',whatsapp:'commMockupWhatsapp',combo:'commMockupSlack'};
+  function showComm(type){
+    const id=map[type]||'commMockupSlack';
+    $$('.comm-mockup').forEach(m=>{m.style.display=m.id===id?'block':'none';});
+  }
+  $('#commRadios')?.querySelectorAll('.radio-card').forEach(c=>{
+    c.addEventListener('click',()=>{
+      $$('#commRadios .radio-card').forEach(x=>x.classList.remove('selected'));
+      c.classList.add('selected');
+      showComm(c.dataset.comm||'slack');
     });
   });
 }
@@ -3215,6 +3561,7 @@ function init(){
     p.addEventListener('click',()=>{$$('#kmFilters .pill').forEach(x=>x.classList.remove('active'));p.classList.add('active');renderPersonGrid(p.dataset.filter,$('#kmSearch')?.value||'');});
   });
   $$('.radio-card').forEach(c=>{
+    if(c.closest('#commRadios'))return;
     c.addEventListener('click',()=>{$$('.radio-card').forEach(x=>x.classList.remove('selected'));c.classList.add('selected');});
   });
   $$('.toggle').forEach(t=>{
@@ -3223,9 +3570,10 @@ function init(){
   });
   document.addEventListener('keydown',e=>{
     if(e.key==='Escape'){
-      closePanel();closeModal();
+      closePanel();closeModal();closeKnowledgeModal();
       $('#rrhhOverlay')?.classList.remove('open');
       $('#projectOverlay')?.classList.remove('open');
+      $('#offboardingOverlay')?.classList.remove('open');
     }
   });
   $('#btnSlackConnect')?.addEventListener('click',simulateSlackConnect);
@@ -3241,6 +3589,12 @@ function init(){
   setupChat();
   setupRrhhModal();
   setupProjectModal();
+  setupOffboardingModal();
+  setupCommMockup();
+  $('#knowledgeOverlay')?.addEventListener('click',e=>{if(e.target===e.currentTarget)closeKnowledgeModal();});
+  $('#mondayAlertsBtn')?.addEventListener('click',()=>switchScreen('alertas'));
+  $('#mondayMomentosBtn')?.addEventListener('click',()=>switchScreen('momentos'));
+  $('#mondayEquipoBtn')?.addEventListener('click',()=>{document.querySelector('#teamList')?.scrollIntoView({behavior:'smooth'});});
   $('#btnReplayTutorial')?.addEventListener('click',replayTutorial);
   $('#btnReplayTutorialPerfil')?.addEventListener('click',replayTutorial);
   $('#btnReplayTutorialPerfil')?.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();replayTutorial();}});

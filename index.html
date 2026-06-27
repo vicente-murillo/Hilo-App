@@ -174,7 +174,7 @@ svg{display:block;flex-shrink:0}
 .rank-table th{text-align:left;font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em;padding:10px 8px;border-bottom:1px solid var(--border)}
 .rank-table td{padding:10px 8px;border-bottom:1px solid var(--border);vertical-align:middle}
 .rank-table tr:hover td{background:var(--bg-hover)}
-.rank-table tr.row-you td{background:var(--row-you-bg);border-left:3px solid var(--human)}
+.rank-table tr.row-you td{background:var(--accent-soft);border-left:3px solid var(--accent)}
 .rank-table tr.rank-top-1 td{background:rgba(245,184,0,.07)}
 .rank-table tr.rank-top-2 td{background:rgba(168,168,168,.05)}
 .rank-table tr.rank-top-3 td{background:rgba(184,115,51,.05)}
@@ -270,6 +270,14 @@ svg{display:block;flex-shrink:0}
 .admin-chat-note svg{flex-shrink:0;color:var(--human-text)}
 .roi-title-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px}
 .roi-lock-badge{display:inline-block;padding:3px 8px;border-radius:var(--radius-full);background:var(--human-soft);color:var(--human);font-size:10px;font-weight:600;letter-spacing:.02em}
+.roi-donut-wrap{position:relative;height:170px;margin:4px 0 0}
+.roi-donut-wrap .chart-wrap{height:170px}
+.roi-donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;text-align:center;padding:0 12px}
+.roi-donut-val{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;letter-spacing:-0.02em;line-height:1.15}
+.roi-donut-sub{font-size:10px;color:var(--text-secondary);margin-top:4px;line-height:1.35;max-width:112px}
+.roi-legend{display:flex;flex-wrap:wrap;gap:6px 10px;justify-content:center;margin-top:10px;font-size:11px;color:var(--text-secondary)}
+.roi-legend span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.roi-legend i{width:8px;height:8px;border-radius:2px;flex-shrink:0}
 .profile-help{margin-top:32px;padding-top:20px;border-top:1px solid var(--border)}
 .profile-help-row{display:flex;align-items:center;gap:10px;padding:8px 4px;border-radius:var(--radius-md);cursor:pointer;color:var(--text-primary);font-size:13px}
 .profile-help-row:hover{background:var(--bg-hover)}
@@ -816,14 +824,14 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
 </style>
 </head>
 <body>
-<div class="demo-banner">🎯 Modo Demo · IA propia de Hilo · Datos ficticios de Tectonic · Selector de rol ↘</div>
+<div class="demo-banner">🎯 Modo Demo · Despliegue privado · Datos ficticios de Tectonic · Selector ↘</div>
 <div class="app">
   <aside class="sidebar" id="sidebar">
     <div class="logo">
       <span class="logo-text">Hi<em>lo</em></span>
       <svg class="logo-mark" width="28" height="20" viewBox="0 0 28 20" fill="none"><circle cx="4" cy="10" r="3" fill="currentColor"/><circle cx="14" cy="4" r="3" fill="currentColor"/><circle cx="24" cy="10" r="3" fill="currentColor"/><path d="M7 10 Q14 2 21 10" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
     </div>
-    <p class="sidebar-ia-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>IA propia · Datos seguros</p>
+    <p class="sidebar-ia-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Despliegue privado · Soberanía de datos</p>
     <nav class="nav" id="mainNav"></nav>
     <div class="sidebar-footer">
       <button type="button" id="themeToggle" aria-label="Cambiar tema">
@@ -929,6 +937,22 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
                 <div class="tl-item"><div class="tl-dot" style="background:var(--bg-hover);border-color:var(--border)"></div><div class="tl-title" style="color:var(--text-muted)">Mes 3 · Liderar</div><div class="tl-desc">Proponer mejoras. Ser referente.</div></div>
               </div>
             </div>
+            <div class="card" style="margin-top:16px;padding:14px">
+              <div style="font-size:13px;font-weight:500;margin-bottom:12px">Hilo es tu asistente, no tu jefe</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px;line-height:1.8">
+                <div style="color:var(--accent-text)">
+                  <div>✓ Resuelve dudas</div>
+                  <div>✓ Guía tu onboarding</div>
+                  <div>✓ Es privado contigo</div>
+                </div>
+                <div style="color:var(--text-muted)">
+                  <div>✗ No reporta a tu jefe</div>
+                  <div>✗ No te evalúa</div>
+                  <div>✗ No te vigila</div>
+                </div>
+              </div>
+              <p style="font-size:11px;color:var(--text-muted);font-style:italic;margin-top:12px;line-height:1.5">Todo lo que hablas con Hilo es entre tú y Hilo. Siempre.</p>
+            </div>
             <div class="card card-accent" style="margin-top:16px;cursor:pointer" id="insightToChat">
               <p style="font-size:14px;line-height:1.5">💬 Hilo detectó que tienes dudas sobre el proceso de aprobación. ¿Quieres que te lo explique?</p>
               <button class="btn btn-primary btn-sm" style="margin-top:12px">Pregúntale a Hilo →</button>
@@ -979,7 +1003,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
           </div>
           <div class="chat-messages" id="chatMessagesMgr">
             <div class="msg user"><div><div class="msg-bubble">¿Cómo está mi equipo esta semana?</div><div class="msg-time">Carlos · 09:12</div></div></div>
-            <div class="msg hilo"><div class="avatar sm" style="background:var(--bg-card);border:1px solid var(--border);color:var(--accent-text);font-size:10px">◇</div><div><div class="msg-bubble">Tu equipo Producto Digital esta semana:<br><br>🟢 5 personas estables<br>🟡 2 requieren atención (Sofía · Diego)<br>🔴 1 alerta activa (Roberto)<br><br>Roberto lleva 4 días sin responder check-in y canceló 3 reuniones. Tiene conocimiento crítico sobre integraciones de pago.<br>¿Preparo una sugerencia para la conversación con él?</div><div class="msg-time">Hilo · 09:12</div></div></div>
+            <div class="msg hilo"><div class="avatar sm" style="background:var(--bg-card);border:1px solid var(--border);color:var(--accent-text);font-size:10px">◇</div><div><div class="msg-bubble">Tu equipo Producto Digital esta semana:<br><br>🟢 5 personas estables<br>🟡 2 requieren atención (Sofía · Diego)<br>🟡 1 alerta activa (Roberto)<br><br>Roberto tiene un proyecto de integración con Transbank con conocimiento crítico aún sin documentar completamente.<br>¿Preparo una sugerencia para la conversación con él?</div><div class="msg-time">Hilo · 09:12</div></div></div>
             <div class="msg user"><div><div class="msg-bubble">Sí, y dime qué proyecto tiene cada uno</div><div class="msg-time">Carlos · 09:14</div></div></div>
             <div class="msg hilo"><div class="avatar sm" style="background:var(--bg-card);border:1px solid var(--border);color:var(--accent-text);font-size:10px">◇</div><div><div class="msg-bubble">Proyectos activos de tu equipo:<br><br>· Sofía → Design System (onboarding día 15)<br>· Matías → Onboarding usuarios mobile<br>· María Paz → Research Q2<br>· Roberto → Integración Transbank ⚠️<br>· Camila → Roadmap Q3<br>· Diego → Dashboard analytics<br>· Javiera → Rebrand componentes<br>· Felipe → Documentación API<br><br>⚠️ Alerta de duplicación: Roberto (tu equipo) y Felipe Ortiz (Tecnología) están trabajando en integraciones de pago. ¿Los coordinamos?</div><div class="msg-time">Hilo · 09:14</div></div></div>
           </div>
@@ -1004,9 +1028,9 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
           </div>
           <div class="chat-messages" id="chatMessagesAdmin">
             <div class="msg user"><div><div class="msg-bubble">¿Cuál es el ROI de Hilo este trimestre?</div><div class="msg-time">Ana · 11:02</div></div></div>
-            <div class="msg hilo"><div class="avatar sm" style="background:var(--bg-card);border:1px solid var(--border);color:var(--accent-text);font-size:10px">◇</div><div><div class="msg-bubble">ROI Hilo — Q1 2026 · Tectonic<br><br>💰 Ahorro total: $284.000 USD<br><br>Desglose:<br>· Onboarding acelerado (5 personas) → $96.000 USD<br>· Renuncias evitadas (2 personas) → $36.000 USD<br>· Duplicaciones evitadas (1 proyecto) → $52.000 USD<br>· Reuniones reemplazadas por Hilo (847 preguntas respondidas) → $100.000 USD<br><br>📊 Inversión Hilo Q1:<br>320 emp × $9 × 3 meses = $8.640 USD<br>+ Fee implementación: $10.000 USD<br>Total invertido: $18.640 USD<br><br>📈 ROI neto Q1: $265.360 USD<br>📊 Retorno: 1.424%</div><div class="msg-time">Hilo · 11:02</div></div></div>
+            <div class="msg hilo"><div class="avatar sm" style="background:var(--bg-card);border:1px solid var(--border);color:var(--accent-text);font-size:10px">◇</div><div><div class="msg-bubble">ROI Hilo — Q1 2026 · Tectonic<br><br>💰 Valor recuperado: ~US$207k estimado<br><br>Basado en supuestos conservadores:<br>· Rotación evitable (75% × 45 salidas × US$12k): US$408k/año → Q1: US$102k<br>· Ramp-up onboarding (45 ingresos × US$2.7k): US$120k/año → Q1: US$30k<br>· Búsqueda y retrabajo reducida (2h/sem × 300 × US$11): US$300k/año → Q1: US$75k<br><br>📊 Inversión Hilo Q1:<br>320 emp × $8 × 3 meses = $7.680 USD<br>+ Fee implementación: $10.000 USD<br>Total Q1: $17.680 USD<br><br>📈 Ahorro neto Q1 estimado: ~US$189k<br>Fuentes: Work Institute 2025 · SHRM · Gallup</div><div class="msg-time">Hilo · 11:02</div></div></div>
             <div class="msg user"><div><div class="msg-bubble">¿Hay alertas graves activas?</div><div class="msg-time">Ana · 11:05</div></div></div>
-            <div class="msg hilo"><div class="avatar sm" style="background:var(--bg-card);border:1px solid var(--border);color:var(--accent-text);font-size:10px">◇</div><div><div class="msg-bubble">1 alerta que requiere atención:<br><br>🔴 Roberto Vargas · Frontend Dev<br>Señales de desenganche hace 5 días. Conocimiento crítico en integraciones de pago parcialmente documentado.<br>Acción sugerida: su manager debe tener una conversación 1:1 esta semana.</div><div class="msg-time">Hilo · 11:05</div></div></div>
+            <div class="msg hilo"><div class="avatar sm" style="background:var(--bg-card);border:1px solid var(--border);color:var(--accent-text);font-size:10px">◇</div><div><div class="msg-bubble">1 alerta que requiere atención:<br><br>🟡 Roberto Vargas · Frontend Dev<br>Conocimiento crítico en integraciones de pago parcialmente documentado.<br>Acción sugerida: sesión de documentación con Roberto esta semana.</div><div class="msg-time">Hilo · 11:05</div></div></div>
           </div>
           <div class="admin-chat-note">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -1102,7 +1126,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
           </div>
           <div class="monday-row">
             <span>📊</span>
-            <div style="flex:1"><strong>5 de 8 check-ins respondidos</strong><div class="monday-detail">Diego y Roberto aún no responden</div></div>
+            <div style="flex:1"><strong>6 de 8 proyectos reportados</strong><div class="monday-detail">Diego y Roberto con reporte mensual pendiente</div></div>
           </div>
           <div style="border-top:1px solid var(--border);margin:10px 0 8px"></div>
           <div style="display:flex;justify-content:space-between;align-items:center">
@@ -1114,7 +1138,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
           <div class="metric-card"><div class="metric-label">Estado general</div><div class="metric-value" style="font-size:22px;display:inline-flex;align-items:center;gap:6px"><span class="status-dot good" role="img" aria-label="Estado: Bien" title="Bien"></span><span aria-hidden="true">Bueno 🟢</span></div><div class="metric-delta neutral">6 personas estables · 2 en onboarding</div></div>
           <div class="metric-card"><div class="metric-label">Alertas activas</div><div class="metric-value metric-pulse" style="color:var(--human-text)">2</div><div class="metric-delta down">Requieren atención esta semana</div></div>
           <div class="metric-card"><div class="metric-label">En onboarding</div><div class="metric-value" style="color:var(--accent-text)">2</div><div class="metric-delta neutral">Sofía · día 15 · Matías · día 3</div></div>
-          <div class="metric-card"><div class="metric-label">Check-in hoy</div><div class="metric-value">5/8</div><div class="progress-bar" style="height:6px;margin:8px 0"><div class="progress-fill" style="width:62.5%"></div></div><div class="metric-delta neutral">5 personas respondieron hoy</div></div>
+          <div class="metric-card"><div class="metric-label">Proyectos reportados</div><div class="metric-value">6/8</div><div class="progress-bar" style="height:6px;margin:8px 0"><div class="progress-fill" style="width:75%"></div></div><div class="metric-delta neutral">Check-in mensual de proyectos</div></div>
         </div>
         <div class="equipo-layout">
           <div class="team-list" id="teamList"></div>
@@ -1126,7 +1150,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             <div class="rank-mini-row"><span class="rank-pos g3">#3</span><div class="avatar sm" data-init="CT">CT</div><span style="flex:1">C. Torres</span><strong>432</strong><span class="trend-flat">—</span></div>
             <div class="rank-mini-row"><span>#4</span><div class="avatar sm" data-init="FH">FH</div><span style="flex:1">F. Herrera</span><strong>298</strong><span class="trend-up">↑</span></div>
             <div class="rank-mini-row"><span>#5</span><div class="avatar sm" data-init="RV">RV</div><span style="flex:1">R. Vargas</span><strong>187</strong><span class="trend-down">↓</span></div>
-            <p style="font-size:11px;color:var(--text-secondary);margin:12px 0">Roberto tiene los puntos más bajos. Coincide con las alertas activas.</p>
+            <p style="font-size:11px;color:var(--text-secondary);margin:12px 0">Roberto tiene conocimiento crítico sin documentar. Coincide con las alertas activas.</p>
             <button class="btn btn-ghost btn-sm" id="btnVerRankingCompleto" style="width:100%">Ver ranking completo →</button>
           </div>
         </div>
@@ -1135,60 +1159,57 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
       <!-- MANAGER: Alertas -->
       <section class="screen" id="screen-alertas" data-screen="alertas">
         <h1>Alertas activas</h1>
-        <p class="page-sub">Hilo detectó estas señales en tu equipo esta semana.</p>
-        <div class="alert-card high">
+        <p class="page-sub">Basadas en onboarding y proyectos reportados por tu equipo esta semana.</p>
+        <div style="background:var(--accent-soft);border:1px solid var(--border-accent);border-radius:var(--radius-md);padding:12px 14px;margin-bottom:16px;display:flex;gap:10px;align-items:flex-start">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="flex-shrink:0;margin-top:1px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <p style="font-size:12px;color:var(--text-secondary);line-height:1.55;margin:0">Las alertas de Hilo se basan solo en progreso de onboarding y proyectos reportados por los propios empleados. Hilo no monitorea comportamiento, asistencia ni actividad en Slack.</p>
+        </div>
+        <div class="alert-card medium" style="border-left-width:3px">
           <div class="alert-header">
             <div class="avatar" data-init="RV">RV</div>
-            <div style="flex:1;margin-left:12px"><strong>Roberto Vargas · Frontend Dev</strong><div style="margin-top:6px"><span class="alert-badge high">Alta prioridad</span> <span style="font-size:12px;color:var(--text-muted);margin-left:8px">Detectado hace 3 días</span></div></div>
+            <div style="flex:1;margin-left:12px"><strong>Roberto Vargas · Frontend Dev</strong><div style="margin-top:6px"><span class="alert-badge medium">Conocimiento en riesgo</span> <span style="font-size:12px;color:var(--text-muted);margin-left:8px">Detectado esta semana</span></div></div>
           </div>
-          <p class="section-label" style="margin-top:16px">Qué detectó Hilo:</p>
-          <ul style="font-size:14px;color:var(--text-secondary);padding-left:18px;line-height:1.8">
-            <li>Lleva 4 días sin responder check-in</li>
-            <li>Canceló 3 reuniones esta semana</li>
-            <li>Tiempo de respuesta en Slack +60%</li>
-            <li>Último check-in: 😔 hace 5 días</li>
-          </ul>
+          <p style="font-size:11px;color:var(--text-muted);margin-top:14px">Fuente: Check-in mensual de proyectos</p>
+          <p style="font-size:14px;color:var(--text-secondary);line-height:1.65;margin-top:10px">Roberto reportó que está trabajando en la integración con Transbank. Este proyecto tiene conocimiento crítico concentrado en pocas personas y aún no está completamente documentado.</p>
           <div class="card" style="margin-top:16px;background:var(--accent-soft);border-color:var(--border-accent)">
-            <div style="display:flex;gap:10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-text)" stroke-width="2"><path d="M9.5 2A5.5 5.5 0 014 7.5v0A5.5 5.5 0 019.5 13H12v7l4-3H20a2 2 0 002-2v-2a8 8 0 00-8-8z"/></svg>
-            <p style="font-size:13px"><strong>Interpretación de Hilo:</strong> Estas señales combinadas sugieren posible desenganche o sobrecarga. Roberto tiene conocimiento crítico sobre integraciones de pago. Si renunciara, afectaría 3 proyectos activos.</p></div>
+            <p style="font-size:13px;line-height:1.55">Considera agendar una sesión con Roberto para documentar este conocimiento en Hilo. No es urgente — es preventivo.</p>
           </div>
           <div class="alert-actions">
-            <button class="btn btn-primary btn-sm">Agendar 1:1 esta semana</button>
-            <button class="btn btn-secondary btn-sm">Ver historial completo</button>
-            <button class="btn btn-ghost btn-sm">Marcar como resuelto</button>
+            <button class="btn btn-primary btn-sm">Agendar sesión de documentación →</button>
+            <button class="btn btn-secondary btn-sm">Ver proyecto en Hilo →</button>
           </div>
         </div>
         <div class="alert-card medium">
           <div class="alert-header">
             <div class="avatar" data-init="SM">SM</div>
-            <div style="flex:1;margin-left:12px"><strong>Sofía Martínez · Product Designer</strong><div style="margin-top:6px"><span class="alert-badge medium">Onboarding en riesgo</span> <span style="font-size:12px;color:var(--text-muted);margin-left:8px">Detectado hace 1 día</span></div></div>
+            <div style="flex:1;margin-left:12px"><strong>Sofía Martínez · Product Designer</strong><div style="margin-top:6px"><span class="alert-badge medium">Onboarding necesita atención</span> <span style="font-size:12px;color:var(--text-muted);margin-left:8px">Detectado hace 1 día</span></div></div>
           </div>
-          <ul style="font-size:14px;color:var(--text-secondary);padding-left:18px;line-height:1.8;margin-top:12px">
+          <p style="font-size:11px;color:var(--text-muted);margin-top:14px">Fuente: progreso de tareas de onboarding</p>
+          <ul style="font-size:14px;color:var(--text-secondary);padding-left:18px;line-height:1.8;margin-top:10px">
             <li>Completó 40% de tareas semana 2</li>
-            <li>Hizo 8 preguntas sobre aprobaciones</li>
-            <li>No ha conocido a 3 personas clave aún</li>
+            <li>3 personas clave aún no agendadas</li>
           </ul>
           <div class="card" style="margin-top:16px;background:var(--accent-soft)">
-            <p style="font-size:13px"><strong>Interpretación de Hilo:</strong> Sofía puede estar confundida con el proceso de aprobaciones. Una conversación ahora evita que se atrase en su onboarding.</p>
+            <p style="font-size:13px"><strong>Interpretación de Hilo:</strong> Sofía avanza en tareas pero le faltan reuniones con personas clave. Un empujón ahora evita que se atrase en su onboarding.</p>
           </div>
           <div class="alert-actions">
             <button class="btn btn-primary btn-sm">Ver sugerencia de Hilo</button>
             <button class="btn btn-ghost btn-sm">Marcar como resuelto</button>
           </div>
         </div>
-        <p style="font-size:13px;color:var(--text-secondary);margin-top:20px;text-align:center">Hilo revisó las señales de 8 personas hoy. 6 están bien. 2 necesitan atención.</p>
+        <p style="font-size:13px;color:var(--text-secondary);margin-top:20px;text-align:center">Hilo revisó el progreso de 8 personas hoy. 6 están bien. 2 necesitan atención.</p>
       </section>
 
       <!-- MANAGER: Momentos -->
       <section class="screen" id="screen-momentos" data-screen="momentos">
         <h1>Momentos sugeridos</h1>
         <p class="page-sub">Hilo te dice cuándo conectar con tu equipo y por qué. Tú decides cómo hacerlo.</p>
-        <div class="moment-card" style="border-left:3px solid var(--human)">
-          <span class="alert-badge high">Esta semana</span>
+        <div class="moment-card" style="border-left:3px solid var(--data)">
+          <span class="alert-badge medium">Esta semana</span>
           <div style="display:flex;align-items:center;gap:10px;margin:12px 0"><div class="avatar" data-init="RV">RV</div><strong>Roberto Vargas</strong></div>
-          <div class="moment-title">Conversación 1:1 necesaria</div>
-          <p style="font-size:14px;color:var(--text-secondary)">Roberto lleva 4 días desconectado. Una conversación informal esta semana puede marcar la diferencia.</p>
-          <p style="font-size:13px;color:var(--text-muted);margin:12px 0;padding:12px;background:var(--bg-hover);border-radius:8px"><strong>Hilo sugiere:</strong> Empieza con algo casual. No preguntes directamente si algo está mal. Pregunta cómo va el proyecto X.</p>
+          <div class="moment-title">Documentar conocimiento crítico</div>
+          <p style="font-size:14px;color:var(--text-secondary)">Roberto tiene conocimiento crítico en integración de pagos sin documentar. Una conversación ahora puede capturar ese conocimiento antes de que sea urgente.</p>
+          <p style="font-size:13px;color:var(--text-muted);margin:12px 0;padding:12px;background:var(--bg-hover);border-radius:8px"><strong>Hilo sugiere:</strong> invítalo a una sesión de documentación de 20 minutos. No es sobre él — es sobre el proyecto.</p>
           <button class="btn btn-primary btn-sm">Agendar en calendario →</button>
         </div>
         <div class="moment-card" style="border-left:3px solid var(--warning)">
@@ -1271,7 +1292,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
               <div><div style="font-size:13px;color:var(--text-secondary)">78% del equipo en buen estado</div><div style="font-size:11px;margin-top:4px"><span style="color:var(--success-text)">● 78%</span> <span style="color:var(--data-text)">● 14%</span> <span style="color:var(--human-text)">● 8%</span></div></div>
             </div>
           </div>
-          <div class="metric-card"><div class="metric-label">Riesgo de renuncia</div><div class="metric-value" style="color:var(--data-text)">4</div><div class="metric-delta neutral">personas con señales en últimos 14 días</div><div style="font-size:11px;color:var(--text-muted);margin-top:4px">Basado en patrones de comportamiento</div></div>
+          <div class="metric-card"><div class="metric-label">Proyectos críticos</div><div class="metric-value" style="color:var(--data-text)">3</div><div class="metric-delta neutral">con documentación incompleta</div><div style="font-size:11px;color:var(--text-muted);margin-top:4px">Basado en reportes mensuales de proyectos</div></div>
           <div class="metric-card"><div class="metric-label">Onboardings activos</div><div class="metric-value" style="color:var(--accent-text)">5</div>
             <div style="margin-top:10px;font-size:11px;color:var(--text-secondary)">Sofía 15/90 · Matías 3/90 · Pedro 45/90<br>Lucía 67/90 · Jorge 82/90</div>
           </div>
@@ -1311,11 +1332,26 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
         <div class="chart-card" style="margin-bottom:16px"><h4>Estado del equipo — últimos 90 días</h4><div class="chart-wrap" style="height:200px"><canvas id="chartEstado"></canvas></div></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px">
           <div class="chart-card"><h4>Tiempo de productividad por rol (días)</h4><div class="chart-wrap" style="height:200px"><canvas id="chartProductividad"></canvas></div></div>
-          <div class="chart-card" style="position:relative"><div class="roi-title-row"><h4 style="margin:0">ROI Hilo este trimestre</h4><span class="roi-lock-badge">Solo Admin · RRHH + CEO</span></div><div class="chart-wrap" style="height:200px"><canvas id="chartROI"></canvas></div><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-30%);text-align:center;pointer-events:none"><div style="font-size:22px;font-weight:700;letter-spacing:-0.02em">$284.000</div><div style="font-size:11px;color:var(--text-secondary)">USD ahorrado</div></div></div>
+          <div class="chart-card roi-chart-card">
+            <div class="roi-title-row"><h4 style="margin:0">ROI Hilo este trimestre</h4><span class="roi-lock-badge">Solo Admin · RRHH + CEO</span></div>
+            <div class="roi-donut-wrap">
+              <div class="chart-wrap"><canvas id="chartROI"></canvas></div>
+              <div class="roi-donut-center">
+                <div class="roi-donut-val">~US$207k est.</div>
+                <div class="roi-donut-sub">Supuestos conservadores · Q1 2026</div>
+              </div>
+            </div>
+            <div class="roi-legend" aria-hidden="true">
+              <span><i style="background:var(--accent)"></i>Rotación evitable</span>
+              <span><i style="background:var(--human)"></i>Ramp-up onboarding</span>
+              <span><i style="background:var(--data)"></i>Búsqueda y retrabajo</span>
+            </div>
+          </div>
         </div>
+        <div style="background:var(--data-soft);border:1px solid var(--border-data);border-radius:var(--radius-md);padding:12px 14px;margin-bottom:20px;font-size:12px;color:var(--text-muted);line-height:1.55">Los datos de bienestar del equipo forman parte del módulo Pulso Real, disponible en Fase 2. Lo que ves aquí es una vista anticipada.</div>
         <div class="metrics-row">
-          <div class="metric-card"><div class="metric-label">Tasa de rotación</div><div class="metric-value" style="font-size:18px">18% → 12%</div></div>
-          <div class="metric-card"><div class="metric-label">Onboarding promedio</div><div class="metric-value" style="font-size:18px">8m → 3.2m</div></div>
+          <div class="metric-card"><div class="metric-label">Rotación evitable</div><div class="metric-value" style="font-size:16px">75%</div><div class="metric-delta neutral">Work Institute</div></div>
+          <div class="metric-card"><div class="metric-label">Onboarding</div><div class="metric-value" style="font-size:18px">8m → 3.2m est.</div></div>
           <div class="metric-card"><div class="metric-label">Check-in rate</div><div class="metric-value">84%</div></div>
           <div class="metric-card"><div class="metric-label">Registros memoria</div><div class="metric-value">47</div></div>
         </div>
@@ -1431,39 +1467,46 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
           <h3>Módulos contratados</h3>
           <div class="card">
             <div class="toggle-row"><div><strong class="tag-onboarding">✅ Onboarding Inteligente</strong></div><span style="color:var(--accent-text);font-size:12px">Activo</span></div>
-            <div class="toggle-row"><div><strong class="tag-pulso">✅ Pulso Real</strong></div><span style="color:var(--accent-text);font-size:12px">Activo</span></div>
+            <div class="toggle-row" style="align-items:flex-start">
+              <div><strong class="tag-pulso">🔜 Pulso Real · Fase 2</strong></div>
+              <span style="font-size:10px;font-weight:600;padding:4px 10px;border-radius:20px;background:var(--data-soft);color:var(--data-text);border:1px solid var(--border-data);white-space:nowrap">Próximamente</span>
+            </div>
             <div class="toggle-row"><div><strong class="tag-memoria">✅ Memoria Institucional</strong></div><span style="color:var(--accent-text);font-size:12px">Activo</span></div>
             <div class="toggle-row"><div><strong class="tag-mapa">✅ Mapa de Conocimiento</strong></div><span style="color:var(--accent-text);font-size:12px">Activo</span></div>
           </div>
-          <p style="font-size:12px;color:var(--text-secondary);margin-top:12px">Plan Completo · 320 empleados · $9 USD/emp/mes</p>
+          <p style="font-size:11px;color:var(--text-muted);margin-top:10px;line-height:1.5">El módulo de Pulso (señales de bienestar del equipo) se activa cuando el grafo de conocimiento ya está nutrido. Llega en Fase 2.</p>
+          <p style="font-size:12px;color:var(--text-secondary);margin-top:12px">Plan Completo · 320 empleados · $8 USD/emp/mes</p>
         </div>
         <div class="config-section">
           <h3 style="font-size:12px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.06em">Seguridad y privacidad</h3>
           <div class="security-grid">
             <div class="security-card">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="margin-bottom:8px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-              <div style="font-size:13px;font-weight:500;margin-bottom:4px">Encriptación total</div>
-              <p style="font-size:12px;color:var(--text-secondary);line-height:1.5">AES-256 en reposo. TLS 1.3 en tránsito. Ni el equipo de Hilo puede leer tus datos.</p>
-            </div>
-            <div class="security-card">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="margin-bottom:8px"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
-              <div style="font-size:13px;font-weight:500;margin-bottom:4px">IA propia · Sin OpenAI</div>
-              <p style="font-size:12px;color:var(--text-secondary);line-height:1.5">El modelo de IA de Hilo corre en servidores propios. Tus datos nunca pasan por OpenAI ni Anthropic.</p>
-            </div>
-            <div class="security-card">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="margin-bottom:8px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <div style="font-size:13px;font-weight:500;margin-bottom:4px">Datos aislados</div>
-              <p style="font-size:12px;color:var(--text-secondary);line-height:1.5">Los datos de Tectonic no se mezclan nunca con los de otras empresas. Aislamiento total garantizado.</p>
+              <div style="font-size:13px;font-weight:500;margin-bottom:4px">Tenant aislado y cifrado</div>
+              <p style="font-size:12px;color:var(--text-secondary);line-height:1.5">Tu empresa tiene su propio entorno aislado. Tus datos no se mezclan con los de ninguna otra empresa. Cifrado en reposo y en tránsito.</p>
             </div>
             <div class="security-card">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="margin-bottom:8px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              <div style="font-size:13px;font-weight:500;margin-bottom:4px">Tus datos, tu control</div>
-              <p style="font-size:12px;color:var(--text-secondary);line-height:1.5">Exporta o elimina todos tus datos en cualquier momento. Sin retención. Sin penalizaciones.</p>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="margin-bottom:8px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+              <div style="font-size:13px;font-weight:500;margin-bottom:4px">Soberanía de datos</div>
+              <p style="font-size:12px;color:var(--text-secondary);line-height:1.5">Sin entrenar modelos de terceros con tus datos. Residencia configurable. Data Processing Agreement (DPA) incluido en todos los planes.</p>
+            </div>
+            <div class="security-card">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="margin-bottom:8px"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+              <div style="font-size:13px;font-weight:500;margin-bottom:4px">Sin uso disciplinario</div>
+              <p style="font-size:12px;color:var(--text-secondary);line-height:1.5">Hilo no puede usarse para decisiones disciplinarias individuales. Privacy-by-design desde el primer módulo.</p>
+            </div>
+            <div class="security-card">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="margin-bottom:8px"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15l2 2 4-4"/></svg>
+              <div style="font-size:13px;font-weight:500;margin-bottom:4px">Listo para la Ley 21.719</div>
+              <p style="font-size:12px;color:var(--text-secondary);line-height:1.5">Diseñado para cumplir la nueva ley de protección de datos en Chile desde el día 1. Vigencia: 1 de diciembre de 2026.</p>
             </div>
           </div>
-          <div class="security-highlight">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="flex-shrink:0"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            <p style="font-size:13px;line-height:1.5">Hilo está en camino de obtener certificación SOC 2 Type II. Disponible para auditoría bajo solicitud.</p>
+          <div class="security-highlight" style="background:var(--data-soft);border-color:var(--border-data)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--data)" stroke-width="2" style="flex-shrink:0"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <div>
+              <div style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;margin-bottom:6px">Ley 21.719 · Chile</div>
+              <p style="font-size:13px;color:var(--text-secondary);line-height:1.55;margin:0">La nueva ley de protección de datos entra en plena vigencia el 1 de diciembre de 2026. Multas de hasta el 4% de los ingresos anuales.<br><br>Hilo te deja la gobernanza de datos de personas lista para la Agencia — en vez de ser un problema, es la solución.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -1759,14 +1802,14 @@ const PEOPLE=[
 ];
 
 const TEAM=[
-  {id:'sm',init:'SM',name:'Sofía Martínez',role:'Product Designer',status:'warn',statusLabel:'🟡 Atención',gradient:'#6366f1',onboarding:15,onboardingMax:90,checkin:'😐 ayer',signal:'Sofía puede estar confundida con el proceso de aprobaciones.',suggestion:'Agendar 15 min para explicar el flujo de aprobación con ejemplos reales.'},
-  {id:'mg',init:'MG',name:'Matías González',role:'UX Designer',status:'ok',statusLabel:'🟢 Bien',gradient:'#14b8a6',onboarding:3,onboardingMax:90,checkin:'😊 hoy',signal:null,suggestion:null},
-  {id:'mp',init:'MP',name:'María Paz Lagos',role:'UX Researcher',status:'ok',statusLabel:'🟢 Bien',gradient:'#8b5cf6',onboarding:null,checkin:'😊 hoy',signal:null,suggestion:null},
-  {id:'rv',init:'RV',name:'Roberto Vargas',role:'Frontend Dev',status:'alert',statusLabel:'🔴 Alerta',gradient:'#3b82f6',onboarding:null,checkin:'😔 hace 3 días',signal:'Lleva 4 días sin responder check-in. Canceló 3 reuniones.',suggestion:'Agendar 1:1 informal esta semana. Empieza con algo casual sobre el proyecto X.'},
-  {id:'ct',init:'CT',name:'Camila Torres',role:'Product Manager',status:'ok',statusLabel:'🟢 Bien',gradient:'#22c55e',onboarding:null,checkin:'😊 hoy',signal:null,suggestion:null},
-  {id:'df',init:'DF',name:'Diego Fuentes',role:'Data Analyst',status:'warn',statusLabel:'🟡 Atención',gradient:'#f97316',onboarding:null,checkin:'😐 ayer',signal:'Check-ins irregulares las últimas 2 semanas.',suggestion:'Revisar carga de trabajo del squad de Data.'},
-  {id:'js',init:'JS',name:'Javiera Soto',role:'Designer',status:'ok',statusLabel:'🟢 Bien',gradient:'#ec4899',onboarding:null,checkin:'😊 hoy',signal:null,suggestion:null},
-  {id:'fh',init:'FH',name:'Felipe Herrera',role:'PM Junior',status:'ok',statusLabel:'🟢 Bien',gradient:'#a855f7',onboarding:null,checkin:'😊 hoy',signal:null,suggestion:null}
+  {id:'sm',init:'SM',name:'Sofía Martínez',role:'Product Designer',status:'warn',statusLabel:'🟡 Atención',gradient:'#6366f1',onboarding:15,onboardingMax:90,note:'Onboarding día 15',signal:'Completó 40% de tareas semana 2. Faltan 3 reuniones clave.',suggestion:'Ayúdale a agendar reuniones con María Paz, Roberto y Camila.'},
+  {id:'mg',init:'MG',name:'Matías González',role:'UX Designer',status:'ok',statusLabel:'🟢 Bien',gradient:'#14b8a6',onboarding:3,onboardingMax:90,note:null,signal:null,suggestion:null},
+  {id:'mp',init:'MP',name:'María Paz Lagos',role:'UX Researcher',status:'ok',statusLabel:'🟢 Bien',gradient:'#8b5cf6',onboarding:null,note:null,signal:null,suggestion:null},
+  {id:'rv',init:'RV',name:'Roberto Vargas',role:'Frontend Dev',status:'warn',statusLabel:'🟡 Conocimiento en riesgo',gradient:'#3b82f6',onboarding:null,note:'Integración Transbank',signal:'Proyecto con conocimiento crítico sin documentar completamente.',suggestion:'Agendar sesión de documentación de 20 min sobre Transbank.'},
+  {id:'ct',init:'CT',name:'Camila Torres',role:'Product Manager',status:'ok',statusLabel:'🟢 Bien',gradient:'#22c55e',onboarding:null,note:null,signal:null,suggestion:null},
+  {id:'df',init:'DF',name:'Diego Fuentes',role:'Data Analyst',status:'warn',statusLabel:'🟡 Atención',gradient:'#f97316',onboarding:null,note:'Reporte mensual pendiente',signal:null,suggestion:null},
+  {id:'js',init:'JS',name:'Javiera Soto',role:'Designer',status:'ok',statusLabel:'🟢 Bien',gradient:'#ec4899',onboarding:null,note:null,signal:null,suggestion:null},
+  {id:'fh',init:'FH',name:'Felipe Herrera',role:'PM Junior',status:'ok',statusLabel:'🟢 Bien',gradient:'#a855f7',onboarding:null,note:null,signal:null,suggestion:null}
 ];
 
 const HR_TEAMS=[
@@ -2032,9 +2075,9 @@ const ADMIN_TOUR=[
 
 const MANAGER_TOUR=[
   {nav:'equipo',screen:'equipo',title:'Tu equipo en tiempo real 👥',text:'Los puntos de colores dicen todo: 🟢 bien · 🟡 atención · 🔴 alerta. Revisa esto al inicio de cada semana.'},
-  {nav:'alertas',screen:'alertas',title:'Actúa antes que sea tarde 🚨',text:'Hilo te avisa cuando alguien de tu equipo muestra señales de desenganche. Aquí están las alertas activas de esta semana.'},
+  {nav:'alertas',screen:'alertas',title:'Actúa antes que sea tarde 🚨',text:'Hilo te avisa cuando hay conocimiento sin documentar u onboarding que necesita atención. Aquí están las alertas activas de esta semana.'},
   {nav:'momentos',screen:'momentos',title:'Sé el manager que tu equipo necesita ✨',text:'Hilo te dice cuándo aparecer y por qué. La conversación siempre es tuya. Él solo te da el contexto.'},
-  {nav:'equipo',screen:'equipo',title:'El ranking te da una pista más 📊',text:'Baja participación en Hilo suele coincidir con las alertas. Roberto lleva semanas con los puntos más bajos. Coincide con la alerta activa.',spot:'#equipoRankCard',last:true}
+  {nav:'equipo',screen:'equipo',title:'El ranking te da una pista más 📊',text:'Baja participación en Hilo suele coincidir con onboarding o proyectos pendientes. Roberto tiene conocimiento crítico sin documentar. Coincide con la alerta activa.',spot:'#equipoRankCard',last:true}
 ];
 
 const PLATFORM_TOUR=[
@@ -2547,14 +2590,15 @@ function trendCls(t){return t==='up'?'trend-up':t==='down'?'trend-down':'trend-f
 
 function renderRankingScreen(){
   const el=$('#screen-ranking');
-  if(!el||el.dataset.rendered==='2')return;
-  el.dataset.rendered='2';
+  if(!el||el.dataset.rendered==='4')return;
+  el.dataset.rendered='4';
+  const abbrev=init=>init.length>=2?`${init[0]}.${init[1]}.`:init;
   const rows=RANKING_ROWS.map(r=>{
     const pc=posClass(r.pos);
     const barW=Math.round(r.pts/8.47);
     return `<tr class="${r.you?'row-you':''}${r.pos<=3?` rank-top-${r.pos}`:''}">
       <td><span class="rank-pos ${pc}">#${r.pos}</span></td>
-      <td><span class="avatar-tip"><span class="avatar sm" data-init="${r.init}">${r.init}</span><span class="tip">${r.name}</span></span>${r.you?' <span class="tag" style="background:var(--human);color:var(--btn-on-accent);font-size:10px">Tú</span>':''}</td>
+      <td><span class="avatar-tip"><span class="avatar sm" data-init="${r.init}">${r.init}</span><span class="tip">${r.name}</span></span>${r.you?' <span class="tag" style="background:var(--accent);color:var(--btn-on-accent);font-size:10px">Tú</span>':''}</td>
       <td><span class="tag">${r.team}</span></td>
       <td><div style="display:flex;align-items:center;gap:8px"><div class="progress-bar" style="flex:1;height:6px;margin:0"><div class="progress-fill" style="width:${barW}%"></div></div><strong>${r.pts}</strong></div></td>
       <td class="${trendCls(r.trend)}">${trendIcon(r.trend)}</td>
@@ -2570,12 +2614,6 @@ function renderRankingScreen(){
       <div class="progress-bar"><div class="progress-fill" style="width:67%"></div></div>
     </div>
     <div class="two-col-rank">
-      <div class="card">
-        <h3>Ranking de Tectonic</h3>
-        <div class="tabs"><button class="tab active">Este mes</button><button class="tab">Mi equipo</button></div>
-        <table class="rank-table"><thead><tr><th>Pos.</th><th>Empleado</th><th>Equipo</th><th>Puntos</th><th>Tendencia</th></tr></thead><tbody>${rows}</tbody></table>
-        <p style="font-size:12px;color:var(--text-muted);margin-top:12px">... y 295 personas más</p>
-      </div>
       <div>
         <div class="card card-podium" style="margin-bottom:16px">
           <p class="section-label" style="margin-bottom:0">Top 3 · Premios de mayo</p>
@@ -2586,7 +2624,7 @@ function renderRankingScreen(){
                   <div class="podium-prize">🍕</div>
                   <div class="podium-prize-name">Almuerzo equipo</div>
                   <div class="podium-avatar podium-rank-2" data-init="CP">CP</div>
-                  <div class="podium-name">C.P.</div>
+                  <div class="podium-name">${abbrev('CP')}</div>
                   <div class="podium-pts">812 pts</div>
                   <div class="podium-medal">🥈</div>
                 </div>
@@ -2597,7 +2635,7 @@ function renderRankingScreen(){
                   <div class="podium-prize">☀️</div>
                   <div class="podium-prize-name">Medio día libre</div>
                   <div class="podium-avatar podium-rank-1" data-init="JM">JM</div>
-                  <div class="podium-name">J.M.</div>
+                  <div class="podium-name">${abbrev('JM')}</div>
                   <div class="podium-pts">847 pts</div>
                   <div class="podium-medal">🥇</div>
                 </div>
@@ -2608,7 +2646,7 @@ function renderRankingScreen(){
                   <div class="podium-prize">⭐</div>
                   <div class="podium-prize-name">Salida temprana</div>
                   <div class="podium-avatar podium-rank-3" data-init="FO">FO</div>
-                  <div class="podium-name">F.O.</div>
+                  <div class="podium-name">${abbrev('FO')}</div>
                   <div class="podium-pts">756 pts</div>
                   <div class="podium-medal">🥉</div>
                 </div>
@@ -2619,6 +2657,14 @@ function renderRankingScreen(){
             <p class="podium-label">Premios para los mejores de mayo</p>
           </div>
         </div>
+        <div class="card">
+          <h3>Ranking de Tectonic</h3>
+          <div class="tabs"><button class="tab active">Este mes</button><button class="tab">Mi equipo</button></div>
+          <table class="rank-table"><thead><tr><th>Pos.</th><th>Empleado</th><th>Equipo</th><th>Puntos</th><th>Tendencia</th></tr></thead><tbody>${rows}</tbody></table>
+          <p style="font-size:12px;color:var(--text-muted);margin-top:12px">... y 295 personas más</p>
+        </div>
+      </div>
+      <div>
         <div class="card" style="margin-bottom:16px;text-align:center">
           <p class="section-label">Tu posición</p>
           <div class="display-lg">#4</div>
@@ -2628,10 +2674,10 @@ function renderRankingScreen(){
         </div>
         <div class="card" style="margin-bottom:16px">
           <p class="section-label">Tus puntos este mes</p>
-          <p style="font-size:13px;margin:8px 0">✅ Check-in lunes (4x) · <strong>+40 pts</strong></p>
-          <p style="font-size:13px;margin:8px 0">✅ Check-in viernes (3x) · <strong>+30 pts</strong></p>
-          <p style="font-size:13px;margin:8px 0">💬 Conversaciones con Hilo (4x) · <strong>+60 pts</strong></p>
+          <p style="font-size:13px;margin:8px 0">✅ Check-ins (7x) · <strong>+70 pts</strong></p>
           <p style="font-size:13px;margin:8px 0">✅ Tareas onboarding (14x) · <strong>+280 pts</strong></p>
+          <p style="font-size:13px;margin:8px 0">🎙️ Reunión grabada (1x) · <strong>+30 pts</strong></p>
+          <p style="font-size:13px;margin:8px 0;color:var(--text-muted)">📋 Check-in proyectos · pendiente · +25 pts</p>
           <p style="font-size:13px;margin:8px 0;color:var(--text-muted)">🔄 Check-in semestral · pendiente · +100 pts</p>
           <hr style="border:none;border-top:1px solid var(--border);margin:12px 0">
           <p style="font-weight:700;color:var(--data);font-family:var(--font-mono)">Total: 698 pts</p>
@@ -2639,11 +2685,11 @@ function renderRankingScreen(){
         <div class="card" style="margin-bottom:16px">
           <p class="section-label">¿Qué puedes ganar?</p>
           <p style="font-size:13px;margin:10px 0">🏆 Medio día libre · Top 1<br><span style="font-size:11px;color:var(--text-secondary)">Necesitas +150 pts</span></p>
-          <p style="font-size:13px;margin:10px 0">🍕 Almuerzo de equipo · Top 2–5 <span class="tag" style="background:var(--accent-soft);color:var(--accent-text)">En zona ✓</span></p>
+          <p style="font-size:13px;margin:10px 0">🥈 Almuerzo de equipo · Top 2–5 <span class="tag" style="background:var(--accent-soft);color:var(--accent-text)">En zona ✓</span></p>
           <p style="font-size:13px;margin:10px 0">⭐ Salida temprana viernes · Top 6–20 <span class="tag" style="background:var(--accent-soft);color:var(--accent-text)">Seguro ✓</span></p>
         </div>
         <div class="card card-accent">
-          <p style="font-size:13px">💡 Para subir al #3 necesitas 58 puntos. Completa tu check-in semestral y ganas 100 puntos de una vez.</p>
+          <p style="font-size:13px">💡 Completa tu check-in semestral y sumas 100 puntos de una vez. Subirías al #3.</p>
           <button class="btn btn-primary btn-sm" style="margin-top:12px">Hacer check-in →</button>
         </div>
       </div>
@@ -3151,12 +3197,13 @@ function renderTeamList(){
   if(!list)return;
   list.innerHTML=TEAM.map(m=>{
     const ob=m.onboarding?`<div class="progress-bar" style="width:80px;height:4px;display:inline-block;vertical-align:middle;margin:0 8px"><div class="progress-fill" style="width:${m.onboarding/m.onboardingMax*100}%"></div></div><span style="font-size:11px">Día ${m.onboarding}/${m.onboardingMax}</span>`:'';
+    const note=m.note?`<span style="font-size:11px;color:var(--text-secondary)">${m.note}</span>`:'';
     return `<div class="team-row" data-id="${m.id}">
       <div class="avatar" data-init="${m.init}">${m.init}</div>
       <div class="info"><div class="name">${m.name}</div><div class="role">${m.role}</div></div>
       <span style="font-size:12px;display:inline-flex;align-items:center;gap:6px">${statusDotMarkup(m.status)}<span aria-hidden="true">${m.statusLabel}</span></span>
       ${ob}
-      <span style="font-size:12px">${m.checkin}</span>
+      ${note}
       <button class="btn btn-ghost btn-sm">Ver ficha →</button>
     </div>`;
   }).join('');
@@ -3167,28 +3214,19 @@ function renderTeamList(){
 }
 
 function openTeamPanel(member){
-  const isRV=member.id==='rv';
   $('#panelTitle').textContent=member.name;
   $('#panelBody').innerHTML=`
     <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
       <div class="avatar" data-init="${member.init}" style="width:56px;height:56px;font-size:18px">${member.init}</div>
       <div><h3 style="margin:0">${member.name}</h3><p style="color:var(--text-secondary);font-size:13px">${member.role}</p><span style="display:inline-flex;align-items:center;gap:6px">${statusDotMarkup(member.status)}<span aria-hidden="true">${member.statusLabel}</span></span></div>
     </div>
-    <div class="panel-section"><h4>Estado de ánimo — últimos 7 días</h4>
-      <div style="display:flex;gap:8px;font-size:20px;margin:8px 0">😊 😐 😐 😔 — 😐 ?</div>
-      <p style="font-size:12px;color:var(--text-secondary)">Lunes: 😊 / Viernes: 😐 (semana pasada)<br>Lunes: 😐 / Viernes: pendiente (esta semana)</p>
-      ${isRV?'<canvas id="panelChart" height="80" style="margin-top:12px"></canvas>':''}
-    </div>
     ${member.onboarding?`<div class="panel-section"><h4>Progreso de onboarding</h4><p>Fase 1 · Conocer · Día ${member.onboarding}/${member.onboardingMax}</p><div class="progress-bar"><div class="progress-fill" style="width:${member.onboarding/member.onboardingMax*100}%"></div></div></div>`:''}
-    ${member.signal?`<div class="panel-section"><h4>Señales de Hilo</h4><div class="signal-box">${member.signal}</div></div>`:''}
+    ${member.note&&!member.onboarding?`<div class="panel-section"><h4>Proyecto reportado</h4><p style="font-size:13px;color:var(--text-secondary)">${member.note}</p></div>`:''}
+    ${member.signal?`<div class="panel-section"><h4>Contexto de Hilo</h4><div class="signal-box">${member.signal}</div></div>`:''}
     ${member.suggestion?`<div class="panel-section"><h4>Sugerencia de Hilo</h4><p style="font-size:13px;color:var(--text-secondary)">${member.suggestion}</p></div>`:''}
-    <button class="btn btn-primary btn-sm" style="margin-top:8px">Agendar 1:1</button>
+    <button class="btn btn-primary btn-sm" style="margin-top:8px">${member.id==='rv'?'Agendar documentación':'Ver detalle'}</button>
   `;
   openPanel();
-  if(isRV&&typeof Chart!=='undefined')setTimeout(()=>{
-    const ctx=document.getElementById('panelChart');
-    if(ctx)new Chart(ctx,{type:'line',data:{labels:['L','M','X','J','V','S','D'],datasets:[{data:[4,3,3,2,2,1,1],borderColor:'#FF5C5C',tension:0.4,fill:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{display:false},y:{display:false,min:0,max:5}}}});
-  },100);
 }
 
 function renderHrTeams(){
@@ -3400,9 +3438,9 @@ function initCharts(){
     ]
   },options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:c.tick}}},scales:{x:{grid:{color:c.grid},ticks:{color:c.tick}},y:{grid:{display:false},ticks:{color:c.tick}}}}}));
   chartInstances.push(new Chart($('#chartROI'),{type:'doughnut',data:{
-    labels:['Onboarding acelerado','Renuncias evitadas','Conocimiento preservado'],
-    datasets:[{data:[45,38,17],backgroundColor:[c.accent,c.human,c.data],borderWidth:0}]
-  },options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,color:c.tick}}}}}));
+    labels:['Rotación evitable','Ramp-up onboarding','Búsqueda y retrabajo'],
+    datasets:[{data:[49,14,37],backgroundColor:[c.accent,c.human,c.data],borderWidth:0,spacing:0}]
+  },options:{responsive:true,maintainAspectRatio:false,cutout:'68%',layout:{padding:4},plugins:{legend:{display:false},tooltip:{enabled:true}},elements:{arc:{borderWidth:0,borderAlign:'inner'}}}}));
   chartsInitialized=true;
 }
 document.addEventListener('hilo-theme-change',()=>{chartsInitialized=false;initCharts();});

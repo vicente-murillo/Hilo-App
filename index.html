@@ -589,8 +589,29 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
 .hilo-proactive-card{border-radius:var(--radius-lg);padding:12px 14px;position:relative}
 .hilo-proactive-card.meeting{background:var(--data-soft);border:1px solid var(--border-data)}
 .hilo-proactive-card.morning{background:var(--accent-soft);border:1px solid var(--border-accent)}
+.hilo-proactive-card.focus{background:var(--bg-card);border:1px solid var(--border-accent);margin-bottom:10px}
+.hilo-proactive-card.predaily{background:var(--data-soft);border:1px solid var(--border-data);margin-bottom:10px}
 .hilo-proactive-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
 .hilo-proactive-meta{display:flex;align-items:center;gap:6px;font-family:var(--font-body);font-size:11px;color:var(--text-muted)}
+.hilo-proactive-meta.strong{font-size:12px;font-weight:500;color:var(--text-primary)}
+.hilo-proactive-meta.amber{font-size:12px;font-weight:500;color:var(--data-text)}
+.hilo-proactive-right{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text-muted)}
+.focus-privacy-note{display:flex;align-items:flex-start;gap:6px;margin-top:8px;font-family:var(--font-body);font-size:10px;color:var(--text-muted);line-height:1.4}
+.focus-ta{width:100%;min-height:60px;margin-top:10px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;font-family:var(--font-body);font-size:13px;line-height:1.45;background:var(--bg-surface);color:var(--text-primary);resize:vertical}
+.focus-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.predaily-title{font-size:11px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.06em;margin:4px 0 10px}
+.predaily-row{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:12px}
+.predaily-row .name{font-weight:500;min-width:72px}
+.predaily-row .focus-text{flex:1;color:var(--text-secondary)}
+.predaily-avatar{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0}
+.predaily-pill{font-size:10px;font-weight:600;padding:2px 8px;border-radius:var(--radius-full);white-space:nowrap}
+.predaily-pill.warn{background:var(--data-soft);color:var(--data-text);border:1px solid var(--border-data)}
+.predaily-pill.ok{background:var(--accent-soft);color:var(--accent-text);border:1px solid var(--border-accent)}
+.predaily-hint{background:rgba(179,134,0,0.06);border-left:3px solid var(--data);padding:8px 12px;margin:10px 0;font-family:var(--font-body);font-size:12px;color:var(--text-secondary);line-height:1.45}
+.tracking-radios{display:flex;flex-direction:column;gap:10px}
+.tracking-radios .radio-card{padding:12px 14px;border-radius:var(--radius-md)}
+.tracking-radio-label{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:14px;font-weight:500;margin-bottom:4px}
+.tracking-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:var(--radius-full);background:var(--accent-soft);color:var(--accent-text);border:1px solid var(--border-accent)}
 .hilo-proactive-dismiss{background:transparent;border:none;color:var(--text-muted);cursor:pointer;font-size:16px;line-height:1;padding:2px 4px;border-radius:4px}
 .hilo-proactive-dismiss:hover{color:var(--text-primary);background:rgba(0,0,0,0.04)}
 .hilo-proactive-body{display:flex;gap:10px;align-items:flex-start}
@@ -972,23 +993,6 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
                 <div style="flex:1"><div class="task-icon-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><strong class="task-text">Únete a #producto-digital</strong></div><p class="task-meta">El canal donde ocurre todo en tu equipo. Preséntate con un emoji.</p><span class="task-meta">~5 minutos</span></div>
               </div>
             </div>
-            <p class="section-label">Hilo te sugiere hablar con:</p>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-              <div class="card person-suggest" data-person="mp" style="cursor:pointer">
-                <div class="avatar" data-init="MP" style="margin-bottom:10px">MP</div>
-                <div style="font-weight:500">María Paz Lagos</div>
-                <div style="font-size:12px;color:var(--text-secondary)">UX Researcher · 2 años en Tectonic</div>
-                <p style="font-size:12px;margin:8px 0">Trabaja contigo en los mismos proyectos</p>
-                <button class="btn btn-ghost btn-sm">Ver perfil →</button>
-              </div>
-              <div class="card person-suggest" data-person="rv" style="cursor:pointer">
-                <div class="avatar" data-init="RV" style="margin-bottom:10px">RV</div>
-                <div style="font-weight:500">Roberto Vargas</div>
-                <div style="font-size:12px;color:var(--text-secondary)">Frontend Dev · 4 años en Tectonic</div>
-                <p style="font-size:12px;margin:8px 0">Principal implementador de diseños</p>
-                <button class="btn btn-ghost btn-sm">Ver perfil →</button>
-              </div>
-            </div>
             <div class="card" style="margin-top:20px;background:var(--accent-soft);border-color:var(--border-accent)" id="checkinCard">
               <h3>Tu check-in de esta semana</h3>
               <div style="padding:12px 0;border-bottom:1px solid var(--border)">
@@ -1032,10 +1036,6 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
                 </div>
               </div>
               <p style="font-size:11px;color:var(--text-muted);font-style:italic;margin-top:12px;line-height:1.5">Todo lo que hablas con Hilo es entre tú y Hilo. Siempre.</p>
-            </div>
-            <div class="card card-accent" style="margin-top:16px;cursor:pointer" id="insightToChat">
-              <p style="font-size:14px;line-height:1.5">💬 Hilo detectó que tienes dudas sobre el proceso de aprobación. ¿Quieres que te lo explique?</p>
-              <button class="btn btn-primary btn-sm" style="margin-top:12px">Pregúntale a Hilo →</button>
             </div>
           </div>
         </div>
@@ -1099,6 +1099,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             <p style="font-size:12px;color:var(--text-secondary);margin-top:4px">Pregúntame sobre tu equipo, alertas o proyectos activos.</p>
           </div>
           <div class="chat-messages" id="chatMessagesMgr">
+            <div class="hilo-proactive-stack" id="mgrProactiveStack"></div>
             <div class="msg hilo">
               <div class="hilo-avatar-sm">H</div>
               <div>
@@ -1800,6 +1801,24 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             <p>📅 Lunes · 9:00am — ¿Cómo llegaste al lunes?</p>
             <p style="margin-top:8px">📅 Viernes · 12:00pm — ¿Cómo estuvo tu semana?</p>
             <a href="#" style="font-size:12px;color:var(--accent-text);margin-top:12px;display:inline-block">Cambiar horario →</a>
+          </div>
+        </div>
+        <div class="config-section">
+          <h3 style="font-size:12px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.06em">Seguimiento de equipo</h3>
+          <p style="font-size:12px;color:var(--text-muted);line-height:1.5;margin:0 0 14px">Elige cómo Hilo ayuda a los managers a saber en qué trabaja su equipo sin interrumpir a las personas.</p>
+          <div class="tracking-radios radio-cards" id="trackingRadios">
+            <div class="radio-card selected" data-tracking="assisted">
+              <div class="tracking-radio-label"><span>◉ Daily asistida por Hilo</span><span class="tracking-badge">Recomendado</span></div>
+              <p>Hilo pregunta el foco diario a cada persona a las 9:00am. El manager recibe un resumen 2 minutos antes de la daily. La reunión dura la mitad.</p>
+            </div>
+            <div class="radio-card" data-tracking="replace">
+              <div class="tracking-radio-label"><span>○ Sin daily — Hilo reemplaza</span></div>
+              <p>El manager ve el foco del equipo directamente en Hilo, sin reunión. Hilo detecta bloqueos y los notifica.</p>
+            </div>
+            <div class="radio-card" data-tracking="none">
+              <div class="tracking-radio-label"><span>○ Sin ninguno</span></div>
+              <p>No activar seguimiento de foco diario.</p>
+            </div>
           </div>
         </div>
         <div class="config-section">
@@ -2885,7 +2904,7 @@ function showScreen(id,fromRole){
   }
   $$('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.screen===id));
   $$('#mobileNav button').forEach(b=>b.classList.toggle('active',b.dataset.screen===id));
-  if(id==='analytics'){chartsInitialized=false;setTimeout(initCharts,50);}
+  if(id==='analytics'){setTimeout(initAnalyticsCharts,80);}
   if(id==='mapa')renderPersonGrid();
   if(id==='equipo')renderTeamList();
   if(id==='vista-global')renderHrTeams();
@@ -3934,6 +3953,18 @@ function setupCommMockup(){
       showComm(c.dataset.comm||'slack');
     });
   });
+  $('#trackingRadios')?.querySelectorAll('.radio-card').forEach(c=>{
+    c.addEventListener('click',()=>{
+      $$('#trackingRadios .radio-card').forEach(x=>{
+        x.classList.remove('selected');
+        const lab=x.querySelector('.tracking-radio-label span');
+        if(lab)lab.textContent=lab.textContent.replace(/^[◉○]\s*/,'○ ');
+      });
+      c.classList.add('selected');
+      const lab=c.querySelector('.tracking-radio-label span');
+      if(lab)lab.textContent=lab.textContent.replace(/^[◉○]\s*/,'◉ ');
+    });
+  });
 }
 
 function openPanel(){
@@ -3953,39 +3984,69 @@ function chartThemeColors(){
   const v=n=>s.getPropertyValue(n).trim();
   return{grid:v('--chart-grid'),tick:v('--chart-tick'),accent:v('--accent'),data:v('--data'),human:v('--human'),barBefore:v('--chart-bar-before')};
 }
-function initCharts(){
+
+function destroyChartOn(canvas){
+  if(!canvas||typeof Chart==='undefined')return;
+  const existing=Chart.getChart(canvas);
+  if(existing)existing.destroy();
+}
+
+function initAnalyticsCharts(){
   if(typeof Chart==='undefined')return;
-  const screen=$('#screen-analytics');
+  const screen=document.getElementById('screen-analytics');
   if(!screen||!screen.classList.contains('active'))return;
-  chartInstances.forEach(c=>c.destroy());
+
+  const canvasEstado=document.getElementById('chartEstado');
+  const canvasProd=document.getElementById('chartProductividad');
+  const canvasROI=document.getElementById('chartROI');
+  if(!canvasEstado||!canvasProd||!canvasROI)return;
+
+  destroyChartOn(canvasEstado);
+  destroyChartOn(canvasProd);
+  destroyChartOn(canvasROI);
   chartInstances=[];
+
   const c=chartThemeColors();
   Chart.defaults.color=c.tick;
   Chart.defaults.borderColor=c.grid;
   Chart.defaults.font.family='Inter, sans-serif';
   const months=['Mar','Abr','May'];
-  chartInstances.push(new Chart($('#chartEstado'),{type:'line',data:{
+
+  const estado=new Chart(canvasEstado,{type:'line',data:{
     labels:months,
     datasets:[
-      {label:'Bien',data:[72,75,78],borderColor:c.accent,tension:0.4},
-      {label:'Atención',data:[18,16,14],borderColor:c.data,tension:0.4},
-      {label:'Alerta',data:[10,9,8],borderColor:c.human,tension:0.4}
+      {label:'Bien',data:[72,75,78],borderColor:c.accent,backgroundColor:c.accent,tension:0.4,fill:false,borderWidth:2,pointRadius:3},
+      {label:'Atención',data:[18,16,14],borderColor:c.data,backgroundColor:c.data,tension:0.4,fill:false,borderWidth:2,pointRadius:3},
+      {label:'Alerta',data:[10,9,8],borderColor:c.human,backgroundColor:c.human,tension:0.4,fill:false,borderWidth:2,pointRadius:3}
     ]
-  },options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,color:c.tick}}},scales:{y:{grid:{color:c.grid},ticks:{color:c.tick}},x:{grid:{color:c.grid},ticks:{color:c.tick}}}}}));
-  chartInstances.push(new Chart($('#chartProductividad'),{type:'bar',data:{
+  },options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,color:c.tick}}},scales:{y:{beginAtZero:true,grid:{color:c.grid},ticks:{color:c.tick}},x:{grid:{color:c.grid},ticks:{color:c.tick}}}}});
+
+  const prod=new Chart(canvasProd,{type:'bar',data:{
     labels:['Designer','Developer','PM','Researcher'],
     datasets:[
       {label:'Antes de Hilo',data:[240,180,200,160],backgroundColor:c.barBefore},
       {label:'Con Hilo',data:[95,75,85,70],backgroundColor:c.accent}
     ]
-  },options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:c.tick}}},scales:{x:{grid:{color:c.grid},ticks:{color:c.tick}},y:{grid:{display:false},ticks:{color:c.tick}}}}}));
-  chartInstances.push(new Chart($('#chartROI'),{type:'doughnut',data:{
+  },options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:c.tick}}},scales:{x:{beginAtZero:true,grid:{color:c.grid},ticks:{color:c.tick}},y:{grid:{display:false},ticks:{color:c.tick}}}}});
+
+  const roi=new Chart(canvasROI,{type:'doughnut',data:{
     labels:['Rotación evitable','Ramp-up onboarding','Búsqueda y retrabajo'],
     datasets:[{data:[49,14,37],backgroundColor:[c.accent,c.human,c.data],borderWidth:0,spacing:0}]
-  },options:{responsive:true,maintainAspectRatio:false,cutout:'68%',layout:{padding:4},plugins:{legend:{display:false},tooltip:{enabled:true}},elements:{arc:{borderWidth:0,borderAlign:'inner'}}}}));
+  },options:{responsive:true,maintainAspectRatio:false,cutout:'68%',layout:{padding:4},plugins:{legend:{display:false},tooltip:{enabled:true}},elements:{arc:{borderWidth:0,borderAlign:'inner'}}}});
+
+  chartInstances=[estado,prod,roi];
   chartsInitialized=true;
+  requestAnimationFrame(()=>{
+    chartInstances.forEach(ch=>{try{ch.resize();}catch(e){}});
+  });
 }
-document.addEventListener('hilo-theme-change',()=>{chartsInitialized=false;initCharts();});
+
+// Back-compat alias used by theme listener
+function initCharts(){initAnalyticsCharts();}
+document.addEventListener('hilo-theme-change',()=>{
+  chartsInitialized=false;
+  if($('#screen-analytics')?.classList.contains('active'))initAnalyticsCharts();
+});
 
 function setupChatPanel(cfg){
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -4159,6 +4220,17 @@ Te lo cuento para que lo tengas en cuenta 🙂
   }
 
   function proactiveStack(){return $('#empProactiveStack');}
+  function mgrProactiveStack(){return $('#mgrProactiveStack');}
+
+  function shouldShowFocusCheckin(){
+    if(sessionStorage.getItem('focusShown')==='1')return false;
+    // Demo pitch: always show. Also respects 8:30–9:30 window.
+    const demoMode=true;
+    const now=new Date();
+    const mins=now.getHours()*60+now.getMinutes();
+    const inWindow=mins>=8*60+30&&mins<=9*60+30;
+    return demoMode||inWindow;
+  }
 
   function dismissMeetingCard(){
     const card=$('#empMeetingCard');
@@ -4170,6 +4242,12 @@ Te lo cuento para que lo tengas en cuenta 🙂
     const card=$('#empMorningCard');
     if(card)card.remove();
     sessionStorage.setItem('morningShown','1');
+  }
+
+  function dismissFocusCard(){
+    const card=$('#empFocusCard');
+    if(card)card.remove();
+    sessionStorage.setItem('focusShown','1');
   }
 
   function maybeShowMorningCard(){
@@ -4185,6 +4263,60 @@ Te lo cuento para que lo tengas en cuenta 🙂
         if(busy)return;
         handler(btn.dataset.proactive,btn.textContent.trim());
       });
+    });
+  }
+
+  function insertProactiveCard(stack,card,preferTop){
+    if(!stack)return;
+    if(preferTop){
+      const focus=$('#empFocusCard');
+      if(focus&&focus.parentNode===stack)focus.after(card);
+      else stack.prepend(card);
+    }else stack.appendChild(card);
+  }
+
+  function renderFocusCard(){
+    const stack=proactiveStack();
+    if(!stack||$('#empFocusCard'))return;
+    const card=document.createElement('div');
+    card.className='hilo-proactive-card focus';
+    card.id='empFocusCard';
+    card.innerHTML=`
+      <div class="hilo-proactive-head">
+        <div class="hilo-proactive-meta strong">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--data-text)" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          Buenos días · Foco de hoy
+        </div>
+        <div class="hilo-proactive-right">
+          <span>9:00 AM</span>
+          <button type="button" class="hilo-proactive-dismiss" aria-label="Cerrar" data-dismiss-focus>×</button>
+        </div>
+      </div>
+      <div class="hilo-proactive-body">
+        <div class="hilo-avatar-sm">H</div>
+        <div class="msg-bubble">Sofía, ¿en qué vas a estar enfocada hoy? Una línea es suficiente. Esto ayuda a Carlos a preparar la daily y saber si necesitas ayuda.</div>
+      </div>
+      <textarea class="focus-ta" id="empFocusInput" placeholder="Ej: Terminando el componente de navegación del Design System..."></textarea>
+      <div class="focus-privacy-note">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        <span>Tu manager verá esta respuesta. Es diferente al chat privado con Hilo.</span>
+      </div>
+      <div class="focus-actions">
+        <button type="button" class="btn btn-primary btn-sm" data-focus-send>Enviar →</button>
+        <button type="button" class="btn btn-ghost btn-sm" data-focus-skip>Saltar por hoy</button>
+      </div>`;
+    stack.prepend(card);
+    card.querySelector('[data-dismiss-focus]')?.addEventListener('click',dismissFocusCard);
+    card.querySelector('[data-focus-skip]')?.addEventListener('click',dismissFocusCard);
+    card.querySelector('[data-focus-send]')?.addEventListener('click',()=>{
+      const ta=card.querySelector('#empFocusInput');
+      const val=(ta?.value||'').trim();
+      if(!val){
+        ta?.focus();
+        return;
+      }
+      dismissFocusCard();
+      showToast('Listo. Carlos ya sabe en qué estás enfocada hoy ✓');
     });
   }
 
@@ -4211,7 +4343,7 @@ Te lo cuento para que lo tengas en cuenta 🙂
         <button type="button" class="quick-pill" data-proactive="meeting-yes">Sí, cuéntame →</button>
         <button type="button" class="quick-pill" data-proactive="meeting-no">No, gracias</button>
       </div>`;
-    stack.prepend(card);
+    insertProactiveCard(stack,card,true);
     card.querySelector('[data-dismiss-meeting]')?.addEventListener('click',()=>{
       dismissMeetingCard();
     });
@@ -4293,11 +4425,98 @@ Te lo cuento para que lo tengas en cuenta 🙂
   }
 
   function initProactiveCards(){
+    if(shouldShowFocusCheckin())renderFocusCard();
     if(sessionStorage.getItem('meetingShown')!=='1'){
       renderMeetingCard();
     }else{
       maybeShowMorningCard();
     }
+  }
+
+  function dismissPredailyCard(){
+    const card=$('#mgrPredailyCard');
+    if(card)card.remove();
+    sessionStorage.setItem('predailyShown','1');
+  }
+
+  function renderPredailyCard(){
+    const stack=mgrProactiveStack();
+    if(!stack||$('#mgrPredailyCard'))return;
+    if(sessionStorage.getItem('predailyShown')==='1')return;
+    const card=document.createElement('div');
+    card.className='hilo-proactive-card predaily';
+    card.id='mgrPredailyCard';
+    card.innerHTML=`
+      <div class="hilo-proactive-head">
+        <div class="hilo-proactive-meta amber">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--data-text)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Tu daily es en 2 minutos
+        </div>
+        <div class="hilo-proactive-right">
+          <span>9:28 AM</span>
+          <button type="button" class="hilo-proactive-dismiss" aria-label="Cerrar" data-dismiss-predaily>×</button>
+        </div>
+      </div>
+      <div class="predaily-title">Foco del equipo hoy</div>
+      <div class="predaily-row">
+        <div class="predaily-avatar" style="background:var(--accent-soft);color:var(--accent-text)">SM</div>
+        <span class="name">Sofía</span><span>→</span>
+        <span class="focus-text">Design System v3</span>
+        <span class="predaily-pill warn">⚠️ Tiene bloqueo</span>
+      </div>
+      <div class="predaily-row">
+        <div class="predaily-avatar" style="background:rgba(91,158,255,0.12);color:#3B82F6">RV</div>
+        <span class="name">Roberto</span><span>→</span>
+        <span class="focus-text">Integración Transbank</span>
+        <span class="predaily-pill ok">✓ Sin bloqueos</span>
+      </div>
+      <div class="predaily-row">
+        <div class="predaily-avatar" style="background:rgba(139,92,246,0.12);color:#8B5CF6">MP</div>
+        <span class="name">María Paz</span><span>→</span>
+        <span class="focus-text">Presenta research hoy</span>
+        <span class="predaily-pill ok">✓ Sin bloqueos</span>
+      </div>
+      <div class="predaily-row">
+        <div class="predaily-avatar" style="background:var(--data-soft);color:var(--data-text)">DF</div>
+        <span class="name">Diego</span><span>→</span>
+        <span class="focus-text">Dashboard analytics</span>
+        <span class="predaily-pill warn">⚠️ Bloqueado</span>
+      </div>
+      <div class="predaily-row">
+        <div class="predaily-avatar" style="background:var(--human-soft);color:var(--human-text)">CT</div>
+        <span class="name">Camila</span><span>→</span>
+        <span class="focus-text">Roadmap Q3</span>
+        <span class="predaily-pill ok">✓ Sin bloqueos</span>
+      </div>
+      <div style="height:1px;background:var(--border);margin:10px 0"></div>
+      <div class="predaily-hint">Sofía y Diego tienen bloqueos. Te sugiero empezar por ellos. El resto del equipo va bien.</div>
+      <div class="focus-actions">
+        <button type="button" class="btn btn-ghost btn-sm" data-proactive="predaily-detail">Ver detalle de bloqueos →</button>
+        <button type="button" class="btn btn-ghost btn-sm" data-proactive="predaily-done">Marcar daily como lista ✓</button>
+      </div>`;
+    stack.prepend(card);
+    card.querySelector('[data-dismiss-predaily]')?.addEventListener('click',dismissPredailyCard);
+    wireCardPills(card,async(action,label)=>{
+      if(action==='predaily-done'){
+        dismissPredailyCard();
+        showToast('Daily marcada como lista ✓');
+        return;
+      }
+      if(action==='predaily-detail'){
+        clearPills();
+        addUserMsg(label);
+        await hiloResponde(
+          'Bloqueos activos del equipo:<br><br>Sofía — Bloqueo en aprobación:<br>\'Necesito que Carlos apruebe el componente de navegación antes de continuar. Lo mandé ayer.\'<br><br>Diego — Bloqueo por acceso:<br>\'No tengo acceso a los datos de producción para el dashboard. Lo pedí hace 3 días.\'<br><br>¿Quieres que les avise que los vas a resolver hoy?',
+          1000,
+          ['Sí, avísales →','Yo les escribo'],
+          true
+        );
+      }
+    });
+  }
+
+  function initMgrProactiveCards(){
+    renderPredailyCard();
   }
 
   // Hilo informa y sugiere.
@@ -4533,6 +4752,16 @@ Te lo cuento para que lo tengas en cuenta 🙂
 
   function managerReply(text){
     const t=text.toLowerCase();
+    if(t.includes('ver detalle de bloqueos')||t.includes('detalle de bloqueos')||t.includes('bloqueos activos')){
+      return {reply:'Bloqueos activos del equipo:<br><br>Sofía — Bloqueo en aprobación:<br>\'Necesito que Carlos apruebe el componente de navegación antes de continuar. Lo mandé ayer.\'<br><br>Diego — Bloqueo por acceso:<br>\'No tengo acceso a los datos de producción para el dashboard. Lo pedí hace 3 días.\'<br><br>¿Quieres que les avise que los vas a resolver hoy?',pills:['Sí, avísales →','Yo les escribo'],delay:1000,skipFollowUp:true};
+    }
+    if(t.includes('sí, avísales')||t.includes('si, avisales')||t.includes('avísales')||t.includes('avisales')){
+      showToast('Les avisé a Sofía y Diego que vas a resolver sus bloqueos ✓');
+      return {reply:'Listo. Les avisé a Sofía y Diego. Ellos saben que lo vas a resolver hoy.',delay:600,skipFollowUp:true};
+    }
+    if(t.includes('yo les escribo')){
+      return {reply:'Perfecto. Cuando quieras, aquí estoy si necesitas el contexto de nuevo.',delay:600,skipFollowUp:true};
+    }
     if(t.includes('roberto')||t.includes('ver a roberto')){
       return {reply:'Roberto lleva la integración con Transbank. Tiene conocimiento de pagos que todavía no está bien documentado en Hilo.<br><br>No es urgente, pero sí preventivo: una conversación corta esta semana ayudaría antes de que haga falta.<br><br>¿Le agendamos una sesión de documentación?',pills:['Sí, agendar →','Más info primero']};
     }
@@ -4643,6 +4872,9 @@ Te lo cuento para que lo tengas en cuenta 🙂
       pendingEmpathyStart=false;
       setTimeout(()=>startEmpathyFlow(),400);
     }
+  }
+  if(role==='manager'){
+    initMgrProactiveCards();
   }
 }
 
@@ -4805,20 +5037,13 @@ function init(){
     if(btn.closest('#fridayMoodPicker'))return;
     btn.addEventListener('click',()=>{$$('.mood-btn').forEach(b=>{if(!b.closest('#fridayMoodPicker'))b.classList.remove('selected');});btn.classList.add('selected');});
   });
-  $('#insightToChat')?.addEventListener('click',()=>switchScreen('chat'));
-  $$('.person-suggest').forEach(el=>{
-    el.addEventListener('click',()=>{
-      const p=PEOPLE.find(x=>x.id===el.dataset.person);
-      if(p){switchScreen('mapa');setTimeout(()=>openPersonPanel(p),300);}
-    });
-  });
   $('#kmSearch')?.addEventListener('input',e=>renderPersonGrid($('.pill.active')?.dataset.filter||'all',e.target.value));
   $$('#kmFilters .pill').forEach(p=>{
     p.addEventListener('click',()=>{$$('#kmFilters .pill').forEach(x=>x.classList.remove('active'));p.classList.add('active');renderPersonGrid(p.dataset.filter,$('#kmSearch')?.value||'');});
   });
   $$('.radio-card').forEach(c=>{
-    if(c.closest('#commRadios'))return;
-    c.addEventListener('click',()=>{$$('.radio-card').forEach(x=>x.classList.remove('selected'));c.classList.add('selected');});
+    if(c.closest('#commRadios')||c.closest('#trackingRadios'))return;
+    c.addEventListener('click',()=>{$$('.radio-card').forEach(x=>{if(x.closest('#commRadios')||x.closest('#trackingRadios'))return;x.classList.remove('selected');});c.classList.add('selected');});
   });
   $$('.toggle').forEach(t=>{
     if(t.id==='rrhhAnonToggle')return;

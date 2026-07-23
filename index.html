@@ -233,8 +233,17 @@ svg{display:block;flex-shrink:0}
 .offboard-msg.hilo{align-self:flex-start}
 .offboard-msg.user{align-self:flex-end;flex-direction:row-reverse}
 .offboard-msg .msg-bubble{padding:12px 14px;border-radius:14px;font-size:13px;line-height:1.55}
-.offboard-msg.hilo .msg-bubble{background:var(--bg-card);border:1px solid var(--border);border-bottom-left-radius:4px}
+.offboard-msg.hilo .msg-bubble{background:var(--bg-card);border:1px solid var(--border-accent);border-bottom-left-radius:4px}
 .offboard-msg.user .msg-bubble{background:var(--data-soft);border:1px solid var(--border-data);color:var(--text-primary);border-bottom-right-radius:4px}
+.offboard-typing{display:none;align-items:flex-start}
+.offboard-typing.show{display:flex}
+.offboard-note-muted{font-family:var(--font-body);font-size:11px;color:var(--text-muted);font-style:italic;margin-top:8px;line-height:1.45}
+.offboard-complete-card{background:var(--accent-soft);border:1px solid var(--border-accent);border-radius:var(--radius-lg);padding:14px;text-align:center;margin-top:12px}
+.offboard-complete-stats{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:12px 0}
+.offboard-stat-pill{font-family:var(--font-body);font-size:11px;padding:4px 10px;border-radius:var(--radius-full);background:var(--bg-card);border:1px solid var(--border-accent);color:var(--accent-text)}
+.capture-status{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--data-text);margin-top:6px}
+.capture-status-dot{width:7px;height:7px;border-radius:50%;background:var(--data);animation:pulse 1.4s ease infinite}
+.capture-note{font-family:var(--font-body);font-size:11px;color:var(--text-muted);font-style:italic;line-height:1.45;margin:-4px 0 16px}
 .offboard-quote{background:rgba(255,255,255,0.05);border-radius:8px;padding:12px;border:1px dashed var(--border-data);font-size:13px;line-height:1.55;margin:10px 0}
 .offboard-progress-label{font-size:12px;color:var(--text-secondary);margin-bottom:6px}
 .offboard-progress-bar{height:6px;background:var(--progress-track);border-radius:3px;overflow:hidden;margin-bottom:6px}
@@ -564,25 +573,54 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
 .chat-layout{display:flex;flex-direction:column;height:calc(100vh - var(--banner-h) - 56px);margin:-28px -32px -32px}
 .chat-header{padding:20px 32px;border-bottom:1px solid var(--border);background:var(--bg-surface)}
 .chat-messages{flex:1;overflow-y:auto;padding:24px 32px;display:flex;flex-direction:column;gap:16px}
-.msg{max-width:72%;display:flex;gap:10px}
+.msg{max-width:72%;display:flex;gap:10px;opacity:1;transform:translateY(0)}
+.msg.msg-enter{opacity:0;transform:translateY(8px)}
 .msg.user{align-self:flex-end;flex-direction:row-reverse}
 .msg-bubble{padding:14px 18px;border-radius:16px;font-size:14px;line-height:1.55}
-.msg.hilo .msg-bubble{background:var(--bg-card);border:1px solid var(--border);border-bottom-left-radius:4px}
-.msg.user .msg-bubble{background:var(--accent);color:var(--btn-on-accent);border-bottom-right-radius:4px}
+.msg.hilo .msg-bubble{background:var(--bg-card);border:1px solid var(--border);border-radius:4px 18px 18px 18px}
+.msg.user .msg-bubble{background:var(--accent);color:var(--btn-on-accent);border-radius:18px 4px 18px 18px}
 .msg-time{font-size:11px;color:var(--text-secondary);margin-top:6px}
 .msg.user .msg-time{text-align:right}
-.chat-actions{display:flex;flex-wrap:wrap;gap:8px;padding:0 32px 12px}
+.chat-actions,.chat-quick-replies{display:flex;flex-wrap:wrap;gap:6px;padding:0 32px 12px}
+.chat-quick-replies{margin-top:0}
+.quick-pill{display:inline-flex;align-items:center;background:transparent;border:1px solid var(--border-accent);color:var(--accent);border-radius:var(--radius-full);padding:5px 12px;font-size:12px;cursor:pointer;transition:all 150ms ease;font-family:var(--font-body)}
+.quick-pill:hover{background:var(--accent-soft)}
+.hilo-proactive-stack{display:flex;flex-direction:column;gap:12px;margin-bottom:4px}
+.hilo-proactive-card{border-radius:var(--radius-lg);padding:12px 14px;position:relative}
+.hilo-proactive-card.meeting{background:var(--data-soft);border:1px solid var(--border-data)}
+.hilo-proactive-card.morning{background:var(--accent-soft);border:1px solid var(--border-accent)}
+.hilo-proactive-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.hilo-proactive-meta{display:flex;align-items:center;gap:6px;font-family:var(--font-body);font-size:11px;color:var(--text-muted)}
+.hilo-proactive-dismiss{background:transparent;border:none;color:var(--text-muted);cursor:pointer;font-size:16px;line-height:1;padding:2px 4px;border-radius:4px}
+.hilo-proactive-dismiss:hover{color:var(--text-primary);background:rgba(0,0,0,0.04)}
+.hilo-proactive-body{display:flex;gap:10px;align-items:flex-start}
+.hilo-proactive-body .msg-bubble{flex:1;margin:0}
+.hilo-proactive-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;padding-left:34px}
+.priority-preview-card{background:var(--bg-card);border:1px solid var(--border-accent);border-radius:var(--radius-md);padding:14px;margin:8px 0;max-width:100%}
+.priority-preview-header{font-family:var(--font-body);font-size:11px;color:var(--text-muted);margin-bottom:8px}
+.priority-preview-ta{width:100%;min-height:140px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;font-family:var(--font-body);font-size:13px;line-height:1.5;background:var(--bg-surface);color:var(--text-primary);resize:vertical}
+.priority-preview-ta[readonly]{cursor:default;opacity:0.95}
+.priority-preview-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.meeting-source-note{font-family:var(--font-body);font-size:10px;color:var(--text-muted);font-style:italic;margin-top:10px}
 .chat-input-area{padding:16px 32px 24px;border-top:1px solid var(--border);background:var(--bg-surface)}
 .chat-input-row{display:flex;gap:12px;align-items:flex-end}
 .chat-input{flex:1;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;color:var(--text-primary);resize:none;min-height:44px;max-height:120px}
 .chat-input:focus{outline:none;border-color:var(--border-accent)}
-.mic-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border);background:transparent;color:var(--text-secondary);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 150ms ease;position:relative}
-.mic-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.mic-btn{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--accent);background:var(--accent-soft);color:var(--accent);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 150ms ease;position:relative}
+.mic-btn:hover{border-color:var(--accent);color:var(--accent-text);background:var(--accent-mid)}
 .mic-btn.recording{background:var(--human);border-color:var(--human);color:#fff;animation:mic-pulse 1.2s ease infinite}
 @keyframes mic-pulse{0%,100%{box-shadow:0 0 0 0 rgba(217,79,46,0.5)}50%{box-shadow:0 0 0 8px rgba(217,79,46,0)}}
 .voice-bar{display:none;align-items:center;gap:8px;padding:7px 12px;background:var(--human-soft);border:1px solid var(--border-human);border-radius:var(--radius-md);margin-bottom:8px;font-size:12px;color:var(--human)}
 .voice-dot{width:8px;height:8px;border-radius:50%;background:var(--human);animation:blink 1s ease infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+.voice-hint{font-size:10px;color:var(--text-muted);text-align:center;margin-top:8px;font-family:var(--font-body)}
+.hilo-typing{display:none;align-items:center;gap:8px;padding:4px 0;align-self:flex-start}
+.hilo-avatar-sm{width:28px;height:28px;border-radius:50%;background:var(--accent-soft);border:1.5px solid var(--accent);color:var(--accent);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.typing-dots{display:flex;gap:4px;padding:10px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:18px 18px 18px 4px}
+.typing-dots span{width:6px;height:6px;border-radius:50%;background:var(--text-muted);animation:typing-bounce 1.2s ease infinite}
+.typing-dots span:nth-child(2){animation-delay:.2s}
+.typing-dots span:nth-child(3){animation-delay:.4s}
+@keyframes typing-bounce{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-6px);opacity:1}}
 .typing-indicator{display:flex;gap:4px;padding:14px 18px;background:var(--bg-card);border:1px solid var(--border);border-radius:16px;width:fit-content}
 .typing-indicator span{width:6px;height:6px;border-radius:50%;background:var(--text-muted);animation:typing 1.2s infinite}
 .typing-indicator span:nth-child(2){animation-delay:.2s}
@@ -796,7 +834,7 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
   .chat-header{padding:16px}
   .chat-messages{padding:16px}
   .chat-input-area{padding:12px 16px 16px}
-  .chat-actions{padding:0 16px 12px}
+  .chat-actions,.chat-quick-replies{padding:0 16px 12px}
   .demo-banner{font-size:11px;gap:4px;padding:0 10px}
   h1{font-size:clamp(22px,6vw,28px)}
 }
@@ -951,10 +989,21 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
                 <button class="btn btn-ghost btn-sm">Ver perfil →</button>
               </div>
             </div>
-            <div class="card" style="margin-top:20px;background:var(--accent-soft);border-color:var(--border-accent)">
+            <div class="card" style="margin-top:20px;background:var(--accent-soft);border-color:var(--border-accent)" id="checkinCard">
               <h3>Tu check-in de esta semana</h3>
-              <div style="padding:12px 0;border-bottom:1px solid var(--border)"><div style="font-size:12px;color:var(--text-secondary)">Lunes 9:00am ✓ · ¿Cómo llegaste a la semana?</div><div style="font-size:18px;margin-top:4px">😊 Con energía</div></div>
-              <div style="padding:12px 0"><div style="font-size:12px;color:var(--text-secondary)">Viernes 12:00pm · ¿Cómo estuvo tu semana?</div><div style="font-size:13px;margin-top:4px;color:var(--data-text)">Pendiente · Llega el viernes</div><div style="font-size:11px;color:var(--text-muted);margin-top:4px">Disponible el viernes a las 12pm</div></div>
+              <div style="padding:12px 0;border-bottom:1px solid var(--border)">
+                <div style="font-size:12px;color:var(--text-secondary)" id="mondayCheckinLabel">Lunes 9:00am ✓ · Buenos días Sofía 👋 ¿Cómo llegaste al lunes?</div>
+                <div style="font-size:18px;margin-top:4px">😊 Con energía</div>
+              </div>
+              <div style="padding:12px 0" id="fridayCheckinBlock">
+                <div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px">Viernes 12:00pm · ¿Cómo estuvo tu semana?</div>
+                <div class="mood-picker" id="fridayMoodPicker" style="margin-bottom:8px">
+                  <button type="button" class="mood-btn" data-mood="good" aria-label="Buena">😊</button>
+                  <button type="button" class="mood-btn" data-mood="neutral" aria-label="Regular">😐</button>
+                  <button type="button" class="mood-btn" data-mood="bad" aria-label="Difícil">😔</button>
+                </div>
+                <p style="font-size:11px;color:var(--text-muted)" id="fridayCheckinHint">Toca cómo te sientes. Es privado — solo entre tú y Hilo.</p>
+              </div>
               <p style="font-size:11px;color:var(--text-muted);margin-top:12px">Recibes check-ins los lunes a las 9:00am y los viernes a las 12:00pm. Siempre privados.</p>
             </div>
           </div>
@@ -1000,13 +1049,22 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             <p style="font-size:13px;color:var(--text-secondary);margin-top:4px">Pregúntame lo que quieras sobre Tectonic. Todo es completamente privado.</p>
           </div>
           <div class="chat-messages" id="chatMessages">
-            <div class="msg hilo"><div class="avatar sm" style="background:var(--bg-card);border:1px solid var(--border);color:var(--accent-text);font-size:10px">◇</div><div><div class="msg-bubble">Hola Sofía 👋 Bienvenida a Tectonic.<br><br>Ya leí un poco sobre tu equipo antes de que llegaras. Vi que el equipo de Producto Digital usa Figma + Jira y tiene un proceso de aprobación en 3 etapas.<br><br>También vi en Jira que tu equipo tiene activo el proyecto de Design System v3. Felipe Ortiz es el referente en la implementación técnica. ¿Quieres que te conecte con él?</div><div class="msg-time">Hilo · 10:12</div></div></div>
-            <div class="msg user"><div><div class="msg-bubble">¿Cómo funciona el proceso de aprobación de diseños aquí?</div><div class="msg-time">Sofía · 10:14</div></div></div>
-            <div class="msg hilo"><div class="avatar sm" style="background:var(--bg-card);border:1px solid var(--border);color:var(--accent-text);font-size:10px">◇</div><div><div class="msg-bubble">El proceso tiene 3 etapas:<br><br>1. Review del equipo de diseño (tú + María Paz) — 2 días<br>2. Aprobación del PM (Carlos) — mismo día<br>3. Sign-off de negocio si afecta métricas<br><br>💡 Lo supe porque Gabriela Rojas, que estuvo en tu rol antes, lo dejó documentado. Y porque leí los canales del equipo cuando me conectaron.<br><br>¿Tienes alguna otra duda?</div><div class="msg-time">Hilo · 10:14</div></div></div>
+            <div class="hilo-proactive-stack" id="empProactiveStack"></div>
+            <div class="msg hilo" id="empOpenerMsg">
+              <div class="hilo-avatar-sm">H</div>
+              <div>
+                <div class="msg-bubble" id="empOpenerBubble">Hola Sofía 👋<br><br>Bienvenida a Tectonic. Sé que el primer día puede ser un poco abrumador, así que quería presentarme.<br><br>Soy Hilo. Soy tu asistente acá dentro. Puedes preguntarme lo que sea, cuando sea, sin sentirte tonta por preguntar. No existe la pregunta obvia acá.<br><br>Ya leí sobre tu equipo antes de que llegaras. ¿Hay algo que quieras saber antes de empezar?</div>
+                <div class="msg-time">Hilo · ahora</div>
+              </div>
+            </div>
+            <div class="hilo-typing" id="hiloTypingEmp">
+              <div class="hilo-avatar-sm">H</div>
+              <div class="typing-dots"><span></span><span></span><span></span></div>
+            </div>
           </div>
-          <div class="chat-actions" id="chatActions">
-            <button class="btn btn-ghost btn-sm">Ver mis tareas →</button>
-            <button class="btn btn-ghost btn-sm">Tengo una pregunta</button>
+          <div class="chat-quick-replies" id="chatActions">
+            <button type="button" class="quick-pill" data-pill="Ver mis tareas →">Ver mis tareas →</button>
+            <button type="button" class="quick-pill" data-pill="Tengo una pregunta">Tengo una pregunta</button>
           </div>
           <div class="chat-input-area">
             <button type="button" class="btn-rrhh-report" id="btnRrhhReport">
@@ -1019,7 +1077,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
               <span>Escuchando en español...</span>
             </div>
             <div class="chat-input-row" style="display:flex;gap:8px;align-items:flex-end">
-              <textarea class="chat-input" id="chatInput" rows="1" placeholder="Escribe tu pregunta..."></textarea>
+              <textarea class="chat-input" id="chatInput" rows="1" placeholder="¿Cómo funciona el proceso de aprobación?"></textarea>
               <button type="button" class="mic-btn" aria-label="Grabar voz" onclick="toggleVoice(this.previousElementSibling,this)">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
               </button>
@@ -1027,6 +1085,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </button>
             </div>
+            <p class="voice-hint" id="voiceHintEmp">🎙️ También puedes hablar con Hilo</p>
             <p class="chat-privacy-note">Tus conversaciones son privadas. Hilo solo alerta a RRHH en casos graves: acoso, Ley Karin o riesgo personal. Nada más sale de este chat.</p>
           </div>
         </div>
@@ -1040,10 +1099,22 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             <p style="font-size:12px;color:var(--text-secondary);margin-top:4px">Pregúntame sobre tu equipo, alertas o proyectos activos.</p>
           </div>
           <div class="chat-messages" id="chatMessagesMgr">
-            <div class="msg user"><div><div class="msg-bubble">¿Cómo está mi equipo esta semana?</div><div class="msg-time">Carlos · 09:12</div></div></div>
-            <div class="msg hilo"><div class="avatar sm" style="background:var(--bg-card);border:1px solid var(--border);color:var(--accent-text);font-size:10px">◇</div><div><div class="msg-bubble">Tu equipo Producto Digital esta semana:<br><br>🟢 5 personas estables<br>🟡 2 requieren atención (Sofía · Diego)<br>🟡 1 alerta activa (Roberto)<br><br>Roberto tiene un proyecto de integración con Transbank con conocimiento crítico aún sin documentar completamente.<br>¿Preparo una sugerencia para la conversación con él?</div><div class="msg-time">Hilo · 09:12</div></div></div>
-            <div class="msg user"><div><div class="msg-bubble">Sí, y dime qué proyecto tiene cada uno</div><div class="msg-time">Carlos · 09:14</div></div></div>
-            <div class="msg hilo"><div class="avatar sm" style="background:var(--bg-card);border:1px solid var(--border);color:var(--accent-text);font-size:10px">◇</div><div><div class="msg-bubble">Leí los proyectos activos de tu equipo en Jira y Linear:<br><br>· Sofía → Design System v3 (Jira)<br>· Roberto → Integración Transbank (Jira)<br>· María Paz → Research Q2 (Notion)<br>· Diego → Dashboard analytics (Linear)<br>· Camila → Roadmap Q3 (Notion)<br><br>⚠️ Roberto y el equipo de Felipe Ortiz tienen proyectos solapados en pagos. Hilo lo detectó leyendo Jira de ambos equipos.</div><div class="msg-time">Hilo · 09:14</div></div></div>
+            <div class="msg hilo">
+              <div class="hilo-avatar-sm">H</div>
+              <div>
+                <div class="msg-bubble">Hola Carlos 👋<br><br>Tu equipo esta semana:<br><br>🟢 5 personas estables<br>🟡 Sofía y Diego requieren un poco de atención<br>🔴 Roberto tiene conocimiento crítico sin documentar<br><br>¿Quieres que miremos alguno juntos?</div>
+                <div class="msg-time">Hilo · ahora</div>
+              </div>
+            </div>
+            <div class="hilo-typing" id="hiloTypingMgr">
+              <div class="hilo-avatar-sm">H</div>
+              <div class="typing-dots"><span></span><span></span><span></span></div>
+            </div>
+          </div>
+          <div class="chat-quick-replies" id="chatActionsMgr">
+            <button type="button" class="quick-pill" data-pill="Ver a Roberto →">Ver a Roberto →</button>
+            <button type="button" class="quick-pill" data-pill="Ver equipo completo →">Ver equipo completo →</button>
+            <button type="button" class="quick-pill" data-pill="Estado de onboarding →">Estado de onboarding →</button>
           </div>
           <div class="chat-input-area">
             <div class="voice-bar">
@@ -1051,7 +1122,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
               <span>Escuchando en español...</span>
             </div>
             <div class="chat-input-row" style="display:flex;gap:8px;align-items:flex-end">
-              <textarea class="chat-input" id="chatInputMgr" rows="1" placeholder="Pregúntame sobre tu equipo..."></textarea>
+              <textarea class="chat-input" id="chatInputMgr" rows="1" placeholder="¿Cómo está mi equipo hoy?"></textarea>
               <button type="button" class="mic-btn" aria-label="Grabar voz" onclick="toggleVoice(this.previousElementSibling,this)">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
               </button>
@@ -1059,6 +1130,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </button>
             </div>
+            <p class="voice-hint" id="voiceHintMgr">🎙️ También puedes hablar con Hilo</p>
             <p class="chat-privacy-note">Las consultas del manager son privadas para los empleados.</p>
           </div>
         </div>
@@ -1072,10 +1144,22 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             <p style="font-size:12px;color:var(--text-secondary);margin-top:4px">Consulta ROI, alertas globales y estado de toda la empresa.</p>
           </div>
           <div class="chat-messages" id="chatMessagesAdmin">
-            <div class="msg user"><div><div class="msg-bubble">¿Cuál es el ROI de Hilo este trimestre?</div><div class="msg-time">Ana · 11:02</div></div></div>
-            <div class="msg hilo"><div class="avatar sm" style="background:var(--bg-card);border:1px solid var(--border);color:var(--accent-text);font-size:10px">◇</div><div><div class="msg-bubble">ROI Hilo — Q1 2026 · Tectonic<br><br>💰 Valor recuperado: ~US$207k estimado<br><br>Basado en supuestos conservadores:<br>· Rotación evitable (75% × 45 salidas × US$12k): US$408k/año → Q1: US$102k<br>· Ramp-up onboarding (45 ingresos × US$2.7k): US$120k/año → Q1: US$30k<br>· Búsqueda y retrabajo reducida (2h/sem × 300 × US$11): US$300k/año → Q1: US$75k<br><br>📊 Inversión Hilo Q1:<br>320 emp × $8 × 3 meses = $7.680 USD<br>+ Fee implementación: $10.000 USD<br>Total Q1: $17.680 USD<br><br>📈 Ahorro neto Q1 estimado: ~US$189k<br>Fuentes: Work Institute 2025 · SHRM · Gallup</div><div class="msg-time">Hilo · 11:02</div></div></div>
-            <div class="msg user"><div><div class="msg-bubble">¿Hay alertas graves activas?</div><div class="msg-time">Ana · 11:05</div></div></div>
-            <div class="msg hilo"><div class="avatar sm" style="background:var(--bg-card);border:1px solid var(--border);color:var(--accent-text);font-size:10px">◇</div><div><div class="msg-bubble">1 alerta que requiere atención:<br><br>🟡 Roberto Vargas · Frontend Dev<br>Conocimiento crítico en integraciones de pago parcialmente documentado.<br>Fuente: Jira (proyecto activo sin documentación interna en Hilo)<br>Acción sugerida: sesión de documentación con Roberto esta semana.</div><div class="msg-time">Hilo · 11:05</div></div></div>
+            <div class="msg hilo">
+              <div class="hilo-avatar-sm">H</div>
+              <div>
+                <div class="msg-bubble">Hola Ana 👋<br><br>Resumen de Tectonic hoy:<br><br>📊 320 empleados activos<br>🟡 1 riesgo de conocimiento crítico<br>✅ 84% adopción de Hilo esta semana<br>💰 ROI estimado Q1: $207k USD<br><br>¿Qué quieres mirar primero?</div>
+                <div class="msg-time">Hilo · ahora</div>
+              </div>
+            </div>
+            <div class="hilo-typing" id="hiloTypingAdmin">
+              <div class="hilo-avatar-sm">H</div>
+              <div class="typing-dots"><span></span><span></span><span></span></div>
+            </div>
+          </div>
+          <div class="chat-quick-replies" id="chatActionsAdmin">
+            <button type="button" class="quick-pill" data-pill="Ver ROI detallado →">Ver ROI detallado →</button>
+            <button type="button" class="quick-pill" data-pill="Ver riesgos →">Ver riesgos →</button>
+            <button type="button" class="quick-pill" data-pill="Estado de onboarding →">Estado de onboarding →</button>
           </div>
           <div class="admin-chat-note">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -1087,7 +1171,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
               <span>Escuchando en español...</span>
             </div>
             <div class="chat-input-row" style="display:flex;gap:8px;align-items:flex-end">
-              <textarea class="chat-input" id="chatInputAdmin" rows="1" placeholder="Pregúntame sobre la empresa..."></textarea>
+              <textarea class="chat-input" id="chatInputAdmin" rows="1" placeholder="¿Cuál es el ROI de Hilo este mes?"></textarea>
               <button type="button" class="mic-btn" aria-label="Grabar voz" onclick="toggleVoice(this.previousElementSibling,this)">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
               </button>
@@ -1095,6 +1179,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </button>
             </div>
+            <p class="voice-hint" id="voiceHintAdmin">🎙️ También puedes hablar con Hilo</p>
           </div>
         </div>
       </section>
@@ -1388,12 +1473,14 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
           <div style="display:flex;align-items:flex-start;gap:12px;flex:1;min-width:200px">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--data)" stroke-width="2" style="flex-shrink:0;margin-top:2px"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
             <div>
-              <div style="font-size:14px;font-weight:500;margin-bottom:4px">Proceso de captura en curso</div>
-              <div style="font-size:12px;color:var(--text-secondary);line-height:1.5">Gabriela Rojas · Product Designer Senior<br>Sesión 2 de 3 · En progreso</div>
+              <div style="font-size:14px;font-weight:500;margin-bottom:4px">Conversación de cierre · En curso</div>
+              <div style="font-size:12px;color:var(--text-secondary);line-height:1.5">Gabriela Rojas · Product Designer Senior</div>
+              <div class="capture-status"><span class="capture-status-dot" aria-hidden="true"></span> En curso</div>
             </div>
           </div>
-          <button type="button" class="btn btn-data-outline btn-sm" id="btnOffboardingChat">Ver entrevista en curso →</button>
+          <button type="button" class="btn btn-data-outline btn-sm" id="btnOffboardingChat">Ver conversación →</button>
         </div>
+        <p class="capture-note">Hilo ya conoce a Gabriela. Esta conversación captura lo que solo ella puede decir.</p>
         <div class="search-wrap" style="margin-bottom:16px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><input type="text" placeholder="Buscar en la memoria de Tectonic..." style="width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:10px 14px 10px 40px;color:var(--text-primary)"></div>
         <div class="filter-pills" style="margin-bottom:16px"><button class="pill active">Todos</button><button class="pill">Tecnología</button><button class="pill">Producto</button><button class="pill">Procesos</button><button class="pill">Relaciones</button></div>
         <div class="memory-list" id="memoryList"></div>
@@ -1656,7 +1743,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
                     <span style="font-family:system-ui;font-size:12px;color:#fff;font-weight:700">Hilo</span>
                     <span style="font-family:system-ui;font-size:11px;color:rgba(255,255,255,0.5)">Lunes 9:00am</span>
                   </div>
-                  <div style="background:#222529;border-radius:8px;padding:10px 12px;font-family:system-ui;font-size:12px;color:#fff;line-height:1.5">Buenos días Sofía 👋<br>¿Cómo llegas a esta semana?</div>
+                  <div style="background:#222529;border-radius:8px;padding:10px 12px;font-family:system-ui;font-size:12px;color:#fff;line-height:1.5">Buenos días Sofía 👋<br>¿Cómo llegaste al lunes?</div>
                   <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
                     <span style="background:#2a2d31;border:1px solid rgba(255,255,255,0.15);border-radius:16px;padding:4px 10px;font-family:system-ui;font-size:12px;color:#fff">😊 Con energía</span>
                     <span style="background:#2a2d31;border:1px solid rgba(255,255,255,0.15);border-radius:16px;padding:4px 10px;font-family:system-ui;font-size:12px;color:#fff">😐 Normal</span>
@@ -1683,8 +1770,8 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             <div id="commMockupEmail" class="comm-mockup" style="display:none">
               <div style="background:#fff;border-radius:12px;padding:14px;max-width:360px;margin:0 auto;box-shadow:0 2px 12px rgba(0,0,0,0.08);border:1px solid rgba(0,0,0,0.06)">
                 <p style="font-size:12px;color:#666;margin-bottom:4px">De: Hilo &lt;hola@hilohq.com&gt;</p>
-                <p style="font-size:14px;font-weight:600;color:#111;margin-bottom:10px">¿Cómo llegas a esta semana? 🌟</p>
-                <p style="font-size:13px;color:#333;line-height:1.5">Hola Sofía, es lunes.<br>¿Cómo llegaste a esta semana?</p>
+                <p style="font-size:14px;font-weight:600;color:#111;margin-bottom:10px">Buenos días Sofía 👋</p>
+                <p style="font-size:13px;color:#333;line-height:1.5">¿Cómo llegaste al lunes?</p>
                 <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px">
                   <span style="background:var(--accent);color:var(--btn-on-accent);border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600">😊 Con energía</span>
                   <span style="background:var(--accent);color:var(--btn-on-accent);border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600">😐 Normal</span>
@@ -1700,7 +1787,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
                   <span style="font-family:system-ui;font-size:13px;color:#fff;font-weight:600">Hilo</span>
                   <span style="font-size:11px;color:#25D366">en línea</span>
                 </div>
-                <div style="background:#1F2C34;border-radius:12px 12px 12px 4px;padding:10px 12px;font-family:system-ui;font-size:12px;color:#fff;line-height:1.5;max-width:85%">Buenos días! 👋<br>¿Cómo llegas a esta semana?<br>Toca una opción:</div>
+                <div style="background:#1F2C34;border-radius:12px 12px 12px 4px;padding:10px 12px;font-family:system-ui;font-size:12px;color:#fff;line-height:1.5;max-width:85%">Hola Sofía. Nueva semana.<br>¿Cómo estás llegando a ella?<br>Toca una opción:</div>
                 <div style="display:flex;flex-direction:column;gap:6px;margin-top:10px;max-width:85%">
                   <span style="background:#1F2C34;border-radius:8px;padding:8px 12px;font-family:system-ui;font-size:12px;color:#53BDEB;text-align:center">😊 Con energía</span>
                   <span style="background:#1F2C34;border-radius:8px;padding:8px 12px;font-family:system-ui;font-size:12px;color:#53BDEB;text-align:center">😐 Normal</span>
@@ -1710,7 +1797,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             </div>
           </div>
           <div class="card" style="margin-top:16px;font-size:13px">
-            <p>📅 Lunes · 9:00am — ¿Cómo llegas a la semana?</p>
+            <p>📅 Lunes · 9:00am — ¿Cómo llegaste al lunes?</p>
             <p style="margin-top:8px">📅 Viernes · 12:00pm — ¿Cómo estuvo tu semana?</p>
             <a href="#" style="font-size:12px;color:var(--accent-text);margin-top:12px;display:inline-block">Cambiar horario →</a>
           </div>
@@ -1819,7 +1906,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
 <div class="offboarding-overlay" id="offboardingOverlay">
   <div class="offboarding-modal" role="dialog" aria-labelledby="offboardingTitle">
     <button type="button" class="rrhh-close" id="offboardingCloseTop" aria-label="Cerrar">✕</button>
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:16px;padding-right:28px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px;padding-right:28px">
       <div style="display:flex;align-items:center;gap:12px">
         <div class="avatar" data-init="GR" style="width:40px;height:40px;font-size:14px">GR</div>
         <div>
@@ -1827,45 +1914,43 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
           <div style="font-size:12px;color:var(--text-secondary)">Product Designer Senior · 3 años</div>
         </div>
       </div>
-      <span style="font-size:10px;font-weight:600;padding:4px 10px;border-radius:20px;background:var(--data-soft);color:var(--data-text);border:1px solid var(--border-data);white-space:nowrap">Sesión 2 de 3</span>
+      <span style="font-size:10px;font-weight:600;padding:4px 10px;border-radius:20px;background:var(--data-soft);color:var(--data-text);border:1px solid var(--border-data);white-space:nowrap">Conversación de cierre</span>
     </div>
-    <div class="offboard-progress-label">Conocimiento capturado</div>
-    <div class="offboard-progress-bar"><div class="offboard-progress-fill" style="width:58%"></div></div>
-    <p style="font-size:11px;color:var(--text-muted);margin-bottom:16px">Gabriela debe aprobar cada respuesta antes de guardarse.</p>
-    <div class="offboard-chat-messages">
+    <div style="background:var(--accent-soft);border:1px solid var(--border-accent);border-radius:var(--radius-md);padding:8px 12px;margin-bottom:12px;display:flex;gap:8px;align-items:flex-start">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="flex-shrink:0;margin-top:1px"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <p style="font-family:var(--font-body);font-size:11px;color:var(--text-secondary);line-height:1.45;margin:0">Hilo ya capturó el conocimiento de Gabriela durante su tiempo en Tectonic. Esta es la conversación de cierre.</p>
+    </div>
+    <div class="offboard-chat-messages" id="offboardMessages">
       <div class="offboard-msg hilo">
-        <div class="avatar sm" style="background:var(--bg-card);border:1px solid var(--border);color:var(--accent-text);font-size:10px">◇</div>
-        <div class="msg-bubble">Gabriela, en tu tiempo en Tectonic gestionaste la relación con la agencia de diseño externo. ¿Qué debería saber la persona que llegue después sobre cómo trabajar con ellos?</div>
+        <div class="hilo-avatar-sm">H</div>
+        <div class="msg-bubble">Gabriela, me enteré que decides seguir tu camino fuera de Tectonic.<br><br>Gracias por todo lo que me enseñaste este tiempo. Aprendí mucho de lo que me contaste sobre cómo funciona realmente este equipo.<br><br>Antes de que te vayas, ¿hay algo que sientas que es importante que quede? Algo que ojalá le pudieras decir a quien llegue después a tu rol.<br><br>No tiene que ser largo. A veces lo más valioso cabe en dos líneas.</div>
       </div>
       <div class="offboard-msg user">
-        <div class="msg-bubble">Sí. La agencia se llama Estudio Forma. El contacto directo es Valentina Ruiz. Lo importante es que SIEMPRE hay que mandarles el brief con 5 días de anticipación, no 3 como dice el contrato. Si mandas con 3 días la calidad baja notablemente. Aprendimos eso de la peor manera en 2023.</div>
+        <div class="msg-bubble">Sí. Lo más importante que ojalá alguien me hubiera dicho a mí:<br><br>Carlos tarda en aprobar pero no porque no le guste. Es que necesita entender el contexto completo antes de comprometerse. Si le muestras el problema antes que la solución, todo va más rápido.<br><br>Y cuida a Roberto. Sabe más de lo que muestra. Solo necesita que le pregunten.</div>
       </div>
-      <div class="offboard-msg hilo">
-        <div class="avatar sm" style="background:var(--bg-card);border:1px solid var(--border);color:var(--accent-text);font-size:10px">◇</div>
-        <div>
-          <div class="msg-bubble">Entendido. ¿Puedo guardar esto?<br>Puedes editarlo antes de confirmar.</div>
-          <div class="offboard-quote">La agencia externa (Estudio Forma, contacto: Valentina Ruiz) necesita briefings con 5 días de anticipación mínimo, no 3. Calidad se resiente con menos tiempo. (Aprendido 2023)</div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
-            <button type="button" class="btn btn-data btn-sm">✓ Aprobar y guardar</button>
-            <button type="button" class="btn btn-data-outline btn-sm">Editar antes de guardar</button>
-          </div>
-        </div>
-      </div>
-      <div class="offboard-msg user">
-        <div class="msg-bubble">Perfecto. Una cosa más: el proceso de aprobación con Carlos. Él SIEMPRE pide ver el problema antes que la solución. Si le llevas la solución primero, te pide empezar de nuevo. Eso no está escrito en ningún lado.</div>
-      </div>
-      <div class="offboard-msg hilo">
-        <div class="avatar sm" style="background:var(--bg-card);border:1px solid var(--border);color:var(--accent-text);font-size:10px">◇</div>
-        <div>
-          <div class="msg-bubble">Dato clave. ¿Lo guardo también?</div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
-            <button type="button" class="btn btn-ghost btn-sm">Sí, guardar</button>
-            <button type="button" class="btn btn-ghost btn-sm">Editar</button>
-          </div>
-        </div>
+      <div class="offboard-msg hilo offboard-typing" id="offboardTyping">
+        <div class="hilo-avatar-sm">H</div>
+        <div class="typing-dots"><span></span><span></span><span></span></div>
       </div>
     </div>
-    <p style="font-size:11px;color:var(--text-muted);margin:16px 0;line-height:1.5">Esta conversación es entre Gabriela y Hilo. HR solo verá el documento final aprobado.</p>
+    <div id="offboardCompleteCard" class="offboard-complete-card" style="display:none">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="display:block;margin:0 auto 10px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <div style="font-family:var(--font-display),var(--font-body);font-size:15px;font-weight:500;margin-bottom:6px">Conversación de cierre completada</div>
+      <p style="font-family:var(--font-body);font-size:12px;color:var(--text-secondary);line-height:1.5;margin:0">El conocimiento de Gabriela quedó guardado en la memoria de Tectonic. Disponible para siempre para quien llegue después.</p>
+      <div class="offboard-complete-stats">
+        <span class="offboard-stat-pill">3 procesos capturados</span>
+        <span class="offboard-stat-pill">2 contactos clave documentados</span>
+        <span class="offboard-stat-pill">1 lección aprendida guardada</span>
+      </div>
+      <button type="button" class="btn btn-secondary btn-sm" id="offboardViewKnowledge">Ver conocimiento guardado →</button>
+    </div>
+    <div id="offboardInputArea" class="input-area" style="margin-top:8px">
+      <div style="display:flex;gap:8px;align-items:flex-end">
+        <textarea class="project-textarea" id="offboardInput" rows="2" placeholder="Escribe lo que quieras dejar..." style="flex:1;margin:0;min-height:60px"></textarea>
+        <button type="button" class="btn btn-primary btn-sm" id="offboardSend">Enviar</button>
+      </div>
+    </div>
+    <p style="font-size:11px;color:var(--text-muted);margin:16px 0 8px;line-height:1.5">Esta conversación es entre Gabriela y Hilo. HR solo verá lo que ella elija dejar.</p>
     <button type="button" class="btn btn-secondary btn-sm" id="offboardingCloseBtn" style="width:100%">Cerrar</button>
   </div>
 </div>
@@ -2076,6 +2161,12 @@ let currentScreen='onboarding';
 let onboardingShown=false;
 let adminOnboardingShown=false;
 let managerOnboardingShown=false;
+let lastCheckin=localStorage.getItem('hiloLastCheckin')||null;
+let hiloEmpChat=null;
+let pendingEmpathyStart=false;
+let pendingFollowUp=false;
+let pendingFollowUpMessage='';
+let pendingFollowUpDays=2;
 let tourStep=0;
 let adminTourStep=0;
 let managerTourStep=0;
@@ -3635,12 +3726,199 @@ function renderMemory(){
 
 function setupOffboardingModal(){
   const overlay=$('#offboardingOverlay');
-  function openOff(){overlay?.classList.add('open');syncAvatarColors(overlay);}
-  function closeOff(){overlay?.classList.remove('open');}
+  const msgs=$('#offboardMessages');
+  const input=$('#offboardInput');
+  const send=$('#offboardSend');
+  const inputArea=$('#offboardInputArea');
+  const completeCard=$('#offboardCompleteCard');
+  const typingEl=$('#offboardTyping');
+  let playing=false;
+  let played=false;
+  let liveBusy=false;
+  let timers=[];
+
+  const MSG1='Gabriela, me enteré que decides seguir tu camino fuera de Tectonic.<br><br>Gracias por todo lo que me enseñaste este tiempo. Aprendí mucho de lo que me contaste sobre cómo funciona realmente este equipo.<br><br>Antes de que te vayas, ¿hay algo que sientas que es importante que quede? Algo que ojalá le pudieras decir a quien llegue después a tu rol.<br><br>No tiene que ser largo. A veces lo más valioso cabe en dos líneas.';
+  const MSG2='Sí. Lo más importante que ojalá alguien me hubiera dicho a mí:<br><br>Carlos tarda en aprobar pero no porque no le guste. Es que necesita entender el contexto completo antes de comprometerse. Si le muestras el problema antes que la solución, todo va más rápido.<br><br>Y cuida a Roberto. Sabe más de lo que muestra. Solo necesita que le pregunten.';
+  const MSG3='Eso es exactamente lo que no estaba escrito en ningún lado.<br><br>¿Hay algo sobre los proyectos que tenías en curso que el que llegue después debería saber? Algo técnico o de contexto que se podría perder.';
+  const MSG4='La integración con Estudio Forma. Valentina Ruiz es el contacto. Siempre pídele el brief con 5 días, no 3. La calidad baja mucho. Lo aprendimos en 2023 de la peor manera.<br><br>El contrato dice 3 días pero en la práctica son 5. Nadie lo sabe excepto yo.';
+  const MSG5='Guardado. Eso va a ahorrarle un error caro a quien llegue.<br><br>Una última cosa, y no tienes que responder si no quieres: ¿Hay algo que ojalá hubiera sido diferente aquí?<p class="offboard-note-muted">Gabriela decide si responde. Hilo no insiste.</p>';
+  const MSG6='Más feedback en tiempo real. Acá uno se entera de las cosas después de que pasaron. Pero en general, fue bueno. El equipo es de los mejores con los que he trabajado.';
+  const MSG7='Gracias por esto, Gabriela. Todo quedó guardado y va a ayudar a quien llegue después.<br><br>Ha sido un placer acompañarte este tiempo. Mucho éxito en lo que viene 🙏';
+
+  function clearTimers(){
+    timers.forEach(clearTimeout);
+    timers=[];
+  }
+  function later(fn,ms){
+    const id=setTimeout(fn,ms);
+    timers.push(id);
+    return id;
+  }
+
+  function scrollOff(){
+    if(msgs)msgs.scrollTop=msgs.scrollHeight;
+  }
+
+  function addOffMsg(text,isUser){
+    if(!msgs)return null;
+    const div=document.createElement('div');
+    div.className='offboard-msg '+(isUser?'user':'hilo');
+    if(isUser){
+      div.innerHTML=`<div class="msg-bubble">${text}</div>`;
+    }else{
+      div.innerHTML=`<div class="hilo-avatar-sm">H</div><div class="msg-bubble">${text}</div>`;
+    }
+    if(typingEl&&typingEl.parentNode===msgs)msgs.insertBefore(div,typingEl);
+    else msgs.appendChild(div);
+    scrollOff();
+    return div;
+  }
+
+  function showTyping(show){
+    if(!typingEl)return;
+    typingEl.classList.toggle('show',!!show);
+    if(show&&msgs){
+      msgs.appendChild(typingEl);
+      scrollOff();
+    }
+  }
+
+  function showComplete(){
+    if(completeCard){
+      completeCard.style.display='block';
+      scrollOff();
+    }
+    played=true;
+    playing=false;
+  }
+
+  function resetBaseMessages(){
+    if(!msgs)return;
+    clearTimers();
+    playing=false;
+    showTyping(false);
+    if(completeCard)completeCard.style.display='none';
+    msgs.innerHTML='';
+    const m1=document.createElement('div');
+    m1.className='offboard-msg hilo';
+    m1.innerHTML=`<div class="hilo-avatar-sm">H</div><div class="msg-bubble">${MSG1}</div>`;
+    const m2=document.createElement('div');
+    m2.className='offboard-msg user';
+    m2.innerHTML=`<div class="msg-bubble">${MSG2}</div>`;
+    msgs.appendChild(m1);
+    msgs.appendChild(m2);
+    if(typingEl){
+      typingEl.classList.remove('show');
+      msgs.appendChild(typingEl);
+    }
+  }
+
+  function renderFullConversation(){
+    resetBaseMessages();
+    addOffMsg(MSG3,false);
+    addOffMsg(MSG4,true);
+    addOffMsg(MSG5,false);
+    addOffMsg(MSG6,true);
+    addOffMsg(MSG7,false);
+    showTyping(false);
+    showComplete();
+  }
+
+  function playConversation(){
+    if(playing)return;
+    if(played){
+      renderFullConversation();
+      return;
+    }
+    resetBaseMessages();
+    playing=true;
+    // MSG3 after typing 1200ms
+    later(()=>{
+      showTyping(true);
+      later(()=>{
+        showTyping(false);
+        addOffMsg(MSG3,false);
+        // MSG4 shortly after
+        later(()=>{
+          addOffMsg(MSG4,true);
+          // MSG5 typing 1000ms
+          later(()=>{
+            showTyping(true);
+            later(()=>{
+              showTyping(false);
+              addOffMsg(MSG5,false);
+              later(()=>{
+                addOffMsg(MSG6,true);
+                // MSG7 typing 1500ms
+                later(()=>{
+                  showTyping(true);
+                  later(()=>{
+                    showTyping(false);
+                    addOffMsg(MSG7,false);
+                    showComplete();
+                  },1500);
+                },600);
+              },700);
+            },1000);
+          },500);
+        },600);
+      },1200);
+    },400);
+  }
+
+  function liveReply(text){
+    const t=text.toLowerCase();
+    if(t.includes('gracias'))return 'Para eso estoy. Lo que compartiste ya ayuda a quien llegue después.';
+    if(t.includes('carlos')||t.includes('aprob'))return 'Eso del contexto con Carlos es oro puro. Queda guardado tal cual lo contaste.';
+    if(t.includes('roberto'))return 'Gracias por mirar por Roberto también. Ese tipo de cuidado rara vez queda documentado.';
+    if(t.includes('forma')||t.includes('valentina')||t.includes('brief')||t.includes('agencia'))return 'Los 5 días con Estudio Forma — eso evita un error caro. Ya está en la memoria.';
+    if(t.includes('feedback')||t.includes('diferente')||t.includes('ojalá'))return 'Gracias por decirlo con honestidad. Queda entre lo que el equipo puede aprender.';
+    return 'Gracias por contarme eso también. Queda guardado con el resto — sin presión de alargarlo.';
+  }
+
+  function openOff(){
+    overlay?.classList.add('open');
+    syncAvatarColors(overlay);
+    if(inputArea)inputArea.style.display='';
+    playConversation();
+  }
+  function closeOff(){
+    clearTimers();
+    showTyping(false);
+    playing=false;
+    overlay?.classList.remove('open');
+  }
+
+  function submitOff(){
+    if(!input||liveBusy)return;
+    if(playing){
+      showToast('Hilo sigue en la conversación de cierre…');
+      return;
+    }
+    const text=input.value.trim();
+    if(!text)return;
+    input.value='';
+    addOffMsg(text,true);
+    liveBusy=true;
+    showTyping(true);
+    later(()=>{
+      showTyping(false);
+      addOffMsg(liveReply(text),false);
+      liveBusy=false;
+    },900);
+  }
+
   $('#btnOffboardingChat')?.addEventListener('click',openOff);
   $('#offboardingCloseBtn')?.addEventListener('click',closeOff);
   $('#offboardingCloseTop')?.addEventListener('click',closeOff);
   overlay?.addEventListener('click',e=>{if(e.target===overlay)closeOff();});
+  send?.addEventListener('click',submitOff);
+  input?.addEventListener('keydown',e=>{
+    if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();submitOff();}
+  });
+  $('#offboardViewKnowledge')?.addEventListener('click',()=>{
+    openGabrielaKnowledgeModal();
+  });
 }
 
 function setupCommMockup(){
@@ -3710,53 +3988,763 @@ function initCharts(){
 document.addEventListener('hilo-theme-change',()=>{chartsInitialized=false;initCharts();});
 
 function setupChatPanel(cfg){
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // HILO GOLDEN RULE
+  // Hilo informa. Hilo sugiere.
+  // Hilo facilita.
+  // Las personas siempre deciden.
+  //
+  // Hilo NUNCA:
+  // → Agenda por su cuenta
+  // → Envía mensajes sin aprobación
+  // → Toma decisiones por nadie
+  // → Prioriza tareas de nadie
+  // → Dice qué hacer
+  //
+  // Hilo SIEMPRE:
+  // → Avisa con contexto relevante
+  // → Pregunta cómo puede ayudar
+  // → Ejecuta lo que la persona aprueba
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
   const messages=$(cfg.messages);
   const input=$(cfg.input);
   const send=$(cfg.send);
+  const typingEl=$(cfg.typing);
+  const pillsEl=$(cfg.pills);
+  const voiceHint=$(cfg.voiceHint);
   if(!messages||!input||!send)return;
+
   const userLabel=cfg.userLabel||'Tú';
-  function addMsg(text,isUser){
-    const div=document.createElement('div');
-    div.className='msg '+(isUser?'user':'hilo');
-    const time=new Date().toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'});
-    if(isUser){
-      div.innerHTML=`<div><div class="msg-bubble">${text}</div><div class="msg-time">${userLabel} · ${time}</div></div>`;
-    }else{
-      div.innerHTML=`<div class="avatar sm" style="background:var(--bg-card);border:1px solid var(--border);color:var(--accent-text);font-size:10px">◇</div><div><div class="msg-bubble">${text}</div><div class="msg-time">Hilo · ${time}</div></div>`;
+  const role=cfg.role||'empleado';
+  const placeholders=cfg.placeholders||[];
+  let hiloCount=0;
+  let busy=false;
+  let phIdx=0;
+  let empathyStep=null;
+  let meetingFlow=null;
+  let priorityFlow=null;
+  const MEETING_SOURCE='<p class="meeting-source-note">Resumen basado en la transcripción de Zoom · 8 may 2026 · 45 min</p>';
+  const followUps=[
+    '¿Hay algo más que quieras saber?',
+    '¿En qué más te puedo ayudar?',
+    '¿Tienes alguna duda sobre esto?'
+  ];
+
+  const DEFAULT_OPENER='Hola Sofía 👋<br><br>Bienvenida a Tectonic. Sé que el primer día puede ser un poco abrumador, así que quería presentarme.<br><br>Soy Hilo. Soy tu asistente acá dentro. Puedes preguntarme lo que sea, cuando sea, sin sentirte tonta por preguntar. No existe la pregunta obvia acá.<br><br>Ya leí sobre tu equipo antes de que llegaras. ¿Hay algo que quieras saber antes de empezar?';
+  const MEMORY_OPENER='Hola Sofía. El viernes me dijiste que la semana estuvo pesada.<br>¿Cómo estás hoy?';
+
+  const PRIORITY_DRAFT=`Hola Carlos 👋
+
+Sofía me pidió que te avisara que sus prioridades cambiaron esta semana. Le parece importante que estén alineados.
+
+Te lo cuento para que lo tengas en cuenta 🙂
+
+— Hilo`;
+
+  const TOPIC_CONTEXT={
+    'design system':'Sobre Design System v3:<br><br>→ Quedó pendiente la decisión de componentes base (botones, inputs, tokens de color).<br>→ Gabriela había propuesto unificar el spacing a 8px.<br>→ Carlos pidió ver un prototipo antes de cerrar.<br><br>¿Quieres que te arme un outline de 3 minutos para la reunión?',
+    'transbank':'Sobre Transbank:<br><br>→ Roberto iba a investigar el costo de la integración.<br>→ En Jira el ticket está al ~60%.<br>→ El riesgo: timeouts en pagos parciales aún sin documentar en Hilo.<br><br>¿Te preparo 2 preguntas concretas para Roberto?',
+    'research':'Sobre Research:<br><br>→ María Paz iba a compartir hallazgos antes del viernes.<br>→ El foco era el flujo mobile del onboarding.<br>→ Hay 4 insights en Notion que todavía no llegaron al equipo de diseño.<br><br>¿Quieres un resumen corto de lo que ya está en Notion?',
+    'mobile':'Sobre el flujo mobile del onboarding:<br><br>→ Se priorizó mobile sobre desktop en la reunión del 8 de mayo.<br>→ Impacta tu trabajo en Design System v3 (componentes responsive primero).<br>→ Diego tenía un mock del funnel en Figma.<br><br>¿Quieres que te señale el archivo de Figma?'
+  };
+
+  function showPillsStatic(items){
+    if(!pillsEl)return;
+    pillsEl.innerHTML='';
+    items.forEach(label=>{
+      const btn=document.createElement('button');
+      btn.type='button';
+      btn.className='quick-pill';
+      btn.dataset.pill=label;
+      btn.dataset.wired='1';
+      btn.textContent=label;
+      btn.addEventListener('click',()=>handlePill(label));
+      pillsEl.appendChild(btn);
+    });
+  }
+
+  if(role==='empleado'){
+    const bubble=$('#empOpenerBubble');
+    if(bubble){
+      if(lastCheckin==='bad'){
+        bubble.innerHTML=MEMORY_OPENER;
+        showPillsStatic(['Mejor que el viernes','Más o menos igual','Todavía pesada']);
+      }else{
+        bubble.innerHTML=DEFAULT_OPENER;
+      }
     }
+    initProactiveCards();
+  }
+
+  const voiceKey='hiloVoiceHint_'+role;
+  if(voiceHint){
+    if(localStorage.getItem(voiceKey)==='1')voiceHint.style.display='none';
+    else{
+      const hideHint=()=>{
+        voiceHint.style.display='none';
+        localStorage.setItem(voiceKey,'1');
+      };
+      input.addEventListener('focus',hideHint,{once:true});
+      send.addEventListener('click',hideHint,{once:true});
+    }
+  }
+
+  if(placeholders.length){
+    setInterval(()=>{
+      if(document.activeElement!==input&&input.value===''){
+        input.placeholder=placeholders[phIdx];
+        phIdx=(phIdx+1)%placeholders.length;
+      }
+    },3000);
+  }
+
+  function nowTime(){
+    return new Date().toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'});
+  }
+  function scrollChat(){messages.scrollTop=messages.scrollHeight;}
+  function animateIn(el){
+    el.classList.add('msg-enter');
+    requestAnimationFrame(()=>{
+      el.style.transition='all 250ms ease';
+      el.classList.remove('msg-enter');
+    });
+  }
+  function clearPills(){if(pillsEl)pillsEl.innerHTML='';}
+  function showPills(items){showPillsStatic(items);}
+
+  function addUserMsg(text){
+    const div=document.createElement('div');
+    div.className='msg user';
+    div.innerHTML=`<div><div class="msg-bubble">${text}</div><div class="msg-time">${userLabel} · ${nowTime()}</div></div>`;
     messages.appendChild(div);
-    messages.scrollTop=messages.scrollHeight;
+    animateIn(div);
+    scrollChat();
   }
-  function showTyping(){
-    const t=document.createElement('div');
-    t.className='msg hilo typing-msg';
-    t.innerHTML=`<div class="avatar sm" style="background:var(--bg-card);border:1px solid var(--border);color:var(--accent-text);font-size:10px">◇</div><div class="typing-indicator"><span></span><span></span><span></span></div>`;
-    messages.appendChild(t);
-    messages.scrollTop=messages.scrollHeight;
-    return t;
+
+  function hiloResponde(texto,delay=1200,nextPills,skipFollowUp){
+    return new Promise(resolve=>{
+      busy=true;
+      if(typingEl){
+        typingEl.style.display='flex';
+        messages.appendChild(typingEl);
+      }
+      scrollChat();
+      setTimeout(()=>{
+        if(typingEl)typingEl.style.display='none';
+        hiloCount++;
+        let body=texto;
+        if(!skipFollowUp&&hiloCount%3===0&&!empathyStep&&!priorityFlow&&!meetingFlow){
+          body+='<br><br>'+followUps[(hiloCount/3-1)%followUps.length];
+        }
+        const div=document.createElement('div');
+        div.className='msg hilo';
+        div.innerHTML=`<div class="hilo-avatar-sm">H</div><div><div class="msg-bubble">${body}</div><div class="msg-time">Hilo · ${nowTime()}</div></div>`;
+        messages.appendChild(div);
+        animateIn(div);
+        scrollChat();
+        if(nextPills&&nextPills.length)showPills(nextPills);
+        busy=false;
+        resolve(div);
+      },delay);
+    });
   }
-  function respond(){
-    const typing=showTyping();
-    setTimeout(()=>{
-      typing.remove();
-      addMsg('Entiendo tu pregunta. En la versión real, Hilo buscaría en el conocimiento específico de Tectonic y respondería con información precisa sobre tu empresa.<br><br>Este es un prototipo de demostración. 🎯',false);
-    },1500);
+
+  function matchKeywords(text,map){
+    const t=text.toLowerCase();
+    for(const entry of map){
+      if(entry.keys.some(k=>t.includes(k)))return entry;
+    }
+    return null;
   }
+
+  function proactiveStack(){return $('#empProactiveStack');}
+
+  function dismissMeetingCard(){
+    const card=$('#empMeetingCard');
+    if(card)card.remove();
+    maybeShowMorningCard();
+  }
+
+  function dismissMorningCard(){
+    const card=$('#empMorningCard');
+    if(card)card.remove();
+    sessionStorage.setItem('morningShown','1');
+  }
+
+  function maybeShowMorningCard(){
+    if(role!=='empleado')return;
+    if(sessionStorage.getItem('morningShown')==='1')return;
+    if($('#empMorningCard'))return;
+    renderMorningCard();
+  }
+
+  function wireCardPills(card,handler){
+    card.querySelectorAll('[data-proactive]').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        if(busy)return;
+        handler(btn.dataset.proactive,btn.textContent.trim());
+      });
+    });
+  }
+
+  function renderMeetingCard(){
+    const stack=proactiveStack();
+    if(!stack||$('#empMeetingCard'))return;
+    sessionStorage.setItem('meetingShown','1');
+    const card=document.createElement('div');
+    card.className='hilo-proactive-card meeting';
+    card.id='empMeetingCard';
+    card.innerHTML=`
+      <div class="hilo-proactive-head">
+        <div class="hilo-proactive-meta">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--data-text)" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          Recordatorio · hace 2 min
+        </div>
+        <button type="button" class="hilo-proactive-dismiss" aria-label="Cerrar" data-dismiss-meeting>×</button>
+      </div>
+      <div class="hilo-proactive-body">
+        <div class="hilo-avatar-sm">H</div>
+        <div class="msg-bubble">Sofía, en 15 minutos tienes 'Planning Q3 · Producto Digital' con Carlos, María Paz y Roberto.<br><br>¿Quieres que te recuerde los puntos que quedaron pendientes de la última reunión de este grupo?</div>
+      </div>
+      <div class="hilo-proactive-pills">
+        <button type="button" class="quick-pill" data-proactive="meeting-yes">Sí, cuéntame →</button>
+        <button type="button" class="quick-pill" data-proactive="meeting-no">No, gracias</button>
+      </div>`;
+    stack.prepend(card);
+    card.querySelector('[data-dismiss-meeting]')?.addEventListener('click',()=>{
+      dismissMeetingCard();
+    });
+    wireCardPills(card,async(action,label)=>{
+      clearPills();
+      addUserMsg(label);
+      if(action==='meeting-no'){
+        dismissMeetingCard();
+        await hiloResponde('¡Suerte en la reunión! 🙌',600,null,true);
+        return;
+      }
+      meetingFlow='points';
+      const cardEl=$('#empMeetingCard');
+      if(cardEl){
+        const pills=cardEl.querySelector('.hilo-proactive-pills');
+        if(pills)pills.remove();
+      }
+      await hiloResponde(
+        'De la reunión del martes 8 de mayo quedaron 3 puntos sin resolver:<br><br>→ Decisión sobre componentes del Design System v3 (sin resolver)<br>→ Roberto iba a investigar el costo de la integración con Transbank<br>→ María Paz iba a compartir hallazgos del research antes del viernes<br><br>¿Quieres llevar algo preparado sobre alguno de estos puntos?'+MEETING_SOURCE,
+        1500,
+        ['Sí, ayúdame a prepararme','No, ya estoy lista'],
+        true
+      );
+    });
+  }
+
+  function renderMorningCard(){
+    const stack=proactiveStack();
+    if(!stack||$('#empMorningCard'))return;
+    sessionStorage.setItem('morningShown','1');
+    const card=document.createElement('div');
+    card.className='hilo-proactive-card morning';
+    card.id='empMorningCard';
+    card.innerHTML=`
+      <div class="hilo-proactive-head">
+        <div class="hilo-proactive-meta">Hilo · esta mañana</div>
+        <button type="button" class="hilo-proactive-dismiss" aria-label="Cerrar" data-dismiss-morning>×</button>
+      </div>
+      <div class="hilo-proactive-body">
+        <div class="hilo-avatar-sm">H</div>
+        <div class="msg-bubble">Buenos días Sofía ☀️<br><br>Tienes 3 cosas para hoy:<br>→ Reunión Planning Q3 a las 10:00<br>→ Tarea pendiente: Conocer a Roberto<br>→ Check-in del lunes (cuando quieras)<br><br>¿Por dónde quieres empezar?</div>
+      </div>
+      <div class="hilo-proactive-pills">
+        <button type="button" class="quick-pill" data-proactive="morning-meeting">Ver reunión</button>
+        <button type="button" class="quick-pill" data-proactive="morning-task">Tarea pendiente</button>
+        <button type="button" class="quick-pill" data-proactive="morning-checkin">Hacer check-in ahora</button>
+      </div>`;
+    stack.appendChild(card);
+    card.querySelector('[data-dismiss-morning]')?.addEventListener('click',dismissMorningCard);
+    wireCardPills(card,async(action)=>{
+      dismissMorningCard();
+      if(action==='morning-meeting'){
+        meetingFlow='points';
+        await hiloResponde(
+          'De la reunión del martes 8 de mayo quedaron 3 puntos sin resolver:<br><br>→ Decisión sobre componentes del Design System v3 (sin resolver)<br>→ Roberto iba a investigar el costo de la integración con Transbank<br>→ María Paz iba a compartir hallazgos del research antes del viernes<br><br>¿Quieres llevar algo preparado sobre alguno de estos puntos?'+MEETING_SOURCE,
+          1200,
+          ['Sí, ayúdame a prepararme','No, ya estoy lista'],
+          true
+        );
+        return;
+      }
+      if(action==='morning-task'){
+        switchScreen('onboarding');
+        setTimeout(()=>{
+          const tip=document.querySelector('#screen-onboarding .onboard-task-row.warn, #screen-onboarding .tl-item.active');
+          tip?.scrollIntoView({behavior:'smooth',block:'center'});
+        },250);
+        showToast('Tu tarea pendiente: Conocer a Roberto');
+        return;
+      }
+      if(action==='morning-checkin'){
+        switchScreen('onboarding');
+        setTimeout(()=>{
+          $('#checkinCard')?.scrollIntoView({behavior:'smooth',block:'center'});
+        },250);
+        showToast('Tu check-in está aquí ↓');
+      }
+    });
+  }
+
+  function initProactiveCards(){
+    if(sessionStorage.getItem('meetingShown')!=='1'){
+      renderMeetingCard();
+    }else{
+      maybeShowMorningCard();
+    }
+  }
+
+  // Hilo informa y sugiere.
+  // Las personas deciden. Siempre.
+  // Hilo NEVER sends messages without
+  // explicit user approval.
+  function showPriorityPreviewCard(){
+    const draft=PRIORITY_DRAFT;
+    const wrap=document.createElement('div');
+    wrap.className='msg hilo';
+    wrap.innerHTML=`<div class="hilo-avatar-sm">H</div><div>
+      <div class="priority-preview-card">
+        <div class="priority-preview-header">Mensaje que le enviaré a Carlos:</div>
+        <textarea class="priority-preview-ta" readonly>${draft}</textarea>
+        <div class="priority-preview-actions">
+          <button type="button" class="btn btn-primary btn-sm" data-priority-send>Enviar →</button>
+          <button type="button" class="btn btn-ghost btn-sm" data-priority-edit>Editar antes de enviar</button>
+        </div>
+      </div>
+      <div class="msg-time">Hilo · ${nowTime()}</div>
+    </div>`;
+    messages.appendChild(wrap);
+    animateIn(wrap);
+    scrollChat();
+
+    const ta=wrap.querySelector('.priority-preview-ta');
+    const editBtn=wrap.querySelector('[data-priority-edit]');
+    const sendBtn=wrap.querySelector('[data-priority-send]');
+
+    editBtn?.addEventListener('click',()=>{
+      if(!ta)return;
+      ta.removeAttribute('readonly');
+      ta.focus();
+      editBtn.style.display='none';
+      if(sendBtn)sendBtn.textContent='Enviar →';
+    });
+
+    sendBtn?.addEventListener('click',async()=>{
+      if(busy)return;
+      // Hilo informa y sugiere.
+      // Las personas deciden. Siempre.
+      // Hilo NEVER sends messages without
+      // explicit user approval.
+      sendBtn.disabled=true;
+      if(editBtn)editBtn.disabled=true;
+      if(ta)ta.setAttribute('readonly','');
+      priorityFlow=null;
+      await hiloResponde('Listo. Le avisé a Carlos.<br>Él decidirá cómo seguir.',600,null,true);
+      showToast('Mensaje enviado a Carlos Herrera ✓');
+    });
+  }
+
+  function empathyReply(text){
+    const t=text.toLowerCase();
+    if(empathyStep==='ask_source'){
+      if(t.includes('trabajo')){
+        empathyStep='ask_work';
+        return {reply:'¿Algo con alguien del equipo o más con la carga de trabajo?',pills:['Con alguien','Mucho trabajo','Algo distinto'],delay:1500,skipFollowUp:true};
+      }
+      empathyStep='free';
+      return {reply:'Gracias por contarme.<br>Eso que describes suena difícil.<br><br>¿Hay algo que yo pueda hacer para ayudarte ahora mismo, aunque sea pequeño?',delay:1500,skipFollowUp:true};
+    }
+    if(empathyStep==='ask_work'){
+      if(t.includes('mucho trabajo')||t.includes('carga')){
+        empathyStep='free';
+        return {reply:'Eso es agotador. ¿Sientes que es puntual de esta semana o llevas un tiempo así?',delay:1500,skipFollowUp:true};
+      }
+      empathyStep='free';
+      return {reply:'Gracias por contarme.<br>Eso que describes suena difícil.<br><br>¿Hay algo que yo pueda hacer para ayudarte ahora mismo, aunque sea pequeño?',delay:1500,skipFollowUp:true};
+    }
+    if(empathyStep==='free'){
+      empathyStep='offer_rrhh';
+      return {reply:'¿Quieres que quede registrado esto para que RRHH pueda ayudar? Puede ser anónimo si prefieres. Tú decides.',pills:['Sí, avisar a RRHH →','No, solo quería contarlo'],delay:1200,skipFollowUp:true};
+    }
+    if(empathyStep==='offer_rrhh'){
+      if(t.includes('avisar')||t.includes('rrhh')||(/^sí\b/.test(t)||/^si\b/.test(t))){
+        empathyStep=null;
+        return {reply:'Listo. Quedó registrado para RRHH. Puedes elegir que sea anónimo desde Reportar algo a RRHH si prefieres.<br><br>Cuídate. Estoy acá si necesitas hablar otra vez.',delay:1200,skipFollowUp:true};
+      }
+      if(t.includes('no')||t.includes('solo quería')||t.includes('solo queria')){
+        empathyStep=null;
+        return {reply:'Perfecto. Aquí queda entre tú y yo.<br>Cuídate este fin de semana 🙌',delay:1200,skipFollowUp:true};
+      }
+      return {reply:'¿Quieres que quede registrado esto para que RRHH pueda ayudar? Puede ser anónimo si prefieres. Tú decides.',pills:['Sí, avisar a RRHH →','No, solo quería contarlo'],delay:1200,skipFollowUp:true};
+    }
+    return null;
+  }
+
+  function startEmpathyFlow(){
+    empathyStep='ask_source';
+    lastCheckin='bad';
+    localStorage.setItem('hiloLastCheckin','bad');
+    clearPills();
+    return hiloResponde(
+      'Oye. ¿Qué pasó?<br><br>No tienes que contarme si no quieres. Pero si hay algo que te tenga así, estoy aquí para escucharte.<br><br>¿Fue algo del trabajo o de afuera?',
+      1500,
+      ['Del trabajo','De afuera'],
+      true
+    ).then(()=>{
+      if(pillsEl){
+        const hint=document.createElement('p');
+        hint.style.cssText='width:100%;font-size:11px;color:var(--text-muted);margin:4px 0 0';
+        hint.textContent='O escríbeme lo que quieras';
+        pillsEl.appendChild(hint);
+      }
+    });
+  }
+
+  function isPriorityTrigger(t){
+    return ['prioridad','prioridades','cambió','cambio','cambiaron','urgente','nuevo proyecto','dejar','pausar'].some(k=>t.includes(k));
+  }
+
+  function isMeetingTrigger(t){
+    return ['reunión','reunion','reuniones','meeting','juntaron','se habló','se hablo','qué se decidió','que se decidio','no pude ir','no estuve','faltó','falto','falté','falte','faltaste'].some(k=>t.includes(k));
+  }
+
+  function meetingMissed(t){
+    return ['no pude ir','no estuve','faltó','falto','falté','falte','faltaste'].some(k=>t.includes(k));
+  }
+
+  function topicKey(t){
+    if(t.includes('design')||t.includes('sistema'))return 'design system';
+    if(t.includes('transbank'))return 'transbank';
+    if(t.includes('research')||t.includes('research'))return 'research';
+    if(t.includes('mobile')||t.includes('móvil')||t.includes('movil'))return 'mobile';
+    return null;
+  }
+
+  function empleadoReply(text){
+    if(empathyStep){
+      const em=empathyReply(text);
+      if(em)return em;
+    }
+    const t=text.toLowerCase();
+
+    if(priorityFlow==='ask'){
+      if(t.includes('yo lo coordino')||t.includes('coordino con él')||t.includes('coordino con el')){
+        priorityFlow=null;
+        pendingFollowUp=true;
+        pendingFollowUpMessage='¿Pudiste hablar con Carlos sobre el cambio de prioridades?';
+        pendingFollowUpDays=2;
+        return {reply:'Perfecto. Queda entre tú y yo.<br>Si en 2 días no lo han hablado, te recuerdo 🙂',delay:800,skipFollowUp:true};
+      }
+      if(t.includes('cuéntale tú')||t.includes('cuentale tu')||t.includes('cuéntale tu')||t.includes('cuentale tú')){
+        priorityFlow=null;
+        return {reply:null,delay:1000,skipFollowUp:true,showPriorityCard:true};
+      }
+    }
+
+    if(meetingFlow==='points'){
+      if(t.includes('no, ya estoy')||t.includes('ya estoy lista')||t.includes('ya estoy listo')){
+        meetingFlow=null;
+        dismissMeetingCard();
+        return {reply:'Perfecto. ¡Suerte en la reunión! 🙌',delay:600,skipFollowUp:true};
+      }
+      if(t.includes('ayúdame')||t.includes('ayudame')||t.includes('prepararme')){
+        meetingFlow='pick';
+        return {reply:'¿Sobre cuál de los tres puntos quieres preparar algo?',pills:['Design System','Transbank','Research'],delay:1000,skipFollowUp:true};
+      }
+    }
+
+    if(meetingFlow==='pick'||meetingFlow==='topic'){
+      const key=topicKey(t);
+      if(key&&TOPIC_CONTEXT[key]){
+        meetingFlow=null;
+        dismissMeetingCard();
+        return {reply:TOPIC_CONTEXT[key]+MEETING_SOURCE,delay:1200,skipFollowUp:true};
+      }
+    }
+
+    if(t.includes('mejor que el viernes')){
+      lastCheckin='good';
+      localStorage.setItem('hiloLastCheckin','good');
+      return {reply:'Me alegra oírlo. Si en algún momento se pone pesado otra vez, avísame.'};
+    }
+    if(t.includes('más o menos')||t.includes('mas o menos')||t.includes('todavía pesada')||t.includes('todavia pesada')){
+      empathyStep='ask_source';
+      return {reply:'Oye. ¿Qué pasó?<br><br>No tienes que contarme si no quieres. Pero si hay algo que te tenga así, estoy aquí para escucharte.<br><br>¿Fue algo del trabajo o de afuera?',pills:['Del trabajo','De afuera'],delay:1500,skipFollowUp:true};
+    }
+
+    if(isPriorityTrigger(t)){
+      priorityFlow='ask';
+      return {
+        reply:'Entendido. Eso es un cambio importante.<br><br>¿Cómo prefieres manejarlo con Carlos?',
+        pills:['Yo lo coordino con él','Cuéntale tú, por favor'],
+        delay:1200,
+        skipFollowUp:true
+      };
+    }
+
+    if(isMeetingTrigger(t)){
+      if(meetingMissed(t)){
+        return {
+          reply:'Sin problema, te pongo al día.<br><br>La reunión duró 45 minutos.<br>Estuvieron Carlos, María Paz, Roberto y Diego.<br><br>Los puntos principales:<br><br>→ Se priorizó el flujo mobile del onboarding sobre el desktop<br>→ Roberto presentó avance de Transbank — va al 60%, listo para el viernes<br>→ Carlos preguntó por el estado del Design System<br><br>⚠️ Este último punto te involucra.<br>Quedó pendiente que tú presentes un avance la próxima semana.<br><br>¿Quieres más detalle sobre algún punto?'+MEETING_SOURCE,
+          pills:['Design System','Transbank','Mobile'],
+          delay:1400,
+          skipFollowUp:true,
+          setMeetingPick:true
+        };
+      }
+      return {
+        reply:'Te cuento lo más relevante de esa reunión.<br><br>→ Se priorizó el flujo mobile del onboarding sobre el desktop<br>→ Roberto presentó avance de Transbank — va al 60%<br>→ Carlos preguntó por el Design System (te involucra)<br><br>¿Hay algún punto específico sobre el que quieras más contexto?'+MEETING_SOURCE,
+        pills:['Design System','Transbank','Mobile'],
+        delay:1400,
+        skipFollowUp:true,
+        setMeetingPick:true
+      };
+    }
+
+    const tk=topicKey(t);
+    if(tk&&TOPIC_CONTEXT[tk]&&(t.includes('design')||t.includes('transbank')||t.includes('research')||t.includes('mobile')||t.includes('sistema'))){
+      return {reply:TOPIC_CONTEXT[tk]+MEETING_SOURCE,delay:1200,skipFollowUp:true};
+    }
+
+    const map=[
+      {keys:['no entiendo','no sé','no se','confundida','confundido'],reply:'Normal que eso no sea claro todavía. No llevas tanto tiempo aquí.<br><br>Lo que sé sobre ese proceso es:<br>el de aprobación tiene 3 etapas — diseño, PM y negocio si afecta métricas.<br><br>¿Eso ayuda o quedó más confuso?'},
+      {keys:['difícil','cuesta','complicado','dificil'],reply:'Eso que describes suena complicado.<br>¿Es algo con la tarea en sí o hay algo más detrás?'},
+      {keys:['sola','solo','nadie me ayuda'],reply:'Eso es difícil de sentir, especialmente al principio.<br><br>¿Hay alguien en tu equipo con quien hayas conectado más hasta ahora?'},
+      {keys:['cansada','cansado','agotada','agotado'],reply:'Tiene sentido. Has tenido mucho que procesar estas semanas.<br><br>¿Cómo estás fuera del trabajo? A veces el cansancio viene de varios lados.'},
+      {keys:['gracias','muchas gracias'],reply:'Para eso estoy 🙌<br>¿Hay algo más?'},
+      {keys:['aprobación','aprobar','aprobacion'],reply:'Te cuento lo que sé del proceso de aprobación:<br><br>1. Review del equipo de diseño<br>2. Aprobación del PM (Carlos)<br>3. Sign-off de negocio si afecta métricas<br><br>Lo aprendí de Gabriela, que estuvo en tu rol antes. Carlos prefiere ver el problema antes que la solución — te ahorra tiempo si vas con el contexto primero.<br><br>¿Quieres que te diga algo más de eso?'},
+      {keys:['onboarding','tareas','plan'],reply:'Tu plan tiene 4 semanas. Esta semana te quedan tres cosas:<br><br>· Reunión con María Paz<br>· Conocer a Roberto<br>· Leer la guía del Design System v3<br><br>¿Quieres que te ayude a agendar alguna?'},
+      {keys:['carlos','manager','jefe'],reply:'Carlos es tu Head of Product. Lo que me han contado del equipo:<br><br>→ Prefiere reuniones cortas (15-20 min)<br>→ Mejor mostrar el problema antes que la solución<br>→ Los viernes después de las 15h respeta el foco<br><br>¿Quieres saber algo más sobre él?'},
+      {keys:['proyecto','jira','trabajo'],reply:'Vi en Jira tres proyectos activos en tu equipo:<br><br>· Design System v3 — tu área<br>· Integración Transbank — Roberto<br>· Research Q2 — María Paz<br><br>¿En cuál vas a estar tú?'},
+      {keys:['equipo','personas','gente'],reply:'Producto Digital son 8 personas. Para diseño, las más cercanas a ti:<br><br>→ María Paz — research<br>→ Roberto — frontend (implementa diseños)<br>→ Camila — PM<br><br>¿Buscas a alguien en particular?'},
+      {keys:['agencia','estudio forma','diseño externo','diseno externo'],reply:'La agencia es Estudio Forma. Contacto: Valentina Ruiz.<br><br>Un dato que Gabriela dejó: necesitan el brief con 5 días de anticipación, no 3. Con menos tiempo la calidad baja.<br><br>¿Te sirve eso?'},
+      {keys:['pregunta'],reply:'Cuéntame. Pregúntame lo que quieras — para eso estoy.'}
+    ];
+    const hit=matchKeywords(text,map);
+    if(hit)return {reply:hit.reply};
+    return {reply:'No tengo algo preciso sobre eso todavía. Voy aprendiendo a medida que la gente me cuenta cosas.<br><br>¿Hay otra forma de preguntarlo, o algo más en lo que te pueda ayudar?'};
+  }
+
+  function managerReply(text){
+    const t=text.toLowerCase();
+    if(t.includes('roberto')||t.includes('ver a roberto')){
+      return {reply:'Roberto lleva la integración con Transbank. Tiene conocimiento de pagos que todavía no está bien documentado en Hilo.<br><br>No es urgente, pero sí preventivo: una conversación corta esta semana ayudaría antes de que haga falta.<br><br>¿Le agendamos una sesión de documentación?',pills:['Sí, agendar →','Más info primero']};
+    }
+    if(t.includes('sí, agendar')||t.includes('si, agendar')||t.includes('agendar')){
+      return {reply:'Te sugiero miércoles o jueves, unos 20 minutos.<br>¿Quieres que prepare las preguntas para Roberto sobre Transbank?',pills:['Sí, prepáralas →','Yo lo gestiono']};
+    }
+    if(t.includes('prepáralas')||t.includes('preparalas')){
+      return {reply:'Voy con estas tres:<br><br>1. ¿Qué decisiones clave tomaste en Transbank?<br>2. ¿Qué timeouts o edge cases no están documentados?<br>3. ¿Quién más debería conocer este flujo?<br><br>Te aviso cuando la sesión esté lista.'};
+    }
+    if(t.includes('yo lo gestiono')||t.includes('más info')||t.includes('mas info')){
+      return {reply:'Dale. Cuando quieras, avísame y te ayudo a preparar la conversación.'};
+    }
+    if(t.includes('equipo completo')||t.includes('equipo')){
+      return {reply:'Tu equipo ahora:<br><br>🟢 María Paz · Camila · Javiera · Felipe H. · Matías<br>🟡 Sofía (día 15 de onboarding) · Diego (reporte pendiente)<br>🔴 Roberto (conocimiento Transbank)<br><br>¿De quién quieres más detalle?'};
+    }
+    if(t.includes('onboarding')){
+      return {reply:'Dos personas en onboarding:<br><br>· Sofía — día 15/90 · le faltan reuniones clave<br>· Matías — día 3/90 · va bien<br><br>¿Quieres que le sugiera horarios a Sofía?'};
+    }
+    if(t.includes('proyecto')||t.includes('jira')||t.includes('riesgo')||t.includes('conocimiento')){
+      return {reply:'Lo que leí en Jira y Linear:<br><br>· Sofía → Design System v3<br>· Roberto → Integración Transbank<br>· María Paz → Research Q2<br>· Diego → Dashboard analytics<br>· Camila → Roadmap Q3<br><br>Ojo: Roberto y el equipo de Felipe Ortiz se solapan en pagos. Lo vi en Jira de ambos.'};
+    }
+    return {reply:'Puedo ayudarte con el equipo, onboarding, proyectos o riesgos de conocimiento.<br><br>¿Sobre qué quieres mirar?'};
+  }
+
+  function adminReply(text){
+    const t=text.toLowerCase();
+    if(t.includes('roi')){
+      return {reply:'ROI estimado Q1: ~US$207k recuperados frente a ~US$17.7k de inversión.<br><br>Las tres fuentes grandes: rotación evitable, ramp-up de onboarding y menos retrabajo buscando información.<br><br>¿Quieres el desglose completo?'};
+    }
+    if(t.includes('riesgo')||t.includes('alerta')||t.includes('crítico')||t.includes('critico')){
+      return {reply:'Hay una alerta que vale la pena mirar:<br><br>Roberto Vargas — conocimiento de pagos parcialmente documentado.<br>Fuente: Jira, sin respaldo interno en Hilo.<br><br>¿Quieres que prepare una sugerencia de documentación?'};
+    }
+    if(t.includes('onboarding')){
+      return {reply:'5 personas en journey activo. Promedio: día 22/90.<br><br>Sofía necesita un empujón en reuniones clave; Matías va según plan.<br><br>¿Miramos el detalle por equipo?'};
+    }
+    if(t.includes('bienestar')||t.includes('adopción')||t.includes('adopcion')){
+      return {reply:'Adopción esta semana: 84%.<br><br>El bienestar detallado llega con Pulso Real (Fase 2). Hoy lo que ves son señales de onboarding y proyectos, no vigilancia de ánimo.'};
+    }
+    return {reply:'Puedo mostrarte ROI, riesgos, onboarding o adopción.<br><br>¿Qué quieres mirar?'};
+  }
+
+  function resolveReply(text){
+    if(role==='manager')return managerReply(text);
+    if(role==='admin')return adminReply(text);
+    return empleadoReply(text);
+  }
+
+  async function handleUserText(text){
+    if(!text||busy)return;
+    clearPills();
+    addUserMsg(text);
+    const result=resolveReply(text);
+    if(result.setMeetingPick)meetingFlow='pick';
+    if(result.showPriorityCard){
+      busy=true;
+      if(typingEl){
+        typingEl.style.display='flex';
+        messages.appendChild(typingEl);
+      }
+      scrollChat();
+      await new Promise(r=>setTimeout(r,result.delay||1000));
+      if(typingEl)typingEl.style.display='none';
+      busy=false;
+      showPriorityPreviewCard();
+      return;
+    }
+    if(result.reply!=null){
+      await hiloResponde(result.reply,result.delay||1200,result.pills,result.skipFollowUp);
+    }
+    if(result.pills&&result.pills.includes('Del trabajo')&&pillsEl){
+      const hint=document.createElement('p');
+      hint.style.cssText='width:100%;font-size:11px;color:var(--text-muted);margin:4px 0 0';
+      hint.textContent='O escríbeme lo que quieras';
+      pillsEl.appendChild(hint);
+    }
+  }
+
+  async function handlePill(label){
+    if(busy)return;
+    clearPills();
+    const clean=label.replace(/\s*→\s*$/,'').trim();
+    await handleUserText(clean||label);
+  }
+
   function submit(){
     const text=input.value.trim();
-    if(!text)return;
-    addMsg(text,true);
+    if(!text||busy)return;
     input.value='';
-    respond();
+    handleUserText(text);
   }
+
   send.addEventListener('click',submit);
-  input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();submit();}});
+  input.addEventListener('keydown',e=>{
+    if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();submit();}
+  });
+
+  if(pillsEl){
+    pillsEl.querySelectorAll('.quick-pill').forEach(btn=>{
+      if(btn.dataset.wired)return;
+      btn.dataset.wired='1';
+      btn.addEventListener('click',()=>handlePill(btn.dataset.pill||btn.textContent));
+    });
+  }
+
+  if(role==='empleado'){
+    hiloEmpChat={startEmpathyFlow,hiloResponde,clearPills,showPills,initProactiveCards};
+    if(pendingEmpathyStart){
+      pendingEmpathyStart=false;
+      setTimeout(()=>startEmpathyFlow(),400);
+    }
+  }
+}
+
+function setupCheckin(){
+  const mondayLabels=[
+    'Lunes 9:00am ✓ · Buenos días Sofía 👋 ¿Cómo llegaste al lunes?',
+    'Lunes 9:00am ✓ · Hola Sofía. Nueva semana. ¿Cómo estás llegando a ella?',
+    'Lunes 9:00am ✓ · Sofía, buenos días. ¿Cómo se siente este lunes?'
+  ];
+  const mondayEl=$('#mondayCheckinLabel');
+  if(mondayEl)mondayEl.textContent=mondayLabels[Math.floor(Math.random()*mondayLabels.length)];
+
+  const picker=$('#fridayMoodPicker');
+  if(!picker)return;
+  picker.querySelectorAll('.mood-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      picker.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
+      const mood=btn.dataset.mood;
+      const block=$('#fridayCheckinBlock');
+      const hint=$('#fridayCheckinHint');
+
+      if(mood==='good'){
+        lastCheckin='good';
+        localStorage.setItem('hiloLastCheckin','good');
+        if(hint)hint.textContent='Me alegra. ¿Hay algo en lo que quieras enfocarte esta semana?';
+        showToast('Check-in guardado · privado ✓');
+      }else if(mood==='neutral'){
+        lastCheckin='neutral';
+        localStorage.setItem('hiloLastCheckin','neutral');
+        if(hint)hint.textContent='Mondays... entendido 😄 ¿Algo en lo que pueda ayudarte a arrancar?';
+        showToast('Check-in guardado · privado ✓');
+      }else if(mood==='bad'){
+        lastCheckin='bad';
+        localStorage.setItem('hiloLastCheckin','bad');
+        if(block){
+          block.innerHTML='<div style="font-size:12px;color:var(--text-secondary);margin-bottom:6px">Viernes 12:00pm · ¿Cómo estuvo tu semana?</div><div style="font-size:18px;margin-top:4px">😔 Difícil</div><p style="font-size:12px;color:var(--text-secondary);margin-top:8px;line-height:1.5">Hilo quiere escucharte. Te llevo al chat.</p>';
+        }
+        pendingEmpathyStart=true;
+        const go=()=>{
+          switchScreen('chat');
+          if(hiloEmpChat)hiloEmpChat.startEmpathyFlow();
+        };
+        if(currentRole!=='normal'){
+          switchRole('normal');
+          setTimeout(go,350);
+        }else setTimeout(go,200);
+      }
+    });
+  });
 }
 
 function setupChat(){
-  setupChatPanel({messages:'#chatMessages',input:'#chatInput',send:'#chatSend',userLabel:'Sofía'});
-  setupChatPanel({messages:'#chatMessagesMgr',input:'#chatInputMgr',send:'#chatSendMgr',userLabel:'Carlos'});
-  setupChatPanel({messages:'#chatMessagesAdmin',input:'#chatInputAdmin',send:'#chatSendAdmin',userLabel:'Ana'});
+  setupChatPanel({
+    role:'empleado',
+    messages:'#chatMessages',
+    input:'#chatInput',
+    send:'#chatSend',
+    typing:'#hiloTypingEmp',
+    pills:'#chatActions',
+    voiceHint:'#voiceHintEmp',
+    userLabel:'Sofía',
+    placeholders:[
+      '¿Cómo funciona el proceso de aprobación?',
+      '¿Quién sabe de integraciones en Tectonic?',
+      '¿Qué se espera de mí esta semana?',
+      '¿Cómo prefiere trabajar Carlos?',
+      'Pregúntame lo que quieras...'
+    ]
+  });
+  setupChatPanel({
+    role:'manager',
+    messages:'#chatMessagesMgr',
+    input:'#chatInputMgr',
+    send:'#chatSendMgr',
+    typing:'#hiloTypingMgr',
+    pills:'#chatActionsMgr',
+    voiceHint:'#voiceHintMgr',
+    userLabel:'Carlos',
+    placeholders:[
+      '¿Cómo está mi equipo hoy?',
+      '¿Quién tiene conocimiento en riesgo?',
+      '¿En qué proyecto está cada uno?',
+      '¿Cuándo debo hablar con Roberto?'
+    ]
+  });
+  setupChatPanel({
+    role:'admin',
+    messages:'#chatMessagesAdmin',
+    input:'#chatInputAdmin',
+    send:'#chatSendAdmin',
+    typing:'#hiloTypingAdmin',
+    pills:'#chatActionsAdmin',
+    voiceHint:'#voiceHintAdmin',
+    userLabel:'Ana',
+    placeholders:[
+      '¿Cuál es el ROI de Hilo este mes?',
+      '¿Qué equipos tienen bajo bienestar?',
+      '¿Hay conocimiento crítico sin documentar?'
+    ]
+  });
+  setupCheckin();
 }
 
 function setupRrhhModal(){
@@ -3814,7 +4802,8 @@ function init(){
     });
   });
   $$('.mood-btn').forEach(btn=>{
-    btn.addEventListener('click',()=>{$$('.mood-btn').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');});
+    if(btn.closest('#fridayMoodPicker'))return;
+    btn.addEventListener('click',()=>{$$('.mood-btn').forEach(b=>{if(!b.closest('#fridayMoodPicker'))b.classList.remove('selected');});btn.classList.add('selected');});
   });
   $('#insightToChat')?.addEventListener('click',()=>switchScreen('chat'));
   $$('.person-suggest').forEach(el=>{

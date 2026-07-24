@@ -604,6 +604,10 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
 .focus-panel{transition:opacity 150ms ease}
 .focus-panel.is-exit{opacity:0;pointer-events:none}
 .focus-panel.is-hidden{display:none}
+.focus-daily-label{display:flex;align-items:center;gap:6px;font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:10px}
+.focus-daily-label svg{flex-shrink:0;color:var(--text-muted)}
+.focus-daily-divider{height:0;border:none;border-top:0.5px solid var(--border);margin:0 0 12px}
+.focus-daily-meta{font-family:var(--font-body);font-size:11px;color:var(--text-muted);margin-bottom:6px;line-height:1.3}
 .focus-later-note{font-family:var(--font-body);font-size:11px;color:var(--text-muted);margin-top:8px;line-height:1.4}
 .focus-collapsed-row{display:flex;align-items:center;gap:10px;min-height:24px}
 .focus-collapsed-row .focus-collapsed-text{flex:1;min-width:0;font-family:var(--font-body);font-size:13px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -1007,13 +1011,11 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
         <div class="home-focus-wrap" id="homeFocusWrap">
           <div class="hilo-proactive-card focus focus-card-shell" id="homeFocusCard">
             <div class="focus-panel" id="homeFocusExpanded">
-              <div class="hilo-proactive-head">
-                <div class="hilo-proactive-meta strong">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--data-text)" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-                  Buenos días · Foco de hoy
-                </div>
-                <div class="hilo-proactive-right"><span>9:00 AM</span></div>
+              <div class="focus-daily-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                Daily · 10:00
               </div>
+              <hr class="focus-daily-divider">
               <div class="hilo-proactive-body">
                 <div class="hilo-avatar-sm">H</div>
                 <div class="msg-bubble">Sofía, ¿en qué vas a estar enfocada hoy? Una línea es suficiente.<br><br>Con esto, Carlos ya sabe en qué está el equipo antes de la daily. A veces ni hace falta tenerla.</div>
@@ -1030,6 +1032,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
               <p class="focus-later-note" id="homeFocusLaterNote">Podrás responder más tarde.</p>
             </div>
             <div class="focus-panel is-hidden" id="homeFocusAnswered" aria-hidden="true">
+              <div class="focus-daily-meta">Daily · 10:00 ✓</div>
               <div class="focus-collapsed-row">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="flex-shrink:0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                 <span class="focus-collapsed-text answered" id="homeFocusAnsweredText">Foco de hoy:</span>
@@ -1037,6 +1040,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
               </div>
             </div>
             <div class="focus-panel is-hidden" id="homeFocusSkipped" aria-hidden="true">
+              <div class="focus-daily-meta">Daily · 10:00</div>
               <div class="focus-collapsed-row">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="flex-shrink:0"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                 <span class="focus-collapsed-text skipped">¿En qué vas a estar enfocada hoy?</span>

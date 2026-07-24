@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es" data-theme="light">
 <head>
-<script>try{var _t=localStorage.getItem('hiloTheme');if(_t)document.documentElement.setAttribute('data-theme',_t);}catch(e){}</script>
+<script>try{var _t=localStorage.getItem('hiloTheme');if(_t)document.documentElement.setAttribute('data-theme',_t);}catch(e){}try{if(localStorage.getItem('hiloSidebarCollapsed')==='true')document.documentElement.classList.add('sidebar-collapsed');}catch(e){}</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hilo — Inteligencia de Empleados</title>
@@ -59,7 +59,7 @@
 :root{
   --font-display:'Space Grotesk',sans-serif;--font-body:'Inter',sans-serif;--font-mono:'Space Mono',monospace;
   --radius-sm:6px;--radius-md:10px;--radius-lg:14px;--radius-xl:20px;--radius-full:100px;
-  --radius:var(--radius-lg);--sidebar-w:240px;--banner-h:32px;
+  --radius:var(--radius-lg);--sidebar-w:200px;--banner-h:32px;
   --ease:cubic-bezier(0.4,0,0.2,1);--shadow:0 8px 32px rgba(0,0,0,0.4);
 }
 *,*::before,*::after{
@@ -977,15 +977,89 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
+
+/* Arca company logo in sidebar */
+.arca-logo-block{background:var(--bg-hover);border-radius:var(--radius-md);padding:8px 10px;margin-bottom:12px;margin-left:12px;margin-right:12px;margin-top:12px;display:flex;align-items:center;gap:8px;flex-shrink:0}
+.arca-logo-name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--text-primary)}
+.arca-logo-badge{font-family:var(--font-body);font-size:9px;color:var(--text-muted)}
+.arca-logo-svg{flex-shrink:0}
+html.sidebar-collapsed .arca-logo-block{justify-content:center;padding:8px;margin:12px 8px 8px;gap:0}
+html.sidebar-collapsed .arca-logo-text{display:none}
+
+/* Hilo character above theme toggle */
+.hilo-sidebar-char{padding:8px 0 4px;display:flex;justify-content:center}
+.hilo-sidebar-char img{width:68px;height:auto;display:block;filter:drop-shadow(0 4px 12px rgba(0,212,160,0.18));transition:transform 300ms ease;cursor:default}
+.hilo-sidebar-char img:hover{transform:scale(1.06) translateY(-3px)}
+html.sidebar-collapsed .hilo-sidebar-char{display:none}
+
+/* Collapsible sidebar */
+.sidebar{position:relative;transition:width 250ms ease;overflow:visible}
+.sidebar-toggle{position:absolute;top:16px;right:-12px;width:24px;height:24px;background:var(--bg-card);border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:100;transition:all 150ms ease;padding:0;color:var(--text-secondary)}
+.sidebar-toggle:hover{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.sidebar-toggle .chev-right{display:none}
+html.sidebar-collapsed .sidebar-toggle .chev-left{display:none}
+html.sidebar-collapsed .sidebar-toggle .chev-right{display:block}
+html.sidebar-collapsed{--sidebar-w:60px}
+html.sidebar-collapsed .logo{display:none}
+html.sidebar-collapsed .sidebar-ia-badge{display:none}
+html.sidebar-collapsed .nav{padding:8px 6px}
+html.sidebar-collapsed .nav-item{justify-content:center;padding:10px 0;gap:0;border-left-color:transparent;position:relative}
+html.sidebar-collapsed .nav-item:hover,html.sidebar-collapsed .nav-item.active{padding-left:0;border-left-color:transparent}
+html.sidebar-collapsed .nav-item svg{width:20px;height:20px}
+html.sidebar-collapsed .nav-label,html.sidebar-collapsed .nav-badge{opacity:0;width:0;overflow:hidden;pointer-events:none;position:absolute}
+.nav-item .nav-tip{display:none}
+html.sidebar-collapsed .nav-item .nav-tip{display:block;position:fixed;left:68px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:5px 12px;font-family:var(--font-body);font-size:12px;color:var(--text-primary);white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,0.08);pointer-events:none;z-index:1000;opacity:0;transition:opacity 150ms ease}
+html.sidebar-collapsed .nav-item:hover .nav-tip{opacity:1}
+html.sidebar-collapsed .sidebar-footer{padding:12px 8px}
+html.sidebar-collapsed #themeToggle{justify-content:center;padding:8px;gap:0}
+html.sidebar-collapsed #themeToggle .theme-label{display:none}
+html.sidebar-collapsed .sidebar-tutorial-row span:not(.chev),html.sidebar-collapsed .sidebar-tutorial-row .chev{display:none}
+html.sidebar-collapsed .sidebar-tutorial-row{justify-content:center;padding:8px}
+html.sidebar-collapsed .user-info{display:none}
+html.sidebar-collapsed .user-card{justify-content:center}
+
+/* Company identity (config) */
+.identity-section-label{font-size:11px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;font-weight:600}
+.identity-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px;margin-bottom:16px}
+.identity-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.identity-col-label{font-size:10px;color:var(--text-muted);margin-bottom:8px}
+.identity-logo-preview{width:72px;height:72px;background:var(--bg-surface);border:1.5px solid var(--border);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+.identity-logo-preview svg{width:36px;height:36px}
+.identity-preview-name{font-family:var(--font-body);font-size:12px;font-weight:500;color:var(--text-primary)}
+.identity-preview-sub{font-family:var(--font-body);font-size:10px;color:var(--text-muted);margin-top:2px}
+.identity-dropzone{border:1.5px dashed var(--border-accent);border-radius:var(--radius-md);padding:20px 16px;text-align:center;cursor:pointer;transition:background 150ms ease;background:transparent}
+.identity-dropzone:hover{background:var(--accent-soft)}
+.identity-dropzone-title{font-family:var(--font-body);font-size:12px;color:var(--text-secondary);margin-top:8px}
+.identity-dropzone-hint{font-size:10px;color:var(--text-muted);margin-top:4px}
+.identity-note{border-top:0.5px solid var(--border);padding-top:10px;margin-top:10px;display:flex;align-items:flex-start;gap:6px;font-family:var(--font-body);font-size:10px;color:var(--text-muted);line-height:1.45}
+.identity-name-row{display:flex;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap}
+.identity-name-row label{font-size:11px;color:var(--text-muted)}
+.identity-name-row input{padding:6px 10px;border:1px solid var(--border);border-radius:var(--radius-md);font-family:var(--font-body);font-size:13px;width:160px;background:var(--bg-surface);color:var(--text-primary)}
+@media(max-width:700px){.identity-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
-<div class="demo-banner">🎯 Modo Demo · Despliegue privado · Datos ficticios de Tectonic · Selector ↘</div>
+<div class="demo-banner">🎯 Modo Demo · Despliegue privado · Datos ficticios de Arca · Selector ↘</div>
 <button type="button" class="mobile-theme-btn" id="themeToggleMobile" aria-label="Cambiar tema">
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
 <div class="app">
   <aside class="sidebar" id="sidebar">
+    <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Colapsar menú" title="Colapsar menú">
+      <svg class="chev-left" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+      <svg class="chev-right" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <div class="arca-logo-block">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" class="arca-logo-svg" aria-hidden="true">
+        <rect x="3" y="14" width="22" height="12" rx="2" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+        <path d="M3 14 Q3 3 14 3 Q25 3 25 14" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+      </svg>
+      <div class="arca-logo-text">
+        <div class="arca-logo-name">Arca</div>
+        <div class="arca-logo-badge">Plan Hilo+</div>
+      </div>
+    </div>
     <div class="logo">
       <span class="logo-text">Hi<em>lo</em></span>
       <svg class="logo-mark" width="28" height="20" viewBox="0 0 28 20" fill="none"><circle cx="4" cy="10" r="3" fill="currentColor"/><circle cx="14" cy="4" r="3" fill="currentColor"/><circle cx="24" cy="10" r="3" fill="currentColor"/><path d="M7 10 Q14 2 21 10" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
@@ -993,6 +1067,9 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
     <p class="sidebar-ia-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Despliegue privado · Soberanía de datos</p>
     <nav class="nav" id="mainNav"></nav>
     <div class="sidebar-footer">
+      <div class="hilo-sidebar-char">
+        <img src="hilo-cover.png" alt="Hilo"/>
+      </div>
       <button type="button" id="themeToggle" aria-label="Cambiar tema">
         <span class="sun-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
         <span class="moon-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
@@ -1027,7 +1104,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
       <!-- EMPLEADO: Mi día -->
       <section class="screen active" id="screen-onboarding" data-screen="onboarding">
         <h1>Buenos días, Sofía 👋</h1>
-        <p class="page-sub">Estás en el día 15 de tu journey en Tectonic. Vas muy bien.</p>
+        <p class="page-sub">Estás en el día 15 de tu journey en Arca. Vas muy bien.</p>
         <div class="progress-meta hover-none"><span>15 / 90 días</span><span>17% completado</span></div>
         <div class="progress-bar hover-none"><div class="progress-fill" style="width:17%"></div></div>
         <p class="hover-none" style="font-size:12px;color:var(--text-secondary);margin-bottom:20px">En promedio, los Product Designers son productivos al 100% en el mes 3 con Hilo.</p>
@@ -1148,7 +1225,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             <div class="card hover-none">
               <h3>Tu journey — 90 días</h3>
               <div class="timeline" style="margin-top:16px">
-                <div class="tl-item active hover-subtle"><div class="tl-dot"></div><div class="tl-title">Semanas 1–2 · Conocer</div><div class="tl-desc">Conocer el equipo, las herramientas y cómo trabajan en Tectonic.</div><div class="progress-meta" style="margin-top:8px"><span>3/4 tareas completadas</span></div><div class="progress-bar" style="height:4px"><div class="progress-fill" style="width:75%"></div></div></div>
+                <div class="tl-item active hover-subtle"><div class="tl-dot"></div><div class="tl-title">Semanas 1–2 · Conocer</div><div class="tl-desc">Conocer el equipo, las herramientas y cómo trabajan en Arca.</div><div class="progress-meta" style="margin-top:8px"><span>3/4 tareas completadas</span></div><div class="progress-bar" style="height:4px"><div class="progress-fill" style="width:75%"></div></div></div>
                 <div class="tl-item hover-subtle"><div class="tl-dot" style="background:var(--bg-hover);border-color:var(--border)"></div><div class="tl-title" style="color:var(--text-secondary)">Semanas 3–4 · Entender</div><div class="tl-desc">Primer proyecto real. Entender el producto y los usuarios.</div></div>
                 <div class="tl-item hover-subtle"><div class="tl-dot" style="background:var(--bg-hover);border-color:var(--border)"></div><div class="tl-title" style="color:var(--text-muted)">Mes 2 · Contribuir</div><div class="tl-desc">Primera entrega independiente.</div></div>
                 <div class="tl-item hover-subtle"><div class="tl-dot" style="background:var(--bg-hover);border-color:var(--border)"></div><div class="tl-title" style="color:var(--text-muted)">Mes 3 · Liderar</div><div class="tl-desc">Proponer mejoras. Ser referente.</div></div>
@@ -1179,14 +1256,14 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
         <div class="chat-layout">
           <div class="chat-header">
             <div style="display:flex;align-items:center;gap:8px"><h2 style="margin:0">Hilo IA</h2><span style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></span><span style="font-size:12px;color:var(--accent-text)">En línea</span></div>
-            <p style="font-size:13px;color:var(--text-secondary);margin-top:4px">Pregúntame lo que quieras sobre Tectonic. Todo es completamente privado.</p>
+            <p style="font-size:13px;color:var(--text-secondary);margin-top:4px">Pregúntame lo que quieras sobre Arca. Todo es completamente privado.</p>
           </div>
           <div class="chat-messages" id="chatMessages">
             <div class="hilo-proactive-stack" id="empProactiveStack"></div>
             <div class="msg hilo" id="empOpenerMsg">
               <div class="hilo-avatar-sm">H</div>
               <div>
-                <div class="msg-bubble" id="empOpenerBubble">Hola Sofía 👋<br><br>Bienvenida a Tectonic. Sé que el primer día puede ser un poco abrumador, así que quería presentarme.<br><br>Soy Hilo. Soy tu asistente acá dentro. Puedes preguntarme lo que sea, cuando sea, sin sentirte tonta por preguntar. No existe la pregunta obvia acá.<br><br>Ya leí sobre tu equipo antes de que llegaras. ¿Hay algo que quieras saber antes de empezar?</div>
+                <div class="msg-bubble" id="empOpenerBubble">Hola Sofía 👋<br><br>Bienvenida a Arca. Sé que el primer día puede ser un poco abrumador, así que quería presentarme.<br><br>Soy Hilo. Soy tu asistente acá dentro. Puedes preguntarme lo que sea, cuando sea, sin sentirte tonta por preguntar. No existe la pregunta obvia acá.<br><br>Ya leí sobre tu equipo antes de que llegaras. ¿Hay algo que quieras saber antes de empezar?</div>
                 <div class="msg-time">Hilo · ahora</div>
               </div>
             </div>
@@ -1298,7 +1375,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             <div class="msg hilo">
               <div class="hilo-avatar-sm">H</div>
               <div>
-                <div class="msg-bubble">Hola Ana 👋<br><br>Resumen de Tectonic hoy:<br><br>📊 320 empleados activos<br>🟡 1 riesgo de conocimiento crítico<br>✅ 84% adopción de Hilo esta semana<br>💰 ROI estimado Q1: $207k USD<br><br>¿Qué quieres mirar primero?</div>
+                <div class="msg-bubble">Hola Ana 👋<br><br>Resumen de Arca hoy:<br><br>📊 320 empleados activos<br>🟡 1 riesgo de conocimiento crítico<br>✅ 84% adopción de Hilo esta semana<br>💰 ROI estimado Q1: $207k USD<br><br>¿Qué quieres mirar primero?</div>
                 <div class="msg-time">Hilo · ahora</div>
               </div>
             </div>
@@ -1338,7 +1415,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
       <!-- EMPLEADO/HR: Mapa Conocimiento -->
       <section class="screen" id="screen-mapa" data-screen="mapa">
         <h1>Mapa de Conocimiento</h1>
-        <p class="page-sub">Encuentra quién sabe qué en Tectonic. 47 personas registradas.</p>
+        <p class="page-sub">Encuentra quién sabe qué en Arca. 47 personas registradas.</p>
         <div class="km-layout">
           <div class="km-main">
             <div class="km-search input-area">
@@ -1373,7 +1450,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
       <!-- ORGANIGRAMA -->
       <section class="screen" id="screen-organigrama" data-screen="organigrama">
         <h1>Organigrama</h1>
-        <p class="page-sub">Estructura de Tectonic · 320 personas · 12 equipos</p>
+        <p class="page-sub">Estructura de Arca · 320 personas · 12 equipos</p>
         <div class="card" style="text-align:center;padding:20px;margin-bottom:20px">
           <p style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Dirección</p>
           <p style="font-weight:600;font-size:16px">CEO · Dirección General</p>
@@ -1389,7 +1466,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
           <div class="profile-avatar" data-init="SM">SM</div>
           <div>
             <h1>Sofía Martínez</h1>
-            <p class="page-sub" style="margin:0">Product Designer · Producto Digital · Tectonic</p>
+            <p class="page-sub" style="margin:0">Product Designer · Producto Digital · Arca</p>
             <p style="font-size:13px;color:var(--text-secondary);margin-top:8px">Día 15 de 90 · Manager: Carlos Herrera</p>
           </div>
         </div>
@@ -1592,7 +1669,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
 
       <!-- HR: Vista Global -->
       <section class="screen" id="screen-vista-global" data-screen="vista-global">
-        <h1>Vista Global · Tectonic</h1>
+        <h1>Vista Global · Arca</h1>
         <p class="page-sub">320 personas · 12 equipos · 5 en onboarding activo</p>
         <div class="metrics-row">
           <div class="metric-card hover-subtle">
@@ -1632,14 +1709,14 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
           <button type="button" class="btn btn-data-outline btn-sm" id="btnOffboardingChat">Ver conversación →</button>
         </div>
         <p class="capture-note">Hilo ya conoce a Gabriela. Esta conversación captura lo que solo ella puede decir.</p>
-        <div class="search-wrap" style="margin-bottom:16px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><input type="text" placeholder="Buscar en la memoria de Tectonic..." style="width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:10px 14px 10px 40px;color:var(--text-primary)"></div>
+        <div class="search-wrap" style="margin-bottom:16px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><input type="text" placeholder="Buscar en la memoria de Arca..." style="width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:10px 14px 10px 40px;color:var(--text-primary)"></div>
         <div class="filter-pills" style="margin-bottom:16px"><button class="pill active">Todos</button><button class="pill">Tecnología</button><button class="pill">Producto</button><button class="pill">Procesos</button><button class="pill">Relaciones</button></div>
         <div class="memory-list" id="memoryList"></div>
       </section>
 
       <!-- HR: Analytics -->
       <section class="screen" id="screen-analytics" data-screen="analytics">
-        <h1>Analytics · Tectonic</h1>
+        <h1>Analytics · Arca</h1>
         <p class="page-sub">Últimos 90 días</p>
         <div class="chart-card" style="margin-bottom:16px"><h4>Estado del equipo — últimos 90 días</h4><div class="chart-wrap" style="height:200px"><canvas id="chartEstado"></canvas></div></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px">
@@ -1671,7 +1748,43 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
 
       <!-- HR: Config -->
       <section class="screen" id="screen-config" data-screen="config">
-        <h1>Configuración · Tectonic</h1>
+        <h1>Configuración · Arca</h1>
+        <div class="config-section" id="identitySection">
+          <div class="identity-section-label">Identidad de la empresa</div>
+          <div class="identity-card">
+            <div class="identity-grid">
+              <div>
+                <div class="identity-col-label">Logo actual</div>
+                <div class="identity-logo-preview" id="identityLogoPreview">
+                  <svg width="36" height="36" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect x="3" y="14" width="22" height="12" rx="2" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+                    <path d="M3 14 Q3 3 14 3 Q25 3 25 14" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+                  </svg>
+                </div>
+                <div class="identity-preview-name" id="identityPreviewName">Arca</div>
+                <div class="identity-preview-sub">Nombre visible para empleados</div>
+              </div>
+              <div>
+                <div class="identity-col-label">Subir nuevo logo</div>
+                <div class="identity-dropzone" id="logoDropzone" role="button" tabindex="0">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1.8" aria-hidden="true"><path d="M20 16.5V18a2 2 0 01-2 2H6a2 2 0 01-2-2v-1.5"/><polyline points="16 8 12 4 8 8"/><line x1="12" y1="4" x2="12" y2="15"/></svg>
+                  <div class="identity-dropzone-title">Arrastra tu logo aquí<br>o haz click para subir</div>
+                  <div class="identity-dropzone-hint">PNG · SVG · JPG · máximo 2MB</div>
+                </div>
+                <input type="file" id="logoUpload" accept=".png,.svg,.jpg,.jpeg" style="display:none">
+              </div>
+            </div>
+            <div class="identity-note">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              <span>El logo y nombre de empresa aparecen en la barra lateral de todos los empleados de Arca.</span>
+            </div>
+            <div class="identity-name-row">
+              <label for="companyNameInput">Nombre de empresa</label>
+              <input type="text" id="companyNameInput" value="Arca">
+              <button type="button" class="btn btn-primary btn-sm" id="btnSaveCompanyName">Guardar →</button>
+            </div>
+          </div>
+        </div>
         <div class="config-section">
           <h3>Herramientas conectadas</h3>
           <div class="integration-optional-note">
@@ -2087,12 +2200,12 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
     </div>
     <div style="background:var(--accent-soft);border:1px solid var(--border-accent);border-radius:var(--radius-md);padding:8px 12px;margin-bottom:12px;display:flex;gap:8px;align-items:flex-start">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="flex-shrink:0;margin-top:1px"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-      <p style="font-family:var(--font-body);font-size:11px;color:var(--text-secondary);line-height:1.45;margin:0">Hilo ya capturó el conocimiento de Gabriela durante su tiempo en Tectonic. Esta es la conversación de cierre.</p>
+      <p style="font-family:var(--font-body);font-size:11px;color:var(--text-secondary);line-height:1.45;margin:0">Hilo ya capturó el conocimiento de Gabriela durante su tiempo en Arca. Esta es la conversación de cierre.</p>
     </div>
     <div class="offboard-chat-messages" id="offboardMessages">
       <div class="offboard-msg hilo">
         <div class="hilo-avatar-sm">H</div>
-        <div class="msg-bubble">Gabriela, me enteré que decides seguir tu camino fuera de Tectonic.<br><br>Gracias por todo lo que me enseñaste este tiempo. Aprendí mucho de lo que me contaste sobre cómo funciona realmente este equipo.<br><br>Antes de que te vayas, ¿hay algo que sientas que es importante que quede? Algo que ojalá le pudieras decir a quien llegue después a tu rol.<br><br>No tiene que ser largo. A veces lo más valioso cabe en dos líneas.</div>
+        <div class="msg-bubble">Gabriela, me enteré que decides seguir tu camino fuera de Arca.<br><br>Gracias por todo lo que me enseñaste este tiempo. Aprendí mucho de lo que me contaste sobre cómo funciona realmente este equipo.<br><br>Antes de que te vayas, ¿hay algo que sientas que es importante que quede? Algo que ojalá le pudieras decir a quien llegue después a tu rol.<br><br>No tiene que ser largo. A veces lo más valioso cabe en dos líneas.</div>
       </div>
       <div class="offboard-msg user">
         <div class="msg-bubble">Sí. Lo más importante que ojalá alguien me hubiera dicho a mí:<br><br>Carlos tarda en aprobar pero no porque no le guste. Es que necesita entender el contexto completo antes de comprometerse. Si le muestras el problema antes que la solución, todo va más rápido.<br><br>Y cuida a Roberto. Sabe más de lo que muestra. Solo necesita que le pregunten.</div>
@@ -2105,7 +2218,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
     <div id="offboardCompleteCard" class="offboard-complete-card" style="display:none">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="display:block;margin:0 auto 10px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
       <div style="font-family:var(--font-display),var(--font-body);font-size:15px;font-weight:500;margin-bottom:6px">Conversación de cierre completada</div>
-      <p style="font-family:var(--font-body);font-size:12px;color:var(--text-secondary);line-height:1.5;margin:0">El conocimiento de Gabriela quedó guardado en la memoria de Tectonic. Disponible para siempre para quien llegue después.</p>
+      <p style="font-family:var(--font-body);font-size:12px;color:var(--text-secondary);line-height:1.5;margin:0">El conocimiento de Gabriela quedó guardado en la memoria de Arca. Disponible para siempre para quien llegue después.</p>
       <div class="offboard-complete-stats">
         <span class="offboard-stat-pill">3 procesos capturados</span>
         <span class="offboard-stat-pill">2 contactos clave documentados</span>
@@ -2291,14 +2404,14 @@ const ACTIVE_BENEFITS=[
 let pendingBenefit=null;
 
 const PEOPLE=[
-  {id:'mp',init:'MP',name:'María Paz Lagos',role:'UX Researcher',team:'Producto Digital',dept:'producto',years:'2 años en Tectonic',gradient:'#8b5cf6',tags:['UX Research','Figma','Tests de usabilidad'],bio:'Referente en research cualitativo en Tectonic. Lideró el rediseño del onboarding de usuarios en 2023.',projects:[['Rediseño onboarding','2023'],['Checkout UX study','2024'],['App mobile research','2024']],activeProjects:[{name:'Research usuarios Q2',dot:'var(--success)',tool:'notion'},{name:'Onboarding usuarios mobile',dot:'var(--data)',tool:'jira'}],knowledge:['Proceso de testing con usuarios reales','Plantillas de entrevistas en Notion']},
-  {id:'rv',init:'RV',name:'Roberto Vargas',role:'Frontend Dev',team:'Tecnología',dept:'tecnologia',years:'4 años en Tectonic',gradient:'#3b82f6',tags:['React','Design Systems','Figma handoff'],bio:'Principal implementador de diseños. Conoce cada detalle del design system y handoff con diseño.',projects:[['Design System v2','2022'],['Checkout frontend','2023'],['Dashboard pagos','2024']],activeProjects:[{name:'Integración Transbank v2',dot:'var(--data)',tool:'jira'},{name:'Infraestructura deploy Q3',dot:'var(--success)',tool:'linear'}],knowledge:['Handoff Figma → React','Tokens y variables CSS']},
-  {id:'df',init:'DF',name:'Diego Fuentes',role:'Data Analyst',team:'Data',dept:'data',years:'3 años en Tectonic',gradient:'#f97316',tags:['Research cuantitativo','SQL','Mixpanel'],bio:'Especialista en research cuantitativo y métricas de producto.',projects:[['Funnel analytics','2023'],['Cohort retention','2024']],activeProjects:[{name:'Dashboard analytics interno',dot:'var(--success)',tool:'jira'}],knowledge:['Queries Mixpanel','Dashboards Looker']},
-  {id:'ct',init:'CT',name:'Camila Torres',role:'Product Manager',team:'Producto Digital',dept:'producto',years:'1.5 años en Tectonic',gradient:'#22c55e',tags:['Roadmap','OKRs','Stakeholders'],bio:'PM del squad de pagos. Referente en priorización y stakeholders.',projects:[['Roadmap Q2','2024']],knowledge:['OKRs trimestrales','Proceso de priorización']},
-  {id:'fo',init:'FO',name:'Felipe Ortiz',role:'Backend Dev',team:'Tecnología',dept:'tecnologia',years:'5 años en Tectonic',gradient:'#ef4444',tags:['Integraciones','Transbank','APIs'],bio:'Experto en integraciones de pago y Transbank.',projects:[['API Transbank','2022'],['Gateway pagos','2023']],knowledge:['Timeouts Transbank','Webhooks de pago']},
-  {id:'js',init:'JS',name:'Javiera Soto',role:'Designer',team:'Diseño',dept:'diseno',years:'2 años en Tectonic',gradient:'#ec4899',tags:['Motion design','Ilustración','Brand'],bio:'Diseñadora de marca y motion para producto.',projects:[['Brand refresh','2023']],knowledge:['Guidelines de marca','Lottie animations']},
-  {id:'am',init:'AM',name:'Andrés Muñoz',role:'DevOps',team:'Tecnología',dept:'tecnologia',years:'3 años en Tectonic',gradient:'#14b8a6',tags:['AWS','Infraestructura','Deploy'],bio:'Infraestructura y despliegues en AWS.',projects:[['K8s migration','2024']],knowledge:['Pipeline CI/CD','Monitoring']},
-  {id:'vc',init:'VC',name:'Valentina Cruz',role:'QA Engineer',team:'Tecnología',dept:'tecnologia',years:'2 años en Tectonic',gradient:'#eab308',tags:['Testing','Automatización','Mobile'],bio:'QA lead para producto mobile y web.',projects:[['E2E checkout','2024']],knowledge:['Playwright setup','Test plans mobile']}
+  {id:'mp',init:'MP',name:'María Paz Lagos',role:'UX Researcher',team:'Producto Digital',dept:'producto',years:'2 años en Arca',gradient:'#8b5cf6',tags:['UX Research','Figma','Tests de usabilidad'],bio:'Referente en research cualitativo en Arca. Lideró el rediseño del onboarding de usuarios en 2023.',projects:[['Rediseño onboarding','2023'],['Checkout UX study','2024'],['App mobile research','2024']],activeProjects:[{name:'Research usuarios Q2',dot:'var(--success)',tool:'notion'},{name:'Onboarding usuarios mobile',dot:'var(--data)',tool:'jira'}],knowledge:['Proceso de testing con usuarios reales','Plantillas de entrevistas en Notion']},
+  {id:'rv',init:'RV',name:'Roberto Vargas',role:'Frontend Dev',team:'Tecnología',dept:'tecnologia',years:'4 años en Arca',gradient:'#3b82f6',tags:['React','Design Systems','Figma handoff'],bio:'Principal implementador de diseños. Conoce cada detalle del design system y handoff con diseño.',projects:[['Design System v2','2022'],['Checkout frontend','2023'],['Dashboard pagos','2024']],activeProjects:[{name:'Integración Transbank v2',dot:'var(--data)',tool:'jira'},{name:'Infraestructura deploy Q3',dot:'var(--success)',tool:'linear'}],knowledge:['Handoff Figma → React','Tokens y variables CSS']},
+  {id:'df',init:'DF',name:'Diego Fuentes',role:'Data Analyst',team:'Data',dept:'data',years:'3 años en Arca',gradient:'#f97316',tags:['Research cuantitativo','SQL','Mixpanel'],bio:'Especialista en research cuantitativo y métricas de producto.',projects:[['Funnel analytics','2023'],['Cohort retention','2024']],activeProjects:[{name:'Dashboard analytics interno',dot:'var(--success)',tool:'jira'}],knowledge:['Queries Mixpanel','Dashboards Looker']},
+  {id:'ct',init:'CT',name:'Camila Torres',role:'Product Manager',team:'Producto Digital',dept:'producto',years:'1.5 años en Arca',gradient:'#22c55e',tags:['Roadmap','OKRs','Stakeholders'],bio:'PM del squad de pagos. Referente en priorización y stakeholders.',projects:[['Roadmap Q2','2024']],knowledge:['OKRs trimestrales','Proceso de priorización']},
+  {id:'fo',init:'FO',name:'Felipe Ortiz',role:'Backend Dev',team:'Tecnología',dept:'tecnologia',years:'5 años en Arca',gradient:'#ef4444',tags:['Integraciones','Transbank','APIs'],bio:'Experto en integraciones de pago y Transbank.',projects:[['API Transbank','2022'],['Gateway pagos','2023']],knowledge:['Timeouts Transbank','Webhooks de pago']},
+  {id:'js',init:'JS',name:'Javiera Soto',role:'Designer',team:'Diseño',dept:'diseno',years:'2 años en Arca',gradient:'#ec4899',tags:['Motion design','Ilustración','Brand'],bio:'Diseñadora de marca y motion para producto.',projects:[['Brand refresh','2023']],knowledge:['Guidelines de marca','Lottie animations']},
+  {id:'am',init:'AM',name:'Andrés Muñoz',role:'DevOps',team:'Tecnología',dept:'tecnologia',years:'3 años en Arca',gradient:'#14b8a6',tags:['AWS','Infraestructura','Deploy'],bio:'Infraestructura y despliegues en AWS.',projects:[['K8s migration','2024']],knowledge:['Pipeline CI/CD','Monitoring']},
+  {id:'vc',init:'VC',name:'Valentina Cruz',role:'QA Engineer',team:'Tecnología',dept:'tecnologia',years:'2 años en Arca',gradient:'#eab308',tags:['Testing','Automatización','Mobile'],bio:'QA lead para producto mobile y web.',projects:[['E2E checkout','2024']],knowledge:['Playwright setup','Test plans mobile']}
 ];
 
 const TEAM=[
@@ -2317,7 +2430,7 @@ const HR_TEAMS=[
 ];
 
 const MEMORY=[
-  {init:'GR',name:'Gabriela Rojas',role:'Product Designer Senior · 3 años en Tectonic',badge:'Renuncia voluntaria',date:'Documentado: Marzo 2024',tags:['Figma','Design System','Aprobaciones'],preview:'El proceso de aprobación tiene 3 etapas reales vs las 2 del manual. Carlos siempre pide ver el problema antes de la solución...',sections:{resp:['Design system','Flujos de checkout','Proceso de aprobación'],proc:['3 etapas de aprobación (no 2 como dice el manual)','Carlos prefiere problema antes que solución'],rel:['María Paz — research','Roberto Vargas — implementación'],dec:['Migración a Figma Variables en 2023'],futuro:'Pregunta siempre el contexto del problema antes de mostrar diseños a Carlos.'}},
+  {init:'GR',name:'Gabriela Rojas',role:'Product Designer Senior · 3 años en Arca',badge:'Renuncia voluntaria',date:'Documentado: Marzo 2024',tags:['Figma','Design System','Aprobaciones'],preview:'El proceso de aprobación tiene 3 etapas reales vs las 2 del manual. Carlos siempre pide ver el problema antes de la solución...',sections:{resp:['Design system','Flujos de checkout','Proceso de aprobación'],proc:['3 etapas de aprobación (no 2 como dice el manual)','Carlos prefiere problema antes que solución'],rel:['María Paz — research','Roberto Vargas — implementación'],dec:['Migración a Figma Variables en 2023'],futuro:'Pregunta siempre el contexto del problema antes de mostrar diseños a Carlos.'}},
   {init:'JM',name:'Jorge Méndez',role:'Backend Developer · 5 años',badge:'Jubilación',date:'Documentado: Enero 2024',tags:['Transbank','APIs','Infraestructura'],preview:'La integración con Transbank tiene una particularidad no documentada: los timeouts ocurren...',sections:{resp:['API de pagos','Integración Transbank'],proc:['Timeouts en horario peak — retry con backoff'],rel:['Felipe Ortiz — sucesor natural'],dec:['Event-driven para notificaciones'],futuro:'Nunca deployar integraciones Transbank los viernes después de las 3pm.'}},
   {init:'CP',name:'Claudia Pinto',role:'Head of Marketing · 4 años',badge:'Renuncia voluntaria',date:'Noviembre 2023',tags:['Estrategia','Agencias','Presupuesto'],preview:'La agencia Contento tiene acceso directo a las cuentas de Meta. El contacto clave es...',sections:{resp:['Presupuesto marketing','Agencias'],proc:['Contento tiene acceso directo a Meta Ads'],rel:['Carla V. — continuidad'],dec:['Pivot a performance marketing 2022'],futuro:'Renegocia con Contento cada 6 meses, no anual.'}},
   {init:'AR',name:'Andrés Ruiz',role:'DevOps Lead · 4 años',badge:'Renuncia voluntaria',date:'Agosto 2023',tags:['AWS','K8s','CI/CD'],preview:'El cluster de producción tiene un nodo reservado para batch jobs que no aparece en la documentación...',sections:{resp:['Infra AWS','Deploys'],proc:['Nodo batch oculto en cluster prod'],rel:['Andrés Muñoz'],dec:['K8s sobre ECS'],futuro:'Revisa el nodo batch antes de escalar horizontalmente.'}},
@@ -2588,9 +2701,9 @@ const MANAGER_TOUR=[
 ];
 
 const PLATFORM_TOUR=[
-  {target:'onboarding',title:'Tu día en Tectonic 📋',text:'En Mi día ves tu foco, tus reuniones y tu journey de 90 días. Empieza por lo de hoy.',filled:1,btn:'Siguiente →'},
+  {target:'onboarding',title:'Tu día en Arca 📋',text:'En Mi día ves tu foco, tus reuniones y tu journey de 90 días. Empieza por lo de hoy.',filled:1,btn:'Siguiente →'},
   {target:'chat',title:'Habla con Hilo 💬',text:'Pregúntame cualquier cosa sobre la empresa. Completamente privado. Ni tu jefe ni HR ven esto.',filled:1,btn:'Siguiente →'},
-  {target:'mapa',title:'Encuentra a quien necesitas 🗺️',text:'¿Quién sabe de X en Tectonic? Encuéntralo aquí sin preguntarle a nadie.',filled:2,btn:'Siguiente →'},
+  {target:'mapa',title:'Encuentra a quien necesitas 🗺️',text:'¿Quién sabe de X en Arca? Encuéntralo aquí sin preguntarle a nadie.',filled:2,btn:'Siguiente →'},
   {target:'ranking',title:'Compite y gana beneficios 🏆',text:'Cada interacción con Hilo te da puntos. Los mejores del mes ganan premios reales.',filled:4,btn:'¡Entendido! Empezar →',last:true}
 ];
 let chartsInitialized=false;
@@ -2603,14 +2716,24 @@ function renderNav(){
   const nav=$('#mainNav');
   const items=NAV[currentRole];
   nav.innerHTML=items.map(item=>`
-    <button class="nav-item hover-lift${item.id===currentScreen?' active':''}" data-screen="${item.id}">
+    <button class="nav-item hover-lift${item.id===currentScreen?' active':''}" data-screen="${item.id}" data-label="${item.label}">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${item.icon}</svg>
       <span class="nav-label">${item.label}</span>
       ${item.badge?`<span class="nav-badge">${item.badge}</span>`:''}
+      <span class="nav-tip" aria-hidden="true">${item.label}</span>
     </button>
   `).join('');
   nav.querySelectorAll('.nav-item').forEach(btn=>{
     btn.addEventListener('click',()=>switchScreen(btn.dataset.screen));
+    const tip=btn.querySelector('.nav-tip');
+    if(tip){
+      btn.addEventListener('mouseenter',()=>{
+        if(!document.documentElement.classList.contains('sidebar-collapsed'))return;
+        const r=btn.getBoundingClientRect();
+        tip.style.top=(r.top+r.height/2)+'px';
+        tip.style.transform='translateY(-50%)';
+      });
+    }
   });
   renderMobileNav();
 }
@@ -3166,7 +3289,7 @@ function renderRankingScreen(){
           </div>
         </div>
         <div class="card hover-none">
-          <h3>Ranking de Tectonic</h3>
+          <h3>Ranking de Arca</h3>
           <div class="tabs"><button class="tab active">Este mes</button><button class="tab">Mi equipo</button></div>
           <table class="rank-table"><thead><tr><th>Pos.</th><th>Empleado</th><th>Equipo</th><th>Puntos</th><th>Tendencia</th></tr></thead><tbody>${rows}</tbody></table>
           <p style="font-size:12px;color:var(--text-muted);margin-top:12px">... y 295 personas más</p>
@@ -3176,7 +3299,7 @@ function renderRankingScreen(){
         <div class="card hover-none" style="margin-bottom:16px;text-align:center">
           <p class="section-label">Tu posición</p>
           <div class="display-lg">#4</div>
-          <p style="color:var(--text-secondary);margin-top:8px">de 320 personas en Tectonic</p>
+          <p style="color:var(--text-secondary);margin-top:8px">de 320 personas en Arca</p>
           <p style="font-size:13px;margin:16px 0 8px">Estás a 58 puntos del #3</p>
           <div class="progress-bar"><div class="progress-fill" style="width:90%"></div></div>
         </div>
@@ -3297,7 +3420,7 @@ function renderCargosScreen(){
   el.innerHTML=`
     <div class="cargo-header-row">
       <div><h1>Cargos y Onboardings</h1>
-      <p class="page-sub">Configura el onboarding para cada cargo de Tectonic. Hilo lo asigna automáticamente a quien entre con ese cargo.</p></div>
+      <p class="page-sub">Configura el onboarding para cada cargo de Arca. Hilo lo asigna automáticamente a quien entre con ese cargo.</p></div>
       <button class="btn btn-primary btn-sm" id="btnNuevoCargo">+ Crear cargo nuevo</button>
     </div>
     <div class="cargo-progress-card">
@@ -3606,12 +3729,12 @@ function renderFasesScreen(){
   el.dataset.rendered='1';
   el.innerHTML=`
     <h1>Fases de implementación</h1>
-    <p class="page-sub">Estado del despliegue de Hilo en Tectonic.</p>
+    <p class="page-sub">Estado del despliegue de Hilo en Arca.</p>
     <div class="phase-overview">
       <span class="phase-pill phase-done">Phase 1 ✅</span><span class="phase-pill phase-done">Phase 2 ✅</span><span class="phase-pill phase-progress" style="border-color:var(--border-data)">Phase 3 🔄</span><span class="phase-pill phase-locked">Phase 4 🔒</span>
     </div>
     <div class="card card-accent" style="margin-bottom:20px">
-      <p style="font-size:14px">Tectonic está en la <strong>Fase 3 · Líderes de equipo</strong><br>12 de 18 líderes han completado su configuración.</p>
+      <p style="font-size:14px">Arca está en la <strong>Fase 3 · Líderes de equipo</strong><br>12 de 18 líderes han completado su configuración.</p>
       <div class="progress-bar" style="margin-top:12px"><div class="progress-fill" style="width:67%"></div></div>
       <p style="font-size:12px;color:var(--text-secondary);margin-top:6px">67% completado</p>
     </div>
@@ -3788,7 +3911,7 @@ function openGabrielaKnowledgeModal(){
         <div class="avatar" data-init="GR" style="width:52px;height:52px;font-size:18px">GR</div>
         <div>
           <div style="font-size:18px;font-weight:600">Gabriela Rojas</div>
-          <div style="font-size:13px;color:var(--text-secondary);margin-top:2px">Product Designer Senior · 3 años en Tectonic</div>
+          <div style="font-size:13px;color:var(--text-secondary);margin-top:2px">Product Designer Senior · 3 años en Arca</div>
           <div style="font-size:12px;color:var(--text-muted);margin-top:4px">Documentado: Marzo 2024</div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
             <span style="font-size:10px;font-weight:600;padding:4px 10px;border-radius:20px;background:var(--accent-soft);color:var(--success-text)">Renuncia voluntaria</span>
@@ -3801,7 +3924,7 @@ function openGabrielaKnowledgeModal(){
       <h4 style="font-size:13px;font-weight:600;margin-bottom:10px">Responsabilidades clave</h4>
       <ul style="list-style:none;padding:0;margin:0 0 20px;font-size:13px;color:var(--text-secondary);line-height:1.7">
         <li style="display:flex;gap:8px;margin-bottom:6px"><span style="color:var(--accent)">●</span><span>Gestión de la agencia de diseño externa (Estudio Forma — contacto Valentina Ruiz)</span></li>
-        <li style="display:flex;gap:8px;margin-bottom:6px"><span style="color:var(--accent)">●</span><span>Mantenimiento del Design System de Tectonic (última versión: v2.3)</span></li>
+        <li style="display:flex;gap:8px;margin-bottom:6px"><span style="color:var(--accent)">●</span><span>Mantenimiento del Design System de Arca (última versión: v2.3)</span></li>
         <li style="display:flex;gap:8px"><span style="color:var(--accent)">●</span><span>Facilitación de sesiones de design review con stakeholders</span></li>
       </ul>
       <h4 style="font-size:13px;font-weight:600;margin-bottom:10px">Procesos que solo yo conocía</h4>
@@ -3828,7 +3951,7 @@ function openGabrielaKnowledgeModal(){
       </div>
       <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:20px;font-size:13px">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="flex-shrink:0;margin-top:2px"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <div><strong>Camila Torres</strong> · PM Tectonic<br><span style="font-size:12px;color:var(--text-secondary)">Coordinación diaria. Bloquea tiempo los lunes 10am para sincronizar.</span></div>
+        <div><strong>Camila Torres</strong> · PM Arca<br><span style="font-size:12px;color:var(--text-secondary)">Coordinación diaria. Bloquea tiempo los lunes 10am para sincronizar.</span></div>
       </div>
       <h4 style="font-size:13px;font-weight:600;margin-bottom:10px">Lo que le diría a quien llegue</h4>
       <div style="background:var(--accent-soft);border:1px solid var(--border-accent);border-radius:var(--radius-md);padding:14px;font-size:13px;line-height:1.6;font-style:italic;color:var(--text-secondary);margin-bottom:20px">"Invierte la primera semana en conocer a Carlos y entender cómo piensa antes de proponer cualquier cambio. Y confía en el equipo — son los mejores con quienes he trabajado."</div>
@@ -3907,7 +4030,7 @@ function setupOffboardingModal(){
   let liveBusy=false;
   let timers=[];
 
-  const MSG1='Gabriela, me enteré que decides seguir tu camino fuera de Tectonic.<br><br>Gracias por todo lo que me enseñaste este tiempo. Aprendí mucho de lo que me contaste sobre cómo funciona realmente este equipo.<br><br>Antes de que te vayas, ¿hay algo que sientas que es importante que quede? Algo que ojalá le pudieras decir a quien llegue después a tu rol.<br><br>No tiene que ser largo. A veces lo más valioso cabe en dos líneas.';
+  const MSG1='Gabriela, me enteré que decides seguir tu camino fuera de Arca.<br><br>Gracias por todo lo que me enseñaste este tiempo. Aprendí mucho de lo que me contaste sobre cómo funciona realmente este equipo.<br><br>Antes de que te vayas, ¿hay algo que sientas que es importante que quede? Algo que ojalá le pudieras decir a quien llegue después a tu rol.<br><br>No tiene que ser largo. A veces lo más valioso cabe en dos líneas.';
   const MSG2='Sí. Lo más importante que ojalá alguien me hubiera dicho a mí:<br><br>Carlos tarda en aprobar pero no porque no le guste. Es que necesita entender el contexto completo antes de comprometerse. Si le muestras el problema antes que la solución, todo va más rápido.<br><br>Y cuida a Roberto. Sabe más de lo que muestra. Solo necesita que le pregunten.';
   const MSG3='Eso es exactamente lo que no estaba escrito en ningún lado.<br><br>¿Hay algo sobre los proyectos que tenías en curso que el que llegue después debería saber? Algo técnico o de contexto que se podría perder.';
   const MSG4='La integración con Estudio Forma. Valentina Ruiz es el contacto. Siempre pídele el brief con 5 días, no 3. La calidad baja mucho. Lo aprendimos en 2023 de la peor manera.<br><br>El contrato dice 3 días pero en la práctica son 5. Nadie lo sabe excepto yo.';
@@ -4243,7 +4366,7 @@ function setupChatPanel(cfg){
     '¿Tienes alguna duda sobre esto?'
   ];
 
-  const DEFAULT_OPENER='Hola Sofía 👋<br><br>Bienvenida a Tectonic. Sé que el primer día puede ser un poco abrumador, así que quería presentarme.<br><br>Soy Hilo. Soy tu asistente acá dentro. Puedes preguntarme lo que sea, cuando sea, sin sentirte tonta por preguntar. No existe la pregunta obvia acá.<br><br>Ya leí sobre tu equipo antes de que llegaras. ¿Hay algo que quieras saber antes de empezar?';
+  const DEFAULT_OPENER='Hola Sofía 👋<br><br>Bienvenida a Arca. Sé que el primer día puede ser un poco abrumador, así que quería presentarme.<br><br>Soy Hilo. Soy tu asistente acá dentro. Puedes preguntarme lo que sea, cuando sea, sin sentirte tonta por preguntar. No existe la pregunta obvia acá.<br><br>Ya leí sobre tu equipo antes de que llegaras. ¿Hay algo que quieras saber antes de empezar?';
   const MEMORY_OPENER='Hola Sofía. El viernes me dijiste que la semana estuvo pesada.<br>¿Cómo estás hoy?';
 
   const PRIORITY_DRAFT=`Hola Carlos 👋
@@ -5314,7 +5437,7 @@ function setupChat(){
     userLabel:'Sofía',
     placeholders:[
       '¿Cómo funciona el proceso de aprobación?',
-      '¿Quién sabe de integraciones en Tectonic?',
+      '¿Quién sabe de integraciones en Arca?',
       '¿Qué se espera de mí esta semana?',
       '¿Cómo prefiere trabajar Carlos?',
       'Pregúntame lo que quieras...'
@@ -5482,6 +5605,51 @@ function init(){
   $('#btnReplayTutorial')?.addEventListener('click',replayTutorial);
   $('#btnReplayTutorialPerfil')?.addEventListener('click',replayTutorial);
   $('#btnReplayTutorialPerfil')?.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();replayTutorial();}});
+  setupSidebarCollapse();
+  setupCompanyIdentity();
+}
+
+function setupSidebarCollapse(){
+  const toggle=$('#sidebarToggle');
+  if(!toggle)return;
+  const sync=()=>{
+    const collapsed=document.documentElement.classList.contains('sidebar-collapsed');
+    toggle.setAttribute('aria-label',collapsed?'Expandir menú':'Colapsar menú');
+    toggle.setAttribute('title',collapsed?'Expandir menú':'Colapsar menú');
+  };
+  sync();
+  toggle.addEventListener('click',()=>{
+    const next=!document.documentElement.classList.contains('sidebar-collapsed');
+    document.documentElement.classList.toggle('sidebar-collapsed',next);
+    try{localStorage.setItem('hiloSidebarCollapsed',next?'true':'false');}catch(e){}
+    sync();
+  });
+}
+
+function setupCompanyIdentity(){
+  const drop=$('#logoDropzone');
+  const input=$('#logoUpload');
+  const nameInput=$('#companyNameInput');
+  const saveBtn=$('#btnSaveCompanyName');
+  const previewName=$('#identityPreviewName');
+  const arcaName=$('.arca-logo-name');
+  if(drop&&input){
+    const openPicker=()=>input.click();
+    drop.addEventListener('click',openPicker);
+    drop.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openPicker();}});
+    drop.addEventListener('dragover',e=>{e.preventDefault();drop.style.background='var(--accent-soft)';});
+    drop.addEventListener('dragleave',()=>{drop.style.background='';});
+    drop.addEventListener('drop',e=>{e.preventDefault();drop.style.background='';input.files=e.dataTransfer.files;input.dispatchEvent(new Event('change'));});
+    input.addEventListener('change',()=>{
+      if(input.files&&input.files[0])showToast('Logo actualizado. Los empleados lo verán al recargar ✓');
+    });
+  }
+  saveBtn?.addEventListener('click',()=>{
+    const v=(nameInput?.value||'Arca').trim()||'Arca';
+    if(previewName)previewName.textContent=v;
+    if(arcaName)arcaName.textContent=v;
+    showToast('Guardado ✓');
+  });
 }
 
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);

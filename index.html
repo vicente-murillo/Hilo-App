@@ -75,7 +75,7 @@ h1,h2,h3,h4,h5,h6,.logo-text,.moment-title,.earn-modal h2,.role-tour-card h4{fon
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:var(--bg-base)}
 ::-webkit-scrollbar-thumb{background:var(--bg-hover);border-radius:3px}
-.card-interactive:hover{border-color:var(--accent-strong);background:var(--bg-hover);box-shadow:var(--card-shadow-hover)}
+.card-interactive.hover-lift:hover{border-color:var(--accent-strong);background:var(--bg-hover)}
 button,input,textarea,select{font-family:inherit;font-size:inherit}
 a{color:var(--accent-text);text-decoration:none}
 a:hover{color:var(--text-primary)}
@@ -132,9 +132,10 @@ svg{display:block;flex-shrink:0}
 
 /* Nav */
 .nav{flex:1;padding:8px 12px;overflow-y:auto}
-.nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--radius-md);color:var(--text-secondary);cursor:pointer;margin-bottom:2px;border:none;background:transparent;width:100%;text-align:left}
-.nav-item:hover{background:var(--accent-soft);color:var(--text-primary)}
-.nav-item.active{background:var(--accent-soft);color:var(--text-primary);border-left:3px solid var(--accent);padding-left:9px}
+.nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--radius-md);color:var(--text-secondary);cursor:pointer;margin-bottom:2px;border:none;background:transparent;width:100%;text-align:left;border-left:3px solid transparent;transition:color 150ms ease,background 150ms ease,border-color 150ms ease,padding-left 150ms ease,transform 150ms ease}
+.nav-item:hover,.nav-item.hover-lift:hover{color:var(--text-primary);background:var(--accent-soft);border-left:3px solid var(--accent);padding-left:14px;transform:none;box-shadow:none}
+.nav-item.active,.nav-item.hover-lift.active{color:var(--text-primary);background:var(--accent-soft);border-left:3px solid var(--accent);font-weight:500;padding-left:14px;transform:none;box-shadow:none}
+.nav-item.hover-lift:active{transform:none}
 .nav-item svg{width:18px;height:18px;color:currentColor}
 .nav-item.active svg{color:var(--text-primary)}
 .nav-badge{margin-left:auto;background:var(--danger);color:#FFFFFF;font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px}
@@ -173,7 +174,10 @@ svg{display:block;flex-shrink:0}
 .rank-table{width:100%;border-collapse:collapse;font-size:13px}
 .rank-table th{text-align:left;font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em;padding:10px 8px;border-bottom:1px solid var(--border)}
 .rank-table td{padding:10px 8px;border-bottom:1px solid var(--border);vertical-align:middle}
-.rank-table tr:hover td{background:var(--bg-hover)}
+.rank-table tr.hover-none{cursor:default}
+.rank-table tr.hover-none:hover td{background:inherit;transform:none;box-shadow:none}
+.rank-table tr.row-you.hover-none:hover td{background:var(--accent-soft)}
+.rank-table tr.row-you:hover td{background:var(--accent-soft)}
 .rank-table tr.row-you td{background:var(--accent-soft);border-left:3px solid var(--accent)}
 .rank-table tr.rank-top-1 td{background:rgba(245,184,0,.07)}
 .rank-table tr.rank-top-2 td{background:rgba(168,168,168,.05)}
@@ -188,8 +192,7 @@ svg{display:block;flex-shrink:0}
 .benefit-active-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
 .benefit-active-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
 .benefit-pool-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
-.benefit-pool-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;text-align:center;transition:all .15s}
-.benefit-pool-card:hover{border-color:var(--border-accent)}
+.benefit-pool-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;text-align:center}
 .phase-overview{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}
 .phase-pill{padding:8px 14px;border-radius:20px;background:var(--bg-card);border:1px solid var(--border);font-size:12px;color:var(--text-secondary)}
 .phase-pill.phase-done{color:var(--success-text);background:var(--accent-soft);border-color:var(--border-accent)}
@@ -204,6 +207,7 @@ svg{display:block;flex-shrink:0}
 .equipo-layout{display:grid;grid-template-columns:1fr 280px;gap:20px;align-items:start}
 .equipo-rank-card .rank-mini-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px}
 .equipo-rank-card .rank-mini-row:last-child{border-bottom:none}
+.rank-mini-row.hover-none:hover{transform:none;box-shadow:none;background:transparent}
 .toast{position:fixed;bottom:100px;right:24px;background:var(--bg-card);border:1px solid var(--border-accent);color:var(--text-primary);padding:12px 18px;border-radius:var(--radius-sm);font-size:13px;z-index:10000;opacity:0;transform:translateY(8px);transition:all .25s;pointer-events:none}
 .toast.show{opacity:1;transform:translateY(0)}
 .toast.toast-center{left:50%;right:auto;bottom:32px;transform:translateX(-50%) translateY(8px)}
@@ -467,11 +471,21 @@ h3{font-size:15px;font-weight:600;margin-bottom:8px}
 
 /* Cards */
 .card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;box-shadow:var(--card-shadow)}
-.card:hover{background:var(--bg-hover);border-color:var(--accent-strong);box-shadow:var(--card-shadow-hover)}
 .card-accent{border:1px solid var(--border-accent);background:var(--accent-soft)}
 
+/* Interaction hover system */
+.hover-lift{cursor:pointer;transition:transform 200ms ease,box-shadow 200ms ease,border-color 200ms ease}
+.hover-lift:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(12,27,21,0.1);border-color:var(--border-accent)}
+.hover-lift:active{transform:translateY(0);transition-duration:80ms}
+.hover-subtle{transition:background-color 150ms ease}
+.hover-subtle:hover{background-color:var(--bg-hover)}
+.hover-none{cursor:default}
+.hover-none:hover{transform:none!important;box-shadow:none!important}
+
 /* Buttons */
-.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:var(--radius-md);font-weight:600;font-size:13px;cursor:pointer;border:none;font-family:var(--font-body)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:var(--radius-md);font-weight:600;font-size:13px;cursor:pointer;border:none;font-family:var(--font-body);transition:transform 80ms ease,background 150ms ease,color 150ms ease,border-color 150ms ease}
+button:active,.btn-primary:active,.btn-secondary:active,.btn:active{transform:scale(0.97);transition:transform 80ms ease}
+.chat-input-row .btn-primary:active,.chat-input-row button.btn-primary:active{transform:scale(0.92)}
 .btn-primary{background:var(--accent);color:var(--btn-on-accent)}
 .btn-primary:hover{background:var(--accent-hover);color:var(--btn-on-accent)}
 .btn-primary:disabled{opacity:1;background:var(--bg-hover);color:var(--text-disabled);cursor:not-allowed}
@@ -521,18 +535,22 @@ h3{font-size:15px;font-weight:600;margin-bottom:8px}
 .grid-4{grid-template-columns:repeat(4,1fr)}
 
 /* Tasks */
-.task-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.task-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);border-radius:var(--radius-sm)}
 .task-item:last-child{border-bottom:none}
-.task-check{width:20px;height:20px;border-radius:6px;border:2px solid var(--border-accent);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;transition:all .2s}
+.task-check{width:20px;height:20px;border-radius:6px;border:2px solid var(--border-accent);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;transition:background 150ms ease,border-color 150ms ease}
 .task-check.checked{background:var(--accent);border-color:var(--accent)}
-.task-check.checked svg{width:12px;height:12px;opacity:1;color:#FFFFFF;stroke:#FFFFFF}
 .task-check svg{width:12px;height:12px;opacity:0;color:#FFFFFF;stroke:#FFFFFF}
+.task-check.checked svg{opacity:1;color:#FFFFFF;stroke:#FFFFFF}
+.task-check.checked svg path{stroke-dasharray:24;stroke-dashoffset:24;animation:check-draw 200ms ease forwards}
+@keyframes check-draw{from{stroke-dashoffset:24}to{stroke-dashoffset:0}}
+.task-text{flex:1;transition:opacity 200ms ease 100ms,text-decoration 200ms ease 100ms,color 200ms ease 100ms}
+.task-text.done{text-decoration:line-through;opacity:0.5;color:var(--text-muted)}
+@keyframes success-flash{0%{background:transparent}30%{background:var(--accent-soft)}100%{background:transparent}}
+.task-item.flash-success{animation:success-flash 500ms ease}
 .task-checkbox.completed{background:var(--accent);border-color:var(--accent)}
 .task-checkbox.completed .check-icon{color:#FFFFFF;border-color:#FFFFFF}
 input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{background:var(--accent);border-color:var(--accent);accent-color:var(--accent)}
 .checkbox.checked::after{color:#FFFFFF;border-color:#FFFFFF}
-.task-text{flex:1}
-.task-text.done{text-decoration:line-through;color:var(--text-muted)}
 .task-meta{font-size:12px;color:var(--text-secondary);margin-top:2px}
 .task-icon-row{display:flex;align-items:center;gap:8px;margin-bottom:4px}
 
@@ -547,7 +565,7 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
 /* Timeline */
 .timeline{position:relative;padding-left:24px}
 .timeline::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:var(--border)}
-.tl-item{position:relative;padding-bottom:20px}
+.tl-item{position:relative;padding-bottom:20px;border-radius:var(--radius-sm);padding-left:4px;margin-left:-4px}
 .tl-item:last-child{padding-bottom:0}
 .tl-dot{position:absolute;left:-24px;top:4px;width:16px;height:16px;border-radius:50%;border:2px solid var(--border);background:var(--bg-card)}
 .tl-item.active .tl-dot{border-color:var(--accent);background:var(--accent);box-shadow:0 0 12px var(--accent-mid)}
@@ -566,8 +584,10 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
 .checkin-card{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:20px}
 .checkin-left{display:flex;align-items:center;gap:14px}
 .mood-picker{display:flex;gap:8px}
-.mood-btn{width:40px;height:40px;border-radius:50%;border:2px solid var(--border);background:var(--bg-hover);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.mood-btn:hover,.mood-btn.selected{border-color:var(--accent);background:var(--accent-soft);transform:scale(1.08)}
+.mood-btn,.emoji-option{width:40px;height:40px;border-radius:50%;border:2px solid var(--border);background:var(--bg-hover);cursor:pointer;font-size:24px;display:inline-flex;align-items:center;justify-content:center;padding:8px;user-select:none;transition:transform 150ms ease,background 150ms ease,box-shadow 150ms ease,border-color 150ms ease}
+.mood-btn:hover,.emoji-option:hover{transform:scale(1.2);background:var(--accent-soft);border-color:var(--border-accent)}
+.mood-btn:active,.emoji-option:active{transform:scale(0.9);transition-duration:60ms}
+.mood-btn.selected,.emoji-option.selected{transform:scale(1.1);background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent);border-color:var(--accent);border-radius:50%}
 
 /* Chat */
 .chat-layout{display:flex;flex-direction:column;height:calc(100vh - var(--banner-h) - 56px);margin:-28px -32px -32px}
@@ -583,8 +603,9 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
 .msg.user .msg-time{text-align:right}
 .chat-actions,.chat-quick-replies{display:flex;flex-wrap:wrap;gap:6px;padding:0 32px 12px}
 .chat-quick-replies{margin-top:0}
-.quick-pill{display:inline-flex;align-items:center;background:transparent;border:1px solid var(--border-accent);color:var(--accent);border-radius:var(--radius-full);padding:5px 12px;font-size:12px;cursor:pointer;transition:all 150ms ease;font-family:var(--font-body)}
-.quick-pill:hover{background:var(--accent-soft)}
+.quick-pill,.pill-reply{display:inline-flex;align-items:center;background:transparent;border:1px solid var(--border-accent);color:var(--accent);border-radius:var(--radius-full);padding:5px 12px;font-size:12px;cursor:pointer;transition:transform 150ms ease,background 150ms ease,border-color 150ms ease;font-family:var(--font-body)}
+.quick-pill:hover,.pill-reply:hover{transform:scale(1.03);background:var(--accent-mid);border-color:var(--accent)}
+.quick-pill:active,.pill-reply:active{transform:scale(0.97);transition-duration:60ms}
 .hilo-proactive-stack{display:flex;flex-direction:column;gap:12px;margin-bottom:4px}
 .hilo-proactive-card{border-radius:var(--radius-lg);padding:12px 14px;position:relative}
 .hilo-proactive-card.meeting{background:var(--data-soft);border:1px solid var(--border-data)}
@@ -619,9 +640,11 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
 .meetings-card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:4px}
 .meetings-card-title{display:flex;align-items:center;gap:8px;font-family:var(--font-display);font-size:14px;font-weight:500;color:var(--text-primary)}
 .meetings-card-date{font-family:var(--font-body);font-size:11px;color:var(--text-muted)}
-.meeting-row{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:0.5px solid var(--border)}
+.meeting-row{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:0.5px solid var(--border);border-radius:var(--radius-md)}
+.meeting-row.hover-lift{border:1px solid transparent;border-bottom-color:var(--border);padding:11px 8px;margin:0 -8px}
 .meeting-row:last-of-type{border-bottom:none}
-.meeting-row.cancelled{opacity:0.5}
+.meeting-row.cancelled{opacity:0.5;cursor:not-allowed}
+.meeting-row.cancelled:hover{transform:none!important;box-shadow:none!important;border-color:transparent;background:transparent}
 .meeting-row.cancelled .meeting-name{text-decoration:line-through}
 .meeting-time{font-family:var(--font-mono);font-size:13px;font-weight:500;color:var(--text-primary);min-width:48px;padding-top:2px}
 .meeting-info{flex:1;min-width:0}
@@ -690,8 +713,8 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
 .pill{padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text-secondary);font-size:12px;cursor:pointer;transition:all .2s}
 .pill:hover,.pill.active{background:var(--accent-soft);border-color:var(--border-accent);color:var(--accent-text);font-weight:600}
 .person-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.person-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:all .2s;text-align:center}
-.person-card:hover{border-color:var(--border-accent);transform:translateY(-2px);box-shadow:var(--shadow)}
+.person-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;text-align:center}
+.person-card.hover-lift{cursor:pointer}
 .person-card.selected{border-color:var(--accent);background:var(--accent-soft)}
 .person-card .avatar{width:48px;height:48px;margin:0 auto 10px;font-size:16px}
 .pc-name{font-weight:500;font-size:13px}
@@ -928,8 +951,9 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
   border:1px solid rgba(0,158,120,0.1);
   box-shadow:var(--card-shadow);
 }
-[data-theme="light"] .card:hover,
-[data-theme="light"] .metric-card:hover,
+[data-theme="light"] .hover-lift:hover{
+  box-shadow:0 8px 24px rgba(12,27,21,0.1);
+}
 [data-theme="light"] .team-row:hover,
 [data-theme="light"] .cargo-row:hover,
 [data-theme="light"] .memory-item:hover{
@@ -1004,12 +1028,12 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
       <section class="screen active" id="screen-onboarding" data-screen="onboarding">
         <h1>Buenos días, Sofía 👋</h1>
         <p class="page-sub">Estás en el día 15 de tu journey en Tectonic. Vas muy bien.</p>
-        <div class="progress-meta"><span>15 / 90 días</span><span>17% completado</span></div>
-        <div class="progress-bar"><div class="progress-fill" style="width:17%"></div></div>
-        <p style="font-size:12px;color:var(--text-secondary);margin-bottom:20px">En promedio, los Product Designers son productivos al 100% en el mes 3 con Hilo.</p>
+        <div class="progress-meta hover-none"><span>15 / 90 días</span><span>17% completado</span></div>
+        <div class="progress-bar hover-none"><div class="progress-fill" style="width:17%"></div></div>
+        <p class="hover-none" style="font-size:12px;color:var(--text-secondary);margin-bottom:20px">En promedio, los Product Designers son productivos al 100% en el mes 3 con Hilo.</p>
 
         <div class="home-focus-wrap" id="homeFocusWrap">
-          <div class="hilo-proactive-card focus focus-card-shell" id="homeFocusCard">
+          <div class="hilo-proactive-card focus focus-card-shell hover-subtle" id="homeFocusCard">
             <div class="focus-panel" id="homeFocusExpanded">
               <div class="focus-daily-label">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -1021,7 +1045,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
                 <div class="msg-bubble">Sofía, ¿en qué vas a estar enfocada hoy? Una línea es suficiente.<br><br>Con esto, Carlos ya sabe en qué está el equipo antes de la daily. A veces ni hace falta tenerla.</div>
               </div>
               <textarea class="focus-ta" id="homeFocusInput" placeholder="Ej: Terminando el componente de navegación del Design System..."></textarea>
-              <div class="focus-privacy-note" id="homeFocusPrivacy">
+              <div class="focus-privacy-note hover-none" id="homeFocusPrivacy">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                 <span id="homeFocusPrivacyText">Carlos verá esta respuesta. Es diferente a tu chat privado con Hilo.</span>
               </div>
@@ -1050,7 +1074,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
           </div>
         </div>
 
-        <div class="meetings-card" id="homeMeetingsCard">
+        <div class="meetings-card hover-none" id="homeMeetingsCard">
           <div class="meetings-card-head">
             <div class="meetings-card-title">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
@@ -1058,23 +1082,23 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             </div>
             <div class="meetings-card-date">Miércoles 22 de julio</div>
           </div>
-          <div class="meeting-row">
+          <div class="meeting-row hover-lift" data-prep-meeting="planning" role="button" tabindex="0">
             <div class="meeting-time">10:00</div>
             <div class="meeting-info">
               <div class="meeting-name">Planning Q3 · Producto Digital</div>
               <div class="meeting-people">Carlos, María Paz, Roberto...</div>
             </div>
-            <button type="button" class="btn btn-ghost btn-sm" data-prep-meeting="planning">Prepararme →</button>
+            <button type="button" class="btn btn-ghost btn-sm meeting-prep-btn">Prepararme →</button>
           </div>
-          <div class="meeting-row">
+          <div class="meeting-row hover-lift" data-prep-meeting="oneone" role="button" tabindex="0">
             <div class="meeting-time">13:00</div>
             <div class="meeting-info">
               <div class="meeting-name">1:1 con Carlos</div>
               <div class="meeting-people">Solo ustedes dos</div>
             </div>
-            <button type="button" class="btn btn-ghost btn-sm" data-prep-meeting="oneone">Prepararme →</button>
+            <button type="button" class="btn btn-ghost btn-sm meeting-prep-btn">Prepararme →</button>
           </div>
-          <div class="meeting-row cancelled">
+          <div class="meeting-row cancelled hover-none">
             <div class="meeting-time">16:30</div>
             <div class="meeting-info">
               <div class="meeting-name">Demo Design System v3</div>
@@ -1087,22 +1111,22 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
 
         <div class="two-col">
           <div>
-            <div class="card" style="margin-bottom:20px">
+            <div class="card hover-none" style="margin-bottom:20px">
               <h3>Tu plan de hoy</h3>
-              <div class="task-item">
+              <div class="task-item hover-lift">
                 <button class="task-check checked" aria-label="Completar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></button>
                 <div style="flex:1"><div class="task-icon-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-text)" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><strong class="task-text done">Reunión con Carlos Herrera</strong></div><p class="task-meta">Tu manager quiere conocerte y contarte cómo funciona el equipo.</p><span style="font-size:12px;color:var(--accent-text)">✓ Completado</span></div>
               </div>
-              <div class="task-item">
+              <div class="task-item hover-lift">
                 <button class="task-check" aria-label="Completar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></button>
                 <div style="flex:1"><div class="task-icon-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg><strong class="task-text">Explora el Design System</strong></div><p class="task-meta">Revisa el component library en Figma antes de tu primera sesión de diseño.</p><span class="task-meta">~45 minutos</span> <button class="btn btn-ghost btn-sm" style="margin-top:6px">Ver recurso →</button></div>
               </div>
-              <div class="task-item">
+              <div class="task-item hover-lift">
                 <button class="task-check" aria-label="Completar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></button>
                 <div style="flex:1"><div class="task-icon-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><strong class="task-text">Únete a #producto-digital</strong></div><p class="task-meta">El canal donde ocurre todo en tu equipo. Preséntate con un emoji.</p><span class="task-meta">~5 minutos</span></div>
               </div>
             </div>
-            <div class="card" style="margin-top:20px;background:var(--accent-soft);border-color:var(--border-accent)" id="checkinCard">
+            <div class="card hover-subtle" style="margin-top:20px;background:var(--accent-soft);border-color:var(--border-accent)" id="checkinCard">
               <h3>Tu check-in de esta semana</h3>
               <div style="padding:12px 0;border-bottom:1px solid var(--border)">
                 <div style="font-size:12px;color:var(--text-secondary)" id="mondayCheckinLabel">Lunes 9:00am ✓ · Buenos días Sofía 👋 ¿Cómo llegaste al lunes?</div>
@@ -1111,9 +1135,9 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
               <div style="padding:12px 0" id="fridayCheckinBlock">
                 <div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px">Viernes 12:00pm · ¿Cómo estuvo tu semana?</div>
                 <div class="mood-picker" id="fridayMoodPicker" style="margin-bottom:8px">
-                  <button type="button" class="mood-btn" data-mood="good" aria-label="Buena">😊</button>
-                  <button type="button" class="mood-btn" data-mood="neutral" aria-label="Regular">😐</button>
-                  <button type="button" class="mood-btn" data-mood="bad" aria-label="Difícil">😔</button>
+                  <button type="button" class="mood-btn emoji-option" data-mood="good" aria-label="Buena">😊</button>
+                  <button type="button" class="mood-btn emoji-option" data-mood="neutral" aria-label="Regular">😐</button>
+                  <button type="button" class="mood-btn emoji-option" data-mood="bad" aria-label="Difícil">😔</button>
                 </div>
                 <p style="font-size:11px;color:var(--text-muted)" id="fridayCheckinHint">Toca cómo te sientes. Es privado — solo entre tú y Hilo.</p>
               </div>
@@ -1121,16 +1145,16 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             </div>
           </div>
           <div>
-            <div class="card">
+            <div class="card hover-none">
               <h3>Tu journey — 90 días</h3>
               <div class="timeline" style="margin-top:16px">
-                <div class="tl-item active"><div class="tl-dot"></div><div class="tl-title">Semanas 1–2 · Conocer</div><div class="tl-desc">Conocer el equipo, las herramientas y cómo trabajan en Tectonic.</div><div class="progress-meta" style="margin-top:8px"><span>3/4 tareas completadas</span></div><div class="progress-bar" style="height:4px"><div class="progress-fill" style="width:75%"></div></div></div>
-                <div class="tl-item"><div class="tl-dot" style="background:var(--bg-hover);border-color:var(--border)"></div><div class="tl-title" style="color:var(--text-secondary)">Semanas 3–4 · Entender</div><div class="tl-desc">Primer proyecto real. Entender el producto y los usuarios.</div></div>
-                <div class="tl-item"><div class="tl-dot" style="background:var(--bg-hover);border-color:var(--border)"></div><div class="tl-title" style="color:var(--text-muted)">Mes 2 · Contribuir</div><div class="tl-desc">Primera entrega independiente.</div></div>
-                <div class="tl-item"><div class="tl-dot" style="background:var(--bg-hover);border-color:var(--border)"></div><div class="tl-title" style="color:var(--text-muted)">Mes 3 · Liderar</div><div class="tl-desc">Proponer mejoras. Ser referente.</div></div>
+                <div class="tl-item active hover-subtle"><div class="tl-dot"></div><div class="tl-title">Semanas 1–2 · Conocer</div><div class="tl-desc">Conocer el equipo, las herramientas y cómo trabajan en Tectonic.</div><div class="progress-meta" style="margin-top:8px"><span>3/4 tareas completadas</span></div><div class="progress-bar" style="height:4px"><div class="progress-fill" style="width:75%"></div></div></div>
+                <div class="tl-item hover-subtle"><div class="tl-dot" style="background:var(--bg-hover);border-color:var(--border)"></div><div class="tl-title" style="color:var(--text-secondary)">Semanas 3–4 · Entender</div><div class="tl-desc">Primer proyecto real. Entender el producto y los usuarios.</div></div>
+                <div class="tl-item hover-subtle"><div class="tl-dot" style="background:var(--bg-hover);border-color:var(--border)"></div><div class="tl-title" style="color:var(--text-muted)">Mes 2 · Contribuir</div><div class="tl-desc">Primera entrega independiente.</div></div>
+                <div class="tl-item hover-subtle"><div class="tl-dot" style="background:var(--bg-hover);border-color:var(--border)"></div><div class="tl-title" style="color:var(--text-muted)">Mes 3 · Liderar</div><div class="tl-desc">Proponer mejoras. Ser referente.</div></div>
               </div>
             </div>
-            <div class="card" style="margin-top:16px;padding:14px">
+            <div class="card hover-subtle" style="margin-top:16px;padding:14px">
               <div style="font-size:13px;font-weight:500;margin-bottom:12px">Hilo es tu asistente, no tu jefe</div>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px;line-height:1.8">
                 <div style="color:var(--accent-text)">
@@ -1179,8 +1203,8 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
                 <div class="msg-bubble">La reunión 'Demo Design System v3' de las 16:30 fue cancelada.<br><br>¿Querés que guarde el contexto que preparaste para la próxima vez que se junten?</div>
               </div>
               <div class="hilo-proactive-pills" style="padding-left:34px">
-                <button type="button" class="quick-pill" data-cancel-action="save">Sí, guárdalo →</button>
-                <button type="button" class="quick-pill" data-cancel-action="delete">No, bórralo</button>
+                <button type="button" class="quick-pill pill-reply" data-cancel-action="save">Sí, guárdalo →</button>
+                <button type="button" class="quick-pill pill-reply" data-cancel-action="delete">No, bórralo</button>
               </div>
             </div>
             <div class="hilo-typing" id="hiloTypingEmp">
@@ -1189,8 +1213,8 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             </div>
           </div>
           <div class="chat-quick-replies" id="chatActions">
-            <button type="button" class="quick-pill" data-pill="Ver mis tareas →">Ver mis tareas →</button>
-            <button type="button" class="quick-pill" data-pill="Tengo una pregunta">Tengo una pregunta</button>
+            <button type="button" class="quick-pill pill-reply" data-pill="Ver mis tareas →">Ver mis tareas →</button>
+            <button type="button" class="quick-pill pill-reply" data-pill="Tengo una pregunta">Tengo una pregunta</button>
           </div>
           <div class="chat-input-area">
             <button type="button" class="btn-rrhh-report" id="btnRrhhReport">
@@ -1212,7 +1236,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
               </button>
             </div>
             <p class="voice-hint" id="voiceHintEmp">🎙️ También puedes hablar con Hilo</p>
-            <p class="chat-privacy-note">Tus conversaciones son privadas. Hilo solo alerta a RRHH en casos graves: acoso, Ley Karin o riesgo personal. Nada más sale de este chat.</p>
+            <p class="chat-privacy-note hover-none">Tus conversaciones son privadas. Hilo solo alerta a RRHH en casos graves: acoso, Ley Karin o riesgo personal. Nada más sale de este chat.</p>
           </div>
         </div>
       </section>
@@ -1239,9 +1263,9 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             </div>
           </div>
           <div class="chat-quick-replies" id="chatActionsMgr">
-            <button type="button" class="quick-pill" data-pill="Ver a Roberto →">Ver a Roberto →</button>
-            <button type="button" class="quick-pill" data-pill="Ver equipo completo →">Ver equipo completo →</button>
-            <button type="button" class="quick-pill" data-pill="Estado de onboarding →">Estado de onboarding →</button>
+            <button type="button" class="quick-pill pill-reply" data-pill="Ver a Roberto →">Ver a Roberto →</button>
+            <button type="button" class="quick-pill pill-reply" data-pill="Ver equipo completo →">Ver equipo completo →</button>
+            <button type="button" class="quick-pill pill-reply" data-pill="Estado de onboarding →">Estado de onboarding →</button>
           </div>
           <div class="chat-input-area">
             <div class="voice-bar">
@@ -1258,7 +1282,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
               </button>
             </div>
             <p class="voice-hint" id="voiceHintMgr">🎙️ También puedes hablar con Hilo</p>
-            <p class="chat-privacy-note">Las consultas del manager son privadas para los empleados.</p>
+            <p class="chat-privacy-note hover-none">Las consultas del manager son privadas para los empleados.</p>
           </div>
         </div>
       </section>
@@ -1284,9 +1308,9 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             </div>
           </div>
           <div class="chat-quick-replies" id="chatActionsAdmin">
-            <button type="button" class="quick-pill" data-pill="Ver ROI detallado →">Ver ROI detallado →</button>
-            <button type="button" class="quick-pill" data-pill="Ver riesgos →">Ver riesgos →</button>
-            <button type="button" class="quick-pill" data-pill="Estado de onboarding →">Estado de onboarding →</button>
+            <button type="button" class="quick-pill pill-reply" data-pill="Ver ROI detallado →">Ver ROI detallado →</button>
+            <button type="button" class="quick-pill pill-reply" data-pill="Ver riesgos →">Ver riesgos →</button>
+            <button type="button" class="quick-pill pill-reply" data-pill="Estado de onboarding →">Estado de onboarding →</button>
           </div>
           <div class="admin-chat-note">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -1370,9 +1394,9 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
           </div>
         </div>
         <div class="profile-stat-grid">
-          <div class="stat-box"><div class="val">12</div><div class="lbl">Conexiones hechas</div></div>
-          <div class="stat-box"><div class="val">8</div><div class="lbl">Tareas completadas</div></div>
-          <div class="stat-box"><div class="val">4.2</div><div class="lbl">Promedio check-in</div></div>
+          <div class="stat-box hover-none"><div class="val">12</div><div class="lbl">Conexiones hechas</div></div>
+          <div class="stat-box hover-none"><div class="val">8</div><div class="lbl">Tareas completadas</div></div>
+          <div class="stat-box hover-none"><div class="val">4.2</div><div class="lbl">Promedio check-in</div></div>
         </div>
         <div class="two-col" style="margin-top:24px">
           <div class="card"><h3>Skills</h3><div class="pc-tags" style="justify-content:flex-start;margin-top:12px"><span class="tag">Figma</span><span class="tag">Design Systems</span><span class="tag">UX Research</span><span class="tag">Prototyping</span></div></div>
@@ -1421,21 +1445,21 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
           </div>
         </div>
         <div class="metrics-row">
-          <div class="metric-card"><div class="metric-label">Estado general</div><div class="metric-value" style="font-size:22px;display:inline-flex;align-items:center;gap:6px"><span class="status-dot good" role="img" aria-label="Estado: Bien" title="Bien"></span><span aria-hidden="true">Bueno 🟢</span></div><div class="metric-delta neutral">6 personas estables · 2 en onboarding</div></div>
-          <div class="metric-card"><div class="metric-label">Alertas activas</div><div class="metric-value metric-pulse" style="color:var(--human-text)">2</div><div class="metric-delta down">Requieren atención esta semana</div></div>
-          <div class="metric-card"><div class="metric-label">En onboarding</div><div class="metric-value" style="color:var(--accent-text)">2</div><div class="metric-delta neutral">Sofía · día 15 · Matías · día 3</div></div>
-          <div class="metric-card"><div class="metric-label">Proyectos reportados</div><div class="metric-value">6/8</div><div class="progress-bar" style="height:6px;margin:8px 0"><div class="progress-fill" style="width:75%"></div></div><div class="metric-delta neutral">Check-in mensual de proyectos</div></div>
+          <div class="metric-card hover-subtle"><div class="metric-label">Estado general</div><div class="metric-value" style="font-size:22px;display:inline-flex;align-items:center;gap:6px"><span class="status-dot good" role="img" aria-label="Estado: Bien" title="Bien"></span><span aria-hidden="true">Bueno 🟢</span></div><div class="metric-delta neutral">6 personas estables · 2 en onboarding</div></div>
+          <div class="metric-card hover-subtle"><div class="metric-label">Alertas activas</div><div class="metric-value metric-pulse" style="color:var(--human-text)">2</div><div class="metric-delta down">Requieren atención esta semana</div></div>
+          <div class="metric-card hover-subtle"><div class="metric-label">En onboarding</div><div class="metric-value" style="color:var(--accent-text)">2</div><div class="metric-delta neutral">Sofía · día 15 · Matías · día 3</div></div>
+          <div class="metric-card hover-subtle"><div class="metric-label">Proyectos reportados</div><div class="metric-value">6/8</div><div class="progress-bar" style="height:6px;margin:8px 0"><div class="progress-fill" style="width:75%"></div></div><div class="metric-delta neutral">Check-in mensual de proyectos</div></div>
         </div>
         <div class="equipo-layout">
           <div class="team-list" id="teamList"></div>
-          <div class="card equipo-rank-card" id="equipoRankCard">
+          <div class="card equipo-rank-card hover-none" id="equipoRankCard">
             <h3 style="font-size:13px;margin-bottom:12px">Ranking de tu equipo</h3>
             <p style="font-size:12px;color:var(--text-secondary);margin-bottom:12px">Producto Digital · esta semana</p>
-            <div class="rank-mini-row"><span class="rank-pos g1">#1</span><div class="avatar sm" data-init="SM">SM</div><span style="flex:1">S. Martínez</span><strong>698</strong><span class="trend-up">↑</span></div>
-            <div class="rank-mini-row"><span class="rank-pos g2">#2</span><div class="avatar sm" data-init="MP">MP</div><span style="flex:1">M. Lagos</span><strong>589</strong><span class="trend-up">↑</span></div>
-            <div class="rank-mini-row"><span class="rank-pos g3">#3</span><div class="avatar sm" data-init="CT">CT</div><span style="flex:1">C. Torres</span><strong>432</strong><span class="trend-flat">—</span></div>
-            <div class="rank-mini-row"><span>#4</span><div class="avatar sm" data-init="FH">FH</div><span style="flex:1">F. Herrera</span><strong>298</strong><span class="trend-up">↑</span></div>
-            <div class="rank-mini-row"><span>#5</span><div class="avatar sm" data-init="RV">RV</div><span style="flex:1">R. Vargas</span><strong>187</strong><span class="trend-down">↓</span></div>
+            <div class="rank-mini-row hover-none"><span class="rank-pos g1">#1</span><div class="avatar sm" data-init="SM">SM</div><span style="flex:1">S. Martínez</span><strong>698</strong><span class="trend-up">↑</span></div>
+            <div class="rank-mini-row hover-none"><span class="rank-pos g2">#2</span><div class="avatar sm" data-init="MP">MP</div><span style="flex:1">M. Lagos</span><strong>589</strong><span class="trend-up">↑</span></div>
+            <div class="rank-mini-row hover-none"><span class="rank-pos g3">#3</span><div class="avatar sm" data-init="CT">CT</div><span style="flex:1">C. Torres</span><strong>432</strong><span class="trend-flat">—</span></div>
+            <div class="rank-mini-row hover-none"><span>#4</span><div class="avatar sm" data-init="FH">FH</div><span style="flex:1">F. Herrera</span><strong>298</strong><span class="trend-up">↑</span></div>
+            <div class="rank-mini-row hover-none"><span>#5</span><div class="avatar sm" data-init="RV">RV</div><span style="flex:1">R. Vargas</span><strong>187</strong><span class="trend-down">↓</span></div>
             <p style="font-size:11px;color:var(--text-secondary);margin:12px 0">Roberto tiene conocimiento crítico sin documentar. Coincide con las alertas activas.</p>
             <button class="btn btn-ghost btn-sm" id="btnVerRankingCompleto" style="width:100%">Ver ranking completo →</button>
           </div>
@@ -1450,7 +1474,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="flex-shrink:0;margin-top:1px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
           <p style="font-size:12px;color:var(--text-secondary);line-height:1.55;margin:0">Las alertas de Hilo se basan solo en progreso de onboarding y proyectos reportados por los propios empleados. Hilo no monitorea comportamiento, asistencia ni actividad en Slack.</p>
         </div>
-        <div class="alert-card medium" style="border-left-width:3px">
+        <div class="alert-card medium hover-subtle" style="border-left-width:3px">
           <div class="alert-header">
             <div class="avatar" data-init="RV">RV</div>
             <div style="flex:1;margin-left:12px"><strong>Roberto Vargas · Frontend Dev</strong><div style="margin-top:6px"><span class="alert-badge medium">Conocimiento en riesgo</span> <span style="font-size:12px;color:var(--text-muted);margin-left:8px">Detectado esta semana</span></div></div>
@@ -1465,7 +1489,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             <button class="btn btn-secondary btn-sm">Ver proyecto en Hilo →</button>
           </div>
         </div>
-        <div class="alert-card medium">
+        <div class="alert-card medium hover-subtle">
           <div class="alert-header">
             <div class="avatar" data-init="SM">SM</div>
             <div style="flex:1;margin-left:12px"><strong>Sofía Martínez · Product Designer</strong><div style="margin-top:6px"><span class="alert-badge medium">Onboarding necesita atención</span> <span style="font-size:12px;color:var(--text-muted);margin-left:8px">Detectado hace 1 día</span></div></div>
@@ -1571,18 +1595,18 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
         <h1>Vista Global · Tectonic</h1>
         <p class="page-sub">320 personas · 12 equipos · 5 en onboarding activo</p>
         <div class="metrics-row">
-          <div class="metric-card">
+          <div class="metric-card hover-subtle">
             <div class="metric-label">Estado empresa</div>
             <div class="donut-wrap" style="margin-top:8px">
               <div class="donut" style="background:conic-gradient(var(--success) 0% 78%,var(--warning) 78% 92%,var(--danger) 92% 100%)"><span class="donut-val" style="font-size:11px">78%</span></div>
               <div><div style="font-size:13px;color:var(--text-secondary)">78% del equipo en buen estado</div><div style="font-size:11px;margin-top:4px"><span style="color:var(--success-text)">● 78%</span> <span style="color:var(--data-text)">● 14%</span> <span style="color:var(--human-text)">● 8%</span></div></div>
             </div>
           </div>
-          <div class="metric-card"><div class="metric-label">Proyectos críticos</div><div class="metric-value" style="color:var(--data-text)">3</div><div class="metric-delta neutral">con documentación incompleta</div><div style="font-size:11px;color:var(--text-muted);margin-top:4px">Basado en reportes mensuales de proyectos</div></div>
-          <div class="metric-card"><div class="metric-label">Onboardings activos</div><div class="metric-value" style="color:var(--accent-text)">5</div>
+          <div class="metric-card hover-subtle"><div class="metric-label">Proyectos críticos</div><div class="metric-value" style="color:var(--data-text)">3</div><div class="metric-delta neutral">con documentación incompleta</div><div style="font-size:11px;color:var(--text-muted);margin-top:4px">Basado en reportes mensuales de proyectos</div></div>
+          <div class="metric-card hover-subtle"><div class="metric-label">Onboardings activos</div><div class="metric-value" style="color:var(--accent-text)">5</div>
             <div style="margin-top:10px;font-size:11px;color:var(--text-secondary)">Sofía 15/90 · Matías 3/90 · Pedro 45/90<br>Lucía 67/90 · Jorge 82/90</div>
           </div>
-          <div class="metric-card"><div class="metric-label">Conocimiento en riesgo</div><div class="metric-value" style="color:var(--data-text)">3</div><div class="metric-delta neutral">personas con conocimiento crítico sin documentar</div><button class="btn btn-ghost btn-sm" style="margin-top:8px">Ver →</button></div>
+          <div class="metric-card hover-subtle"><div class="metric-label">Conocimiento en riesgo</div><div class="metric-value" style="color:var(--data-text)">3</div><div class="metric-delta neutral">personas con conocimiento crítico sin documentar</div><button class="btn btn-ghost btn-sm" style="margin-top:8px">Ver →</button></div>
         </div>
         <p class="section-label">Equipos</p>
         <div class="team-grid" id="hrTeamGrid"></div>
@@ -1638,10 +1662,10 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
         </div>
         <div style="background:var(--data-soft);border:1px solid var(--border-data);border-radius:var(--radius-md);padding:12px 14px;margin-bottom:20px;font-size:12px;color:var(--text-muted);line-height:1.55">Los datos de bienestar del equipo forman parte del módulo Pulso Real, disponible en Fase 2. Lo que ves aquí es una vista anticipada.</div>
         <div class="metrics-row">
-          <div class="metric-card"><div class="metric-label">Rotación evitable</div><div class="metric-value" style="font-size:16px">75%</div><div class="metric-delta neutral">Work Institute</div></div>
-          <div class="metric-card"><div class="metric-label">Onboarding</div><div class="metric-value" style="font-size:18px">8m → 3.2m est.</div></div>
-          <div class="metric-card"><div class="metric-label">Check-in rate</div><div class="metric-value">84%</div></div>
-          <div class="metric-card"><div class="metric-label">Registros memoria</div><div class="metric-value">47</div></div>
+          <div class="metric-card hover-subtle"><div class="metric-label">Rotación evitable</div><div class="metric-value" style="font-size:16px">75%</div><div class="metric-delta neutral">Work Institute</div></div>
+          <div class="metric-card hover-subtle"><div class="metric-label">Onboarding</div><div class="metric-value" style="font-size:18px">8m → 3.2m est.</div></div>
+          <div class="metric-card hover-subtle"><div class="metric-label">Check-in rate</div><div class="metric-value">84%</div></div>
+          <div class="metric-card hover-subtle"><div class="metric-label">Registros memoria</div><div class="metric-value">47</div></div>
         </div>
       </section>
 
@@ -1662,7 +1686,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             </div>
           </div>
           <div class="integration-wrap">
-            <div class="integration-row" id="slackConnectRow">
+            <div class="integration-row hover-subtle" id="slackConnectRow">
               <div class="icon">💬</div>
               <div style="flex:1"><strong>Slack</strong></div>
               <span id="slackStatus" class="integration-status" style="font-size:12px;color:var(--success-text);white-space:nowrap"><span class="status-dot good" role="img" aria-label="Estado: Bien" title="Bien"></span><span aria-hidden="true">🟢 Conectado</span></span>
@@ -1673,7 +1697,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             </div>
           </div>
           <div class="integration-wrap">
-            <div class="integration-row">
+            <div class="integration-row hover-subtle">
               <div class="icon">📋</div>
               <div style="flex:1"><strong>Jira</strong></div>
               <span class="integration-status" style="color:var(--success-text);font-size:12px;white-space:nowrap"><span class="status-dot good" role="img" aria-label="Estado: Bien" title="Bien"></span><span aria-hidden="true">🟢 Conectado</span></span>
@@ -1684,7 +1708,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             </div>
           </div>
           <div class="integration-wrap">
-            <div class="integration-row">
+            <div class="integration-row hover-subtle">
               <div class="icon">📝</div>
               <div style="flex:1"><strong>Notion</strong></div>
               <span class="integration-status" style="color:var(--success-text);font-size:12px;white-space:nowrap"><span class="status-dot good" role="img" aria-label="Estado: Bien" title="Bien"></span><span aria-hidden="true">🟢 Conectado</span></span>
@@ -1695,7 +1719,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             </div>
           </div>
           <div class="integration-wrap">
-            <div class="integration-row">
+            <div class="integration-row hover-subtle">
               <div class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
               <div style="flex:1"><strong>Confluence</strong></div>
               <span style="color:var(--text-muted);font-size:12px;white-space:nowrap" role="img" aria-label="Estado: No conectado" title="No conectado">⚪ No conectado</span>
@@ -1707,7 +1731,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             </div>
           </div>
           <div class="integration-wrap">
-            <div class="integration-row">
+            <div class="integration-row hover-subtle">
               <div class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
               <div style="flex:1"><strong>Linear</strong></div>
               <span style="color:var(--text-muted);font-size:12px;white-space:nowrap" role="img" aria-label="Estado: No conectado" title="No conectado">⚪ No conectado</span>
@@ -1719,7 +1743,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             </div>
           </div>
           <div class="integration-wrap">
-            <div class="integration-row">
+            <div class="integration-row hover-subtle">
               <div class="icon">📧</div>
               <div style="flex:1"><strong>Google Workspace</strong></div>
               <span class="integration-status" style="color:var(--success-text);font-size:12px;white-space:nowrap"><span class="status-dot good" role="img" aria-label="Estado: Bien" title="Bien"></span><span aria-hidden="true">🟢 Conectado</span></span>
@@ -1730,7 +1754,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             </div>
           </div>
           <div class="integration-wrap">
-            <div class="integration-row">
+            <div class="integration-row hover-subtle">
               <div class="icon">⚙</div>
               <div style="flex:1"><strong>GitHub</strong></div>
               <span style="color:var(--text-muted);font-size:12px;white-space:nowrap" role="img" aria-label="Estado: No conectado" title="No conectado">⚪ No conectado</span>
@@ -1742,7 +1766,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             </div>
           </div>
           <div class="integration-wrap">
-            <div class="integration-row">
+            <div class="integration-row hover-subtle">
               <div class="icon">📹</div>
               <div style="flex:1"><strong>Zoom / Google Meet</strong></div>
               <span style="color:var(--text-muted);font-size:12px;white-space:nowrap" role="img" aria-label="Estado: No conectado" title="No conectado">⚪ No conectado</span>
@@ -1760,18 +1784,18 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
             <div class="integration-summary-row">Preguntas inteligentes en entrevistas de salida basadas en trabajo real</div>
           </div>
           <div class="integration-wrap" style="margin-top:16px">
-            <div class="integration-row"><div class="icon">👥</div><div style="flex:1"><strong>BambooHR</strong></div><span class="integration-status" style="color:var(--data-text);font-size:12px"><span class="status-dot warn" role="img" aria-label="Estado: Atención" title="Atención"></span><span aria-hidden="true">🟡 Pendiente</span></span><button class="btn btn-ghost btn-sm">Conectar →</button></div>
+            <div class="integration-row hover-subtle"><div class="icon">👥</div><div style="flex:1"><strong>BambooHR</strong></div><span class="integration-status" style="color:var(--data-text);font-size:12px"><span class="status-dot warn" role="img" aria-label="Estado: Atención" title="Atención"></span><span aria-hidden="true">🟡 Pendiente</span></span><button class="btn btn-ghost btn-sm">Conectar →</button></div>
             <div class="integration-impact">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--data)" stroke-width="2" style="flex-shrink:0;margin-top:1px"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
               <span>Sin esta conexión Hilo no puede importar la estructura de tu empresa automáticamente. Deberás configurar los cargos manualmente.</span>
             </div>
           </div>
           <div class="integration-wrap">
-            <div class="integration-row"><div class="icon">📊</div><div style="flex:1"><strong>Workday</strong></div><span style="color:var(--text-muted);font-size:12px" role="img" aria-label="Estado: No conectado" title="No conectado">⚪ No conectado</span><button class="btn btn-ghost btn-sm">Conectar →</button></div>
+            <div class="integration-row hover-subtle"><div class="icon">📊</div><div style="flex:1"><strong>Workday</strong></div><span style="color:var(--text-muted);font-size:12px" role="img" aria-label="Estado: No conectado" title="No conectado">⚪ No conectado</span><button class="btn btn-ghost btn-sm">Conectar →</button></div>
           </div>
           <p class="config-hris-hint">¿No sabes qué es un HRIS? Es el sistema donde gestionas contratos, cargos y datos de tus empleados. Los más comunes: BambooHR, Workday y Buk.</p>
           <div class="integration-wrap">
-            <div class="integration-row"><div class="icon">💼</div><div style="flex:1"><strong>Microsoft Teams</strong></div><span style="color:var(--text-muted);font-size:12px" role="img" aria-label="Estado: No conectado" title="No conectado">⚪ No conectado</span><button class="btn btn-ghost btn-sm">Conectar →</button></div>
+            <div class="integration-row hover-subtle"><div class="icon">💼</div><div style="flex:1"><strong>Microsoft Teams</strong></div><span style="color:var(--text-muted);font-size:12px" role="img" aria-label="Estado: No conectado" title="No conectado">⚪ No conectado</span><button class="btn btn-ghost btn-sm">Conectar →</button></div>
             <div class="integration-impact">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--data)" stroke-width="2" style="flex-shrink:0;margin-top:1px"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
               <span>Sin Teams, Hilo usa email o Slack como canal de check-ins. Selecciona tu canal en la sección de comunicación abajo.</span>
@@ -1840,7 +1864,7 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
               <div class="hilo-memory-bar"><div class="hilo-memory-bar-fill" style="width:18%"></div></div>
               <span class="hilo-memory-source-count">12 reuniones transcritas</span>
             </div>
-            <div class="hilo-memory-privacy">
+            <div class="hilo-memory-privacy hover-none">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
               <span>Hilo guarda conocimiento extraído, no documentos originales. Puedes exportar o eliminar toda la memoria de Hilo en cualquier momento desde Configuración → Datos.</span>
             </div>
@@ -2579,7 +2603,7 @@ function renderNav(){
   const nav=$('#mainNav');
   const items=NAV[currentRole];
   nav.innerHTML=items.map(item=>`
-    <button class="nav-item${item.id===currentScreen?' active':''}" data-screen="${item.id}">
+    <button class="nav-item hover-lift${item.id===currentScreen?' active':''}" data-screen="${item.id}">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${item.icon}</svg>
       <span class="nav-label">${item.label}</span>
       ${item.badge?`<span class="nav-badge">${item.badge}</span>`:''}
@@ -3080,7 +3104,7 @@ function renderRankingScreen(){
   const rows=RANKING_ROWS.map(r=>{
     const pc=posClass(r.pos);
     const barW=Math.round(r.pts/8.47);
-    return `<tr class="${r.you?'row-you':''}${r.pos<=3?` rank-top-${r.pos}`:''}">
+    return `<tr class="hover-none ${r.you?'row-you':''}${r.pos<=3?` rank-top-${r.pos}`:''}">
       <td><span class="rank-pos ${pc}">#${r.pos}</span></td>
       <td><span class="avatar-tip"><span class="avatar sm" data-init="${r.init}">${r.init}</span><span class="tip">${r.name}</span></span>${r.you?' <span class="tag" style="background:var(--accent);color:var(--btn-on-accent);font-size:10px">Tú</span>':''}</td>
       <td><span class="tag">${r.team}</span></td>
@@ -3093,13 +3117,13 @@ function renderRankingScreen(){
       <div><h1 style="margin-bottom:4px">Ranking · Mayo 2026</h1><p class="page-sub" style="margin:0">Los puntos se reinician el 1 de cada mes.</p></div>
       <button type="button" class="btn-how-points" id="btnHowPoints">¿Cómo ganar puntos? 💡</button>
     </div>
-    <div class="countdown-bar">
+    <div class="countdown-bar hover-none">
       <div class="progress-meta"><span>11 días restantes para el cierre de mayo</span><span>67% del mes</span></div>
       <div class="progress-bar"><div class="progress-fill" style="width:67%"></div></div>
     </div>
     <div class="two-col-rank">
       <div>
-        <div class="card card-podium" style="margin-bottom:16px">
+        <div class="card card-podium hover-none" style="margin-bottom:16px">
           <p class="section-label" style="margin-bottom:0">Top 3 · Premios de mayo</p>
           <div class="podium-wrap">
             <div class="podium-stage">
@@ -3141,7 +3165,7 @@ function renderRankingScreen(){
             <p class="podium-label">Premios para los mejores de mayo</p>
           </div>
         </div>
-        <div class="card">
+        <div class="card hover-none">
           <h3>Ranking de Tectonic</h3>
           <div class="tabs"><button class="tab active">Este mes</button><button class="tab">Mi equipo</button></div>
           <table class="rank-table"><thead><tr><th>Pos.</th><th>Empleado</th><th>Equipo</th><th>Puntos</th><th>Tendencia</th></tr></thead><tbody>${rows}</tbody></table>
@@ -3149,14 +3173,14 @@ function renderRankingScreen(){
         </div>
       </div>
       <div>
-        <div class="card" style="margin-bottom:16px;text-align:center">
+        <div class="card hover-none" style="margin-bottom:16px;text-align:center">
           <p class="section-label">Tu posición</p>
           <div class="display-lg">#4</div>
           <p style="color:var(--text-secondary);margin-top:8px">de 320 personas en Tectonic</p>
           <p style="font-size:13px;margin:16px 0 8px">Estás a 58 puntos del #3</p>
           <div class="progress-bar"><div class="progress-fill" style="width:90%"></div></div>
         </div>
-        <div class="card" style="margin-bottom:16px">
+        <div class="card hover-none" style="margin-bottom:16px">
           <p class="section-label">Tus puntos este mes</p>
           <p style="font-size:13px;margin:8px 0">✅ Check-ins (7x) · <strong>+70 pts</strong></p>
           <p style="font-size:13px;margin:8px 0">✅ Tareas onboarding (14x) · <strong>+280 pts</strong></p>
@@ -3164,7 +3188,7 @@ function renderRankingScreen(){
           <hr style="border:none;border-top:1px solid var(--border);margin:12px 0">
           <p style="font-weight:700;color:var(--data);font-family:var(--font-mono)">Total: 698 pts</p>
         </div>
-        <div class="card" style="margin-bottom:16px">
+        <div class="card hover-none" style="margin-bottom:16px">
           <p class="section-label">¿Qué puedes ganar?</p>
           <p style="font-size:13px;margin:10px 0">🏆 Medio día libre · Top 1<br><span style="font-size:11px;color:var(--text-secondary)">Necesitas +150 pts</span></p>
           <p style="font-size:13px;margin:10px 0">🥈 Almuerzo de equipo · Top 2–5 <span class="tag" style="background:var(--accent-soft);color:var(--accent-text)">En zona ✓</span></p>
@@ -3226,9 +3250,9 @@ function renderPuntosScreen(){
     <h1>Mis Puntos · Sofía Martínez</h1>
     <p class="page-sub">Mayo 2026 · 11 días para el cierre</p>
     <div class="metrics-row" style="grid-template-columns:repeat(3,1fr)">
-      <div class="metric-card"><div class="metric-label">Puntos este mes</div><div class="metric-value">698</div><div class="metric-delta neutral">Posición actual: #4 de 320</div></div>
-      <div class="metric-card"><div class="metric-label">Mejor posición histórica</div><div class="metric-value">#2</div><div class="metric-delta neutral">Febrero 2026</div></div>
-      <div class="metric-card"><div class="metric-label">Beneficios canjeados</div><div class="metric-value">3</div><div class="metric-delta neutral">Total histórico</div></div>
+      <div class="metric-card hover-subtle"><div class="metric-label">Puntos este mes</div><div class="metric-value">698</div><div class="metric-delta neutral">Posición actual: #4 de 320</div></div>
+      <div class="metric-card hover-subtle"><div class="metric-label">Mejor posición histórica</div><div class="metric-value">#2</div><div class="metric-delta neutral">Febrero 2026</div></div>
+      <div class="metric-card hover-subtle"><div class="metric-label">Beneficios canjeados</div><div class="metric-value">3</div><div class="metric-delta neutral">Total histórico</div></div>
     </div>
     <div class="card" style="margin-bottom:24px">
       <h3>Historial de puntos — Mayo 2026</h3>
@@ -3459,7 +3483,7 @@ function renderBeneficiosScreen(){
   if(el.dataset.rendered==='tour'&&tourMode)return;
   el.dataset.rendered=tourMode?'tour':'1';
   const poolHtml=BENEFIT_POOL.map((b,i)=>`
-    <div class="benefit-pool-card${tourMode?' tour-pickable':''}" data-cat="${b.c}" data-idx="${i}">
+    <div class="benefit-pool-card hover-lift${tourMode?' tour-pickable':''}" data-cat="${b.c}" data-idx="${i}">
       <div style="font-size:28px;margin-bottom:8px">${b.e}</div>
       <div style="font-size:12px;font-weight:500;margin-bottom:6px">${b.t}</div>
       <span class="tag">${b.c.charAt(0).toUpperCase()+b.c.slice(1)}</span>
@@ -3494,7 +3518,7 @@ function renderBeneficiosScreen(){
       <p class="page-sub">Selecciona 3 beneficios del pool para incentivar la participación mensual.</p>
       <p class="section-label">Beneficios activos este mes</p>
       <div class="benefit-active-grid">
-        <div class="benefit-active-card" style="border-left:4px solid var(--accent)">
+        <div class="benefit-active-card hover-lift" style="border-left:4px solid var(--accent)">
           <span class="tag" style="margin-bottom:10px">Beneficio estrella · Top 1</span>
           <div style="font-size:32px;margin:8px 0">☀️</div>
           <h3 style="font-size:20px;font-weight:700;margin-bottom:8px">Medio día libre</h3>
@@ -3502,7 +3526,7 @@ function renderBeneficiosScreen(){
           <span class="tag" style="color:var(--accent-text);margin:12px 0;display:inline-block">Activo</span>
           <button class="btn btn-ghost btn-sm">Cambiar →</button>
         </div>
-        <div class="benefit-active-card" style="border-left:4px solid var(--human)">
+        <div class="benefit-active-card hover-lift" style="border-left:4px solid var(--human)">
           <span class="tag" style="margin-bottom:10px">Top 2–5</span>
           <div style="font-size:32px;margin:8px 0">🍕</div>
           <h3 style="font-size:20px;font-weight:700;margin-bottom:8px">Almuerzo de equipo</h3>
@@ -3510,7 +3534,7 @@ function renderBeneficiosScreen(){
           <span class="tag" style="color:var(--accent-text);margin:12px 0;display:inline-block">Activo</span>
           <button class="btn btn-ghost btn-sm">Cambiar →</button>
         </div>
-        <div class="benefit-active-card" style="border-left:4px solid var(--data)">
+        <div class="benefit-active-card hover-lift" style="border-left:4px solid var(--data)">
           <span class="tag" style="margin-bottom:10px">Top 6–20</span>
           <div style="font-size:32px;margin:8px 0">⭐</div>
           <h3 style="font-size:20px;font-weight:700;margin-bottom:8px">Salida temprana el viernes</h3>
@@ -3642,7 +3666,7 @@ function renderPersonGrid(filter='all',query=''){
   if(filter!=='all')list=list.filter(p=>p.dept===filter);
   if(query)list=list.filter(p=>(p.name+p.role+p.tags.join(' ')).toLowerCase().includes(query.toLowerCase()));
   grid.innerHTML=list.map(p=>`
-    <div class="person-card" data-id="${p.id}" style="text-align:left">
+    <div class="person-card hover-lift" data-id="${p.id}" style="text-align:left">
       <div class="avatar" data-init="${p.init}" style="margin:0 0 10px">${p.init}</div>
       <div class="pc-name">${p.name}</div>
       <div class="pc-role">${p.role}</div>
@@ -4424,7 +4448,7 @@ Te lo cuento para que lo tengas en cuenta 🙂
         <div class="msg-bubble">Sofía, ¿en qué vas a estar enfocada hoy? Una línea es suficiente. Esto ayuda a Carlos a preparar la daily y saber si necesitas ayuda.</div>
       </div>
       <textarea class="focus-ta" id="empFocusInput" placeholder="Ej: Terminando el componente de navegación del Design System..."></textarea>
-      <div class="focus-privacy-note">
+      <div class="focus-privacy-note hover-none">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
         <span>Tu manager verá esta respuesta. Es diferente al chat privado con Hilo.</span>
       </div>
@@ -4467,8 +4491,8 @@ Te lo cuento para que lo tengas en cuenta 🙂
         <div class="msg-bubble">Sofía, en 15 minutos tienes 'Planning Q3 · Producto Digital' con Carlos, María Paz y Roberto.<br><br>¿Quieres que te recuerde los puntos que quedaron pendientes de la última reunión de este grupo?</div>
       </div>
       <div class="hilo-proactive-pills">
-        <button type="button" class="quick-pill" data-proactive="meeting-yes">Sí, cuéntame →</button>
-        <button type="button" class="quick-pill" data-proactive="meeting-no">No, gracias</button>
+        <button type="button" class="quick-pill pill-reply" data-proactive="meeting-yes">Sí, cuéntame →</button>
+        <button type="button" class="quick-pill pill-reply" data-proactive="meeting-no">No, gracias</button>
       </div>`;
     insertProactiveCard(stack,card,true);
     card.querySelector('[data-dismiss-meeting]')?.addEventListener('click',()=>{
@@ -4514,9 +4538,9 @@ Te lo cuento para que lo tengas en cuenta 🙂
         <div class="msg-bubble">Buenos días Sofía ☀️<br><br>Tienes 3 cosas para hoy:<br>→ Reunión Planning Q3 a las 10:00<br>→ Tarea pendiente: Conocer a Roberto<br>→ Check-in del lunes (cuando quieras)<br><br>¿Por dónde quieres empezar?</div>
       </div>
       <div class="hilo-proactive-pills">
-        <button type="button" class="quick-pill" data-proactive="morning-meeting">Ver reunión</button>
-        <button type="button" class="quick-pill" data-proactive="morning-task">Tarea pendiente</button>
-        <button type="button" class="quick-pill" data-proactive="morning-checkin">Hacer check-in ahora</button>
+        <button type="button" class="quick-pill pill-reply" data-proactive="morning-meeting">Ver reunión</button>
+        <button type="button" class="quick-pill pill-reply" data-proactive="morning-task">Tarea pendiente</button>
+        <button type="button" class="quick-pill pill-reply" data-proactive="morning-checkin">Hacer check-in ahora</button>
       </div>`;
     stack.appendChild(card);
     card.querySelector('[data-dismiss-morning]')?.addEventListener('click',dismissMorningCard);
@@ -5205,21 +5229,26 @@ function setupHomeFocusAndMeetings(){
     });
   }
 
-  $$('[data-prep-meeting]').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const kind=btn.dataset.prepMeeting||'planning';
-      const go=()=>{
-        switchScreen('chat');
-        setTimeout(()=>{
-          if(hiloEmpChat?.startMeetingPrep)hiloEmpChat.startMeetingPrep(kind);
-          else pendingMeetingPrep=kind;
-        },350);
-      };
-      if(currentRole!=='normal'){
-        pendingMeetingPrep=kind;
-        switchRole('normal');
-        setTimeout(go,350);
-      }else go();
+  function runMeetingPrep(kind){
+    const go=()=>{
+      switchScreen('chat');
+      setTimeout(()=>{
+        if(hiloEmpChat?.startMeetingPrep)hiloEmpChat.startMeetingPrep(kind);
+        else pendingMeetingPrep=kind;
+      },350);
+    };
+    if(currentRole!=='normal'){
+      pendingMeetingPrep=kind;
+      switchRole('normal');
+      setTimeout(go,350);
+    }else go();
+  }
+  $$('.meeting-row[data-prep-meeting]').forEach(row=>{
+    const kind=row.dataset.prepMeeting||'planning';
+    const run=()=>runMeetingPrep(kind);
+    row.addEventListener('click',run);
+    row.addEventListener('keydown',e=>{
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();run();}
     });
   });
 }
@@ -5372,11 +5401,40 @@ function init(){
   $('#panelClose').addEventListener('click',closePanel);
   $('#modalOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal();});
   $('#modalClose').addEventListener('click',closeModal);
+  function setTaskComplete(row,checked){
+    const btn=row.querySelector('.task-check');
+    const text=row.querySelector('.task-text');
+    if(!btn)return;
+    btn.classList.toggle('checked',checked);
+    if(text)text.classList.toggle('done',checked);
+    if(checked){
+      const path=btn.querySelector('svg path');
+      if(path){
+        path.style.animation='none';
+        void path.getBoundingClientRect();
+        path.style.animation='';
+      }
+      row.classList.remove('flash-success');
+      void row.offsetWidth;
+      row.classList.add('flash-success');
+    }else{
+      row.classList.remove('flash-success');
+    }
+  }
+  $$('.task-item.hover-lift').forEach(row=>{
+    row.addEventListener('click',e=>{
+      if(e.target.closest('a,button.btn,.task-check'))return;
+      const btn=row.querySelector('.task-check');
+      if(!btn)return;
+      setTaskComplete(row,!btn.classList.contains('checked'));
+    });
+  });
   $$('.task-check').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      btn.classList.toggle('checked');
-      const text=btn.parentElement.querySelector('.task-text');
-      if(text)text.classList.toggle('done',btn.classList.contains('checked'));
+    btn.addEventListener('click',e=>{
+      e.stopPropagation();
+      const row=btn.closest('.task-item');
+      if(!row)return;
+      setTaskComplete(row,!btn.classList.contains('checked'));
     });
   });
   $$('.mood-btn').forEach(btn=>{

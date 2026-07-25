@@ -36,7 +36,7 @@
 
 
 /* Card rest shadows + consistent borders */
-[class*="card"], [class*="-card"], .card, [class*="section-card"], [class*="info-card"]{
+[class*="card"]:not(.user-card), [class*="-card"]:not(.user-card), .card, [class*="section-card"], [class*="info-card"]{
   box-shadow: 0 1px 3px rgba(12,27,21,0.06),
               0 4px 12px rgba(12,27,21,0.04);
   border: 1px solid var(--border) !important;
@@ -196,7 +196,20 @@ html.sidebar-collapsed .nav-pct{display:none}
 html.sidebar-collapsed .sidebar-hilo-text{display:none}
 html.sidebar-collapsed .logo{display:none}
 .sidebar-footer{padding:16px;border-top:1px solid var(--border)}
-.user-card{display:flex;align-items:center;gap:10px}
+.user-card{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:transparent!important;
+  border:none!important;
+  box-shadow:none!important;
+  padding:8px 12px;
+  margin:4px 8px;
+  border-radius:var(--radius-md)!important;
+  cursor:pointer;
+  transition:background 150ms ease;
+}
+.user-card:hover{background:var(--bg-hover)!important}
 /* Avatar circles — soft fill + strong initials */
 .avatar,.podium-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-weight:700;font-size:11px;letter-spacing:.03em;border:none;flex-shrink:0}
 .avatar.sm{width:32px;height:32px;font-size:11px}
@@ -270,6 +283,15 @@ html.sidebar-collapsed .logo{display:none}
 
 .sidebar-tutorial-row svg{flex-shrink:0;color:var(--text-secondary)}
 .sidebar-tutorial-row .chev{margin-left:auto;color:var(--text-muted);font-size:14px}
+@keyframes spotlightFadeIn{from{opacity:0}to{opacity:1}}
+html.spotlight-active .sidebar{z-index:901}
+#tutorialSpotlight{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:900;animation:spotlightFadeIn 300ms ease}
+#btnReplayTutorial.tutorial-spotlight-target{position:relative;z-index:902;box-shadow:0 0 0 9999px rgba(0,0,0,0.7);border-radius:var(--radius-md)}
+#hiloSpotlightTip{position:fixed;left:16px;bottom:160px;z-index:903;background:var(--bg-card);border:1px solid var(--border-accent);border-radius:var(--radius-lg);padding:12px 16px;max-width:220px;box-shadow:0 4px 20px rgba(0,0,0,0.2);animation:spotlightFadeIn 300ms ease}
+#hiloSpotlightTip::after{content:'';position:absolute;bottom:-7px;left:20px;border-left:7px solid transparent;border-right:7px solid transparent;border-top:7px solid var(--border-accent)}
+#hiloSpotlightTip .spot-title{font-family:var(--font-display);font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:4px}
+#hiloSpotlightTip .spot-sub{font-family:var(--font-body);font-size:12px;color:var(--text-secondary);line-height:1.45}
+#hiloSpotlightTip .spot-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .btn-rrhh-report{display:flex;align-items:center;gap:8px;width:100%;padding:8px 14px;background:var(--human-soft);border:1px solid var(--border-human);border-radius:var(--radius-md);color:var(--human);font-family:var(--font-body);font-size:12px;cursor:pointer;transition:150ms ease;margin-bottom:8px}
 
 .btn-rrhh-report .rrhh-arrow{margin-left:auto;color:var(--text-muted);font-size:12px}
@@ -645,9 +667,6 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
 .checkin-comment-toggle{background:none;border:none;padding:0;margin:0 0 8px;font-family:var(--font-body);font-size:11px;color:var(--text-secondary);cursor:pointer;text-align:left}
 .checkin-comment-ta{display:none;width:100%;min-height:60px;border:1px solid var(--border);border-radius:var(--radius-md);padding:10px 12px;font-family:var(--font-body);font-size:13px;background:var(--bg-card);color:var(--text-primary);resize:vertical;margin-bottom:10px;box-sizing:border-box}
 .checkin-comment-ta.is-open{display:block}
-.checkin-anon-row{display:flex;align-items:center;gap:8px;margin-bottom:4px}
-.checkin-anon-label{flex:1;font-family:var(--font-body);font-size:12px;color:var(--text-secondary)}
-.checkin-anon-hint{font-size:10px;color:var(--text-muted);margin:0 0 4px;line-height:1.4}
 .checkin-write-wrap{max-height:0;opacity:0;overflow:hidden;transition:max-height 200ms ease,opacity 200ms ease}
 .checkin-write-wrap.is-open{max-height:120px;opacity:1;margin-top:8px}
 .checkin-free-ta{display:block;width:100%;min-height:70px;border:1px solid var(--border);border-radius:var(--radius-md);padding:10px 12px;font-family:var(--font-body);font-size:13px;background:var(--bg-card);color:var(--text-primary);resize:vertical;box-sizing:border-box}
@@ -676,11 +695,44 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
 .msg.user .msg-time{text-align:right}
 .chat-actions,.chat-quick-replies{display:flex;flex-wrap:wrap;gap:6px;padding:0 32px 12px}
 .chat-quick-replies{margin-top:0}
+.msg-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;max-width:100%}
 .quick-pill,.pill-reply{display:inline-flex;align-items:center;background:transparent;border:1px solid var(--border-accent);color:var(--accent);border-radius:var(--radius-full);padding:5px 12px;font-size:12px;cursor:pointer;transition:transform 150ms ease,background 150ms ease,border-color 150ms ease;font-family:var(--font-body)}
 
 
 .hilo-proactive-stack{display:flex;flex-direction:column;gap:12px;margin-bottom:4px}
 .hilo-proactive-card{border-radius:var(--radius-lg);padding:12px 14px;position:relative}
+
+/* Weekly summary chip + modal (Hablar con Hilo) */
+.weekly-summary-chip{
+  display:none;align-items:center;gap:8px;background:var(--accent-soft);border:1px solid var(--border-accent);border-radius:var(--radius-full);padding:6px 14px;cursor:pointer;margin-bottom:12px;font-family:var(--font-body);opacity:0;transform:translateY(-8px);transition:opacity 300ms ease,transform 300ms ease,background 150ms ease;box-shadow:none!important
+}
+.weekly-summary-chip.is-in{display:inline-flex;opacity:1;transform:translateY(0)}
+.weekly-summary-chip:hover{background:var(--accent-mid)}
+.weekly-summary-chip svg{flex-shrink:0;color:var(--accent)}
+.wsc-title{font-size:12px;font-weight:500;color:var(--accent)}
+.wsc-cta{font-size:11px;color:var(--text-muted)}
+.modal:has(.ws-modal){max-width:480px;width:90%;max-height:80vh;overflow:hidden;display:flex;flex-direction:column;padding:0;border-radius:var(--radius-xl);background:var(--bg-surface);border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,0.15);animation:modal-in 200ms ease}
+.modal:has(.ws-modal) .modal-header{display:none}
+#modalBody:has(.ws-modal){padding:0;overflow:hidden;display:flex;flex-direction:column;flex:1;min-height:0}
+.ws-modal{display:flex;flex-direction:column;max-height:80vh;overflow:hidden}
+.ws-modal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;border-bottom:0.5px solid var(--border);flex-shrink:0}
+.ws-modal-title{font-family:var(--font-display);font-size:15px;font-weight:600;color:var(--text-primary)}
+.ws-modal-x{width:24px;height:24px;border:none;background:transparent;color:var(--text-muted);cursor:pointer;font-size:18px;line-height:1;padding:0}
+.ws-modal-body{padding:0 20px;overflow-y:auto;flex:1;min-height:0;background:transparent}
+.ws-section{background:transparent!important;border:none!important;box-shadow:none!important;padding:12px 0;border-bottom:0.5px solid var(--border)!important;margin:0}
+.ws-section:last-child{border-bottom:none!important}
+.ws-label{font-family:var(--font-body);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px}
+.ws-row{font-family:var(--font-body);font-size:12px;color:var(--text-primary);line-height:1.5;margin-bottom:4px}
+.ws-bullet{display:flex;align-items:flex-start;gap:8px;font-family:var(--font-body);font-size:12px;color:var(--text-primary);line-height:1.5;margin-bottom:6px}
+.ws-bullet:last-child{margin-bottom:0}
+.ws-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:5px}
+.ws-dot.amber{background:var(--data)}
+.ws-modal-footer{padding:12px 20px;border-top:0.5px solid var(--border);text-align:center;flex-shrink:0}
+.ws-footer-link{background:none;border:none;padding:0;font-family:var(--font-body);font-size:12px;color:var(--text-secondary);cursor:pointer}
+.checkin-rank-note{background:var(--data-soft);border-radius:var(--radius-md);padding:8px 12px;margin:8px 0;display:flex;align-items:center;gap:10px;box-shadow:none!important;border:none}
+.checkin-rank-text{flex:1;font-family:var(--font-body);font-size:11px;font-weight:500;color:var(--data-text)}
+.checkin-rank-link{background:none;border:none;padding:0;font-family:var(--font-body);font-size:11px;color:var(--accent);text-decoration:underline;cursor:pointer;white-space:nowrap}
+
 .hilo-proactive-card.meeting{background:var(--data-soft);border:1px solid var(--border-data)}
 .hilo-proactive-card.morning{background:var(--accent-soft);border:1px solid var(--border-accent)}
 .hilo-proactive-card.focus{background:var(--bg-card);border:1px solid var(--border-accent);margin-bottom:10px}
@@ -711,7 +763,7 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
 
 
 .hilo-intro-head{display:flex;align-items:center;gap:14px}
-.hilo-intro-img{width:56px;height:auto;display:block;filter:drop-shadow(0 4px 12px rgba(0,212,160,0.2));flex-shrink:0}
+.hilo-intro-img{width:56px;height:auto;min-height:56px;display:block;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(0,212,160,0.2));flex-shrink:0;visibility:visible;opacity:1}
 .hilo-intro-title{font-family:var(--font-display);font-weight:700;font-size:18px;color:var(--text-primary);letter-spacing:-0.02em}
 .hilo-intro-sub{font-family:var(--font-body);font-size:13px;color:var(--text-secondary);margin-top:2px}
 .hilo-intro-divider{border:none;border-top:1px solid var(--border);margin:14px 0}
@@ -721,7 +773,8 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
 .hilo-intro-col div{display:flex;align-items:flex-start;gap:6px}
 .hi-check{color:var(--accent);flex-shrink:0}
 .hi-x{color:var(--human);flex-shrink:0}
-.hilo-intro-privacy{display:flex;align-items:flex-start;gap:8px;background:var(--accent-soft);border-radius:var(--radius-md);padding:10px 14px;font-family:var(--font-body);font-size:12px;color:var(--text-secondary);line-height:1.5}
+.hilo-intro-privacy{display:flex;align-items:flex-start;gap:8px;background:var(--accent-soft);border-radius:var(--radius-md);padding:10px 14px;margin-bottom:14px;font-family:var(--font-body);font-size:12px;color:var(--text-secondary);line-height:1.5}
+.hilo-intro-card #btnHiloIntroChat{width:100%;margin-top:0}
 @media(max-width:700px){.hilo-intro-grid{grid-template-columns:1fr}}
 
 .meetings-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:0 0 8px;margin-bottom:20px}
@@ -790,37 +843,121 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
 .typing-indicator span:nth-child(3){animation-delay:.4s}
 
 /* Knowledge map */
-.km-layout{display:grid;grid-template-columns:1fr 320px;gap:0;min-height:calc(100vh - 180px);margin:-4px -8px 0}
-.km-main{padding-right:20px}
-.km-search{display:flex;gap:12px;margin-bottom:16px}
-.km-search input{flex:1;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px 10px 40px;color:var(--text-primary)}
+.km-layout{display:flex;flex-direction:column;width:100%;max-width:none;min-height:calc(100vh - 180px);margin:0}
+.km-main{width:100%;max-width:none;flex:1;padding-right:0;min-width:0}
+.km-search{display:flex;gap:12px;margin-bottom:16px;width:100%;max-width:400px}
+.km-search .search-wrap{width:100%;max-width:400px;flex:1;margin:0}
+.km-search input{width:100%;box-sizing:border-box;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px 10px 38px;color:var(--text-primary);font-size:13px;white-space:nowrap;overflow:visible}
 .km-search input:focus{outline:none;border-color:var(--border-accent)}
+.km-skill-hint{display:none;background:var(--accent-soft);border-radius:var(--radius-lg);padding:16px;text-align:center;margin-top:16px}
+.km-skill-hint.show{display:block}
+.km-skill-hint .km-skill-title{font-family:var(--font-display);font-size:14px;font-weight:500;margin-top:8px;color:var(--text-primary)}
+.km-skill-hint .km-skill-sub{font-family:var(--font-body);font-size:12px;color:var(--text-secondary);margin-top:4px;line-height:1.45}
+.km-skill-hint .btn{margin-top:12px}
+.person-chip{display:inline-flex;align-items:center;gap:4px;background:var(--accent-soft);border:1px solid var(--border-accent);border-radius:var(--radius-full);padding:2px 8px;font-size:12px;font-weight:500;color:var(--accent);cursor:pointer;transition:background 150ms ease;white-space:nowrap}
+.person-chip:hover{background:var(--accent-mid)}
+.person-chip svg{width:10px;height:10px;stroke:var(--accent);flex-shrink:0}
 .search-wrap{position:relative;flex:1}
-.search-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-muted)}
+.search-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-muted);pointer-events:none}
 .filter-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
 .pill{padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text-secondary);font-size:12px;cursor:pointer;transition:all .2s}
 .pill.active{background:var(--accent-soft);border-color:var(--border-accent);color:var(--accent-text);font-weight:600;}
-.person-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.person-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;text-align:center}
+.person-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;width:100%;max-width:none;flex:1}
+.person-card{background:var(--bg-card);border:none;border-radius:var(--radius-lg);padding:14px;cursor:pointer;text-align:center;box-shadow:0 1px 3px rgba(12,27,21,0.06),0 4px 12px rgba(12,27,21,0.04)}
 .person-card.hover-lift{cursor:pointer}
-.person-card.selected{border-color:var(--accent);background:var(--accent-soft)}
+.person-card.selected{background:var(--accent-soft);box-shadow:0 4px 16px rgba(12,27,21,0.1)}
 .person-card .avatar{width:48px;height:48px;margin:0 auto 10px;font-size:16px}
+#personGrid .person-card,#personasPaneMapa .person-card{border:none!important}
 .pc-name{font-weight:500;font-size:13px}
 .pc-role{font-size:11px;color:var(--text-secondary);margin-top:2px}
 .pc-tags{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:8px}
 .tag{font-size:10px;padding:2px 8px;border-radius:10px;background:var(--bg-hover);color:var(--text-secondary)}
 
 /* Right panel */
-.panel-overlay{position:fixed;inset:0;background:var(--overlay-bg);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s}
+.panel-overlay{position:fixed;inset:0;background:var(--overlay-bg);z-index:490;opacity:0;pointer-events:none;transition:opacity .25s}
 .panel-overlay.open{opacity:1;pointer-events:auto}
-.right-panel{position:fixed;top:var(--banner-h);right:0;bottom:0;width:400px;background:var(--bg-surface);border-left:1px solid var(--border);z-index:201;transform:translateX(100%);transition:transform .3s var(--ease);overflow-y:auto;display:flex;flex-direction:column}
-.right-panel.open{transform:translateX(0);animation:panelSlide .3s var(--ease)}
-.panel-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.panel-body{padding:24px;flex:1}
-.panel-close{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text-secondary);cursor:pointer;display:flex;align-items:center;justify-content:center}
+.right-panel{
+  position:fixed;
+  top:0;
+  right:0;
+  width:340px;
+  height:100vh;
+  background:var(--bg-surface);
+  border-left:1px solid var(--border);
+  box-shadow:-4px 0 24px rgba(12,27,21,0.08);
+  z-index:500;
+  padding:0;
+  transform:translateX(100%);
+  transition:transform 250ms ease;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+}
+.right-panel.open{transform:translateX(0);animation:panelSlide 250ms ease}
+.panel-header{padding:20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:14px;background:var(--bg-card);flex-shrink:0}
+.panel-body{padding:24px;flex:1;overflow-y:auto;min-height:0}
+.panel-close{width:28px;height:28px;border-radius:8px;border:none;background:transparent;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0}
+.panel-section{padding:16px 20px;border-bottom:0.5px solid var(--border);margin-bottom:0}
+.panel-section h4,.pp-label{font-family:var(--font-body);font-size:10px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.panel-section p,.pp-content{font-family:var(--font-body);font-size:13px;color:var(--text-primary);line-height:1.6}
 
-.panel-section{margin-bottom:24px}
-.panel-section h4{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);margin-bottom:12px}
+/* Person / Team centered modals */
+@keyframes modal-in{from{opacity:0;transform:scale(0.96)}to{opacity:1;transform:scale(1)}}
+.modal:has(.pm-modal),.modal:has(.tm-modal){max-width:480px;width:100%;max-height:85vh;overflow:hidden;display:flex;flex-direction:column;padding:0;border-radius:var(--radius-xl);background:var(--bg-surface);border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,0.15);animation:modal-in 200ms ease}
+.modal-overlay.open{background:rgba(0,0,0,0.5);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px}
+#modalBody:has(.pm-modal),#modalBody:has(.tm-modal){padding:0;overflow:hidden;display:flex;flex-direction:column;flex:1;min-height:0}
+.modal:has(.pm-modal) .modal-header,.modal:has(.tm-modal) .modal-header{display:none}
+.pm-modal,.tm-modal{display:flex;flex-direction:column;max-height:85vh;overflow:hidden}
+.pm-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;min-height:24px}
+.pm-back{background:none;border:none;padding:0;font-family:var(--font-body);font-size:12px;color:var(--text-muted);cursor:pointer}
+.pm-back:hover{color:var(--text-primary)}
+.pm-x,.tm-x{width:24px;height:24px;border:none;background:transparent;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;margin-left:auto;font-size:18px;line-height:1}
+.pm-x:hover,.tm-x:hover{color:var(--text-primary)}
+.pm-header{padding:20px 20px 16px;border-bottom:0.5px solid var(--border);flex-shrink:0}
+.pm-head-row{display:flex;align-items:center;gap:14px}
+.pm-avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-weight:700;font-size:18px;flex-shrink:0;border:none}
+.pm-name{font-family:var(--font-display);font-weight:700;font-size:17px;color:var(--text-primary);letter-spacing:-0.02em}
+.pm-role{font-family:var(--font-body);font-size:13px;color:var(--text-secondary);margin-top:2px}
+.pm-avail{display:flex;align-items:center;gap:6px;margin-top:8px;font-family:var(--font-body);font-size:11px;color:var(--text-secondary)}
+.pm-avail-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.pm-body{padding:0 20px;overflow-y:auto;flex:1;min-height:0;background:transparent}
+.pm-section{padding:14px 0;border-bottom:0.5px solid var(--border);background:transparent}
+.pm-section:last-child{border-bottom:none}
+.pm-label{font-family:var(--font-body);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px}
+.pm-text{font-family:var(--font-body);font-size:13px;color:var(--text-primary);line-height:1.6}
+.pm-proj{font-family:var(--font-body);font-size:12px;color:var(--text-secondary);padding:3px 0}
+.pm-proj .arrow{color:var(--accent);margin-right:4px}
+.pm-source{font-family:var(--font-body);font-size:10px;color:var(--text-muted);font-style:italic;margin-bottom:8px}
+.pm-work-row{display:flex;align-items:center;gap:8px;padding:6px 0;background:transparent;font-family:var(--font-body);font-size:12px;color:var(--text-primary)}
+.pm-work-row .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;background:var(--accent)}
+.pm-work-row .dot.amber{background:var(--data)}
+.pm-activo{font-size:10px;padding:1px 7px;border-radius:var(--radius-full);background:var(--accent-soft);color:var(--accent);font-weight:500}
+.pm-note{font-family:var(--font-body);font-size:10px;color:var(--text-muted);font-style:italic;margin-top:8px}
+.pm-knowledge{background:var(--accent-soft)!important;border-radius:var(--radius-md);padding:10px 12px;margin:4px 0;border:none;box-shadow:none}
+.pm-knowledge-title{font-family:var(--font-body);font-size:12px;font-weight:500;color:var(--text-primary);margin-bottom:8px;text-decoration:none;border:none;border-bottom:none;background:transparent}
+.pm-knowledge .tag{font-size:11px;padding:3px 8px;border-radius:8px;background:var(--bg-card);border:1px solid var(--border);color:var(--text-secondary)}
+.pm-footer{padding:16px 20px;border-top:0.5px solid var(--border);display:flex;flex-direction:column;gap:8px;flex-shrink:0;background:var(--bg-surface)}
+.pm-footer .btn-primary{width:100%;justify-content:center;padding:10px;border-radius:var(--radius-md);font-family:var(--font-body);font-size:13px;font-weight:600}
+.pm-dir{background:none;border:none;padding:4px 0;font-family:var(--font-body);font-size:12px;color:var(--text-secondary);cursor:pointer;text-align:center;width:100%}
+.pm-dir:hover{color:var(--accent)}
+
+.tm-header{padding:20px 20px 16px;border-bottom:0.5px solid var(--border);position:relative;flex-shrink:0}
+.tm-title{font-family:var(--font-display);font-weight:700;font-size:18px;color:var(--text-primary);padding-right:28px}
+.tm-sub{font-family:var(--font-body);font-size:13px;color:var(--text-secondary);margin-top:4px}
+.tm-header .tm-x{position:absolute;top:18px;right:16px}
+.tm-body{padding:0 20px 16px;overflow-y:auto;flex:1;min-height:0}
+.tm-section{padding:14px 0;border-bottom:0.5px solid var(--border)}
+.tm-section:last-child{border-bottom:none}
+.tm-members{display:flex;flex-wrap:wrap;gap:16px;justify-content:flex-start}
+.person-chip-col{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;padding:8px;border-radius:var(--radius-md);background:transparent;border:none;min-width:84px}
+.person-chip-col:hover{background:var(--bg-hover)}
+.person-chip-col .avatar{width:36px;height:36px;font-size:11px;margin:0}
+.person-chip-name{font-family:var(--font-body);font-size:11px;font-weight:500;color:var(--text-primary);text-align:center;max-width:100px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.person-chip-role{font-family:var(--font-body);font-size:10px;color:var(--text-muted);text-align:center;max-width:100px;line-height:1.3}
+.tm-proj-row{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:12px;color:var(--text-primary)}
+.tm-proj-row .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.tm-footer{padding:16px 20px;border-top:0.5px solid var(--border);flex-shrink:0}
+.org-avatar-row{display:flex;flex-wrap:wrap;gap:16px}
 
 /* Team rows */
 .team-list{display:flex;flex-direction:column;gap:8px}
@@ -973,6 +1110,21 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
 .profile-header{display:flex;gap:24px;align-items:center;margin-bottom:28px}
 .profile-avatar{width:80px;height:80px;border-radius:50%;font-size:28px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-weight:700;letter-spacing:.03em;border:none}
 .profile-stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.profile-data-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 0;border-bottom:0.5px solid var(--border)}
+.pdr-label{font-family:var(--font-body);font-size:12px;color:var(--text-muted)}
+.pdr-value{font-family:var(--font-body);font-size:12px;color:var(--text-primary);font-weight:500;text-align:right}
+.profile-tool-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:0.5px solid var(--border);font-family:var(--font-body);font-size:12px;color:var(--text-primary)}
+.tool-ok{color:var(--accent);font-size:11px}
+.tool-no{color:var(--text-muted);font-size:11px}
+.predecessor-card{background:var(--accent-soft);border:1px solid var(--border-accent);border-left:3px solid var(--accent);border-radius:var(--radius-lg);padding:14px 16px;margin-bottom:16px;box-shadow:none!important}
+.predecessor-card .pred-title{font-family:var(--font-body);font-size:13px;font-weight:600;color:var(--text-primary);display:flex;align-items:center;gap:8px}
+.predecessor-card .pred-title svg{color:var(--accent);flex-shrink:0}
+.predecessor-card .pred-body{font-family:var(--font-body);font-size:12px;color:var(--text-secondary);margin-top:4px;line-height:1.5}
+.predecessor-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.pm-alumni-badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:var(--radius-full);background:var(--data-soft);color:var(--data-text);border:1px solid var(--border-data);margin-top:6px}
+.pm-legacy{background:var(--data-soft)!important;border-radius:var(--radius-md);padding:10px 12px;margin:4px 0;border:none;box-shadow:none}
+.pm-legacy-title{display:flex;align-items:center;gap:6px;font-family:var(--font-body);font-size:12px;font-weight:500;color:var(--data-text);margin-bottom:8px}
+
 .stat-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;text-align:center}
 .stat-box .val{font-size:24px;font-weight:700;letter-spacing:-0.02em;color:var(--data-text)}
 .stat-box .lbl{font-size:12px;color:var(--text-secondary);margin-top:4px}
@@ -991,13 +1143,19 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
 
 
 /* Tablet sidebar collapse */
+@media(max-width:1200px){
+  .person-grid{grid-template-columns:repeat(4,1fr)}
+}
 @media(max-width:1024px){
-  .person-grid,.team-grid{grid-template-columns:repeat(3,1fr)}
+  .team-grid{grid-template-columns:repeat(3,1fr)}
   .metrics-row{grid-template-columns:repeat(2,1fr)}
   .two-col{grid-template-columns:1fr}
   .chart-grid{grid-template-columns:1fr}
   .radio-cards{grid-template-columns:1fr}
   .security-grid{grid-template-columns:1fr}
+}
+@media(max-width:900px){
+  .person-grid{grid-template-columns:repeat(3,1fr)}
 }
 @media(max-width:768px){
   html,body{height:100dvh;overflow:hidden;position:fixed;width:100%;overscroll-behavior:none}
@@ -1008,9 +1166,8 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
   .role-float{bottom:80px;right:12px;max-width:calc(100vw - 24px)}
   .role-float-inner{flex-wrap:wrap;justify-content:center}
   .metrics-row{grid-template-columns:1fr 1fr}
-  .person-grid{grid-template-columns:repeat(2,1fr)}
   .team-grid{grid-template-columns:repeat(2,1fr)}
-  .km-layout{grid-template-columns:1fr;min-height:0;margin:0}
+  .km-layout{width:100%;max-width:none;min-height:0;margin:0}
   .two-col{grid-template-columns:1fr}
   .two-col>div>div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important}
   .right-panel{width:100%}
@@ -1023,6 +1180,9 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
   .chat-actions,.chat-quick-replies{padding:0 16px 12px}
   .demo-banner{font-size:11px;gap:4px;padding:0 10px}
   h1{font-size:clamp(22px,6vw,28px)}
+}
+@media(max-width:600px){
+  .person-grid{grid-template-columns:repeat(2,1fr)}
 }
 
 /* Module tags */
@@ -1124,7 +1284,7 @@ html.sidebar-collapsed .user-card{justify-content:center}
 /* ═══════════════════════════════════
    CARD CONSISTENCY
    ═══════════════════════════════════ */
-[class*="card"],
+[class*="card"]:not(.user-card),
 [class*="-section"],
 .card {
   background: var(--bg-card);
@@ -1199,12 +1359,13 @@ nav.nav,
 * {
   box-shadow: none;
 }
-[class*="card"]:not(.meetings-card-head):not(.meetings-card-title):not(.meetings-card-date),
-[class*="-section"],
+[class*="card"]:not(.meetings-card-head):not(.meetings-card-title):not(.meetings-card-date):not(.user-card),
+[class*="-section"]:not(.ws-section):not(.pm-section):not(.tm-section),
 .card {
   box-shadow: 0 1px 3px rgba(12,27,21,0.06),
               0 4px 12px rgba(12,27,21,0.04);
 }
+.ws-section,.pm-section,.tm-section{box-shadow:none!important;background:transparent!important}
 .meetings-card-head,
 .meetings-card-title,
 .meetings-card-date,
@@ -1249,8 +1410,9 @@ html.sidebar-collapsed .nav-item .nav-tip {
 /* 4. Person cards in Personas/Mapa */
 .person-card:hover,
 [data-person-card]:hover {
-  border-color: var(--border-accent);
+  box-shadow: 0 4px 16px rgba(12,27,21,0.1);
   cursor: pointer;
+  border: none;
 }
 
 /* 5. Organigrama nodes */
@@ -1306,6 +1468,290 @@ a:hover,
    Cards that are NOT in the list above
    show NO visual change on hover. */
 
+
+
+
+/* ═══════════════════════════════════
+   MODAL / PANEL — no white section boxes
+   ═══════════════════════════════════ */
+
+/* Remove white section backgrounds
+   inside all modals and panels */
+
+.modal-content section,
+.modal-content [class*="section"],
+.panel-content section,
+.panel-content [class*="section"],
+[class*="modal"] section,
+[class*="modal"] [class*="-section"],
+[class*="panel"] section,
+[class*="panel"] [class*="-section"],
+[class*="detail"] section,
+[class*="detail"] [class*="-section"] {
+  background: transparent !important;
+}
+
+/* Also target any white box directly
+   inside modals */
+[class*="modal"] [style*="background: white"],
+[class*="modal"] [style*="background:#fff"],
+[class*="modal"] [style*="background: #fff"],
+[class*="panel"] [style*="background: white"],
+[class*="panel"] [style*="background:#fff"] {
+  background: transparent !important;
+}
+
+/* Section labels inside modals */
+[class*="modal"] [class*="section-label"],
+[class*="modal"] [class*="section-title"],
+[class*="panel"] [class*="section-label"] {
+  background: transparent !important;
+}
+
+/* Specific fix for organigrama modal
+   and mapa panel sections */
+#orgModal section,
+#orgModal [class*="section"],
+#mapaPanel section,
+#mapaPanel [class*="section"],
+.org-modal section,
+.mapa-panel section,
+.org-modal-section,
+.panel-section {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.org-modal-section {
+  border: none !important;
+}
+
+/* Keep colored soft cards */
+[class*="modal"] [class*="accent-soft"],
+[class*="panel"] [class*="accent-soft"],
+.pp-knowledge,
+.org-how-card {
+  background: var(--accent-soft) !important;
+}
+[class*="modal"] [class*="data-soft"],
+[class*="panel"] [class*="data-soft"] {
+  background: var(--data-soft) !important;
+}
+[class*="modal"] [class*="human-soft"],
+[class*="panel"] [class*="human-soft"] {
+  background: var(--human-soft) !important;
+}
+
+/* Add subtle dividers between sections
+   instead of white backgrounds */
+[class*="modal"] section + section,
+[class*="modal"] [class*="section"] + [class*="section"],
+.org-modal-section + .org-modal-section {
+  border-top: 0.5px solid var(--border);
+  padding-top: 14px;
+  margin-top: 14px;
+}
+
+/* Personas unified screen tabs */
+.personas-tabs{
+  display:flex;
+  gap:0;
+  background:var(--bg-hover);
+  border-radius:var(--radius-full);
+  padding:3px;
+  margin-bottom:20px;
+  width:fit-content;
+}
+.personas-tab{
+  padding:6px 16px;
+  border-radius:var(--radius-full);
+  font-family:var(--font-body);
+  font-size:13px;
+  cursor:pointer;
+  transition:all 150ms ease;
+  border:none;
+  background:transparent;
+  color:var(--text-secondary);
+}
+.personas-tab.active{
+  background:var(--bg-card);
+  color:var(--text-primary);
+  font-weight:500;
+  box-shadow:0 1px 3px rgba(12,27,21,0.08);
+}
+.personas-pane{
+  opacity:1;
+  transition:opacity 150ms ease;
+  width:100%;
+  max-width:none;
+}
+#screen-personas,
+#personasPaneMapa,
+#personasPaneMapa .km-layout,
+#personasPaneMapa .km-main{
+  width:100%;
+  max-width:none;
+}
+.personas-pane.is-hidden{
+  display:none;
+}
+.personas-pane.is-fading{
+  opacity:0;
+}
+
+/* Remove all inner borders in modals */
+[class*="modal"] *:not(button):not(.btn):not([class*="pill"]):not([class*="badge"]):not(.pm-activo):not(.tag) {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Restore modal container border */
+[class*="modal-container"],
+[class*="modal-content"],
+.modal > div,
+[class*="modal"] > div {
+  border: 1px solid var(--border) !important;
+  box-shadow: 0 20px 60px
+    rgba(0,0,0,0.15) !important;
+}
+
+/* Restore section dividers */
+[class*="modal"] [class*="section"] {
+  border-bottom: 0.5px solid
+    var(--border) !important;
+}
+
+/* Restore button styles */
+[class*="modal"] button {
+  border: 1px solid var(--border) !important;
+}
+
+[class*="modal"] button[class*="primary"],
+[class*="modal"] button[class*="accent"] {
+  border: none !important;
+  background: var(--accent) !important;
+}
+
+/* Keep accent-soft areas but no border */
+[class*="modal"] [class*="accent-soft"] {
+  background: var(--accent-soft) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Intent: only the outer modal shell keeps frame; inner layout is flat */
+.modal-overlay,
+.modal-overlay > .modal,
+#modalContent.modal {
+  border: 1px solid var(--border) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15) !important;
+}
+.modal-overlay {
+  border: none !important;
+  box-shadow: none !important;
+  background: rgba(0,0,0,0.5) !important;
+}
+.modal-header,
+.modal-body,
+.pm-modal,
+.tm-modal,
+.ws-modal,
+.pm-header,
+.pm-body,
+.pm-footer,
+.tm-header,
+.tm-body,
+.tm-footer,
+.ws-modal-head,
+.ws-modal-body,
+.ws-modal-footer,
+.pm-nav,
+.pm-head-row,
+.pm-work-row,
+.tm-members,
+.tm-proj-row,
+.ws-row,
+.ws-bullet,
+.person-chip-col {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+[class*="modal"] [class*="section"]:last-child,
+.pm-section:last-child,
+.tm-section:last-child,
+.ws-section:last-child {
+  border-bottom: none !important;
+}
+[class*="modal"] .pm-x,
+[class*="modal"] .tm-x,
+[class*="modal"] .ws-modal-x,
+[class*="modal"] .pm-back,
+[class*="modal"] .pm-dir,
+[class*="modal"] .ws-footer-link,
+[class*="modal"] .panel-close,
+[class*="modal"] button.btn-ghost {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+[class*="modal"] .pm-knowledge,
+[class*="modal"] .pm-legacy,
+[class*="modal"] .org-how-card {
+  background: var(--accent-soft) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+[class*="modal"] .pm-knowledge-title {
+  color: var(--text-primary) !important;
+  background: transparent !important;
+  border: none !important;
+  text-decoration: none !important;
+}
+[class*="modal"] .pm-legacy {
+  background: var(--data-soft) !important;
+}
+[class*="modal"] .pm-activo,
+[class*="modal"] .tag,
+[class*="modal"] [class*="pill"],
+[class*="modal"] [class*="badge"] {
+  box-shadow: none !important;
+}
+[class*="modal"] .pm-activo {
+  background: var(--accent-soft) !important;
+  border: none !important;
+  color: var(--accent) !important;
+}
+[class*="modal"] .pm-knowledge .tag,
+[class*="modal"] .tag {
+  background: var(--bg-card) !important;
+  border: none !important;
+}
+
+/* Other overlay modals: shell only, flat interior */
+.rrhh-modal,
+.project-modal,
+.offboarding-modal,
+.knowledge-modal,
+.earn-modal {
+  border: 1px solid var(--border) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15) !important;
+}
+.rrhh-modal > *,
+.project-modal > *,
+.offboarding-modal > *,
+.knowledge-modal > *,
+.knowledge-modal-header,
+.knowledge-modal-body,
+.earn-modal > * {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.knowledge-modal-header {
+  background: var(--bg-base) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
 
 </style>
 </head>
@@ -1458,7 +1904,7 @@ a:hover,
           <div>
             <div class="card hilo-intro-card hover-none" style="padding:20px" id="hiloIntroCard">
               <div class="hilo-intro-head">
-                <img src="hilo-character.png" alt="Hilo" class="hilo-intro-img"/>
+                <img src="hilo-character.png?v=3" alt="Hilo" class="hilo-intro-img" width="56" height="65"/>
                 <div>
                   <div class="hilo-intro-title">¡Hola! Soy Hilo 👋</div>
                   <div class="hilo-intro-sub">Tu asistente laboral virtual, 24/7.</div>
@@ -1487,7 +1933,7 @@ a:hover,
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
                 <span>Todo lo que hablamos es entre tú y yo. Si alguna vez quieres contarle algo a RRHH, lo decidís tú — no yo.</span>
               </div>
-              <button type="button" class="btn btn-primary" id="btnHiloIntroChat" style="width:100%;margin-top:auto;padding-top:14px">¡Habla conmigo! →</button>
+              <button type="button" class="btn btn-primary" id="btnHiloIntroChat">¡Habla conmigo! →</button>
             </div>
           </div>
           <div>
@@ -1500,28 +1946,27 @@ a:hover,
               <div style="padding:12px 0" id="fridayCheckinBlock">
                 <div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px">Viernes 12:00pm · ¿Cómo estuvo tu semana?</div>
                 <div class="mood-picker mood-picker-5" id="fridayMoodPicker">
-                  <button type="button" class="mood-btn emoji-option" data-mood="energy" data-label="Con energía" aria-label="Con energía"><span class="emoji-face">😄</span><span class="emoji-label">Con energía</span></button>
+                  <button type="button" class="mood-btn emoji-option" data-mood="energy" data-label="Con energía" aria-label="Con energía"><span class="emoji-face">😊</span><span class="emoji-label">Con energía</span></button>
                   <button type="button" class="mood-btn emoji-option" data-mood="good" data-label="Bien" aria-label="Bien"><span class="emoji-face">🙂</span><span class="emoji-label">Bien</span></button>
                   <button type="button" class="mood-btn emoji-option" data-mood="neutral" data-label="Regular" aria-label="Regular"><span class="emoji-face">😐</span><span class="emoji-label">Regular</span></button>
                   <button type="button" class="mood-btn emoji-option" data-mood="tired" data-label="Cansado" aria-label="Cansado"><span class="emoji-face">😕</span><span class="emoji-label">Cansado</span></button>
                   <button type="button" class="mood-btn emoji-option" data-mood="bad" data-label="Pesado" aria-label="Pesado"><span class="emoji-face">😔</span><span class="emoji-label">Pesado</span></button>
+                </div>
+                <div class="checkin-rank-note" id="checkinRankNote">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--data)" stroke-width="2" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 01-10 0V4z"/><path d="M17 4h3v2a3 3 0 01-3 3M7 4H4v2a3 3 0 003 3"/></svg>
+                  <span class="checkin-rank-text">⭐ Responder suma +10 pts al ranking</span>
+                  <button type="button" class="checkin-rank-link" id="checkinRankLink">Ver ranking →</button>
                 </div>
                 <button type="button" class="checkin-write-link link" data-link id="checkinWriteLink">💬 Quiero escribir algo →</button>
                 <div class="checkin-write-wrap" id="checkinWriteWrap" aria-hidden="true">
                   <textarea class="checkin-free-ta" id="checkinFreeTa" placeholder="Cuéntame lo que quieras..."></textarea>
                 </div>
                 <div class="checkin-reveal" id="checkinReveal" aria-hidden="true">
-                  <div class="checkin-anon-row">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-                    <span class="checkin-anon-label">Enviar de forma anónima</span>
-                    <button type="button" class="toggle on" id="checkinAnonToggle" aria-label="Enviar de forma anónima" aria-pressed="true"></button>
-                  </div>
-                  <p class="checkin-anon-hint" id="checkinAnonHint">Solo Hilo verá tu respuesta.</p>
-                  <button type="button" class="btn btn-primary" id="checkinSendBtn" style="width:100%;margin-top:10px">Enviar check-in →</button>
+                  <button type="button" class="btn btn-primary" id="checkinSendBtn" style="width:100%;margin-top:4px">Enviar check-in →</button>
                 </div>
-                <p style="font-size:11px;color:var(--text-muted)" id="fridayCheckinHint">Toca cómo te sientes. Es privado — solo entre tú y Hilo.</p>
+                <p style="font-size:11px;color:var(--text-muted)" id="fridayCheckinHint">Toca cómo te sientes.</p>
               </div>
-              <p style="font-size:11px;color:var(--text-muted);margin-top:auto;padding-top:12px">Recibes check-ins los lunes a las 9:00am y los viernes a las 12:00pm. Siempre privados.</p>
+              <p style="font-family:var(--font-body);font-size:11px;color:var(--text-muted);margin-top:auto;padding-top:12px;line-height:1.55">Hilo registra tu check-in para darte puntos y mostrarte tu historial. Tu empresa solo ve datos agregados del equipo, nunca tu respuesta individual.</p>
             </div>
           </div>
         </div>
@@ -1535,26 +1980,43 @@ a:hover,
         <p class="hover-none" style="font-size:12px;color:var(--text-secondary);margin-bottom:20px">En promedio, los Product Designers son productivos al 100% en el mes 3 con Hilo.</p>
             <div class="card hover-none" style="margin-bottom:20px">
               <h3>Tu plan de onboarding</h3>
+              <p class="section-label" style="margin:4px 0 12px">Fase 1 — Semanas 1–2 · Conocer</p>
               <div class="task-item task-row hover-lift clickeable" data-task>
                 <button class="task-check checked" aria-label="Completar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></button>
-                <div style="flex:1"><div class="task-icon-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-text)" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><strong class="task-text done">Reunión con Carlos Herrera</strong></div><p class="task-meta">Tu manager quiere conocerte y contarte cómo funciona el equipo.</p><span style="font-size:12px;color:var(--accent-text)">✓ Completado</span></div>
+                <div style="flex:1"><div class="task-icon-row"><strong class="task-text done">Reunión con Carlos Herrera</strong></div><p class="task-meta">Tu manager quiere conocerte.</p><span style="font-size:12px;color:var(--accent-text)">✓ Completado</span></div>
               </div>
               <div class="task-item task-row hover-lift clickeable" data-task>
                 <button class="task-check" aria-label="Completar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></button>
-                <div style="flex:1"><div class="task-icon-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg><strong class="task-text">Explora el Design System</strong></div><p class="task-meta">Revisa el component library en Figma antes de tu primera sesión de diseño.</p><span class="task-meta">~45 minutos</span> <button class="btn btn-ghost btn-sm" style="margin-top:6px">Ver recurso →</button></div>
+                <div style="flex:1"><div class="task-icon-row"><strong class="task-text">Explora el Design System</strong></div><p class="task-meta">Revisa el component library en Figma.</p><span class="task-meta">~45 minutos</span> <button class="btn btn-ghost btn-sm" style="margin-top:6px">Ver recurso →</button></div>
               </div>
               <div class="task-item task-row hover-lift clickeable" data-task>
                 <button class="task-check" aria-label="Completar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></button>
-                <div style="flex:1"><div class="task-icon-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><strong class="task-text">Únete a #producto-digital</strong></div><p class="task-meta">El canal donde ocurre todo en tu equipo. Preséntate con un emoji.</p><span class="task-meta">~5 minutos</span></div>
+                <div style="flex:1"><div class="task-icon-row"><strong class="task-text">Únete a #producto-digital</strong></div><p class="task-meta">El canal donde ocurre todo.</p><span class="task-meta">~5 minutos</span></div>
+              </div>
+              <div class="task-item task-row hover-lift clickeable" data-task>
+                <button class="task-check" aria-label="Completar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></button>
+                <div style="flex:1"><div class="task-icon-row"><strong class="task-text">Conoce a Roberto Vargas</strong></div><p class="task-meta">Frontend Dev. Implementa tus diseños. Agenda 30 min para presentarte.</p><span class="task-meta">~30 minutos</span></div>
+              </div>
+              <div class="task-item task-row hover-lift clickeable" data-task>
+                <button class="task-check" aria-label="Completar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></button>
+                <div style="flex:1"><div class="task-icon-row"><strong class="task-text">Revisa el Roadmap Q3</strong></div><p class="task-meta">Entiende en qué está trabajando el equipo. Está en Notion.</p><span class="task-meta">~20 minutos</span> <button class="btn btn-ghost btn-sm" style="margin-top:6px">Ver recurso →</button></div>
+              </div>
+              <div class="task-item task-row hover-lift clickeable" data-task>
+                <button class="task-check" aria-label="Completar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></button>
+                <div style="flex:1"><div class="task-icon-row"><strong class="task-text">Lee la guía de procesos de aprobación</strong></div><p class="task-meta">Cómo se aprueban diseños en Arca. Escrito por Gabriela Rojas (ex-diseñadora).</p><span class="task-meta">~15 minutos</span> <button class="btn btn-ghost btn-sm" style="margin-top:6px">Ver recurso →</button></div>
+              </div>
+              <div class="task-item task-row hover-lift clickeable" data-task>
+                <button class="task-check" aria-label="Completar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></button>
+                <div style="flex:1"><div class="task-icon-row"><strong class="task-text">Primer check-in con Hilo</strong></div><p class="task-meta">Cuéntame cómo te fue la primera semana.</p><span class="task-meta">Solo 5 minutos</span></div>
               </div>
             </div>
         <div class="card hover-none">
           <h3>Tu journey — 90 días</h3>
           <div class="timeline" style="margin-top:16px">
-            <div class="tl-item active hover-subtle"><div class="tl-dot"></div><div class="tl-title">Semanas 1–2 · Conocer</div><div class="tl-desc">Conocer el equipo, las herramientas y cómo trabajan en Arca.</div><div class="progress-meta" style="margin-top:8px"><span>3/4 tareas completadas</span></div><div class="progress-bar" style="height:4px"><div class="progress-fill" style="width:75%"></div></div></div>
-            <div class="tl-item hover-subtle"><div class="tl-dot" style="background:var(--bg-hover);border-color:var(--border)"></div><div class="tl-title" style="color:var(--text-secondary)">Semanas 3–4 · Entender</div><div class="tl-desc">Primer proyecto real. Entender el producto y los usuarios.</div></div>
-            <div class="tl-item hover-subtle"><div class="tl-dot" style="background:var(--bg-hover);border-color:var(--border)"></div><div class="tl-title" style="color:var(--text-muted)">Mes 2 · Contribuir</div><div class="tl-desc">Primera entrega independiente.</div></div>
-            <div class="tl-item hover-subtle"><div class="tl-dot" style="background:var(--bg-hover);border-color:var(--border)"></div><div class="tl-title" style="color:var(--text-muted)">Mes 3 · Liderar</div><div class="tl-desc">Proponer mejoras. Ser referente.</div></div>
+            <div class="tl-item active hover-subtle"><div class="tl-dot"></div><div class="tl-title">Semanas 1–2 · Conocer</div><div class="tl-desc">Conocer el equipo, las herramientas, los procesos y cómo trabajan en Arca.</div><div class="progress-meta" style="margin-top:8px"><span>7 tareas · 3/7 completadas</span></div><div class="progress-bar" style="height:4px"><div class="progress-fill" style="width:43%"></div></div></div>
+            <div class="tl-item hover-subtle"><div class="tl-dot" style="background:var(--bg-hover);border-color:var(--border)"></div><div class="tl-title" style="color:var(--text-secondary)">Semanas 3–4 · Entender</div><div class="tl-desc">Primer proyecto real. Entender el producto, los usuarios y el flujo de trabajo del equipo.</div><div class="progress-meta" style="margin-top:8px"><span>4 tareas</span></div></div>
+            <div class="tl-item hover-subtle"><div class="tl-dot" style="background:var(--bg-hover);border-color:var(--border)"></div><div class="tl-title" style="color:var(--text-muted)">Mes 2 · Contribuir</div><div class="tl-desc">Primera entrega independiente. Proponer y ejecutar desde el primer diseño.</div><div class="progress-meta" style="margin-top:8px"><span>5 tareas</span></div></div>
+            <div class="tl-item hover-subtle"><div class="tl-dot" style="background:var(--bg-hover);border-color:var(--border)"></div><div class="tl-title" style="color:var(--text-muted)">Mes 3 · Liderar</div><div class="tl-desc">Proponer mejoras. Ser referente del Design System. Mentorear al siguiente diseñador que llegue.</div><div class="progress-meta" style="margin-top:8px"><span>3 tareas</span></div></div>
           </div>
         </div>
       </section>
@@ -1562,11 +2024,19 @@ a:hover,
       <!-- EMPLEADO: Chat -->
       <section class="screen" id="screen-chat" data-screen="chat">
         <div class="chat-layout">
-          <div class="chat-header">
-            <div style="display:flex;align-items:center;gap:8px"><h2 style="margin:0">Hilo IA</h2><span style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></span><span style="font-size:12px;color:var(--accent-text)">En línea</span></div>
-            <p style="font-size:13px;color:var(--text-secondary);margin-top:4px">Pregúntame lo que quieras sobre Arca. Todo es completamente privado.</p>
+          <div class="chat-header" style="display:flex;align-items:center;gap:14px">
+            <img src="hilo-character.png" alt="Hilo" style="width:48px;height:auto;filter:drop-shadow(0 4px 12px rgba(0,212,160,0.2));flex-shrink:0;"/>
+            <div style="min-width:0">
+              <div style="display:flex;align-items:center;gap:8px"><h2 style="margin:0">Hilo IA</h2><span style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></span><span style="font-size:12px;color:var(--accent-text)">En línea</span></div>
+              <p style="font-size:13px;color:var(--text-secondary);margin-top:4px">Pregúntame lo que quieras sobre Arca. Todo es completamente privado.</p>
+            </div>
           </div>
           <div class="chat-messages" id="chatMessages">
+            <button type="button" class="weekly-summary-chip" id="weeklySummaryChip" aria-label="Ver resumen semanal">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3l1.5 4.5H18l-3.5 2.5 1.5 4.5L12 12l-4 2.5 1.5-4.5L6 7.5h4.5z"/></svg>
+              <span class="wsc-title">Tu semana pasada · 14–18 jul</span>
+              <span class="wsc-cta">Ver resumen →</span>
+            </button>
             <div class="hilo-proactive-stack" id="empProactiveStack"></div>
             <div class="msg hilo" id="empOpenerMsg">
               <div class="hilo-avatar-sm">H</div>
@@ -1720,72 +2190,119 @@ a:hover,
         </div>
       </section>
 
-      <!-- EMPLEADO/HR: Mapa Conocimiento -->
-      <section class="screen" id="screen-mapa" data-screen="mapa">
-        <h1>Mapa de Conocimiento</h1>
+      <!-- PERSONAS: Mapa + Organigrama -->
+      <section class="screen" id="screen-personas" data-screen="personas">
+        <h1>Personas</h1>
         <p class="page-sub">Encuentra quién sabe qué en Arca. 47 personas registradas.</p>
-        <div class="km-layout">
-          <div class="km-main">
-            <div class="km-search input-area">
-              <div class="voice-bar">
-                <span class="voice-dot"></span>
-                <span>Escuchando en español...</span>
-              </div>
-              <div style="display:flex;gap:8px;align-items:flex-end">
-                <div class="search-wrap" style="flex:1;margin:0">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-                  <input type="text" id="kmSearch" placeholder="¿Quién sabe de... diseño de pagos, APIs, UX research, integraciones?">
+        <div class="personas-tabs" role="tablist" aria-label="Vistas de Personas">
+          <button type="button" class="personas-tab active" role="tab" aria-selected="true" data-personas-tab="mapa" id="personasTabMapa">Mapa de conocimiento</button>
+          <button type="button" class="personas-tab" role="tab" aria-selected="false" data-personas-tab="organigrama" id="personasTabOrg">Organigrama</button>
+        </div>
+        <div class="personas-pane" id="personasPaneMapa" data-personas-pane="mapa" role="tabpanel">
+          <div class="km-layout">
+            <div class="km-main">
+              <div class="predecessor-card" id="predecessorCard">
+                <div class="pred-title">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+                  ¿Quién estuvo antes en tu puesto?
                 </div>
-                <button type="button" class="mic-btn" aria-label="Grabar voz" onclick="toggleVoice(document.getElementById('kmSearch'),this)">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
-                </button>
+                <p class="pred-body">Gabriela Rojas fue Product Designer en Arca por 3 años. Dejó documentado su conocimiento antes de irse.</p>
+                <div class="predecessor-actions">
+                  <button type="button" class="btn btn-primary btn-sm" id="predViewGabriela">Ver su perfil y conocimiento →</button>
+                  <button type="button" class="btn btn-ghost btn-sm" id="predAskHilo">Preguntarle a Hilo sobre Gabriela →</button>
+                </div>
               </div>
+              <div class="km-search">
+                <div class="search-wrap">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                  <input type="text" id="kmSearch" placeholder="Buscar persona por nombre...">
+                </div>
+              </div>
+              <div class="filter-pills" id="kmFilters">
+                <button class="pill active" data-filter="all" data-pill>Todos</button>
+                <button class="pill" data-filter="producto" data-pill>Producto</button>
+                <button class="pill" data-filter="tecnologia" data-pill>Tecnología</button>
+                <button class="pill" data-filter="data" data-pill>Data</button>
+                <button class="pill" data-filter="negocio" data-pill>Negocio</button>
+                <button class="pill" data-filter="diseno" data-pill>Diseño</button>
+              </div>
+              <div class="km-skill-hint" id="kmSkillHint" hidden>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" aria-hidden="true"><path d="M12 3l1.5 4.5H18l-3.5 2.5 1.5 4.5L12 12l-4 2.5 1.5-4.5L6 7.5h4.5z"/><path d="M5 3l.75 2.25H8l-1.75 1.25.75 2.25L5 7.5 3.25 8.75l.75-2.25L2.25 5.25H4.5z"/><path d="M19 14l.75 2.25H22l-1.75 1.25.75 2.25L19 18.5l-1.75 1.25.75-2.25-1.75-1.25h2.25z"/></svg>
+                <div class="km-skill-title">¿Buscas a alguien que sepa de algo?</div>
+                <div class="km-skill-sub">Pregúntale a Hilo. Puede decirte quién es el experto en lo que necesitas.</div>
+                <button type="button" class="btn btn-primary btn-sm" id="kmAskHiloBtn">Preguntarle a Hilo →</button>
+              </div>
+              <div class="person-grid" id="personGrid"></div>
             </div>
-            <div class="filter-pills" id="kmFilters">
-              <button class="pill active" data-filter="all" data-pill>Todos</button>
-              <button class="pill" data-filter="producto" data-pill>Producto</button>
-              <button class="pill" data-filter="tecnologia" data-pill>Tecnología</button>
-              <button class="pill" data-filter="data" data-pill>Data</button>
-              <button class="pill" data-filter="negocio" data-pill>Negocio</button>
-              <button class="pill" data-filter="diseno" data-pill>Diseño</button>
-            </div>
-            <div class="person-grid" id="personGrid"></div>
+            <div class="card" id="kmPanel" style="display:none"></div>
           </div>
-          <div class="card" id="kmPanel" style="display:none"></div>
         </div>
-      </section>
-
-      <!-- ORGANIGRAMA -->
-      <section class="screen" id="screen-organigrama" data-screen="organigrama">
-        <h1>Organigrama</h1>
-        <p class="page-sub">Estructura de Arca · 320 personas · 12 equipos</p>
-        <div class="card" style="text-align:center;padding:20px;margin-bottom:20px">
-          <p style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Dirección</p>
-          <p style="font-weight:600;font-size:16px">CEO · Dirección General</p>
-          <p style="font-size:12px;color:var(--text-secondary);margin-top:4px">6 ejecutivos · reportan directamente</p>
+        <div class="personas-pane is-hidden" id="personasPaneOrg" data-personas-pane="organigrama" role="tabpanel" hidden>
+          <p class="page-sub" style="margin-top:0;margin-bottom:16px">Estructura de Arca · 320 personas · 12 equipos</p>
+          <div class="card" style="text-align:center;padding:20px;margin-bottom:20px">
+            <p style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Dirección</p>
+            <p style="font-weight:600;font-size:16px">CEO · Dirección General</p>
+            <p style="font-size:12px;color:var(--text-secondary);margin-top:4px">6 ejecutivos · reportan directamente</p>
+          </div>
+          <p class="section-label">Equipos</p>
+          <div class="org-grid" id="orgGrid"></div>
         </div>
-        <p class="section-label">Equipos</p>
-        <div class="org-grid" id="orgGrid"></div>
       </section>
 
       <!-- EMPLEADO: Perfil -->
       <section class="screen" id="screen-perfil" data-screen="perfil">
         <div class="profile-header">
-          <div class="profile-avatar" data-init="SM">SM</div>
+          <div class="profile-avatar" data-init="SM" style="width:64px;height:64px;font-size:22px">SM</div>
           <div>
-            <h1>Sofía Martínez</h1>
-            <p class="page-sub" style="margin:0">Product Designer · Producto Digital · Arca</p>
-            <p style="font-size:13px;color:var(--text-secondary);margin-top:8px">Día 15 de 90 · Manager: Carlos Herrera</p>
+            <h1 style="font-family:var(--font-display);font-weight:700;font-size:20px;margin:0">Sofía Martínez</h1>
+            <p style="font-family:var(--font-body);font-size:14px;color:var(--text-secondary);margin:4px 0 8px">Product Designer</p>
+            <span class="tag" style="background:var(--accent-soft);color:var(--accent-text);border:1px solid var(--border-accent)">Producto Digital</span>
           </div>
         </div>
-        <div class="profile-stat-grid">
-          <div class="stat-box hover-none"><div class="val">12</div><div class="lbl">Conexiones hechas</div></div>
-          <div class="stat-box hover-none"><div class="val">8</div><div class="lbl">Tareas completadas</div></div>
-          <div class="stat-box hover-none"><div class="val">4.2</div><div class="lbl">Promedio check-in</div></div>
+        <div class="card hover-none" style="margin-bottom:16px">
+          <div class="pm-label">Datos personales</div>
+          <div class="profile-data-row"><span class="pdr-label">RUT</span><span class="pdr-value">12.345.678-9</span></div>
+          <div class="profile-data-row"><span class="pdr-label">Email</span><span class="pdr-value">sofia.martinez@arca.cl</span></div>
+          <div class="profile-data-row"><span class="pdr-label">Teléfono</span><span class="pdr-value">+56 9 1234 5678</span></div>
+          <div class="profile-data-row"><span class="pdr-label">Fecha de ingreso</span><span class="pdr-value">10 de junio de 2026</span></div>
+          <div class="profile-data-row" style="border-bottom:none"><span class="pdr-label">Tipo de contrato</span><span class="pdr-value">Indefinido</span></div>
         </div>
-        <div class="two-col" style="margin-top:24px">
-          <div class="card"><h3>Skills</h3><div class="pc-tags" style="justify-content:flex-start;margin-top:12px"><span class="tag">Figma</span><span class="tag">Design Systems</span><span class="tag">UX Research</span><span class="tag">Prototyping</span></div></div>
-          <div class="card"><h3>Manager</h3><p style="margin-top:8px;font-size:14px">Carlos Herrera</p><p style="font-size:12px;color:var(--text-secondary)">Head of Product · Producto Digital</p></div>
+        <div class="card hover-none" style="margin-bottom:16px">
+          <div class="pm-label">Rol en Arca</div>
+          <div class="profile-data-row"><span class="pdr-label">Cargo</span><span class="pdr-value">Product Designer</span></div>
+          <div class="profile-data-row"><span class="pdr-label">Área</span><span class="pdr-value">Producto Digital</span></div>
+          <div class="profile-data-row"><span class="pdr-label">Manager directo</span><span class="pdr-value">Carlos Herrera</span></div>
+          <div class="profile-data-row"><span class="pdr-label">Nivel</span><span class="pdr-value">Senior</span></div>
+          <div class="profile-data-row" style="border-bottom:none"><span class="pdr-label">Días en Arca</span><span class="pdr-value">15 días</span></div>
+        </div>
+        <div class="card hover-none" style="margin-bottom:16px">
+          <div class="pm-label">Mi expertise</div>
+          <div class="pc-tags" id="profileSkills" style="justify-content:flex-start;margin-top:4px">
+            <span class="tag">UX Research</span><span class="tag">Figma</span><span class="tag">Design Systems</span><span class="tag">Prototipado</span><span class="tag">Tests de usabilidad</span>
+          </div>
+          <button type="button" class="pm-dir" id="profileAddSkill" style="text-align:left;margin-top:10px;color:var(--accent)">+ Agregar skill</button>
+          <div id="profileSkillInputWrap" style="display:none;margin-top:8px">
+            <input type="text" id="profileSkillInput" placeholder="Nueva skill…" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius-md);font-family:var(--font-body);font-size:13px;background:var(--bg-surface);color:var(--text-primary)">
+          </div>
+        </div>
+        <div class="card hover-none" style="margin-bottom:16px">
+          <div class="pm-label">Mi progreso</div>
+          <div class="profile-data-row" style="border-bottom:none;display:block;padding-bottom:10px">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span class="pdr-label">Onboarding</span><span class="pdr-value">17% completado</span></div>
+            <div class="progress-bar" style="height:6px"><div class="progress-fill" style="width:17%"></div></div>
+          </div>
+          <div class="profile-data-row"><span class="pdr-label">Puntos este mes</span><span class="pdr-value">698 pts</span></div>
+          <div class="profile-data-row"><span class="pdr-label">Posición actual</span><span class="pdr-value">#4 de 320</span></div>
+          <button type="button" class="pm-dir" id="profileRankLink" style="text-align:left;color:var(--accent);margin:4px 0 8px">Ver ranking completo →</button>
+          <div class="profile-data-row" style="border-bottom:none"><span class="pdr-label">Check-ins completados</span><span class="pdr-value">7 de 8 posibles</span></div>
+        </div>
+        <div class="card hover-none" style="margin-bottom:16px">
+          <div class="pm-label">Mis herramientas</div>
+          <div class="profile-tool-row"><span>Figma</span><span class="tool-ok">✓ Acceso activo</span></div>
+          <div class="profile-tool-row"><span>Jira</span><span class="tool-ok">✓ Acceso activo</span></div>
+          <div class="profile-tool-row"><span>Notion</span><span class="tool-ok">✓ Acceso activo</span></div>
+          <div class="profile-tool-row"><span>Slack</span><span class="tool-ok">✓ Acceso activo</span></div>
+          <div class="profile-tool-row" style="border-bottom:none"><span>GitHub</span><span><span class="tool-no">✗ Sin acceso</span> · <button type="button" class="checkin-rank-link" id="profileRequestGithub">Solicitar →</button></span></div>
         </div>
         <div class="profile-help">
           <p class="section-label">Ayuda</p>
@@ -1840,11 +2357,11 @@ a:hover,
           <div class="card equipo-rank-card hover-none" id="equipoRankCard">
             <h3 style="font-size:13px;margin-bottom:12px">Ranking de tu equipo</h3>
             <p style="font-size:12px;color:var(--text-secondary);margin-bottom:12px">Producto Digital · esta semana</p>
-            <div class="rank-mini-row hover-none"><span class="rank-pos g1">#1</span><div class="avatar sm" data-init="SM">SM</div><span style="flex:1">S. Martínez</span><strong>698</strong><span class="trend-up">↑</span></div>
-            <div class="rank-mini-row hover-none"><span class="rank-pos g2">#2</span><div class="avatar sm" data-init="MP">MP</div><span style="flex:1">M. Lagos</span><strong>589</strong><span class="trend-up">↑</span></div>
-            <div class="rank-mini-row hover-none"><span class="rank-pos g3">#3</span><div class="avatar sm" data-init="CT">CT</div><span style="flex:1">C. Torres</span><strong>432</strong><span class="trend-flat">—</span></div>
-            <div class="rank-mini-row hover-none"><span>#4</span><div class="avatar sm" data-init="FH">FH</div><span style="flex:1">F. Herrera</span><strong>298</strong><span class="trend-up">↑</span></div>
-            <div class="rank-mini-row hover-none"><span>#5</span><div class="avatar sm" data-init="RV">RV</div><span style="flex:1">R. Vargas</span><strong>187</strong><span class="trend-down">↓</span></div>
+            <div class="rank-mini-row hover-none"><span class="rank-pos g1">#1</span><div class="avatar sm" data-init="SM">SM</div><span style="flex:1">Sofía Martínez</span><strong>698</strong><span class="trend-up">↑</span></div>
+            <div class="rank-mini-row hover-none"><span class="rank-pos g2">#2</span><div class="avatar sm" data-init="MP">MP</div><span style="flex:1">María Paz Lagos</span><strong>589</strong><span class="trend-up">↑</span></div>
+            <div class="rank-mini-row hover-none"><span class="rank-pos g3">#3</span><div class="avatar sm" data-init="CT">CT</div><span style="flex:1">Camila Torres</span><strong>432</strong><span class="trend-flat">—</span></div>
+            <div class="rank-mini-row hover-none"><span>#4</span><div class="avatar sm" data-init="FH">FH</div><span style="flex:1">Felipe Herrera</span><strong>298</strong><span class="trend-up">↑</span></div>
+            <div class="rank-mini-row hover-none"><span>#5</span><div class="avatar sm" data-init="RV">RV</div><span style="flex:1">Roberto Vargas</span><strong>187</strong><span class="trend-down">↓</span></div>
             <p style="font-size:11px;color:var(--text-secondary);margin:12px 0">Roberto tiene conocimiento crítico sin documentar. Coincide con las alertas activas.</p>
             <button class="btn btn-ghost btn-sm" id="btnVerRankingCompleto" style="width:100%">Ver ranking completo →</button>
           </div>
@@ -2026,7 +2543,12 @@ a:hover,
       <section class="screen" id="screen-analytics" data-screen="analytics">
         <h1>Analytics · Arca</h1>
         <p class="page-sub">Últimos 90 días</p>
-        <div class="chart-card" style="margin-bottom:16px"><h4>Estado del equipo — últimos 90 días</h4><div class="chart-wrap" style="height:200px"><canvas id="chartEstado"></canvas></div></div>
+        <div class="chart-card" style="margin-bottom:16px" id="wellbeingDashboard">
+          <h4>Estado del equipo — últimos 90 días</h4>
+          <p style="font-size:12px;color:var(--text-secondary);margin:0 0 10px;line-height:1.45">Distribución agregada del equipo (porcentajes). Sin nombres ni respuestas individuales.</p>
+          <div class="chart-wrap" style="height:200px"><canvas id="chartEstado"></canvas></div>
+          <p style="font-family:var(--font-body);font-size:10px;color:var(--text-muted);font-style:italic;margin-top:10px;line-height:1.45">Los datos son siempre agregados por equipo. Nunca se muestran respuestas individuales.</p>
+        </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px">
           <div class="chart-card"><h4>Tiempo de productividad por rol (días)</h4><div class="chart-wrap" style="height:200px"><canvas id="chartProductividad"></canvas></div></div>
           <div class="chart-card roi-chart-card">
@@ -2643,8 +3165,7 @@ const NAV={
     {id:'onboarding',label:'Mi día',icon:'<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>'},
     {id:'chat',label:'Hablar con Hilo',icon:'<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>'},
     {id:'journey',label:'Onboarding',pct:'17%',icon:'<path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>'},
-    {id:'mapa',label:'Mapa de Conocimiento',icon:'<circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/><path d="M2 12h20"/>'},
-    {id:'organigrama',label:'Organigrama',icon:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="9" y="14" width="7" height="7" rx="1"/><path d="M6.5 10v1M17.5 10v1M12.5 11v3"/>'},
+    {id:'personas',label:'Personas',icon:'<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>'},
     {id:'ranking',label:'Ranking',icon:'<path d="M6 9H4.5a2.5 2.5 0 010-5H6M18 9h1.5a2.5 2.5 0 000-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20 7 22M14 14.66V17c0 .55.47.98.97 1.21 2.18 1.54 3 2.79 3 4.01M12 7V2"/><path d="M12 7l-2 4h4l-2-4z"/>'},
     {id:'perfil',label:'Mi Perfil',icon:'<path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>'}
   ],
@@ -2653,7 +3174,7 @@ const NAV={
     {id:'chat',label:'Hablar con Hilo',icon:'<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>'},
     {id:'alertas',label:'Alertas',badge:'2',icon:'<path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/>'},
     {id:'momentos',label:'Momentos Sugeridos',icon:'<path d="M12 3l1.5 4.5H18l-3.5 2.5 1.5 4.5L12 12l-4 2.5 1.5-4.5L6 7.5h4.5z"/>'},
-    {id:'organigrama',label:'Organigrama',icon:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="9" y="14" width="7" height="7" rx="1"/><path d="M6.5 10v1M17.5 10v1M12.5 11v3"/>'},
+    {id:'personas',label:'Personas',icon:'<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>'},
     {id:'onboarding-activo',label:'Onboarding Activo',icon:'<path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 0v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/>'}
   ],
   admin:[
@@ -2662,9 +3183,8 @@ const NAV={
     {id:'cargos',label:'Cargos',icon:'<rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>'},
     {id:'fases',label:'Fases',icon:'<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>'},
     {id:'vista-global',label:'Vista Global',icon:'<rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M16 6h.01M12 6h.01M12 10h.01M16 10h.01M8 10h.01M12 14h.01M16 14h.01M8 14h.01"/>'},
-    {id:'organigrama',label:'Organigrama',icon:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="9" y="14" width="7" height="7" rx="1"/><path d="M6.5 10v1M17.5 10v1M12.5 11v3"/>'},
+    {id:'personas',label:'Personas',icon:'<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>'},
     {id:'memoria',label:'Memoria Institucional',icon:'<path d="M9.5 2A5.5 5.5 0 014 7.5v0A5.5 5.5 0 019.5 13H12v7l4-3H20a2 2 0 002-2v-2a8 8 0 00-8-8z"/>'},
-    {id:'mapa',label:'Mapa de Conocimiento',icon:'<circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/><path d="M2 12h20"/>'},
     {id:'analytics',label:'Analytics',icon:'<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>'},
     {id:'config',label:'Configuración',icon:'<circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>'}
   ]
@@ -2723,6 +3243,21 @@ const PEOPLE=[
   {id:'vc',init:'VC',name:'Valentina Cruz',role:'QA Engineer',team:'Tecnología',dept:'tecnologia',years:'2 años en Arca',gradient:'#eab308',tags:['Testing','Automatización','Mobile'],bio:'QA lead para producto mobile y web.',projects:[['E2E checkout','2024']],knowledge:['Playwright setup','Test plans mobile']}
 ];
 
+const GABRIELA_PERSON={
+  id:'gr',init:'GR',name:'Gabriela Rojas',role:'Product Designer',team:'Producto Digital',
+  alumni:true,tenure:'Product Designer · 2023–2026 · 3 años',
+  bio:'Fue Product Designer en Arca por 3 años. Dejó documentado su conocimiento antes de irse para quien llegara después al rol.',
+  projects:[['Design System v2','2023'],['Checkout UX','2024'],['Proceso de aprobación','2024']],
+  knowledge:['Proceso de aprobación con Carlos','Contacto Estudio Forma','Errores del primer mes','Design System v3'],
+  legacy:[
+    'Proceso de aprobación con Carlos',
+    'Contacto en Estudio Forma: Valentina Ruiz',
+    'Errores comunes en el primer mes',
+    'Tips del Design System v3'
+  ],
+  tags:['Figma','Design System','Aprobaciones']
+};
+
 const TEAM=[
   {id:'sm',init:'SM',name:'Sofía Martínez',role:'Product Designer',status:'warn',statusLabel:'🟡 Atención',gradient:'#6366f1',onboarding:15,onboardingMax:90,note:'Onboarding día 15',signal:'Completó 40% de tareas semana 2. Faltan 3 reuniones clave.',suggestion:'Ayúdale a agendar reuniones con María Paz, Roberto y Camila.'},
   {id:'mg',init:'MG',name:'Matías González',role:'UX Designer',status:'ok',statusLabel:'🟢 Bien',gradient:'#14b8a6',onboarding:3,onboardingMax:90,note:null,signal:null,suggestion:null},
@@ -2735,7 +3270,7 @@ const TEAM=[
 ];
 
 const HR_TEAMS=[
-  {name:'Producto Digital',count:8,manager:'Carlos H.',status:'ok'},{name:'Tecnología',count:24,manager:'Diego M.',status:'warn'},{name:'Data & Analytics',count:12,manager:'Priya K.',status:'ok'},{name:'Diseño',count:6,manager:'Sofía R.',status:'ok'},{name:'Ventas',count:18,manager:'Marco T.',status:'alert'},{name:'Marketing',count:9,manager:'Carla V.',status:'ok'},{name:'Finanzas',count:15,manager:'Roberto P.',status:'ok'},{name:'Legal',count:4,manager:'Ana M.',status:'ok'},{name:'Customer Success',count:22,manager:'Felipe G.',status:'warn'},{name:'Operaciones',count:31,manager:'Luis H.',status:'ok'},{name:'People',count:5,manager:'Ana Pizarro',status:'ok'},{name:'Ejecutivos',count:6,manager:'—',status:'ok'}
+  {name:'Producto Digital',count:8,manager:'Carlos Herrera',status:'ok'},{name:'Tecnología',count:24,manager:'Diego Morales',status:'warn'},{name:'Data & Analytics',count:12,manager:'Priya Kapoor',status:'ok'},{name:'Diseño',count:6,manager:'Sofía Reyes',status:'ok'},{name:'Ventas',count:18,manager:'Marco Torres',status:'alert'},{name:'Marketing',count:9,manager:'Carla Vega',status:'ok'},{name:'Finanzas',count:15,manager:'Roberto Pinto',status:'ok'},{name:'Legal',count:4,manager:'Ana Mora',status:'ok'},{name:'Customer Success',count:22,manager:'Felipe González',status:'warn'},{name:'Operaciones',count:31,manager:'Luis Herrera',status:'ok'},{name:'People',count:5,manager:'Ana Pizarro',status:'ok'},{name:'Ejecutivos',count:6,manager:'—',status:'ok'}
 ];
 
 const MEMORY=[
@@ -2749,9 +3284,9 @@ const MEMORY=[
 
 let currentRole='normal';
 let currentScreen='onboarding';
-let onboardingShown=false;
-let adminOnboardingShown=false;
-let managerOnboardingShown=false;
+let onboardingShown=true;
+let adminOnboardingShown=true;
+let managerOnboardingShown=true;
 let lastCheckin=localStorage.getItem('hiloLastCheckin')||null;
 let hiloEmpChat=null;
 let pendingEmpathyStart=false;
@@ -3012,7 +3547,7 @@ const MANAGER_TOUR=[
 const PLATFORM_TOUR=[
   {target:'onboarding',title:'Tu día en Arca 📋',text:'En Mi día ves tu foco, tus reuniones y tu plan de hoy. Empieza por lo de hoy.',filled:1,btn:'Siguiente →'},
   {target:'chat',title:'Hablar con Hilo 💬',text:'Pregúntame cualquier cosa sobre la empresa. Completamente privado. Ni tu jefe ni HR ven esto.',filled:1,btn:'Siguiente →'},
-  {target:'mapa',title:'Encuentra a quien necesitas 🗺️',text:'¿Quién sabe de X en Arca? Encuéntralo aquí sin preguntarle a nadie.',filled:2,btn:'Siguiente →'},
+  {target:'personas',title:'Encuentra a quien necesitas 🗺️',text:'¿Quién sabe de X en Arca? Encuéntralo aquí sin preguntarle a nadie.',filled:2,btn:'Siguiente →'},
   {target:'ranking',title:'Compite y gana beneficios 🏆',text:'Cada interacción con Hilo te da puntos. Los mejores del mes ganan premios reales.',filled:4,btn:'¡Entendido! Empezar →',last:true}
 ];
 let chartsInitialized=false;
@@ -3086,21 +3621,6 @@ function switchRole(role){
   updateSidebarUser();
   renderNav();
   const finish=()=>{
-    if(role==='normal'&&!onboardingShown){
-      showScreen('onboarding',true);
-      setTimeout(startPlatformOnboarding,350);
-      return;
-    }
-    if(role==='admin'&&!adminOnboardingShown){
-      showScreen('beneficios',true);
-      setTimeout(startAdminOnboarding,400);
-      return;
-    }
-    if(role==='manager'&&!managerOnboardingShown){
-      showScreen('equipo',true);
-      setTimeout(startManagerOnboarding,400);
-      return;
-    }
     if(active){
       active.style.transition='opacity .2s ease, transform .2s ease';
       active.style.opacity='0';
@@ -3469,14 +3989,64 @@ function switchScreen(id){
 }
 
 function resolveScreenId(id){
+  if(id==='mapa'||id==='organigrama')return 'personas';
   if(id!=='chat')return id;
   if(currentRole==='manager')return 'chat-manager';
   if(currentRole==='admin')return 'chat-admin';
   return 'chat';
 }
 
+function setPersonasTab(tab){
+  const want=tab==='organigrama'?'organigrama':'mapa';
+  $$('.personas-tab').forEach(btn=>{
+    const on=btn.dataset.personasTab===want;
+    btn.classList.toggle('active',on);
+    btn.setAttribute('aria-selected',on?'true':'false');
+  });
+  const paneMapa=$('#personasPaneMapa');
+  const paneOrg=$('#personasPaneOrg');
+  if(!paneMapa||!paneOrg)return;
+  if(want==='mapa'){
+    paneOrg.classList.add('is-hidden');
+    paneOrg.hidden=true;
+    paneMapa.hidden=false;
+    paneMapa.classList.remove('is-hidden');
+    renderPersonGrid($('.pill.active')?.dataset.filter||'all',$('#kmSearch')?.value||'');
+  }else{
+    paneMapa.classList.add('is-hidden');
+    paneMapa.hidden=true;
+    paneOrg.hidden=false;
+    paneOrg.classList.remove('is-hidden');
+    renderOrgGrid();
+  }
+}
+
+function setupPersonasTabs(){
+  $$('.personas-tab').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const next=btn.dataset.personasTab;
+      const paneMapa=$('#personasPaneMapa');
+      const paneOrg=$('#personasPaneOrg');
+      const current=paneOrg&&!paneOrg.classList.contains('is-hidden')?'organigrama':'mapa';
+      if(next===current)return;
+      const leaving=current==='mapa'?paneMapa:paneOrg;
+      leaving?.classList.add('is-fading');
+      setTimeout(()=>{
+        leaving?.classList.remove('is-fading');
+        setPersonasTab(next);
+        const entering=next==='mapa'?paneMapa:paneOrg;
+        if(entering){
+          entering.classList.add('is-fading');
+          requestAnimationFrame(()=>requestAnimationFrame(()=>entering.classList.remove('is-fading')));
+        }
+      },150);
+    });
+  });
+}
+
 function showScreen(id,fromRole){
-  currentScreen=id;
+  const navId=(id==='mapa'||id==='organigrama')?'personas':id;
+  currentScreen=navId;
   const resolved=resolveScreenId(id);
   $$('.screen').forEach(s=>{
     s.classList.remove('active');
@@ -3488,19 +4058,21 @@ function showScreen(id,fromRole){
     el.classList.add('active');
     if(fromRole){el.style.animation='none';void el.offsetWidth;el.style.animation='';}
   }
-  $$('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.screen===id));
-  $$('#mobileNav button').forEach(b=>b.classList.toggle('active',b.dataset.screen===id));
+  $$('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.screen===navId));
+  $$('#mobileNav button').forEach(b=>b.classList.toggle('active',b.dataset.screen===navId));
   if(id==='analytics'){setTimeout(initAnalyticsCharts,80);}
-  if(id==='mapa')renderPersonGrid();
+  if(navId==='personas'||id==='mapa'||id==='organigrama'){
+    setPersonasTab(id==='organigrama'?'organigrama':'mapa');
+  }
   if(id==='equipo')renderTeamList();
   if(id==='vista-global')renderHrTeams();
   if(id==='memoria')renderMemory();
-  if(id==='organigrama')renderOrgGrid();
   if(id==='ranking')renderRankingScreen();
   if(id==='puntos')renderPuntosScreen();
   if(id==='beneficios')renderBeneficiosScreen();
   if(id==='cargos')renderCargosScreen();
   if(id==='fases')renderFasesScreen();
+  if(id==='chat')setTimeout(showWeeklySummaryCard,40);
   if($('#adminTour').classList.contains('open'))setTimeout(renderAdminTourStep,80);
   if($('#managerTour').classList.contains('open'))setTimeout(renderManagerTourStep,80);
 }
@@ -3536,6 +4108,53 @@ function replayTutorial(){
   }
 }
 
+const HILO_DEMO_MODE=true;
+
+function setupFirstVisitHint(){
+  // Demo: always show spotlight on load. Production: first visit only.
+  if(!HILO_DEMO_MODE && localStorage.getItem('hiloHintShown'))return;
+  setTimeout(()=>showTutorialSpotlight(),800);
+}
+
+function dismissTutorialSpotlight(){
+  const overlay=document.getElementById('tutorialSpotlight');
+  const tip=document.getElementById('hiloSpotlightTip');
+  const btn=$('#btnReplayTutorial');
+  btn?.classList.remove('tutorial-spotlight-target');
+  document.documentElement.classList.remove('spotlight-active');
+  overlay?.remove();
+  tip?.remove();
+  localStorage.setItem('hiloHintShown','true');
+}
+
+function showTutorialSpotlight(){
+  if(document.getElementById('tutorialSpotlight'))return;
+  const btn=$('#btnReplayTutorial');
+  if(!btn)return;
+  document.documentElement.classList.add('spotlight-active');
+  btn.classList.add('tutorial-spotlight-target');
+  const overlay=document.createElement('div');
+  overlay.id='tutorialSpotlight';
+  document.body.appendChild(overlay);
+  const tip=document.createElement('div');
+  tip.id='hiloSpotlightTip';
+  tip.innerHTML=`
+    <div class="spot-title">¿Primera vez aquí? 👋</div>
+    <div class="spot-sub">Puedes ver el tutorial cuando quieras desde este botón.</div>
+    <div class="spot-actions">
+      <button type="button" class="btn btn-primary btn-sm" id="spotStartTutorial">Ver tutorial →</button>
+      <button type="button" class="btn btn-ghost btn-sm" id="spotSkipTutorial">Saltar por ahora</button>
+    </div>`;
+  document.body.appendChild(tip);
+  overlay.addEventListener('click',()=>dismissTutorialSpotlight());
+  tip.addEventListener('click',e=>e.stopPropagation());
+  $('#spotSkipTutorial')?.addEventListener('click',()=>dismissTutorialSpotlight());
+  $('#spotStartTutorial')?.addEventListener('click',()=>{
+    dismissTutorialSpotlight();
+    replayTutorial();
+  });
+}
+
 function posClass(p){return p===1?'g1':p===2?'g2':p===3?'g3':'';}
 function trendIcon(t){return t==='up'?'↑':t==='down'?'↓':'—';}
 function trendCls(t){return t==='up'?'trend-up':t==='down'?'trend-down':'trend-flat';}
@@ -3544,7 +4163,7 @@ function renderRankingScreen(){
   const el=$('#screen-ranking');
   if(!el||el.dataset.rendered==='4')return;
   el.dataset.rendered='4';
-  const abbrev=init=>init.length>=2?`${init[0]}.${init[1]}.`:init;
+  const top=[RANKING_ROWS[0],RANKING_ROWS[1],RANKING_ROWS[2]];
   const rows=RANKING_ROWS.map(r=>{
     const pc=posClass(r.pos);
     const barW=Math.round(r.pts/8.47);
@@ -3575,9 +4194,9 @@ function renderRankingScreen(){
                 <div class="podium-person">
                   <div class="podium-prize">🍕</div>
                   <div class="podium-prize-name">Almuerzo equipo</div>
-                  <div class="podium-avatar podium-rank-2" data-init="CP">CP</div>
-                  <div class="podium-name">${abbrev('CP')}</div>
-                  <div class="podium-pts">812 pts</div>
+                  <div class="podium-avatar podium-rank-2" data-init="${top[1].init}">${top[1].init}</div>
+                  <div class="podium-name">${top[1].name}</div>
+                  <div class="podium-pts">${top[1].pts} pts</div>
                   <div class="podium-medal">🥈</div>
                 </div>
                 <div class="podium-block silver"></div>
@@ -3586,9 +4205,9 @@ function renderRankingScreen(){
                 <div class="podium-person">
                   <div class="podium-prize">☀️</div>
                   <div class="podium-prize-name">Medio día libre</div>
-                  <div class="podium-avatar podium-rank-1" data-init="JM">JM</div>
-                  <div class="podium-name">${abbrev('JM')}</div>
-                  <div class="podium-pts">847 pts</div>
+                  <div class="podium-avatar podium-rank-1" data-init="${top[0].init}">${top[0].init}</div>
+                  <div class="podium-name">${top[0].name}</div>
+                  <div class="podium-pts">${top[0].pts} pts</div>
                   <div class="podium-medal">🥇</div>
                 </div>
                 <div class="podium-block gold"></div>
@@ -3597,9 +4216,9 @@ function renderRankingScreen(){
                 <div class="podium-person">
                   <div class="podium-prize">⭐</div>
                   <div class="podium-prize-name">Salida temprana</div>
-                  <div class="podium-avatar podium-rank-3" data-init="FO">FO</div>
-                  <div class="podium-name">${abbrev('FO')}</div>
-                  <div class="podium-pts">756 pts</div>
+                  <div class="podium-avatar podium-rank-3" data-init="${top[2].init}">${top[2].init}</div>
+                  <div class="podium-name">${top[2].name}</div>
+                  <div class="podium-pts">${top[2].pts} pts</div>
                   <div class="podium-medal">🥉</div>
                 </div>
                 <div class="podium-block bronze"></div>
@@ -3868,6 +4487,7 @@ function openCargoEditor(id,withTemplate){
   const cargo=CARGOS.find(c=>c.id===id);
   if(!cargo)return;
   editingCargoId=id;
+  $('#rightPanel').classList.remove('person-detail-panel');
   $('#panelTitle').textContent=cargo.name;
   $('#rightPanel').classList.add('cargo-panel');
   const templateBlock=!cargo.configured?`
@@ -4103,12 +4723,55 @@ function renderFasesScreen(){
   });
 }
 
+function isNonNameSearchQuery(query){
+  const q=(query||'').trim();
+  if(!q)return false;
+  const words=q.split(/\s+/).filter(Boolean);
+  if(words.length>2)return true;
+  return /\b(sabe|saben|quién|quien|experto|expertos|tema|temas|conoce|conocen|especialista|especialistas)\b/i.test(q);
+}
+
+function askHiloWhoKnows(topic){
+  const typed=(topic||'').trim()||'esto';
+  const prefill=`¿Quién sabe de ${typed}?`;
+  const go=()=>{
+    switchScreen('chat');
+    setTimeout(()=>{
+      const inputId=currentRole==='manager'?'#chatInputMgr':currentRole==='admin'?'#chatInputAdmin':'#chatInput';
+      const input=$(inputId);
+      if(input){
+        input.value=prefill;
+        input.focus();
+        input.dispatchEvent(new Event('input',{bubbles:true}));
+      }
+    },350);
+  };
+  go();
+}
+
 function renderPersonGrid(filter='all',query=''){
   const grid=$('#personGrid');
+  const hint=$('#kmSkillHint');
   if(!grid)return;
+  const q=(query||'').trim();
+  const skillQuery=isNonNameSearchQuery(q);
   let list=PEOPLE;
   if(filter!=='all')list=list.filter(p=>p.dept===filter);
-  if(query)list=list.filter(p=>(p.name+p.role+p.tags.join(' ')).toLowerCase().includes(query.toLowerCase()));
+  if(q&&!skillQuery){
+    const ql=q.toLowerCase();
+    list=list.filter(p=>(p.name||'').toLowerCase().includes(ql));
+  }else if(q&&skillQuery){
+    list=[];
+  }
+  const showHint=!!q&&(skillQuery||list.length===0);
+  if(hint){
+    hint.hidden=!showHint;
+    hint.classList.toggle('show',showHint);
+  }
+  if(showHint){
+    grid.innerHTML='';
+    return;
+  }
   grid.innerHTML=list.map(p=>`
     <div class="person-card hover-lift clickeable" data-person-card data-id="${p.id}" style="text-align:left">
       <div class="avatar" data-init="${p.init}" style="margin:0 0 10px">${p.init}</div>
@@ -4122,7 +4785,7 @@ function renderPersonGrid(filter='all',query=''){
   `).join('');
   syncAvatarColors(grid);
   grid.querySelectorAll('.person-card').forEach(card=>{
-    card.addEventListener('click',()=>openPersonPanel(PEOPLE.find(p=>p.id===card.dataset.id)));
+    card.addEventListener('click',()=>openPersonModal(PEOPLE.find(p=>p.id===card.dataset.id),'mapa'));
   });
 }
 
@@ -4141,175 +4804,379 @@ function renderOrgGrid(){
   grid.querySelectorAll('.org-team-card').forEach(card=>{
     const open=()=>{
       const t=HR_TEAMS[card.dataset.orgIdx];
-      openOrgPersonModal(t);
+      openTeamModal(t);
     };
     card.addEventListener('click',open);
     card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});
   });
 }
 
-function openOrgPersonModal(team){
-  const lead=ORG_LEADERS[team.name]||{
-    init:(team.manager||'??').replace(/[^A-Za-z]/g,'').slice(0,2).toUpperCase()||'??',
-    name:team.manager==='—'?'Dirección':team.manager,
-    role:'Manager · '+team.name,
-    area:team.name,
-    tags:['Liderazgo','Coordinación'],
-    projects:[{name:'Operación del equipo',tone:'green'}],
-    team:false
+let personModalSource='mapa';
+let previousTeamName='';
+let previousTeamData=null;
+
+function initialsFromName(name){
+  const parts=(name||'').trim().split(/\s+/).filter(Boolean);
+  if(!parts.length)return '??';
+  return ((parts[0][0]||'')+(parts[1]?.[0]||parts[0][1]||'')).toUpperCase();
+}
+
+function getTeamMembers(teamName){
+  if(teamName==='Producto Digital'){
+    return TEAM.map(m=>({id:m.id,init:m.init,name:m.name,role:m.role}));
+  }
+  const fromPeople=PEOPLE.filter(p=>p.team===teamName||(teamName.startsWith('Data')&&p.team==='Data')||(teamName==='Customer Success'&&p.team==='CS'));
+  const lead=ORG_LEADERS[teamName];
+  const team=HR_TEAMS.find(t=>t.name===teamName);
+  let members=[];
+  if(lead){
+    members.push({id:'lead-'+teamName,init:lead.init,name:lead.name,role:(lead.role||'Manager').split('·')[0].trim()});
+  }else if(team&&team.manager&&team.manager!=='—'){
+    members.push({id:'mgr-'+teamName,init:initialsFromName(team.manager),name:team.manager,role:'Manager'});
+  }
+  if(fromPeople.length){
+    const leadName=members[0]?.name;
+    members=members.concat(fromPeople.filter(p=>p.name!==leadName).map(p=>({id:p.id,init:p.init,name:p.name,role:p.role})));
+  }
+  return members;
+}
+
+function resolvePerson(member,teamName){
+  if(!member)return null;
+  const found=PEOPLE.find(p=>p.id===member.id||p.init===member.init||p.name===member.name);
+  if(found)return found;
+  const lead=ORG_LEADERS[teamName||previousTeamName];
+  if(lead&&lead.name===member.name){
+    return{
+      id:member.id||('lead-'+member.init),
+      init:lead.init,
+      name:lead.name,
+      role:(lead.role||'').split('·')[0].trim(),
+      team:lead.area||teamName||previousTeamName||'',
+      bio:`${lead.name} lidera el equipo de ${lead.area||teamName||'Arca'}.`,
+      projects:(lead.projects||[]).map(p=>[p.name,'2024']),
+      activeProjects:(lead.projects||[]).map(p=>({name:p.name,dot:p.tone==='amber'?'var(--data)':'var(--accent)'})),
+      knowledge:lead.tags||[],
+      tags:lead.tags||[]
+    };
+  }
+  return{
+    id:member.id||('m-'+member.init),
+    init:member.init||initialsFromName(member.name),
+    name:member.name,
+    role:member.role||'Colaborador',
+    team:teamName||previousTeamName||'',
+    bio:member.bio||`${member.name} forma parte del equipo de ${teamName||previousTeamName||'Arca'}.`,
+    projects:member.projects||[],
+    activeProjects:member.activeProjects||[],
+    knowledge:member.knowledge||member.tags||[],
+    tags:member.tags||[]
   };
-  const teamAvatars=lead.team?TEAM.map(m=>`<button type="button" class="org-mini-avatar clickeable" data-team-id="${m.id}" title="${m.name}"><span class="avatar sm" data-init="${m.init}">${m.init}</span></button>`).join(''):TEAM.slice(0,4).map(m=>`<span class="avatar sm" data-init="${m.init}" title="${m.name}">${m.init}</span>`).join('');
-  const proj= (lead.projects||[]).map(p=>`<div class="org-proj-row"><span>→ ${p.name}</span><span class="tag" style="background:${p.tone==='amber'?'var(--data-soft)':'var(--accent-soft)'};color:${p.tone==='amber'?'var(--data-text)':'var(--accent-text)'}">Activo</span></div>`).join('');
-  const tags=(lead.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('');
-  const how=lead.how?`<div class="org-modal-section"><div class="org-modal-sec-title">Cómo trabaja mejor</div><div class="org-how-card">${lead.how}<div class="org-how-src">${lead.howSrc||''}</div></div></div>`:'';
-  const first=lead.name.split(' ')[0];
-  $('#modalTitle').textContent=lead.name;
+}
+
+function getPersonChipNames(){
+  const names=new Set([
+    'Roberto Vargas',
+    'María Paz Lagos',
+    'Carlos Herrera',
+    'Diego Fuentes',
+    'Camila Torres',
+    'Felipe Ortiz',
+    'Javiera Soto',
+    'Andrés Muñoz',
+    'Valentina Cruz',
+    'Gabriela Rojas',
+    'Sofía Martínez'
+  ]);
+  PEOPLE.forEach(p=>{if(p.name)names.add(p.name);});
+  if(typeof GABRIELA_PERSON!=='undefined'&&GABRIELA_PERSON?.name)names.add(GABRIELA_PERSON.name);
+  TEAM.forEach(m=>{if(m.name)names.add(m.name);});
+  Object.values(ORG_LEADERS).forEach(l=>{if(l.name)names.add(l.name);});
+  return [...names].sort((a,b)=>b.length-a.length);
+}
+
+function findPersonByFullName(name){
+  const n=(name||'').trim();
+  if(!n)return null;
+  if(typeof GABRIELA_PERSON!=='undefined'&&GABRIELA_PERSON?.name===n)return GABRIELA_PERSON;
+  const fromPeople=PEOPLE.find(p=>p.name===n);
+  if(fromPeople)return fromPeople;
+  for(const [teamName,lead] of Object.entries(ORG_LEADERS)){
+    if(lead.name===n)return resolvePerson({init:lead.init,name:lead.name,role:lead.role},teamName);
+  }
+  const fromTeam=TEAM.find(m=>m.name===n);
+  if(fromTeam)return resolvePerson(fromTeam,'Producto Digital');
+  return null;
+}
+
+function wrapPersonNames(messageEl){
+  if(!messageEl)return;
+  const el=messageEl.classList?.contains('msg-bubble')?messageEl:messageEl.querySelector?.('.msg-bubble')||messageEl;
+  if(!el||el.dataset.namesWrapped==='1')return;
+  const names=getPersonChipNames();
+  let html=el.innerHTML;
+  let changed=false;
+  names.forEach(name=>{
+    if(!html.includes(name))return;
+    if(html.includes(`data-person="${name}"`))return;
+    const chip=`<span class="person-chip" onclick="openPersonModal('${name.replace(/'/g,"\\'")}')" data-person="${name}">${name}<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>`;
+    html=html.split(name).join(chip);
+    changed=true;
+  });
+  if(changed){
+    el.innerHTML=html;
+    el.dataset.namesWrapped='1';
+  }
+}
+
+function wrapPersonNamesInContainer(container){
+  if(!container)return;
+  container.querySelectorAll('.msg.hilo .msg-bubble, .hilo-proactive-body .msg-bubble').forEach(wrapPersonNames);
+}
+
+function closePersonModal(){closeModal();}
+function closeTeamModal(){closeModal();}
+function closeAll(){
+  closePersonModal();
+  closeTeamModal();
+}
+function goBackToTeam(){
+  if(previousTeamData)openTeamModal(previousTeamData);
+}
+
+function openTeamModal(team){
+  if(!team)return;
+  previousTeamData=team;
+  previousTeamName=team.name;
+  const lead=ORG_LEADERS[team.name];
+  const members=getTeamMembers(team.name);
+  const projects=lead?.projects||[{name:'Operación del equipo',tone:'green'}];
+  const expertise=[...new Set([
+    ...(lead?.tags||[]),
+    ...members.flatMap(m=>{
+      const p=PEOPLE.find(x=>x.id===m.id||x.init===m.init);
+      return p?.tags||p?.knowledge||[];
+    })
+  ])];
+  const memberHtml=members.length?members.map((m,i)=>`
+    <button type="button" class="person-chip-col clickeable" data-member-idx="${i}">
+      <span class="avatar" data-init="${m.init}">${m.init}</span>
+      <span class="person-chip-name">${m.name}</span>
+      <span class="person-chip-role">${m.role||''}</span>
+    </button>`).join(''):`<span style="font-size:12px;color:var(--text-muted)">Sin detalle de miembros en demo</span>`;
+  const projHtml=projects.map(p=>`
+    <div class="tm-proj-row">
+      <span class="dot" style="background:${p.tone==='amber'?'var(--data)':'var(--accent)'}"></span>
+      <span style="flex:1">${p.name}</span>
+      <span class="pm-activo">Activo</span>
+    </div>`).join('');
+  const tagsHtml=expertise.map(t=>`<span class="tag">${t}</span>`).join('')||`<span style="font-size:12px;color:var(--text-muted)">Sin tags aún</span>`;
+  const managerLabel=team.manager&&team.manager!=='—'?'Manager: '+team.manager:(lead?'Manager: '+lead.name:'');
+  $('#modalTitle').textContent=team.name;
   $('#modalBody').innerHTML=`
-    <div class="org-modal">
-      <div class="org-modal-header">
-        <div class="avatar" data-init="${lead.init}" style="width:52px;height:52px;font-size:18px">${lead.init}</div>
-        <div style="flex:1;min-width:0">
-          <div class="org-modal-name">${lead.name}</div>
-          <div class="org-modal-role">${lead.role}</div>
-          <span class="tag" style="margin-top:6px;display:inline-block">${lead.area}</span>
-        </div>
-        <button type="button" class="panel-close" id="orgModalClose" aria-label="Cerrar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    <div class="tm-modal">
+      <div class="tm-header">
+        <div class="tm-title">${team.name}</div>
+        <div class="tm-sub">${managerLabel}</div>
+        <button type="button" class="tm-x" id="tmClose" aria-label="Cerrar">×</button>
       </div>
-      <div class="org-modal-body">
-        <div class="org-modal-section">
-          <div class="org-modal-sec-title">Equipo directo</div>
-          <div class="org-avatar-row">${teamAvatars||'<span style="font-size:12px;color:var(--text-muted)">Sin detalle de equipo en demo</span>'}</div>
+      <div class="tm-body">
+        <div class="tm-section">
+          <div class="pm-label">Miembros</div>
+          <div class="tm-members">${memberHtml}</div>
         </div>
-        <div class="org-modal-section">
-          <div class="org-modal-sec-title">Proyectos activos</div>
-          <p style="font-size:10px;color:var(--text-muted);margin:0 0 8px">Leído de Jira</p>
-          ${proj}
+        <div class="tm-section">
+          <div class="pm-label">Proyectos activos</div>
+          <p class="pm-source" style="margin-bottom:6px">Leído de Jira</p>
+          ${projHtml}
         </div>
-        <div class="org-modal-section">
-          <div class="org-modal-sec-title">Expertise</div>
-          <div class="pc-tags" style="justify-content:flex-start;margin-top:8px">${tags}</div>
+        <div class="tm-section">
+          <div class="pm-label">Expertise del equipo</div>
+          <div class="pc-tags" style="justify-content:flex-start;margin-top:4px">${tagsHtml}</div>
         </div>
-        ${how}
       </div>
-      <div class="org-modal-footer">
-        <button type="button" class="btn btn-ghost btn-sm" id="orgModalProfile">Ver perfil completo →</button>
-        <button type="button" class="btn btn-primary btn-sm" id="orgModalChat">Habla con Hilo sobre ${first} →</button>
+      <div class="tm-footer">
+        <button type="button" class="btn btn-ghost btn-sm" id="tmViewPeople" style="width:100%;justify-content:center">Ver todos en Personas →</button>
       </div>
     </div>`;
   openModal();
   syncAvatarColors($('#modalBody'));
-  $('#orgModalClose')?.addEventListener('click',closeModal);
-  $('#orgModalProfile')?.addEventListener('click',()=>{
-    closeModal();
-    const person=PEOPLE.find(p=>p.name===lead.name);
-    if(person){switchScreen('mapa');setTimeout(()=>openPersonPanel(person),300);}
-    else showToast('Perfil completo disponible en Mapa de Conocimiento');
+  $('#tmClose')?.addEventListener('click',closeAll);
+  $('#tmViewPeople')?.addEventListener('click',()=>{
+    closeAll();
+    switchScreen('personas');
+    setTimeout(()=>setPersonasTab('mapa'),50);
   });
-  $('#orgModalChat')?.addEventListener('click',()=>{
-    closeModal();
-    const msg=`Cuéntame sobre ${lead.name}`;
-    const go=()=>{
-      switchScreen('chat');
-      setTimeout(()=>{
-        const input=$('#chatInput');
-        if(input){input.value=msg;$('#chatSend')?.click();}
-      },350);
-    };
-    if(currentRole!=='normal'){switchRole('normal');setTimeout(go,350);} else go();
-  });
-  $('#modalBody').querySelectorAll('[data-team-id]').forEach(btn=>{
+  $('#modalBody').querySelectorAll('[data-member-idx]').forEach(btn=>{
     btn.addEventListener('click',e=>{
       e.stopPropagation();
-      const m=TEAM.find(x=>x.id===btn.dataset.teamId);
+      const m=members[Number(btn.dataset.memberIdx)];
       if(!m)return;
-      const person=PEOPLE.find(p=>p.init===m.init);
-      const lead2={
-        init:m.init,
-        name:m.name,
-        role:m.role+' · Producto Digital',
-        area:'Producto Digital',
-        tags:person?.tags||person?.knowledge||[m.role],
-        projects:person?.activeProjects?person.activeProjects.map(p=>({name:p.name,tone:'green'})):[{name:'En curso',tone:'green'}],
-        team:false
-      };
-      openOrgPersonFromLead(lead2);
+      openPersonModal(resolvePerson(m,team.name),'organigrama');
     });
   });
 }
 
-function openOrgPersonFromLead(lead){
-  const proj=(lead.projects||[]).map(p=>`<div class="org-proj-row"><span>→ ${p.name}</span><span class="tag" style="background:var(--accent-soft);color:var(--accent-text)">Activo</span></div>`).join('');
-  const tags=(lead.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('');
-  const first=lead.name.split(' ')[0];
-  $('#modalTitle').textContent=lead.name;
-  $('#modalBody').innerHTML=`
-    <div class="org-modal">
-      <div class="org-modal-header">
-        <div class="avatar" data-init="${lead.init}" style="width:52px;height:52px;font-size:18px">${lead.init}</div>
-        <div style="flex:1">
-          <div class="org-modal-name">${lead.name}</div>
-          <div class="org-modal-role">${lead.role}</div>
-          <span class="tag" style="margin-top:6px;display:inline-block">${lead.area}</span>
-        </div>
-        <button type="button" class="panel-close" id="orgModalClose" aria-label="Cerrar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
-      </div>
-      <div class="org-modal-body">
-        <div class="org-modal-section"><div class="org-modal-sec-title">Proyectos activos</div><p style="font-size:10px;color:var(--text-muted);margin:0 0 8px">Leído de Jira</p>${proj}</div>
-        <div class="org-modal-section"><div class="org-modal-sec-title">Expertise</div><div class="pc-tags" style="justify-content:flex-start;margin-top:8px">${tags}</div></div>
-      </div>
-      <div class="org-modal-footer">
-        <button type="button" class="btn btn-ghost btn-sm" id="orgModalProfile">Ver perfil completo →</button>
-        <button type="button" class="btn btn-primary btn-sm" id="orgModalChat">Habla con Hilo sobre ${first} →</button>
-      </div>
-    </div>`;
-  openModal();
-  syncAvatarColors($('#modalBody'));
-  $('#orgModalClose')?.addEventListener('click',closeModal);
-  $('#orgModalProfile')?.addEventListener('click',()=>{
-    closeModal();
-    const person=PEOPLE.find(p=>p.name===lead.name);
-    if(person){switchScreen('mapa');setTimeout(()=>openPersonPanel(person),300);}
-  });
-  $('#orgModalChat')?.addEventListener('click',()=>{
-    closeModal();
-    const go=()=>{
-      switchScreen('chat');
-      setTimeout(()=>{
-        const input=$('#chatInput');
-        if(input){input.value=`Cuéntame sobre ${lead.name}`;$('#chatSend')?.click();}
-      },350);
-    };
-    if(currentRole!=='normal'){switchRole('normal');setTimeout(go,350);} else go();
-  });
-}
-
 const TOOL_ICONS={
-  jira:'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M17.5 14v7h7"/></svg>',
-  notion:'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v16M16 4v16M4 8h16M4 16h16"/></svg>',
-  linear:'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>'
+  jira:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M17.5 14v7h7"/></svg>',
+  notion:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v16M16 4v16M4 8h16M4 16h16"/></svg>',
+  linear:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>'
 };
 
 function renderActiveProjectsHtml(person){
   if(!person.activeProjects?.length)return '';
-  const pills=person.activeProjects.map(p=>`<div class="km-active-pill"><span class="dot" style="background:${p.dot}"></span><span style="flex:1">${p.name}</span>${TOOL_ICONS[p.tool]||''}</div>`).join('');
-  return `<div class="panel-section"><h4>Trabajando en</h4><p style="font-size:10px;color:var(--text-muted);margin:-4px 0 10px">Leído de Jira · Notion · Linear</p>${pills}<p style="font-size:11px;color:var(--text-muted);font-style:italic;margin-top:8px">Detectado automáticamente por Hilo de las herramientas conectadas.</p></div>`;
+  const rows=person.activeProjects.map(p=>{
+    const amber=p.dot==='var(--data)'||p.tone==='amber';
+    return `<div class="pm-work-row"><span class="dot${amber?' amber':''}"${amber?'':` style="background:${p.dot||'var(--accent)'}"`}></span><span style="flex:1">${p.name}</span><span class="pm-activo">Activo</span></div>`;
+  }).join('');
+  return `<div class="pm-section"><div class="pm-label">Trabajando en</div><p class="pm-source">Leído de Jira · Notion · Linear</p>${rows}<p class="pm-note">Detectado automáticamente por Hilo.</p></div>`;
 }
 
-function openPersonPanel(person){
-  $('#panelTitle').textContent=person.name;
-  $('#panelBody').innerHTML=`
-    <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
-      <div class="avatar" data-init="${person.init}" style="width:64px;height:64px;font-size:20px">${person.init}</div>
-      <div><h3 style="margin:0">${person.name}</h3><p style="color:var(--text-secondary);font-size:13px">${person.role}</p><span class="tag">${person.team}</span><p style="font-size:12px;color:var(--accent-text);margin-top:6px">● Disponible para consultas</p></div>
-    </div>
-    <div class="panel-section"><h4>Sobre ${person.name.split(' ')[0]}</h4><p style="font-size:14px;color:var(--text-secondary);line-height:1.6">${person.bio}</p></div>
-    <div class="panel-section"><h4>Proyectos destacados</h4>${person.projects.map(([t,y])=>`<p style="font-size:13px;margin-bottom:6px">→ ${t} · ${y}</p>`).join('')}</div>
-    ${renderActiveProjectsHtml(person)}
-    <div class="panel-section"><div class="card" style="background:var(--accent-soft)"><p style="font-size:12px">🧠 Conocimiento documentado</p><div class="pc-tags" style="justify-content:flex-start;margin-top:10px">${person.knowledge.map(k=>`<span class="tag">${k}</span>`).join('')}</div></div></div>
-    <button class="btn btn-primary" style="width:100%;margin-top:8px">Conectar en Slack →</button>
-    <button class="btn btn-ghost" style="width:100%;margin-top:8px">Ver en directorio →</button>
-  `;
-  openPanel();
+function openPersonModal(personOrName,source){
+  let person=personOrName;
+  if(typeof personOrName==='string'){
+    person=findPersonByFullName(personOrName);
+    if(source===undefined)source='chat';
+  }
+  if(!person)return;
+  personModalSource=source||'mapa';
+  if(personModalSource==='mapa'||personModalSource==='chat'){
+    previousTeamName='';
+  }
+  $$('.person-card').forEach(c=>c.classList.toggle('selected',c.dataset.id===person.id));
+  const first=person.name.split(' ')[0];
+  const projects=(person.projects||[]).map(([t,y])=>`<div class="pm-proj"><span class="arrow">→</span>${t} · ${y}</div>`).join('')||`<div class="pm-text" style="color:var(--text-muted)">Sin proyectos destacados</div>`;
+  const knowledge=(person.knowledge||[]).map(k=>`<span class="tag">${k}</span>`).join('');
+  const showBack=personModalSource==='organigrama'&&!!previousTeamName;
+  const backHtml=showBack?`<button type="button" class="pm-back" id="pmBack">← ${previousTeamName}</button>`:`<span></span>`;
+  const alumni=!!person.alumni;
+  const statusHtml=alumni
+    ?`<div class="pm-alumni-badge">Ya no está en Arca</div><div class="pm-role" style="margin-top:6px">${person.tenure||person.role}</div>`
+    :`<div class="pm-role">${person.role}${person.team?' · '+person.team:''}</div><div class="pm-avail"><span class="pm-avail-dot" aria-hidden="true"></span>Disponible para consultas</div>`;
+  const legacyItems=(person.legacy||[]).map(i=>`<div class="pm-proj"><span class="arrow">→</span>${i}</div>`).join('');
+  const legacyHtml=alumni?`
+        <div class="pm-section">
+          <div class="pm-label">Su legado</div>
+          <div class="pm-legacy">
+            <div class="pm-legacy-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--data)" stroke-width="2" aria-hidden="true"><path d="M12 2a7 7 0 017 7c0 4-3 6-5 8s-2 3-2 3-1-1-2-3-5-4-5-8a7 7 0 017-7z"/><circle cx="12" cy="9" r="2"/></svg>
+              Gabriela documentó su conocimiento antes de irse. Está disponible para ti.
+            </div>
+            ${legacyItems}
+            <button type="button" class="btn btn-primary btn-sm" id="pmAccessKnowledge" style="width:100%;margin-top:10px;justify-content:center">Acceder al conocimiento →</button>
+          </div>
+        </div>`:'';
+  const knowledgeSection=alumni?`
+        <div class="pm-section" style="border-bottom:none">
+          <div class="pm-label">Conocimiento archivado</div>
+          <div class="pm-knowledge">
+            <div class="pm-knowledge-title">Conocimiento archivado</div>
+            <div class="pc-tags" style="justify-content:flex-start">${knowledge||'<span class="tag">Sin tags aún</span>'}</div>
+          </div>
+        </div>`:`
+        <div class="pm-section" style="border-bottom:none">
+          <div class="pm-knowledge">
+            <div class="pm-knowledge-title">Conocimiento documentado</div>
+            <div class="pc-tags" style="justify-content:flex-start">${knowledge||'<span class="tag">Sin tags aún</span>'}</div>
+          </div>
+        </div>`;
+  const footerHtml=alumni
+    ?`<button type="button" class="btn btn-primary" id="personAskHiloBtn">Preguntarle a Hilo sobre ${first} →</button>
+        <button type="button" class="pm-dir" id="personDirBtn">Ver en memoria de Arca →</button>`
+    :`<button type="button" class="btn btn-primary" id="personSlackBtn">Conectar en Slack →</button>
+        <button type="button" class="pm-dir" id="personDirBtn">Ver en directorio →</button>`;
+  $('#modalTitle').textContent=person.name;
+  $('#modalBody').innerHTML=`
+    <div class="pm-modal">
+      <div class="pm-header">
+        <div class="pm-nav">
+          ${backHtml}
+          <button type="button" class="pm-x" id="pmClose" aria-label="Cerrar">×</button>
+        </div>
+        <div class="pm-head-row">
+          <div class="avatar pm-avatar" data-init="${person.init}">${person.init}</div>
+          <div style="min-width:0">
+            <div class="pm-name">${person.name}</div>
+            ${statusHtml}
+          </div>
+        </div>
+      </div>
+      <div class="pm-body">
+        <div class="pm-section">
+          <div class="pm-label">Sobre ${first}</div>
+          <p class="pm-text">${person.bio||''}</p>
+        </div>
+        <div class="pm-section">
+          <div class="pm-label">Proyectos destacados</div>
+          ${projects}
+        </div>
+        ${alumni?'':renderActiveProjectsHtml(person)}
+        ${legacyHtml}
+        ${knowledgeSection}
+      </div>
+      <div class="pm-footer">
+        ${footerHtml}
+      </div>
+    </div>`;
+  openModal();
+  syncAvatarColors($('#modalBody'));
+  $('#pmClose')?.addEventListener('click',closeAll);
+  $('#pmBack')?.addEventListener('click',goBackToTeam);
+  $('#personSlackBtn')?.addEventListener('click',()=>showToast('Abriendo Slack…'));
+  $('#personDirBtn')?.addEventListener('click',()=>{
+    if(alumni){closeAll();openGabrielaKnowledgeModal();}
+    else showToast('Directorio próximamente');
+  });
+  $('#pmAccessKnowledge')?.addEventListener('click',()=>{closeAll();openGabrielaKnowledgeModal();});
+  $('#personAskHiloBtn')?.addEventListener('click',()=>{
+    closeAll();
+    askHiloAboutGabriela();
+  });
+}
+
+function askHiloAboutGabriela(){
+  const go=()=>{
+    switchScreen('chat');
+    setTimeout(()=>{
+      const input=$('#chatInput');
+      if(input){
+        input.value='Cuéntame sobre Gabriela Rojas y lo que hacía en mi rol';
+        $('#chatSend')?.click();
+      }
+    },350);
+  };
+  if(currentRole!=='normal'){switchRole('normal');setTimeout(go,350);} else go();
+}
+
+function setupPredecessorCard(){
+  $('#predViewGabriela')?.addEventListener('click',()=>openPersonModal(GABRIELA_PERSON,'mapa'));
+  $('#predAskHilo')?.addEventListener('click',askHiloAboutGabriela);
+}
+
+function setupProfileExtras(){
+  $('#profileRankLink')?.addEventListener('click',()=>switchScreen('ranking'));
+  $('#profileRequestGithub')?.addEventListener('click',()=>showToast('Solicitud enviada a IT ✓'));
+  $('#profileAddSkill')?.addEventListener('click',()=>{
+    const wrap=$('#profileSkillInputWrap');
+    const input=$('#profileSkillInput');
+    if(!wrap||!input)return;
+    wrap.style.display='block';
+    input.focus();
+  });
+  $('#profileSkillInput')?.addEventListener('keydown',e=>{
+    if(e.key!=='Enter')return;
+    const val=e.target.value.trim();
+    if(!val)return;
+    const tags=$('#profileSkills');
+    if(tags){
+      const span=document.createElement('span');
+      span.className='tag';
+      span.textContent=val;
+      tags.appendChild(span);
+    }
+    e.target.value='';
+    $('#profileSkillInputWrap').style.display='none';
+  });
 }
 
 function renderTeamList(){
@@ -4334,6 +5201,7 @@ function renderTeamList(){
 }
 
 function openTeamPanel(member){
+  $('#rightPanel').classList.remove('person-detail-panel','cargo-panel');
   $('#panelTitle').textContent=member.name;
   $('#panelBody').innerHTML=`
     <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
@@ -4362,6 +5230,7 @@ function renderHrTeams(){
   grid.querySelectorAll('.team-tile').forEach(tile=>{
     tile.addEventListener('click',()=>{
       const t=HR_TEAMS[tile.dataset.idx];
+      $('#rightPanel').classList.remove('person-detail-panel','cargo-panel');
       $('#panelTitle').textContent=t.name;
       $('#panelBody').innerHTML=`
         <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">${t.count} personas · Manager: ${t.manager}</p>
@@ -4719,7 +5588,7 @@ function openPanel(){
 }
 function closePanel(){
   $('#panelOverlay').classList.remove('open');
-  $('#rightPanel').classList.remove('open','cargo-panel');
+  $('#rightPanel').classList.remove('open','cargo-panel','person-detail-panel');
   $$('.person-card').forEach(c=>c.classList.remove('selected'));
 }
 function openModal(){$('#modalOverlay').classList.add('open');}
@@ -4761,11 +5630,11 @@ function initAnalyticsCharts(){
   const estado=new Chart(canvasEstado,{type:'line',data:{
     labels:months,
     datasets:[
-      {label:'Bien',data:[72,75,78],borderColor:c.accent,backgroundColor:c.accent,tension:0.4,fill:false,borderWidth:2,pointRadius:3},
-      {label:'Atención',data:[18,16,14],borderColor:c.data,backgroundColor:c.data,tension:0.4,fill:false,borderWidth:2,pointRadius:3},
-      {label:'Alerta',data:[10,9,8],borderColor:c.human,backgroundColor:c.human,tension:0.4,fill:false,borderWidth:2,pointRadius:3}
+      {label:'Bien %',data:[72,75,78],borderColor:c.accent,backgroundColor:c.accent,tension:0.4,fill:false,borderWidth:2,pointRadius:3},
+      {label:'Atención %',data:[18,16,14],borderColor:c.data,backgroundColor:c.data,tension:0.4,fill:false,borderWidth:2,pointRadius:3},
+      {label:'Alerta %',data:[10,9,8],borderColor:c.human,backgroundColor:c.human,tension:0.4,fill:false,borderWidth:2,pointRadius:3}
     ]
-  },options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,color:c.tick}}},scales:{y:{beginAtZero:true,grid:{color:c.grid},ticks:{color:c.tick}},x:{grid:{color:c.grid},ticks:{color:c.tick}}}}});
+  },options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,color:c.tick}},tooltip:{callbacks:{label:(ctx)=>`${ctx.dataset.label.replace(' %','')}: ${ctx.parsed.y}%`}}},scales:{y:{beginAtZero:true,max:100,grid:{color:c.grid},ticks:{color:c.tick,callback:(v)=>v+'%'}},x:{grid:{color:c.grid},ticks:{color:c.tick}}}}});
 
   const prod=new Chart(canvasProd,{type:'bar',data:{
     labels:['Designer','Developer','PM','Researcher'],
@@ -4831,13 +5700,19 @@ function setupChatPanel(cfg){
   let empathyStep=null;
   let meetingFlow=null;
   let priorityFlow=null;
+  let lastTopic='';
+  let lastTopicExchanges=0;
+  const activePillMessages=[];
   const MEETING_SOURCE='<p class="meeting-source-note">Resumen basado en la transcripción de Zoom · 8 may 2026 · 45 min</p>';
   const followUps=[
     '¿Hay algo más que quieras saber?',
     '¿En qué más te puedo ayudar?',
     '¿Tienes alguna duda sobre esto?'
   ];
-
+  const GABRIELA_PILLS=['El proceso con Carlos →','La agencia externa →','Design System v3 →'];
+  const GABRIELA_ALL3_KEYS=['los 3','los tres','todo','profundiza todo','cuéntame todo','cuentame todo','los 3 puntos','los tres puntos','abarcar todo','cuéntame los 3','cuentame los 3','todos','los tres temas'];
+  const GABRIELA_ALL3_REPLY='Aquí van los 3 puntos completos que dejó Gabriela:<br><br>━━━━━━━━━━━━━━<br><strong>1 · EL PROCESO CON CARLOS</strong><br><br>Tiene 3 etapas: review del equipo, aprobación de Carlos y sign-off de negocio si afecta métricas.<br><br>Lo más importante: Carlos necesita entender el problema antes de ver la solución. Si llegas con la solución sola, tarda más en aprobar y a veces la rechaza sin ver el valor.<br><br>Lleva siempre contexto documentado antes de cada reunión con él.<br><br>━━━━━━━━━━━━━━<br><strong>2 · LA AGENCIA EXTERNA</strong><br><br>Arca trabaja con una agencia de diseño externa. El contacto está en el directorio de proveedores.<br><br>Regla crítica aprendida en 2023:<br>Necesitan 5 días de anticipación para el brief, no 3 como dice el contrato. Con menos tiempo la calidad baja notablemente.<br><br>Pídele a Carlos acceso al directorio de proveedores.<br><br>━━━━━━━━━━━━━━<br><strong>3 · EL DESIGN SYSTEM V3</strong><br><br>Tiene decisiones de diseño importantes que no están en Figma.<br><br>Gabriela las dejó documentadas en Notion:<br>→ La lógica del sistema de grillas<br>→ El criterio para nuevos componentes<br>→ Por qué se eligieron los tokens de color<br><br>Pídele a Carlos acceso al Notion de diseño desde el primer día.<br><br>━━━━━━━━━━━━━━<br>¿Quieres que profundice en alguno de estos 3 puntos?';
+  const GABRIELA_TOPIC_KEYS=['gabriela','el proceso con carlos','la agencia externa','design system v3','mi puesto','rol antes','quien estuvo antes','quién estuvo antes','anterior diseñadora','anterior disenadora'];
   const DEFAULT_OPENER='Hola Sofía 👋<br><br>Bienvenida a Arca. Sé que el primer día puede ser un poco abrumador, así que quería presentarme.<br><br>Soy Hilo. Soy tu asistente acá dentro. Puedes preguntarme lo que sea, cuando sea, sin sentirte tonta por preguntar. No existe la pregunta obvia acá.<br><br>Ya leí sobre tu equipo antes de que llegaras. ¿Hay algo que quieras saber antes de empezar?';
   const MEMORY_OPENER='Hola Sofía. El viernes me dijiste que la semana estuvo pesada.<br>¿Cómo estás hoy?';
 
@@ -4856,19 +5731,71 @@ Te lo cuento para que lo tengas en cuenta 🙂
     'mobile':'Sobre el flujo mobile del onboarding:<br><br>→ Se priorizó mobile sobre desktop en la reunión del 8 de mayo.<br>→ Impacta tu trabajo en Design System v3 (componentes responsive primero).<br>→ Diego tenía un mock del funnel en Figma.<br><br>¿Quieres que te señale el archivo de Figma?'
   };
 
-  function showPillsStatic(items){
-    if(!pillsEl)return;
-    pillsEl.innerHTML='';
+  function removePills(messageEl){
+    if(!messageEl)return;
+    messageEl.querySelectorAll('.pill-reply').forEach(p=>p.remove());
+    messageEl.querySelectorAll('.msg-pills').forEach(w=>w.remove());
+    for(let i=activePillMessages.length-1;i>=0;i--){
+      if(activePillMessages[i].el===messageEl)activePillMessages.splice(i,1);
+    }
+  }
+
+  function tickPillExchanges(){
+    for(let i=activePillMessages.length-1;i>=0;i--){
+      const track=activePillMessages[i];
+      if(!track.el.isConnected){activePillMessages.splice(i,1);continue;}
+      track.exchanges++;
+      if(track.exchanges>=3){
+        removePills(track.el);
+      }
+    }
+  }
+
+  function removePillsIfSameTopic(text){
+    const t=text.toLowerCase();
+    [...activePillMessages].forEach(track=>{
+      const pills=track.el.querySelectorAll('[data-pill]');
+      for(const p of pills){
+        const label=(p.dataset.pill||'').toLowerCase().replace(/\s*→\s*$/,'').trim();
+        if(label&&t.includes(label)){
+          removePills(track.el);
+          break;
+        }
+      }
+    });
+  }
+
+  function attachPillsToMessage(messageEl,items){
+    if(!messageEl||!items||!items.length)return;
+    let wrap=messageEl.querySelector('.msg-pills');
+    if(!wrap){
+      wrap=document.createElement('div');
+      wrap.className='msg-pills';
+      const col=messageEl.querySelector(':scope > div:last-child')||messageEl;
+      col.appendChild(wrap);
+    }
     items.forEach(label=>{
       const btn=document.createElement('button');
       btn.type='button';
-      btn.className='quick-pill';
+      btn.className='quick-pill pill-reply';
       btn.dataset.pill=label;
-      btn.dataset.wired='1';
       btn.textContent=label;
-      btn.addEventListener('click',()=>handlePill(label));
-      pillsEl.appendChild(btn);
+      btn.addEventListener('click',()=>{
+        if(busy)return;
+        removePills(messageEl);
+        handlePill(label);
+      });
+      wrap.appendChild(btn);
     });
+    if(!activePillMessages.some(t=>t.el===messageEl)){
+      activePillMessages.push({el:messageEl,exchanges:0});
+    }
+  }
+
+  function showPillsStatic(items){
+    // Prefer attaching to latest Hilo message; fall back to opener
+    const latest=messages.querySelector('.msg.hilo:last-of-type')||$('#empOpenerMsg');
+    if(latest)attachPillsToMessage(latest,items);
   }
 
   if(role==='empleado'){
@@ -4876,7 +5803,8 @@ Te lo cuento para que lo tengas en cuenta 🙂
     if(bubble){
       if(lastCheckin==='bad'){
         bubble.innerHTML=MEMORY_OPENER;
-        showPillsStatic(['Mejor que el viernes','Más o menos igual','Todavía pesada']);
+        const opener=$('#empOpenerMsg');
+        if(opener)attachPillsToMessage(opener,['Mejor que el viernes','Más o menos igual','Todavía pesada']);
       }else{
         bubble.innerHTML=DEFAULT_OPENER;
       }
@@ -4948,9 +5876,10 @@ Te lo cuento para que lo tengas en cuenta 🙂
         div.className='msg hilo';
         div.innerHTML=`<div class="hilo-avatar-sm">H</div><div><div class="msg-bubble">${body}</div><div class="msg-time">Hilo · ${nowTime()}</div></div>`;
         messages.appendChild(div);
+        wrapPersonNames(div.querySelector('.msg-bubble'));
         animateIn(div);
         scrollChat();
-        if(nextPills&&nextPills.length)showPills(nextPills);
+        if(nextPills&&nextPills.length)attachPillsToMessage(div,nextPills);
         busy=false;
         resolve(div);
       },delay);
@@ -5019,6 +5948,7 @@ Te lo cuento para que lo tengas en cuenta 🙂
       if(focus&&focus.parentNode===stack)focus.after(card);
       else stack.prepend(card);
     }else stack.appendChild(card);
+    wrapPersonNamesInContainer(card);
   }
 
   function renderFocusCard(){
@@ -5052,6 +5982,7 @@ Te lo cuento para que lo tengas en cuenta 🙂
         <button type="button" class="btn btn-ghost btn-sm" data-focus-skip>Saltar por hoy</button>
       </div>`;
     stack.prepend(card);
+    wrapPersonNamesInContainer(card);
     card.querySelector('[data-dismiss-focus]')?.addEventListener('click',dismissFocusCard);
     card.querySelector('[data-focus-skip]')?.addEventListener('click',dismissFocusCard);
     card.querySelector('[data-focus-send]')?.addEventListener('click',()=>{
@@ -5138,6 +6069,7 @@ Te lo cuento para que lo tengas en cuenta 🙂
         <button type="button" class="quick-pill pill-reply" data-pill data-proactive="morning-checkin">Hacer check-in ahora</button>
       </div>`;
     stack.appendChild(card);
+    wrapPersonNamesInContainer(card);
     card.querySelector('[data-dismiss-morning]')?.addEventListener('click',dismissMorningCard);
     wireCardPills(card,async(action)=>{
       dismissMorningCard();
@@ -5411,13 +6343,13 @@ Te lo cuento para que lo tengas en cuenta 🙂
       200,
       ['Del trabajo','De afuera'],
       true
-    ).then(()=>{
-      if(pillsEl){
-        const hint=document.createElement('p');
-        hint.style.cssText='width:100%;font-size:11px;color:var(--text-muted);margin:4px 0 0';
-        hint.textContent='O escríbeme lo que quieras';
-        pillsEl.appendChild(hint);
-      }
+    ).then(msgEl=>{
+      if(!msgEl)return;
+      const hint=document.createElement('p');
+      hint.style.cssText='width:100%;font-size:11px;color:var(--text-muted);margin:4px 0 0';
+      hint.textContent='O escríbeme lo que quieras';
+      const wrap=msgEl.querySelector('.msg-pills')||msgEl.querySelector(':scope > div:last-child')||msgEl;
+      wrap.appendChild(hint);
     });
   }
 
@@ -5541,6 +6473,49 @@ Te lo cuento para que lo tengas en cuenta 🙂
       };
     }
 
+    if(t.includes('el proceso con carlos')){
+      return {
+        reply:'El proceso de aprobación tiene 3 etapas:<br><br>1. Review del equipo de diseño<br>2. Aprobación de Carlos<br>&nbsp;&nbsp;&nbsp;(necesita entender el problema<br>&nbsp;&nbsp;&nbsp;antes de ver la solución)<br>3. Sign-off de negocio si afecta métricas<br><br>Tip de Gabriela: lleva siempre el problema documentado antes de la reunión. Carlos confía más cuando entiende el porqué antes que el cómo.',
+        delay:1000,
+        skipFollowUp:true
+      };
+    }
+    if(t.includes('la agencia externa')){
+      return {
+        reply:'Arca trabaja con una agencia externa de diseño. Su contacto está en el directorio de proveedores.<br><br>Regla de oro aprendida en 2023:<br>El contrato dice 3 días de anticipación para el brief. En la práctica necesitan 5. Con menos tiempo la calidad baja.<br><br>Solo Gabriela sabía esto. Ahora tú también lo sabes.<br><br>Para el contacto: pídele a Carlos acceso al directorio de proveedores.',
+        delay:1000,
+        skipFollowUp:true
+      };
+    }
+    if(t.trim()==='design system v3'||t.trim()==='design system v3 →'){
+      return {
+        reply:'El Design System v3 tiene decisiones de diseño importantes que no están documentadas en Figma.<br><br>Gabriela las dejó en Notion antes de irse. Las más relevantes:<br>→ La lógica detrás del sistema de grillas<br>→ El criterio para crear nuevos componentes<br>→ Por qué se eligieron los tokens de color<br><br>Pídele a Carlos acceso al Notion de diseño — debería dártelo desde el primer día.',
+        delay:1000,
+        skipFollowUp:true
+      };
+    }
+
+    if(lastTopic==='gabriela'&&GABRIELA_ALL3_KEYS.some(k=>t.includes(k))){
+      return {
+        reply:GABRIELA_ALL3_REPLY,
+        pills:GABRIELA_PILLS.slice(),
+        delay:1800,
+        skipFollowUp:true,
+        setLastTopic:'gabriela'
+      };
+    }
+
+    const gabrielaKeys=['gabriela','gabriela rojas','quien estuvo antes','quién estuvo antes','mi puesto','rol antes','anterior diseñadora','anterior disenadora'];
+    if(gabrielaKeys.some(k=>t.includes(k))){
+      return {
+        reply:'Gabriela Rojas estuvo en tu rol durante 3 años, entre 2023 y 2026.<br><br>Estas son las cosas más importantes que dejó documentadas para ti:<br><br>→ El proceso de aprobación con Carlos tiene 3 etapas. Carlos necesita ver el problema antes que la solución. Si vas con la solución sola, tarda más en aprobar.<br><br>→ Arca trabaja con una agencia externa de diseño. El contacto está en el directorio de proveedores de Arca. Pídele acceso a Carlos. Importante: siempre entregar el brief con 5 días de anticipación, no 3. La calidad baja mucho. Esto lo aprendieron en 2023.<br><br>→ Roberto Vargas es el mejor aliado para implementar. Sabe más de lo que muestra. Solo necesita que le pregunten.<br><br>→ El Design System v3 tiene decisiones que no están en Figma. Gabriela las dejó en Notion antes de irse. Pregúntale a Carlos el acceso.<br><br>¿Quieres que profundice en alguno de estos puntos?',
+        pills:GABRIELA_PILLS.slice(),
+        delay:1400,
+        skipFollowUp:true,
+        setLastTopic:'gabriela'
+      };
+    }
+
     const tk=topicKey(t);
     if(tk&&TOPIC_CONTEXT[tk]&&(t.includes('design')||t.includes('transbank')||t.includes('research')||t.includes('mobile')||t.includes('sistema'))){
       return {reply:TOPIC_CONTEXT[tk]+MEETING_SOURCE,delay:1200,skipFollowUp:true};
@@ -5626,9 +6601,22 @@ Te lo cuento para que lo tengas en cuenta 🙂
 
   async function handleUserText(text){
     if(!text||busy)return;
-    clearPills();
+    tickPillExchanges();
+    removePillsIfSameTopic(text);
     addUserMsg(text);
+    const t=text.toLowerCase();
     const result=resolveReply(text);
+    if(result.setLastTopic){
+      lastTopic=result.setLastTopic;
+      lastTopicExchanges=0;
+    }else if(lastTopic==='gabriela'){
+      lastTopicExchanges++;
+      const stillOnTopic=GABRIELA_TOPIC_KEYS.some(k=>t.includes(k))||GABRIELA_ALL3_KEYS.some(k=>t.includes(k))||t.includes('proceso')||t.includes('agencia')||t.includes('design')||t.includes('profund');
+      if(lastTopicExchanges>=5||!stillOnTopic){
+        lastTopic='';
+        lastTopicExchanges=0;
+      }
+    }
     if(result.setMeetingPick)meetingFlow='pick';
     if(result.showPriorityCard){
       busy=true;
@@ -5644,7 +6632,14 @@ Te lo cuento para que lo tengas en cuenta 🙂
       return;
     }
     if(result.reply!=null){
-      await hiloResponde(result.reply,result.delay||1200,result.pills,result.skipFollowUp);
+      const msgEl=await hiloResponde(result.reply,result.delay||1200,result.pills,result.skipFollowUp);
+      if(result.pills&&result.pills.includes('Del trabajo')&&msgEl){
+        const hint=document.createElement('p');
+        hint.style.cssText='width:100%;font-size:11px;color:var(--text-muted);margin:4px 0 0';
+        hint.textContent='O escríbeme lo que quieras';
+        const wrap=msgEl.querySelector('.msg-pills')||msgEl;
+        wrap.appendChild(hint);
+      }
     }
     if(result.highlightRrhh){
       const btn=$('#btnRrhhReport');
@@ -5655,17 +6650,10 @@ Te lo cuento para que lo tengas en cuenta 🙂
         setTimeout(()=>{btn.style.boxShadow='';btn.style.transform='';},4000);
       }
     }
-    if(result.pills&&result.pills.includes('Del trabajo')&&pillsEl){
-      const hint=document.createElement('p');
-      hint.style.cssText='width:100%;font-size:11px;color:var(--text-muted);margin:4px 0 0';
-      hint.textContent='O escríbeme lo que quieras';
-      pillsEl.appendChild(hint);
-    }
   }
 
   async function handlePill(label){
     if(busy)return;
-    clearPills();
     const clean=label.replace(/\s*→\s*$/,'').trim();
     await handleUserText(clean||label);
   }
@@ -5705,6 +6693,7 @@ Te lo cuento para que lo tengas en cuenta 🙂
   if(role==='manager'){
     initMgrProactiveCards();
   }
+  wrapPersonNamesInContainer(messages);
 }
 
 function setupHomeFocusAndMeetings(){
@@ -5871,8 +6860,6 @@ function setupCheckin(){
   const writeLink=$('#checkinWriteLink');
   const writeWrap=$('#checkinWriteWrap');
   const freeTa=$('#checkinFreeTa');
-  const anonToggle=$('#checkinAnonToggle');
-  const anonHint=$('#checkinAnonHint');
   const sendBtn=$('#checkinSendBtn');
   const hint=$('#fridayCheckinHint');
   const block=$('#fridayCheckinBlock');
@@ -5881,17 +6868,6 @@ function setupCheckin(){
   let selectedLabel='';
   let writeOpen=false;
 
-  function syncAnon(toggle,hintEl){
-    const on=toggle?.classList.contains('on');
-    if(hintEl)hintEl.textContent=on?'Solo Hilo verá tu respuesta.':'RRHH verá tu nombre.';
-    if(toggle)toggle.setAttribute('aria-pressed',on?'true':'false');
-  }
-  anonToggle?.addEventListener('click',()=>{
-    anonToggle.classList.toggle('on');
-    syncAnon(anonToggle,anonHint);
-  });
-  syncAnon(anonToggle,anonHint);
-
   function showSendRow(open){
     if(!reveal)return;
     reveal.classList.toggle('is-open',open);
@@ -5899,12 +6875,11 @@ function setupCheckin(){
   }
   function hideSendRow(){showSendRow(false);}
 
-  function showSentState(emoji,anonymous){
+  function showSentState(emoji){
     if(!block)return;
-    const title=anonymous?'Enviado de forma anónima':'Enviado con tu nombre';
     block.innerHTML=`<div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px">Viernes 12:00pm · ¿Cómo estuvo tu semana?</div>
       <div class="checkin-sent">
-        <div class="checkin-sent-row"><span style="font-size:22px">${emoji}</span><span>${title}</span></div>
+        <div class="checkin-sent-row"><span style="font-size:22px">${emoji}</span><span>Check-in enviado ✓</span></div>
         <div class="checkin-sent-sub">Puedes actualizarlo cuando quieras.</div>
         <button type="button" class="checkin-edit-link" id="checkinEditBtn">Editar →</button>
       </div>`;
@@ -5923,7 +6898,7 @@ function setupCheckin(){
       selectedEmoji='';
       selectedLabel='';
       hideSendRow();
-      if(hint)hint.textContent='Toca cómo te sientes. Es privado — solo entre tú y Hilo.';
+      if(hint)hint.textContent='Toca cómo te sientes.';
       return;
     }
     picker.querySelectorAll('.mood-btn,.emoji-option').forEach(b=>b.classList.remove('selected'));
@@ -5961,17 +6936,15 @@ function setupCheckin(){
 
   sendBtn?.addEventListener('click',()=>{
     if(!selectedMood)return;
-    const anonymous=anonToggle?.classList.contains('on')!==false;
     lastCheckin=selectedMood==='bad'?'bad':selectedMood;
     localStorage.setItem('hiloLastCheckin',lastCheckin);
-    if(anonymous)showToast('Enviado · Solo Hilo lo leyó ✓');
-    else showToast('Enviado como Sofía Martínez ✓');
+    showToast('Check-in enviado ✓');
     if(selectedMood==='bad'){
-      showSentState(selectedEmoji||'😔',anonymous);
+      showSentState(selectedEmoji||'😔');
       setTimeout(startPesadoChat,450);
       return;
     }
-    showSentState(selectedEmoji,anonymous);
+    showSentState(selectedEmoji);
   });
 
   if(sessionStorage.getItem('hiloCheckinEdit')==='1'){
@@ -6031,10 +7004,72 @@ function setupChat(){
     ]
   });
   setupCheckin();
+  setupWeeklySummaryCard();
+  setupPredecessorCard();
+  setupProfileExtras();
+  $('#checkinRankLink')?.addEventListener('click',()=>switchScreen('ranking'));
+  setupPersonasTabs();
   $('#btnHiloIntroChat')?.addEventListener('click',()=>{
     if(currentRole!=='normal'){switchRole('normal');setTimeout(()=>switchScreen('chat'),350);}
     else switchScreen('chat');
   });
+}
+
+function weeklySummaryBodyHtml(){
+  return `
+    <div class="ws-section">
+      <div class="ws-label">Cómo estuvo</div>
+      <div class="ws-row">😊 Llegaste con energía el lunes</div>
+      <div class="ws-row">😐 El viernes cerraste regular</div>
+    </div>
+    <div class="ws-section">
+      <div class="ws-label">Temas de la semana</div>
+      <div class="ws-bullet"><span class="ws-dot" aria-hidden="true"></span><span>Avance del Design System v3 — quedó pendiente la aprobación de Carlos</span></div>
+      <div class="ws-bullet"><span class="ws-dot" aria-hidden="true"></span><span>Dudas sobre el proceso de integración con Transbank</span></div>
+      <div class="ws-bullet"><span class="ws-dot" aria-hidden="true"></span><span>Reunión cancelada el miércoles (Demo Design System)</span></div>
+    </div>
+    <div class="ws-section">
+      <div class="ws-label">Quedó pendiente</div>
+      <div class="ws-bullet"><span class="ws-dot amber" aria-hidden="true"></span><span>Hablar con Carlos sobre la aprobación del componente de navegación</span></div>
+      <div class="ws-bullet"><span class="ws-dot amber" aria-hidden="true"></span><span>Coordinar con Roberto sobre los tiempos de Transbank</span></div>
+    </div>
+    <div class="ws-section">
+      <div class="ws-label">Esta semana</div>
+      <div class="ws-bullet"><span class="ws-dot" aria-hidden="true"></span><span>Tienes 3 reuniones agendadas. La más importante: Planning Q3 hoy a las 10:00.</span></div>
+    </div>`;
+}
+
+function openWeeklySummaryModal(){
+  $('#modalTitle').textContent='Tu semana pasada · 14–18 jul';
+  $('#modalBody').innerHTML=`
+    <div class="ws-modal">
+      <div class="ws-modal-head">
+        <div class="ws-modal-title">✦ Tu semana pasada · 14–18 jul</div>
+        <button type="button" class="ws-modal-x" id="wsModalClose" aria-label="Cerrar">×</button>
+      </div>
+      <div class="ws-modal-body">${weeklySummaryBodyHtml()}</div>
+      <div class="ws-modal-footer">
+        <button type="button" class="ws-footer-link" id="weeklySummaryFull">Ver semana completa →</button>
+      </div>
+    </div>`;
+  openModal();
+  $('#wsModalClose')?.addEventListener('click',closeModal);
+  $('#weeklySummaryFull')?.addEventListener('click',()=>{
+    closeModal();
+    showToast('Próximamente — historial completo');
+  });
+}
+
+function setupWeeklySummaryCard(){
+  const chip=$('#weeklySummaryChip');
+  if(!chip)return;
+  chip.addEventListener('click',openWeeklySummaryModal);
+}
+
+function showWeeklySummaryCard(){
+  const chip=$('#weeklySummaryChip');
+  if(!chip)return;
+  requestAnimationFrame(()=>chip.classList.add('is-in'));
 }
 
 function setupRrhhModal(){
@@ -6125,6 +7160,9 @@ function init(){
     btn.addEventListener('click',()=>{$$('.mood-btn').forEach(b=>{if(!b.closest('#fridayMoodPicker'))b.classList.remove('selected');});btn.classList.add('selected');});
   });
   $('#kmSearch')?.addEventListener('input',e=>renderPersonGrid($('.pill.active')?.dataset.filter||'all',e.target.value));
+  $('#kmAskHiloBtn')?.addEventListener('click',()=>{
+    askHiloWhoKnows($('#kmSearch')?.value||'');
+  });
   $$('#kmFilters .pill').forEach(p=>{
     p.addEventListener('click',()=>{$$('#kmFilters .pill').forEach(x=>x.classList.remove('active'));p.classList.add('active');renderPersonGrid(p.dataset.filter,$('#kmSearch')?.value||'');});
   });
@@ -6138,7 +7176,7 @@ function init(){
   });
   document.addEventListener('keydown',e=>{
     if(e.key==='Escape'){
-      closePanel();closeModal();closeKnowledgeModal();
+      closePanel();closeAll();closeKnowledgeModal();dismissTutorialSpotlight();
       $('#rrhhOverlay')?.classList.remove('open');
       $('#offboardingOverlay')?.classList.remove('open');
     }
@@ -6148,7 +7186,7 @@ function init(){
   renderNav();
   updateSidebarUser();
   showScreen('onboarding',false);
-  if(!onboardingShown)setTimeout(startPlatformOnboarding,500);
+  setupFirstVisitHint();
   renderPersonGrid();
   renderTeamList();
   renderHrTeams();

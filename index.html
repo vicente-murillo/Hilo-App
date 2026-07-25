@@ -28,12 +28,10 @@ button:hover,
 /* The ONLY allowed hover effects
    in the entire app: */
 
-/* Clickeable cards and rows */
+/* Clickeable cards and rows — border only, never background */
 .hover-lift:hover {
-  background-color: var(--bg-hover);
   border-color: var(--border-accent);
-  transition: background-color 150ms ease,
-              border-color 150ms ease;
+  transition: border-color 150ms ease;
 }
 
 /* Buttons */
@@ -64,35 +62,48 @@ button:hover,
 }
 
 
-/* Card rest shadows */
+/* Card rest shadows + consistent borders */
 [class*="card"],
 [class*="-card"],
-.card {
+.card,
+[class*="section-card"],
+[class*="info-card"] {
   box-shadow: 0 1px 3px rgba(12,27,21,0.06),
               0 4px 12px rgba(12,27,21,0.04);
-  border-color: var(--border);
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-lg);
 }
+/* Sub-elements that match *card* but are not cards */
+.meetings-card-head,
+.meetings-card-title,
+.meetings-card-date,
+[class*="card-head"],
+[class*="card-title"],
+[class*="card-date"],
+[class*="card-body"],
+[class*="card-meta"]{
+  box-shadow:none!important;
+  border:none!important;
+  border-radius:0!important;
+}
+.meetings-card{box-shadow:none!important}
 .clickeable{cursor:pointer}
-.clickeable:hover,.hover-lift:hover{
-  background-color: var(--bg-hover) !important;
+.hover-lift:hover{
   border-color: var(--border-accent) !important;
-  transition: background-color 150ms ease, border-color 150ms ease;
+  transition: border-color 150ms ease;
 }
 .card:not([onclick]):not(.clickeable):hover,
 [class*="card"]:not([onclick]):not(.clickeable):hover {
-  background-color: inherit !important;
   border-color: var(--border) !important;
   cursor: default;
 }
-/* Explicitly no hover on these: */
+/* Explicitly no elevation/bg hover on non-interactive cards */
 [class*="card"]:not(.hover-lift):hover,
 [class*="metric"]:hover,
 [class*="stat"]:hover,
 [class*="journey"]:hover,
 [class*="checkin"]:hover,
 [class*="ranking-row"]:hover {
-  background-color: inherit !important;
-  border-color: inherit !important;
   box-shadow: none !important;
   transform: none !important;
 }
@@ -164,7 +175,7 @@ h1,h2,h3,h4,h5,h6,.logo-text,.moment-title,.earn-modal h2,.role-tour-card h4{fon
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:var(--bg-base)}
 ::-webkit-scrollbar-thumb{background:var(--bg-hover);border-radius:3px}
-.card-interactive.hover-lift:hover{background-color:var(--bg-hover);border-color:var(--border-accent);transition:background-color 150ms ease,border-color 150ms ease}
+.card-interactive.hover-lift:hover{border-color:var(--border-accent);transition:border-color 150ms ease}
 button,input,textarea,select{font-family:inherit;font-size:inherit}
 a{color:var(--accent-text);text-decoration:none}
 a:hover{color:var(--text-primary);}
@@ -236,6 +247,11 @@ html.sidebar-collapsed .nav-pct{display:none}
 .nav-label{white-space:nowrap;overflow:visible;text-overflow:clip;flex:1;min-width:0}
 
 /* Sidebar footer */
+
+.sidebar-logo-bottom{display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 0;margin-bottom:4px;flex-shrink:0}
+.sidebar-hilo-text{font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--accent);letter-spacing:-0.02em}
+html.sidebar-collapsed .sidebar-hilo-text{display:none}
+html.sidebar-collapsed .logo{display:none}
 .sidebar-footer{padding:16px;border-top:1px solid var(--border)}
 .user-card{display:flex;align-items:center;gap:10px}
 /* Avatar circles — soft fill + strong initials */
@@ -567,11 +583,11 @@ h3{font-size:15px;font-weight:600;margin-bottom:8px}
 .card-accent{border:1px solid var(--border-accent);background:var(--accent-soft)}
 
 /* Interaction hover system */
-.hover-lift{cursor:pointer;transition:transform 200ms ease,box-shadow 200ms ease,border-color 200ms ease}
-.hover-lift:hover{background-color:var(--bg-hover);border-color:var(--border-accent);transition:background-color 150ms ease,border-color 150ms ease}
-.hover-lift:active{transform:translateY(0);transition-duration:80ms}
-.hover-subtle{transition:background-color 150ms ease}
-.hover-subtle:hover{background-color:var(--bg-hover);}
+.hover-lift{cursor:pointer;transition:border-color 150ms ease}
+.hover-lift:hover{border-color:var(--border-accent);transition:border-color 150ms ease}
+.hover-lift:active{transform:none;transition-duration:80ms}
+.hover-subtle{transition:border-color 150ms ease}
+.hover-subtle:hover{/* no background change on cards */}
 .hover-none{cursor:default}
 
 /* Buttons */
@@ -620,7 +636,9 @@ button:active,.btn-primary:active,.btn-secondary:active,.btn:active{transform:sc
 .progress-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--text-secondary)}
 
 /* Grid layouts */
-.two-col{display:grid;grid-template-columns:3fr 2fr;gap:20px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;align-items:stretch;gap:16px}
+.two-col > div{min-height:0;display:flex;flex-direction:column}
+.two-col > div > .card{height:100%;display:flex;flex-direction:column;margin-top:0!important}
 @media(max-width:1100px){.two-col-rank,.equipo-layout,.benefit-active-grid{grid-template-columns:1fr}.benefit-pool-grid{grid-template-columns:repeat(3,1fr)}}
 .grid-2{grid-template-columns:repeat(2,1fr)}
 .grid-3{grid-template-columns:repeat(3,1fr)}
@@ -681,8 +699,9 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
 .mood-picker-5 .mood-btn,.mood-picker-5 .emoji-option{flex:1;flex-direction:column;width:auto;height:auto;min-width:0;padding:8px 6px;border-radius:10px;border:1.5px solid transparent;background:transparent;gap:4px;font-size:inherit}
 .mood-picker-5 .emoji-face{font-size:26px;line-height:1;display:block}
 .mood-picker-5 .emoji-label{font-family:var(--font-body);font-size:10px;color:var(--text-muted);line-height:1.2;text-align:center}
-.mood-picker-5 .mood-btn:hover,.mood-picker-5 .emoji-option:hover{background:var(--accent-soft);transform:none!important;box-shadow:none!important}
-.mood-picker-5 .mood-btn.selected,.mood-picker-5 .emoji-option.selected{background:var(--accent-soft);border:1.5px solid var(--accent);transform:none!important;box-shadow:none!important}
+.mood-picker-5 .mood-btn:hover,.mood-picker-5 .emoji-option:hover,
+.mood-picker-5 .mood-btn.selected,.mood-picker-5 .emoji-option.selected,
+.emoji-option:hover,.emoji-option.selected{background:var(--accent-soft);border:1.5px solid var(--accent);border-radius:10px;transform:none!important;box-shadow:none!important}
 .mood-picker-5 .mood-btn.selected .emoji-label,.mood-picker-5 .emoji-option.selected .emoji-label{color:var(--accent)}
 .checkin-write-link{display:inline-block;background:none;border:none;padding:0;margin:4px 0 8px;font-family:var(--font-body);font-size:11px;color:var(--text-secondary);cursor:pointer;text-align:left}
 .checkin-write-link:hover{color:var(--accent-text);opacity:1!important}
@@ -694,16 +713,20 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
 .checkin-anon-row{display:flex;align-items:center;gap:8px;margin-bottom:4px}
 .checkin-anon-label{flex:1;font-family:var(--font-body);font-size:12px;color:var(--text-secondary)}
 .checkin-anon-hint{font-size:10px;color:var(--text-muted);margin:0 0 4px;line-height:1.4}
+.checkin-write-wrap{max-height:0;opacity:0;overflow:hidden;transition:max-height 200ms ease,opacity 200ms ease}
+.checkin-write-wrap.is-open{max-height:120px;opacity:1;margin-top:8px}
+.checkin-free-ta{display:block;width:100%;min-height:70px;border:1px solid var(--border);border-radius:var(--radius-md);padding:10px 12px;font-family:var(--font-body);font-size:13px;background:var(--bg-card);color:var(--text-primary);resize:vertical;box-sizing:border-box}
 .checkin-write-only{margin-top:8px}
 .checkin-sent{padding:8px 0}
 .checkin-sent-row{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500}
 .checkin-sent-sub{font-size:11px;color:var(--text-muted);margin-top:6px}
 .checkin-edit-link{background:none;border:none;padding:0;margin-top:8px;font-family:var(--font-body);font-size:12px;color:var(--accent-text);cursor:pointer}
 
-.mood-btn,.emoji-option{width:40px;height:40px;border-radius:50%;border:2px solid var(--border);background:var(--bg-hover);cursor:pointer;font-size:24px;display:inline-flex;align-items:center;justify-content:center;padding:8px;user-select:none;transition:transform 150ms ease,background 150ms ease,box-shadow 150ms ease,border-color 150ms ease}
-.mood-btn:hover,.emoji-option:hover{background:var(--accent-soft);border-color:var(--border-accent)}
+.mood-btn,.emoji-option{width:40px;height:40px;border-radius:10px;border:1.5px solid transparent;background:transparent;cursor:pointer;font-size:24px;display:inline-flex;align-items:center;justify-content:center;padding:8px;user-select:none;transition:background 150ms ease,border-color 150ms ease}
+.mood-btn:hover,.emoji-option:hover,
+.mood-btn.selected,.emoji-option.selected{background:var(--accent-soft);border:1.5px solid var(--accent);border-radius:10px;transform:none!important;box-shadow:none!important}
 .mood-btn:active,.emoji-option:active{transform:scale(0.9);transition-duration:60ms}
-.mood-btn.selected,.emoji-option.selected{transform:scale(1.1);background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent);border-color:var(--accent);border-radius:50%}
+.emoji-option.selected .emoji-label,.mood-btn.selected .emoji-label{color:var(--accent)}
 
 /* Chat */
 .chat-layout{display:flex;flex-direction:column;height:calc(100vh - var(--banner-h) - 56px);margin:-28px -32px -32px}
@@ -752,12 +775,27 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
 .focus-collapsed-row .focus-collapsed-text.skipped{color:var(--text-secondary)}
 .focus-edit-link{background:none;border:none;padding:0;font-family:var(--font-body);font-size:11px;color:var(--accent-text);cursor:pointer;white-space:nowrap;flex-shrink:0}
 .focus-edit-link:hover{text-decoration:underline;}
-.meetings-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px;margin-bottom:20px}
-.meetings-card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:4px}
+
+.hilo-intro-head{display:flex;align-items:center;gap:14px}
+.hilo-intro-img{width:56px;height:auto;display:block;filter:drop-shadow(0 4px 12px rgba(0,212,160,0.2));flex-shrink:0}
+.hilo-intro-title{font-family:var(--font-display);font-weight:700;font-size:18px;color:var(--text-primary);letter-spacing:-0.02em}
+.hilo-intro-sub{font-family:var(--font-body);font-size:13px;color:var(--text-secondary);margin-top:2px}
+.hilo-intro-divider{border:none;border-top:1px solid var(--border);margin:14px 0}
+.hilo-intro-body{font-family:var(--font-body);font-size:14px;color:var(--text-primary);line-height:1.7;margin-bottom:12px}
+.hilo-intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}
+.hilo-intro-col{font-family:var(--font-body);font-size:12px;color:var(--text-primary);line-height:1.75}
+.hilo-intro-col div{display:flex;align-items:flex-start;gap:6px}
+.hi-check{color:var(--accent);flex-shrink:0}
+.hi-x{color:var(--human);flex-shrink:0}
+.hilo-intro-privacy{display:flex;align-items:flex-start;gap:8px;background:var(--accent-soft);border-radius:var(--radius-md);padding:10px 14px;font-family:var(--font-body);font-size:12px;color:var(--text-secondary);line-height:1.5}
+@media(max-width:700px){.hilo-intro-grid{grid-template-columns:1fr}}
+
+.meetings-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:0 0 8px;margin-bottom:20px;box-shadow:none!important}
+.meetings-card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;background:transparent!important;box-shadow:none!important;position:static!important;border:none!important;border-bottom:0.5px solid var(--border)!important;border-radius:0!important;padding:12px 16px;margin:0}
 .meetings-card-title{display:flex;align-items:center;gap:8px;font-family:var(--font-display);font-size:14px;font-weight:500;color:var(--text-primary)}
 .meetings-card-date{font-family:var(--font-body);font-size:11px;color:var(--text-muted)}
-.meeting-row{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:0.5px solid var(--border);border-radius:var(--radius-md)}
-.meeting-row.hover-lift{border:1px solid transparent;border-bottom-color:var(--border);padding:11px 8px;margin:0 -8px}
+.meeting-row{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;border-bottom:0.5px solid var(--border);border-radius:var(--radius-md)}
+.meeting-row.hover-lift{border:1px solid transparent;border-bottom-color:var(--border);padding:11px 16px;margin:0}
 .meeting-row:last-of-type{border-bottom:none}
 .meeting-row.cancelled{opacity:0.5;cursor:not-allowed}
 .meeting-row.cancelled:hover{border-color:transparent;background:transparent;}
@@ -1117,14 +1155,6 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
 html.sidebar-collapsed .arca-logo-block{justify-content:center;padding:8px;margin:12px 8px 8px;gap:0}
 html.sidebar-collapsed .arca-logo-text{display:none}
 
-/* Hilo character + logo above theme toggle */
-.sidebar-hilo-section{display:flex;flex-direction:column;align-items:center;padding:8px 0 4px;margin-bottom:4px}
-.sidebar-hilo-img{width:80px;height:auto;display:block;filter:drop-shadow(0 4px 16px rgba(0,212,160,0.2));transition:transform 300ms ease;cursor:default}
-.sidebar-hilo-img:hover{transform:scale(1.05) translateY(-3px)!important}
-.sidebar-hilo-logo{margin-top:4px;text-align:center}
-.sidebar-hilo-name{font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--accent);letter-spacing:-0.02em}
-html.sidebar-collapsed .sidebar-hilo-section{display:none}
-
 /* Collapsible sidebar */
 .sidebar{position:relative;transition:width 250ms ease;overflow:visible}
 .sidebar-toggle{position:absolute;top:calc(50% - 14px);right:-14px;width:28px;height:28px;background:var(--bg-card);border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:100;transition:background 150ms ease,border-color 150ms ease,color 150ms ease;padding:0;color:var(--text-secondary);box-shadow:0 1px 4px rgba(0,0,0,0.08)}
@@ -1193,18 +1223,17 @@ html.sidebar-collapsed .user-card{justify-content:center}
         <div class="arca-logo-badge">Plan Hilo+</div>
       </div>
     </div>
-    <div class="logo">
-      <span class="logo-text">Hi<em>lo</em></span>
-      <svg class="logo-mark" width="28" height="20" viewBox="0 0 28 20" fill="none"><circle cx="4" cy="10" r="3" fill="currentColor"/><circle cx="14" cy="4" r="3" fill="currentColor"/><circle cx="24" cy="10" r="3" fill="currentColor"/><path d="M7 10 Q14 2 21 10" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
-    </div>
     <nav class="nav" id="mainNav"></nav>
+    <div class="sidebar-logo-bottom" aria-hidden="false">
+      <svg width="20" height="20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="8" cy="32" r="4" fill="var(--accent)"/>
+        <circle cx="20" cy="12" r="4" fill="var(--accent)"/>
+        <circle cx="32" cy="32" r="4" fill="var(--accent)"/>
+        <path d="M8 32 Q8 12 20 12 Q32 12 32 32" stroke="var(--accent)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      </svg>
+      <span class="sidebar-hilo-text">Hilo</span>
+    </div>
     <div class="sidebar-footer">
-      <div class="sidebar-hilo-section">
-        <img src="hilo-character.png" alt="Hilo" class="sidebar-hilo-img"/>
-        <div class="sidebar-hilo-logo">
-          <span class="sidebar-hilo-name">hilo</span>
-        </div>
-      </div>
       <button type="button" id="themeToggle" aria-label="Cambiar tema">
         <span class="sun-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
         <span class="moon-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
@@ -1320,7 +1349,42 @@ html.sidebar-collapsed .user-card{justify-content:center}
 
         <div class="two-col">
           <div>
-            <div class="card hover-subtle" style="margin-top:20px;background:var(--accent-soft);border-color:var(--border)" id="checkinCard">
+            <div class="card hilo-intro-card hover-none" style="padding:20px" id="hiloIntroCard">
+              <div class="hilo-intro-head">
+                <img src="hilo-character.png" alt="Hilo" class="hilo-intro-img"/>
+                <div>
+                  <div class="hilo-intro-title">¡Hola! Soy Hilo 👋</div>
+                  <div class="hilo-intro-sub">Tu asistente laboral virtual, 24/7.</div>
+                </div>
+              </div>
+              <hr class="hilo-intro-divider">
+              <p class="hilo-intro-body">Estoy aquí para acompañarte en tu día a día en Arca. Todo lo que conversamos es privado — nunca le cuento nada a tu jefe sin que tú me lo pidas.</p>
+              <div class="hilo-intro-grid">
+                <div class="hilo-intro-col do">
+                  <div><span class="hi-check">✓</span> Respondo tus dudas al instante</div>
+                  <div><span class="hi-check">✓</span> Te preparo para cada reunión</div>
+                  <div><span class="hi-check">✓</span> Te aviso si tu reunión se cancela</div>
+                  <div><span class="hi-check">✓</span> Guío tu onboarding paso a paso</div>
+                  <div><span class="hi-check">✓</span> Recuerdo lo que me cuentas</div>
+                </div>
+                <div class="hilo-intro-col dont">
+                  <div><span class="hi-x">✗</span> No le reporto nada a tu jefe</div>
+                  <div><span class="hi-x">✗</span> No te evalúo ni te vigilo</div>
+                  <div><span class="hi-x">✗</span> No comparto tus check-ins</div>
+                  <div><span class="hi-x">✗</span> No tomo decisiones por ti</div>
+                  <div><span class="hi-x">✗</span> No soy un formulario más</div>
+                </div>
+              </div>
+              <hr class="hilo-intro-divider">
+              <div class="hilo-intro-privacy">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                <span>Todo lo que hablamos es entre tú y yo. Si alguna vez quieres contarle algo a RRHH, lo decidís tú — no yo.</span>
+              </div>
+              <button type="button" class="btn btn-primary" id="btnHiloIntroChat" style="width:100%;margin-top:auto;padding-top:14px">¡Habla conmigo! →</button>
+            </div>
+          </div>
+          <div>
+            <div class="card hover-none" style="background:var(--accent-soft);border-color:var(--border)" id="checkinCard">
               <h3>Tu check-in de esta semana</h3>
               <div style="padding:12px 0;border-bottom:1px solid var(--border)">
                 <div style="font-size:12px;color:var(--text-secondary)" id="mondayCheckinLabel">Lunes 9:00am ✓ · Buenos días Sofía 👋 ¿Cómo llegaste al lunes?</div>
@@ -1336,9 +1400,10 @@ html.sidebar-collapsed .user-card{justify-content:center}
                   <button type="button" class="mood-btn emoji-option" data-mood="bad" data-label="Pesado" aria-label="Pesado"><span class="emoji-face">😔</span><span class="emoji-label">Pesado</span></button>
                 </div>
                 <button type="button" class="checkin-write-link" id="checkinWriteLink">💬 Quiero escribir algo →</button>
+                <div class="checkin-write-wrap" id="checkinWriteWrap" aria-hidden="true">
+                  <textarea class="checkin-free-ta" id="checkinFreeTa" placeholder="Cuéntame lo que quieras..."></textarea>
+                </div>
                 <div class="checkin-reveal" id="checkinReveal" aria-hidden="true">
-                  <button type="button" class="checkin-comment-toggle" id="checkinCommentToggle">+ Agregar un comentario</button>
-                  <textarea class="checkin-comment-ta" id="checkinComment" placeholder="Cuéntame más si quieres..." aria-hidden="true"></textarea>
                   <div class="checkin-anon-row">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
                     <span class="checkin-anon-label">Enviar de forma anónima</span>
@@ -1347,38 +1412,9 @@ html.sidebar-collapsed .user-card{justify-content:center}
                   <p class="checkin-anon-hint" id="checkinAnonHint">Solo Hilo verá tu respuesta.</p>
                   <button type="button" class="btn btn-primary" id="checkinSendBtn" style="width:100%;margin-top:10px">Enviar check-in →</button>
                 </div>
-                <div class="checkin-write-only" id="checkinWriteOnly" hidden>
-                  <button type="button" class="checkin-write-link" id="checkinBackEmojis">← Volver a los estados</button>
-                  <textarea class="checkin-comment-ta is-open" id="checkinWriteOnlyTa" placeholder="Cuéntame más si quieres..." style="min-height:80px"></textarea>
-                  <div class="checkin-anon-row">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-                    <span class="checkin-anon-label">Enviar de forma anónima</span>
-                    <button type="button" class="toggle on" id="checkinAnonToggleWrite" aria-label="Enviar de forma anónima" aria-pressed="true"></button>
-                  </div>
-                  <p class="checkin-anon-hint" id="checkinAnonHintWrite">Solo Hilo verá tu respuesta.</p>
-                  <button type="button" class="btn btn-primary" id="checkinSendBtnWrite" style="width:100%;margin-top:10px">Enviar check-in →</button>
-                </div>
                 <p style="font-size:11px;color:var(--text-muted)" id="fridayCheckinHint">Toca cómo te sientes. Es privado — solo entre tú y Hilo.</p>
               </div>
-              <p style="font-size:11px;color:var(--text-muted);margin-top:12px">Recibes check-ins los lunes a las 9:00am y los viernes a las 12:00pm. Siempre privados.</p>
-            </div>
-          </div>
-          <div>
-            <div class="card hover-subtle" style="margin-top:16px;padding:14px">
-              <div style="font-size:13px;font-weight:500;margin-bottom:12px">Hilo es tu asistente, no tu jefe</div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px;line-height:1.8">
-                <div style="color:var(--accent-text)">
-                  <div>✓ Resuelve dudas</div>
-                  <div>✓ Guía tu onboarding</div>
-                  <div>✓ Es privado contigo</div>
-                </div>
-                <div style="color:var(--text-muted)">
-                  <div>✗ No reporta a tu jefe</div>
-                  <div>✗ No te evalúa</div>
-                  <div>✗ No te vigila</div>
-                </div>
-              </div>
-              <p style="font-size:11px;color:var(--text-muted);font-style:italic;margin-top:12px;line-height:1.5">Todo lo que hablas con Hilo es entre tú y Hilo. Siempre.</p>
+              <p style="font-size:11px;color:var(--text-muted);margin-top:auto;padding-top:12px">Recibes check-ins los lunes a las 9:00am y los viernes a las 12:00pm. Siempre privados.</p>
             </div>
           </div>
         </div>
@@ -2498,7 +2534,7 @@ const ROLES={
 const NAV={
   normal:[
     {id:'onboarding',label:'Mi día',icon:'<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>'},
-    {id:'chat',label:'Habla con Hilo',icon:'<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>'},
+    {id:'chat',label:'Hablar con Hilo',icon:'<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>'},
     {id:'journey',label:'Onboarding',pct:'17%',icon:'<path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>'},
     {id:'mapa',label:'Mapa de Conocimiento',icon:'<circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/><path d="M2 12h20"/>'},
     {id:'organigrama',label:'Organigrama',icon:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="9" y="14" width="7" height="7" rx="1"/><path d="M6.5 10v1M17.5 10v1M12.5 11v3"/>'},
@@ -2507,7 +2543,7 @@ const NAV={
   ],
   manager:[
     {id:'equipo',label:'Mi Equipo',icon:'<rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/>'},
-    {id:'chat',label:'Habla con Hilo',icon:'<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>'},
+    {id:'chat',label:'Hablar con Hilo',icon:'<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>'},
     {id:'alertas',label:'Alertas',badge:'2',icon:'<path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/>'},
     {id:'momentos',label:'Momentos Sugeridos',icon:'<path d="M12 3l1.5 4.5H18l-3.5 2.5 1.5 4.5L12 12l-4 2.5 1.5-4.5L6 7.5h4.5z"/>'},
     {id:'organigrama',label:'Organigrama',icon:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="9" y="14" width="7" height="7" rx="1"/><path d="M6.5 10v1M17.5 10v1M12.5 11v3"/>'},
@@ -2515,7 +2551,7 @@ const NAV={
   ],
   admin:[
     {id:'beneficios',label:'Beneficios',icon:'<path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/>'},
-    {id:'chat',label:'Habla con Hilo',icon:'<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>'},
+    {id:'chat',label:'Hablar con Hilo',icon:'<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>'},
     {id:'cargos',label:'Cargos',icon:'<rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>'},
     {id:'fases',label:'Fases',icon:'<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>'},
     {id:'vista-global',label:'Vista Global',icon:'<rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M16 6h.01M12 6h.01M12 10h.01M16 10h.01M8 10h.01M12 14h.01M16 14h.01M8 14h.01"/>'},
@@ -2868,7 +2904,7 @@ const MANAGER_TOUR=[
 
 const PLATFORM_TOUR=[
   {target:'onboarding',title:'Tu día en Arca 📋',text:'En Mi día ves tu foco, tus reuniones y tu plan de hoy. Empieza por lo de hoy.',filled:1,btn:'Siguiente →'},
-  {target:'chat',title:'Habla con Hilo 💬',text:'Pregúntame cualquier cosa sobre la empresa. Completamente privado. Ni tu jefe ni HR ven esto.',filled:1,btn:'Siguiente →'},
+  {target:'chat',title:'Hablar con Hilo 💬',text:'Pregúntame cualquier cosa sobre la empresa. Completamente privado. Ni tu jefe ni HR ven esto.',filled:1,btn:'Siguiente →'},
   {target:'mapa',title:'Encuentra a quien necesitas 🗺️',text:'¿Quién sabe de X en Arca? Encuéntralo aquí sin preguntarle a nadie.',filled:2,btn:'Siguiente →'},
   {target:'ranking',title:'Compite y gana beneficios 🏆',text:'Cada interacción con Hilo te da puntos. Los mejores del mes ganan premios reales.',filled:4,btn:'¡Entendido! Empezar →',last:true}
 ];
@@ -5723,10 +5759,9 @@ function setupCheckin(){
 
   const picker=$('#fridayMoodPicker');
   const reveal=$('#checkinReveal');
-  const writeOnly=$('#checkinWriteOnly');
   const writeLink=$('#checkinWriteLink');
-  const commentToggle=$('#checkinCommentToggle');
-  const commentTa=$('#checkinComment');
+  const writeWrap=$('#checkinWriteWrap');
+  const freeTa=$('#checkinFreeTa');
   const anonToggle=$('#checkinAnonToggle');
   const anonHint=$('#checkinAnonHint');
   const sendBtn=$('#checkinSendBtn');
@@ -5735,127 +5770,107 @@ function setupCheckin(){
   let selectedMood=null;
   let selectedEmoji='';
   let selectedLabel='';
+  let writeOpen=false;
 
   function syncAnon(toggle,hintEl){
     const on=toggle?.classList.contains('on');
     if(hintEl)hintEl.textContent=on?'Solo Hilo verá tu respuesta.':'RRHH verá tu nombre.';
     if(toggle)toggle.setAttribute('aria-pressed',on?'true':'false');
   }
-  function wireAnon(toggle,hintEl){
-    if(!toggle)return;
-    toggle.addEventListener('click',()=>{
-      toggle.classList.toggle('on');
-      syncAnon(toggle,hintEl);
-    });
-    syncAnon(toggle,hintEl);
-  }
-  wireAnon(anonToggle,anonHint);
-  wireAnon($('#checkinAnonToggleWrite'),$('#checkinAnonHintWrite'));
+  anonToggle?.addEventListener('click',()=>{
+    anonToggle.classList.toggle('on');
+    syncAnon(anonToggle,anonHint);
+  });
+  syncAnon(anonToggle,anonHint);
 
-  function showReveal(open){
+  function showSendRow(open){
     if(!reveal)return;
     reveal.classList.toggle('is-open',open);
     reveal.setAttribute('aria-hidden',open?'false':'true');
   }
+  function hideSendRow(){showSendRow(false);}
 
-  function showSentState(emoji,label,anonymous){
+  function showSentState(emoji,anonymous){
     if(!block)return;
     const title=anonymous?'Enviado de forma anónima':'Enviado con tu nombre';
-    const sub=anonymous?'Puedes actualizarlo cuando quieras.':'Puedes actualizarlo cuando quieras.';
     block.innerHTML=`<div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px">Viernes 12:00pm · ¿Cómo estuvo tu semana?</div>
       <div class="checkin-sent">
         <div class="checkin-sent-row"><span style="font-size:22px">${emoji}</span><span>${title}</span></div>
-        <div class="checkin-sent-sub">${sub}</div>
+        <div class="checkin-sent-sub">Puedes actualizarlo cuando quieras.</div>
         <button type="button" class="checkin-edit-link" id="checkinEditBtn">Editar →</button>
       </div>`;
-    $('#checkinEditBtn')?.addEventListener('click',restorePicker);
-  }
-
-  function restorePicker(){
-    sessionStorage.setItem('hiloCheckinEdit','1');
-    location.reload();
+    $('#checkinEditBtn')?.addEventListener('click',()=>{
+      sessionStorage.setItem('hiloCheckinEdit','1');
+      location.reload();
+    });
   }
 
   if(!picker)return;
 
-  picker.querySelectorAll('.mood-btn').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      picker.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('selected'));
-      btn.classList.add('selected');
-      selectedMood=btn.dataset.mood;
-      selectedEmoji=btn.querySelector('.emoji-face')?.textContent||'';
-      selectedLabel=btn.dataset.label||'';
-      if(writeOnly)writeOnly.hidden=true;
-      if(writeLink)writeLink.style.display='';
-      if(picker)picker.style.display='flex';
-      showReveal(true);
-      if(hint)hint.textContent='Puedes agregar un comentario o enviar ahora.';
-    });
-  });
+  function handleEmojiClick(btn){
+    if(btn.classList.contains('selected')){
+      btn.classList.remove('selected');
+      selectedMood=null;
+      selectedEmoji='';
+      selectedLabel='';
+      hideSendRow();
+      if(hint)hint.textContent='Toca cómo te sientes. Es privado — solo entre tú y Hilo.';
+      return;
+    }
+    picker.querySelectorAll('.mood-btn,.emoji-option').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+    selectedMood=btn.dataset.mood;
+    selectedEmoji=btn.querySelector('.emoji-face')?.textContent||btn.textContent.trim().slice(0,2);
+    selectedLabel=btn.dataset.label||'';
+    showSendRow(true);
+    if(hint)hint.textContent='Puedes agregar un comentario o enviar ahora.';
+  }
 
-  commentToggle?.addEventListener('click',()=>{
-    const open=!commentTa?.classList.contains('is-open');
-    commentTa?.classList.toggle('is-open',open);
-    if(commentToggle)commentToggle.textContent=open?'- Quitar comentario':'+ Agregar un comentario';
-    if(open)commentTa?.focus();
+  picker.querySelectorAll('.mood-btn,.emoji-option').forEach(btn=>{
+    btn.addEventListener('click',()=>handleEmojiClick(btn));
   });
 
   writeLink?.addEventListener('click',()=>{
-    showReveal(false);
-    if(picker)picker.style.display='none';
-    writeLink.style.display='none';
-    if(writeOnly)writeOnly.hidden=false;
-    $('#checkinWriteOnlyTa')?.focus();
-  });
-  $('#checkinBackEmojis')?.addEventListener('click',()=>{
-    if(writeOnly)writeOnly.hidden=true;
+    writeOpen=!writeOpen;
+    writeWrap?.classList.toggle('is-open',writeOpen);
+    writeWrap?.setAttribute('aria-hidden',writeOpen?'false':'true');
+    if(writeLink)writeLink.textContent=writeOpen?'✕ Cerrar comentario':'💬 Quiero escribir algo →';
+    if(writeOpen)freeTa?.focus();
+    // Never hide emoji row
     if(picker)picker.style.display='flex';
-    if(writeLink)writeLink.style.display='';
-    if(selectedMood)showReveal(true);
   });
 
   function startPesadoChat(){
     pendingEmpathyStart=true;
     const go=()=>{
       switchScreen('chat');
-      setTimeout(()=>{
-        if(hiloEmpChat)hiloEmpChat.startEmpathyFlow();
-      },200);
+      setTimeout(()=>{if(hiloEmpChat)hiloEmpChat.startEmpathyFlow();},200);
     };
-    if(currentRole!=='normal'){
-      switchRole('normal');
-      setTimeout(go,350);
-    }else go();
+    if(currentRole!=='normal'){switchRole('normal');setTimeout(go,350);}
+    else go();
   }
 
-  function sendCheckin(fromWrite){
-    const anonymous=(fromWrite?$('#checkinAnonToggleWrite'):anonToggle)?.classList.contains('on')!==false;
-    const mood=fromWrite?(selectedMood||'neutral'):selectedMood;
-    if(!fromWrite&&!mood)return;
-    const emoji=fromWrite?(selectedEmoji||'✏️'):selectedEmoji;
-    const label=fromWrite?(selectedLabel||'Escrito'):selectedLabel;
-    lastCheckin=mood==='bad'?'bad':(mood||'good');
+  sendBtn?.addEventListener('click',()=>{
+    if(!selectedMood)return;
+    const anonymous=anonToggle?.classList.contains('on')!==false;
+    lastCheckin=selectedMood==='bad'?'bad':selectedMood;
     localStorage.setItem('hiloLastCheckin',lastCheckin);
     if(anonymous)showToast('Enviado · Solo Hilo lo leyó ✓');
     else showToast('Enviado como Sofía Martínez ✓');
-
-    if(mood==='bad'){
-      showSentState(emoji||'😔',label,anonymous);
+    if(selectedMood==='bad'){
+      showSentState(selectedEmoji||'😔',anonymous);
       setTimeout(startPesadoChat,450);
       return;
     }
-    showSentState(emoji,label,anonymous);
-  }
+    showSentState(selectedEmoji,anonymous);
+  });
 
-  sendBtn?.addEventListener('click',()=>sendCheckin(false));
-  $('#checkinSendBtnWrite')?.addEventListener('click',()=>sendCheckin(true));
-
-  // After edit reload, scroll to check-in
   if(sessionStorage.getItem('hiloCheckinEdit')==='1'){
     sessionStorage.removeItem('hiloCheckinEdit');
     setTimeout(()=>$('#checkinCard')?.scrollIntoView({behavior:'smooth',block:'center'}),300);
   }
 }
+
 
 function setupChat(){
   setupChatPanel({
@@ -5907,6 +5922,10 @@ function setupChat(){
     ]
   });
   setupCheckin();
+  $('#btnHiloIntroChat')?.addEventListener('click',()=>{
+    if(currentRole!=='normal'){switchRole('normal');setTimeout(()=>switchScreen('chat'),350);}
+    else switchScreen('chat');
+  });
 }
 
 function setupRrhhModal(){

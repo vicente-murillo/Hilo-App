@@ -11,7 +11,6 @@
 <style>
 /* GLOBAL HOVER RESET */
 *:hover {
-  box-shadow: none !important;
   transform: none !important;
   -webkit-transform: none !important;
 }
@@ -64,6 +63,27 @@ button:hover,
   transition: background-color 150ms ease;
 }
 
+
+/* Card rest shadows */
+[class*="card"],
+[class*="-card"],
+.card {
+  box-shadow: 0 1px 3px rgba(12,27,21,0.06),
+              0 4px 12px rgba(12,27,21,0.04);
+  border-color: var(--border);
+}
+.clickeable{cursor:pointer}
+.clickeable:hover,.hover-lift:hover{
+  background-color: var(--bg-hover) !important;
+  border-color: var(--border-accent) !important;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+.card:not([onclick]):not(.clickeable):hover,
+[class*="card"]:not([onclick]):not(.clickeable):hover {
+  background-color: inherit !important;
+  border-color: var(--border) !important;
+  cursor: default;
+}
 /* Explicitly no hover on these: */
 [class*="card"]:not(.hover-lift):hover,
 [class*="metric"]:hover,
@@ -128,7 +148,7 @@ button:hover,
 :root{
   --font-display:'Space Grotesk',sans-serif;--font-body:'Inter',sans-serif;--font-mono:'Space Mono',monospace;
   --radius-sm:6px;--radius-md:10px;--radius-lg:14px;--radius-xl:20px;--radius-full:100px;
-  --radius:var(--radius-lg);--sidebar-w:200px;--banner-h:32px;
+  --radius:var(--radius-lg);--sidebar-w:230px;--banner-h:32px;
   --ease:cubic-bezier(0.4,0,0.2,1);--shadow:0 8px 32px rgba(0,0,0,0.4);
 }
 *,*::before,*::after{
@@ -207,9 +227,13 @@ svg{display:block;flex-shrink:0}
 .nav-item.hover-lift:active{transform:none}
 .nav-item svg{width:18px;height:18px;color:currentColor}
 .nav-item.active svg{color:var(--text-primary)}
+
+.nav-item{overflow:visible}
+.nav-pct{margin-left:auto;background:var(--accent-soft);color:var(--accent);font-family:var(--font-mono);font-size:10px;font-weight:600;padding:1px 6px;border-radius:var(--radius-full);flex-shrink:0}
+html.sidebar-collapsed .nav-pct{display:none}
 .nav-badge{margin-left:auto;background:var(--danger);color:#FFFFFF;font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px}
 [data-theme="dark"] .nav-badge{color:var(--btn-on-accent)}
-.nav-label{white-space:nowrap;overflow:hidden}
+.nav-label{white-space:nowrap;overflow:visible;text-overflow:clip;flex:1;min-width:0}
 
 /* Sidebar footer */
 .sidebar-footer{padding:16px;border-top:1px solid var(--border)}
@@ -652,6 +676,30 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
 .checkin-card{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:20px}
 .checkin-left{display:flex;align-items:center;gap:14px}
 .mood-picker{display:flex;gap:8px}
+
+.mood-picker-5{display:flex;flex-direction:row;align-items:stretch;justify-content:space-between;gap:4px;margin-bottom:10px}
+.mood-picker-5 .mood-btn,.mood-picker-5 .emoji-option{flex:1;flex-direction:column;width:auto;height:auto;min-width:0;padding:8px 6px;border-radius:10px;border:1.5px solid transparent;background:transparent;gap:4px;font-size:inherit}
+.mood-picker-5 .emoji-face{font-size:26px;line-height:1;display:block}
+.mood-picker-5 .emoji-label{font-family:var(--font-body);font-size:10px;color:var(--text-muted);line-height:1.2;text-align:center}
+.mood-picker-5 .mood-btn:hover,.mood-picker-5 .emoji-option:hover{background:var(--accent-soft);transform:none!important;box-shadow:none!important}
+.mood-picker-5 .mood-btn.selected,.mood-picker-5 .emoji-option.selected{background:var(--accent-soft);border:1.5px solid var(--accent);transform:none!important;box-shadow:none!important}
+.mood-picker-5 .mood-btn.selected .emoji-label,.mood-picker-5 .emoji-option.selected .emoji-label{color:var(--accent)}
+.checkin-write-link{display:inline-block;background:none;border:none;padding:0;margin:4px 0 8px;font-family:var(--font-body);font-size:11px;color:var(--text-secondary);cursor:pointer;text-align:left}
+.checkin-write-link:hover{color:var(--accent-text);opacity:1!important}
+.checkin-reveal{max-height:0;opacity:0;overflow:hidden;transition:max-height 200ms ease,opacity 200ms ease;margin-top:0}
+.checkin-reveal.is-open{max-height:280px;opacity:1;margin-top:8px;visibility:visible}
+.checkin-comment-toggle{background:none;border:none;padding:0;margin:0 0 8px;font-family:var(--font-body);font-size:11px;color:var(--text-secondary);cursor:pointer;text-align:left}
+.checkin-comment-ta{display:none;width:100%;min-height:60px;border:1px solid var(--border);border-radius:var(--radius-md);padding:10px 12px;font-family:var(--font-body);font-size:13px;background:var(--bg-card);color:var(--text-primary);resize:vertical;margin-bottom:10px;box-sizing:border-box}
+.checkin-comment-ta.is-open{display:block}
+.checkin-anon-row{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.checkin-anon-label{flex:1;font-family:var(--font-body);font-size:12px;color:var(--text-secondary)}
+.checkin-anon-hint{font-size:10px;color:var(--text-muted);margin:0 0 4px;line-height:1.4}
+.checkin-write-only{margin-top:8px}
+.checkin-sent{padding:8px 0}
+.checkin-sent-row{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500}
+.checkin-sent-sub{font-size:11px;color:var(--text-muted);margin-top:6px}
+.checkin-edit-link{background:none;border:none;padding:0;margin-top:8px;font-family:var(--font-body);font-size:12px;color:var(--accent-text);cursor:pointer}
+
 .mood-btn,.emoji-option{width:40px;height:40px;border-radius:50%;border:2px solid var(--border);background:var(--bg-hover);cursor:pointer;font-size:24px;display:inline-flex;align-items:center;justify-content:center;padding:8px;user-select:none;transition:transform 150ms ease,background 150ms ease,box-shadow 150ms ease,border-color 150ms ease}
 .mood-btn:hover,.emoji-option:hover{background:var(--accent-soft);border-color:var(--border-accent)}
 .mood-btn:active,.emoji-option:active{transform:scale(0.9);transition-duration:60ms}
@@ -868,6 +916,29 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
 /* Modal */
 .modal-overlay{position:fixed;inset:0;background:var(--overlay-bg);z-index:300;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .25s}
 .modal-overlay.open{opacity:1;pointer-events:auto}
+
+.org-team-card{cursor:pointer}
+.org-modal{margin:-8px}
+.org-modal-header{display:flex;align-items:center;gap:14px;padding:20px 24px;background:var(--bg-card);border-bottom:1px solid var(--border);border-radius:var(--radius-xl) var(--radius-xl) 0 0}
+.org-modal-name{font-family:var(--font-display);font-weight:700;font-size:18px;color:var(--text-primary)}
+.org-modal-role{font-family:var(--font-body);font-size:13px;color:var(--text-secondary);margin-top:2px}
+.org-modal-body{padding:20px 24px}
+.org-modal-section{margin-bottom:20px}
+.org-modal-sec-title{font-size:11px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:10px}
+.org-avatar-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.org-mini-avatar{background:none;border:none;padding:0;cursor:pointer;border-radius:50%}
+.org-mini-avatar:hover{opacity:0.92}
+.org-proj-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0;font-size:13px;border-bottom:1px solid var(--border)}
+.org-proj-row:last-child{border-bottom:none}
+.org-how-card{border-left:3px solid var(--accent);background:var(--accent-soft);padding:12px 14px;border-radius:0 var(--radius-md) var(--radius-md) 0;font-size:13px;line-height:1.5;color:var(--text-primary)}
+.org-how-src{font-size:10px;color:var(--text-muted);margin-top:8px}
+.org-modal-footer{border-top:1px solid var(--border);padding:16px 24px;display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.modal:has(.org-modal){max-width:480px;border-radius:var(--radius-xl);padding:0;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.15)}
+.modal-overlay{background:rgba(0,0,0,0.5);z-index:1000}
+#modalBody:has(.org-modal){padding:0}
+.modal:has(.org-modal) .modal-header{display:none}
+.btn-rrhh-report.rrhh-highlight{box-shadow:0 0 0 2px var(--human)!important}
+
 .modal{background:var(--bg-surface);border:1px solid var(--border);border-radius:16px;max-width:560px;width:100%;max-height:80vh;overflow-y:auto;transform:scale(.96);transition:transform .25s var(--ease)}
 .modal-overlay.open .modal{animation:modalIn .25s var(--ease) forwards}
 .modal-header{padding:24px 24px 0;display:flex;justify-content:space-between;align-items:flex-start}
@@ -1046,10 +1117,13 @@ button:focus-visible,.nav-item:focus-visible,.role-float-btn:focus-visible,#them
 html.sidebar-collapsed .arca-logo-block{justify-content:center;padding:8px;margin:12px 8px 8px;gap:0}
 html.sidebar-collapsed .arca-logo-text{display:none}
 
-/* Hilo character above theme toggle */
-.hilo-sidebar-char{padding:8px 0 4px;display:flex;justify-content:center}
-.hilo-sidebar-char img{width:68px;height:auto;display:block;filter:drop-shadow(0 4px 12px rgba(0,212,160,0.18));transition:transform 300ms ease;cursor:default}
-html.sidebar-collapsed .hilo-sidebar-char{display:none}
+/* Hilo character + logo above theme toggle */
+.sidebar-hilo-section{display:flex;flex-direction:column;align-items:center;padding:8px 0 4px;margin-bottom:4px}
+.sidebar-hilo-img{width:80px;height:auto;display:block;filter:drop-shadow(0 4px 16px rgba(0,212,160,0.2));transition:transform 300ms ease;cursor:default}
+.sidebar-hilo-img:hover{transform:scale(1.05) translateY(-3px)!important}
+.sidebar-hilo-logo{margin-top:4px;text-align:center}
+.sidebar-hilo-name{font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--accent);letter-spacing:-0.02em}
+html.sidebar-collapsed .sidebar-hilo-section{display:none}
 
 /* Collapsible sidebar */
 .sidebar{position:relative;transition:width 250ms ease;overflow:visible}
@@ -1125,8 +1199,11 @@ html.sidebar-collapsed .user-card{justify-content:center}
     </div>
     <nav class="nav" id="mainNav"></nav>
     <div class="sidebar-footer">
-      <div class="hilo-sidebar-char">
-        <img src="hilo-cover.png" alt="Hilo"/>
+      <div class="sidebar-hilo-section">
+        <img src="hilo-character.png" alt="Hilo" class="sidebar-hilo-img"/>
+        <div class="sidebar-hilo-logo">
+          <span class="sidebar-hilo-name">hilo</span>
+        </div>
       </div>
       <button type="button" id="themeToggle" aria-label="Cambiar tema">
         <span class="sun-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
@@ -1214,7 +1291,7 @@ html.sidebar-collapsed .user-card{justify-content:center}
             </div>
             <div class="meetings-card-date">Miércoles 22 de julio</div>
           </div>
-          <div class="meeting-row hover-lift" data-prep-meeting="planning" role="button" tabindex="0">
+          <div class="meeting-row hover-lift clickeable" data-prep-meeting="planning" role="button" tabindex="0">
             <div class="meeting-time">10:00</div>
             <div class="meeting-info">
               <div class="meeting-name">Planning Q3 · Producto Digital</div>
@@ -1222,7 +1299,7 @@ html.sidebar-collapsed .user-card{justify-content:center}
             </div>
             <button type="button" class="btn btn-ghost btn-sm meeting-prep-btn">Prepararme →</button>
           </div>
-          <div class="meeting-row hover-lift" data-prep-meeting="oneone" role="button" tabindex="0">
+          <div class="meeting-row hover-lift clickeable" data-prep-meeting="oneone" role="button" tabindex="0">
             <div class="meeting-time">13:00</div>
             <div class="meeting-info">
               <div class="meeting-name">1:1 con Carlos</div>
@@ -1243,22 +1320,7 @@ html.sidebar-collapsed .user-card{justify-content:center}
 
         <div class="two-col">
           <div>
-            <div class="card hover-none" style="margin-bottom:20px">
-              <h3>Tu plan de hoy</h3>
-              <div class="task-item hover-lift">
-                <button class="task-check checked" aria-label="Completar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></button>
-                <div style="flex:1"><div class="task-icon-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-text)" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><strong class="task-text done">Reunión con Carlos Herrera</strong></div><p class="task-meta">Tu manager quiere conocerte y contarte cómo funciona el equipo.</p><span style="font-size:12px;color:var(--accent-text)">✓ Completado</span></div>
-              </div>
-              <div class="task-item hover-lift">
-                <button class="task-check" aria-label="Completar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></button>
-                <div style="flex:1"><div class="task-icon-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg><strong class="task-text">Explora el Design System</strong></div><p class="task-meta">Revisa el component library en Figma antes de tu primera sesión de diseño.</p><span class="task-meta">~45 minutos</span> <button class="btn btn-ghost btn-sm" style="margin-top:6px">Ver recurso →</button></div>
-              </div>
-              <div class="task-item hover-lift">
-                <button class="task-check" aria-label="Completar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></button>
-                <div style="flex:1"><div class="task-icon-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><strong class="task-text">Únete a #producto-digital</strong></div><p class="task-meta">El canal donde ocurre todo en tu equipo. Preséntate con un emoji.</p><span class="task-meta">~5 minutos</span></div>
-              </div>
-            </div>
-            <div class="card hover-subtle" style="margin-top:20px;background:var(--accent-soft);border-color:var(--border-accent)" id="checkinCard">
+            <div class="card hover-subtle" style="margin-top:20px;background:var(--accent-soft);border-color:var(--border)" id="checkinCard">
               <h3>Tu check-in de esta semana</h3>
               <div style="padding:12px 0;border-bottom:1px solid var(--border)">
                 <div style="font-size:12px;color:var(--text-secondary)" id="mondayCheckinLabel">Lunes 9:00am ✓ · Buenos días Sofía 👋 ¿Cómo llegaste al lunes?</div>
@@ -1266,10 +1328,35 @@ html.sidebar-collapsed .user-card{justify-content:center}
               </div>
               <div style="padding:12px 0" id="fridayCheckinBlock">
                 <div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px">Viernes 12:00pm · ¿Cómo estuvo tu semana?</div>
-                <div class="mood-picker" id="fridayMoodPicker" style="margin-bottom:8px">
-                  <button type="button" class="mood-btn emoji-option" data-mood="good" aria-label="Buena">😊</button>
-                  <button type="button" class="mood-btn emoji-option" data-mood="neutral" aria-label="Regular">😐</button>
-                  <button type="button" class="mood-btn emoji-option" data-mood="bad" aria-label="Difícil">😔</button>
+                <div class="mood-picker mood-picker-5" id="fridayMoodPicker">
+                  <button type="button" class="mood-btn emoji-option" data-mood="energy" data-label="Con energía" aria-label="Con energía"><span class="emoji-face">😄</span><span class="emoji-label">Con energía</span></button>
+                  <button type="button" class="mood-btn emoji-option" data-mood="good" data-label="Bien" aria-label="Bien"><span class="emoji-face">🙂</span><span class="emoji-label">Bien</span></button>
+                  <button type="button" class="mood-btn emoji-option" data-mood="neutral" data-label="Regular" aria-label="Regular"><span class="emoji-face">😐</span><span class="emoji-label">Regular</span></button>
+                  <button type="button" class="mood-btn emoji-option" data-mood="tired" data-label="Cansado" aria-label="Cansado"><span class="emoji-face">😕</span><span class="emoji-label">Cansado</span></button>
+                  <button type="button" class="mood-btn emoji-option" data-mood="bad" data-label="Pesado" aria-label="Pesado"><span class="emoji-face">😔</span><span class="emoji-label">Pesado</span></button>
+                </div>
+                <button type="button" class="checkin-write-link" id="checkinWriteLink">💬 Quiero escribir algo →</button>
+                <div class="checkin-reveal" id="checkinReveal" aria-hidden="true">
+                  <button type="button" class="checkin-comment-toggle" id="checkinCommentToggle">+ Agregar un comentario</button>
+                  <textarea class="checkin-comment-ta" id="checkinComment" placeholder="Cuéntame más si quieres..." aria-hidden="true"></textarea>
+                  <div class="checkin-anon-row">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                    <span class="checkin-anon-label">Enviar de forma anónima</span>
+                    <button type="button" class="toggle on" id="checkinAnonToggle" aria-label="Enviar de forma anónima" aria-pressed="true"></button>
+                  </div>
+                  <p class="checkin-anon-hint" id="checkinAnonHint">Solo Hilo verá tu respuesta.</p>
+                  <button type="button" class="btn btn-primary" id="checkinSendBtn" style="width:100%;margin-top:10px">Enviar check-in →</button>
+                </div>
+                <div class="checkin-write-only" id="checkinWriteOnly" hidden>
+                  <button type="button" class="checkin-write-link" id="checkinBackEmojis">← Volver a los estados</button>
+                  <textarea class="checkin-comment-ta is-open" id="checkinWriteOnlyTa" placeholder="Cuéntame más si quieres..." style="min-height:80px"></textarea>
+                  <div class="checkin-anon-row">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                    <span class="checkin-anon-label">Enviar de forma anónima</span>
+                    <button type="button" class="toggle on" id="checkinAnonToggleWrite" aria-label="Enviar de forma anónima" aria-pressed="true"></button>
+                  </div>
+                  <p class="checkin-anon-hint" id="checkinAnonHintWrite">Solo Hilo verá tu respuesta.</p>
+                  <button type="button" class="btn btn-primary" id="checkinSendBtnWrite" style="width:100%;margin-top:10px">Enviar check-in →</button>
                 </div>
                 <p style="font-size:11px;color:var(--text-muted)" id="fridayCheckinHint">Toca cómo te sientes. Es privado — solo entre tú y Hilo.</p>
               </div>
@@ -1303,6 +1390,21 @@ html.sidebar-collapsed .user-card{justify-content:center}
         <div class="progress-meta hover-none"><span>15 / 90 días</span><span>17% completado</span></div>
         <div class="progress-bar hover-none"><div class="progress-fill" style="width:17%"></div></div>
         <p class="hover-none" style="font-size:12px;color:var(--text-secondary);margin-bottom:20px">En promedio, los Product Designers son productivos al 100% en el mes 3 con Hilo.</p>
+            <div class="card hover-none" style="margin-bottom:20px">
+              <h3>Tu plan de onboarding</h3>
+              <div class="task-item hover-lift clickeable">
+                <button class="task-check checked" aria-label="Completar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></button>
+                <div style="flex:1"><div class="task-icon-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-text)" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><strong class="task-text done">Reunión con Carlos Herrera</strong></div><p class="task-meta">Tu manager quiere conocerte y contarte cómo funciona el equipo.</p><span style="font-size:12px;color:var(--accent-text)">✓ Completado</span></div>
+              </div>
+              <div class="task-item hover-lift clickeable">
+                <button class="task-check" aria-label="Completar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></button>
+                <div style="flex:1"><div class="task-icon-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg><strong class="task-text">Explora el Design System</strong></div><p class="task-meta">Revisa el component library en Figma antes de tu primera sesión de diseño.</p><span class="task-meta">~45 minutos</span> <button class="btn btn-ghost btn-sm" style="margin-top:6px">Ver recurso →</button></div>
+              </div>
+              <div class="task-item hover-lift clickeable">
+                <button class="task-check" aria-label="Completar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></button>
+                <div style="flex:1"><div class="task-icon-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><strong class="task-text">Únete a #producto-digital</strong></div><p class="task-meta">El canal donde ocurre todo en tu equipo. Preséntate con un emoji.</p><span class="task-meta">~5 minutos</span></div>
+              </div>
+            </div>
         <div class="card hover-none">
           <h3>Tu journey — 90 días</h3>
           <div class="timeline" style="margin-top:16px">
@@ -2397,7 +2499,7 @@ const NAV={
   normal:[
     {id:'onboarding',label:'Mi día',icon:'<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>'},
     {id:'chat',label:'Habla con Hilo',icon:'<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>'},
-    {id:'journey',label:'Onboarding',icon:'<path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>'},
+    {id:'journey',label:'Onboarding',pct:'17%',icon:'<path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>'},
     {id:'mapa',label:'Mapa de Conocimiento',icon:'<circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/><path d="M2 12h20"/>'},
     {id:'organigrama',label:'Organigrama',icon:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="9" y="14" width="7" height="7" rx="1"/><path d="M6.5 10v1M17.5 10v1M12.5 11v3"/>'},
     {id:'ranking',label:'Ranking',icon:'<path d="M6 9H4.5a2.5 2.5 0 010-5H6M18 9h1.5a2.5 2.5 0 000-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20 7 22M14 14.66V17c0 .55.47.98.97 1.21 2.18 1.54 3 2.79 3 4.01M12 7V2"/><path d="M12 7l-2 4h4l-2-4z"/>'},
@@ -2780,9 +2882,10 @@ function renderNav(){
   const nav=$('#mainNav');
   const items=NAV[currentRole];
   nav.innerHTML=items.map(item=>`
-    <button class="nav-item hover-lift${item.id===currentScreen?' active':''}" data-screen="${item.id}" data-label="${item.label}">
+    <button class="nav-item hover-lift clickeable${item.id===currentScreen?' active':''}" data-screen="${item.id}" data-label="${item.label}">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${item.icon}</svg>
       <span class="nav-label">${item.label}</span>
+      ${item.pct?`<span class="nav-pct">${item.pct}</span>`:''}
       ${item.badge?`<span class="nav-badge">${item.badge}</span>`:''}
       <span class="nav-tip" aria-hidden="true">${item.label}</span>
     </button>
@@ -3273,10 +3376,19 @@ function showToastCenter(msg,duration=3000){
 }
 
 function replayTutorial(){
-  if(currentRole==='normal')onboardingShown=false;
-  else if(currentRole==='admin')adminOnboardingShown=false;
-  else if(currentRole==='manager')managerOnboardingShown=false;
-  showToast('El tutorial aparecerá la próxima vez que abras Hilo ✓');
+  if(currentRole==='normal'){
+    onboardingShown=false;
+    tourStep=0;
+    startPlatformOnboarding();
+  }else if(currentRole==='admin'){
+    adminOnboardingShown=false;
+    adminTourStep=0;
+    startAdminOnboarding();
+  }else if(currentRole==='manager'){
+    managerOnboardingShown=false;
+    managerTourStep=0;
+    startManagerOnboarding();
+  }
 }
 
 function posClass(p){return p===1?'g1':p===2?'g2':p===3?'g3':'';}
@@ -3670,7 +3782,7 @@ function renderBeneficiosScreen(){
   if(el.dataset.rendered==='tour'&&tourMode)return;
   el.dataset.rendered=tourMode?'tour':'1';
   const poolHtml=BENEFIT_POOL.map((b,i)=>`
-    <div class="benefit-pool-card hover-lift${tourMode?' tour-pickable':''}" data-cat="${b.c}" data-idx="${i}">
+    <div class="benefit-pool-card hover-lift clickeable${tourMode?' tour-pickable':''}" data-cat="${b.c}" data-idx="${i}">
       <div style="font-size:28px;margin-bottom:8px">${b.e}</div>
       <div style="font-size:12px;font-weight:500;margin-bottom:6px">${b.t}</div>
       <span class="tag">${b.c.charAt(0).toUpperCase()+b.c.slice(1)}</span>
@@ -3705,7 +3817,7 @@ function renderBeneficiosScreen(){
       <p class="page-sub">Selecciona 3 beneficios del pool para incentivar la participación mensual.</p>
       <p class="section-label">Beneficios activos este mes</p>
       <div class="benefit-active-grid">
-        <div class="benefit-active-card hover-lift" style="border-left:4px solid var(--accent)">
+        <div class="benefit-active-card hover-lift clickeable" style="border-left:4px solid var(--accent)">
           <span class="tag" style="margin-bottom:10px">Beneficio estrella · Top 1</span>
           <div style="font-size:32px;margin:8px 0">☀️</div>
           <h3 style="font-size:20px;font-weight:700;margin-bottom:8px">Medio día libre</h3>
@@ -3713,7 +3825,7 @@ function renderBeneficiosScreen(){
           <span class="tag" style="color:var(--accent-text);margin:12px 0;display:inline-block">Activo</span>
           <button class="btn btn-ghost btn-sm">Cambiar →</button>
         </div>
-        <div class="benefit-active-card hover-lift" style="border-left:4px solid var(--human)">
+        <div class="benefit-active-card hover-lift clickeable" style="border-left:4px solid var(--human)">
           <span class="tag" style="margin-bottom:10px">Top 2–5</span>
           <div style="font-size:32px;margin:8px 0">🍕</div>
           <h3 style="font-size:20px;font-weight:700;margin-bottom:8px">Almuerzo de equipo</h3>
@@ -3721,7 +3833,7 @@ function renderBeneficiosScreen(){
           <span class="tag" style="color:var(--accent-text);margin:12px 0;display:inline-block">Activo</span>
           <button class="btn btn-ghost btn-sm">Cambiar →</button>
         </div>
-        <div class="benefit-active-card hover-lift" style="border-left:4px solid var(--data)">
+        <div class="benefit-active-card hover-lift clickeable" style="border-left:4px solid var(--data)">
           <span class="tag" style="margin-bottom:10px">Top 6–20</span>
           <div style="font-size:32px;margin:8px 0">⭐</div>
           <h3 style="font-size:20px;font-weight:700;margin-bottom:8px">Salida temprana el viernes</h3>
@@ -3853,7 +3965,7 @@ function renderPersonGrid(filter='all',query=''){
   if(filter!=='all')list=list.filter(p=>p.dept===filter);
   if(query)list=list.filter(p=>(p.name+p.role+p.tags.join(' ')).toLowerCase().includes(query.toLowerCase()));
   grid.innerHTML=list.map(p=>`
-    <div class="person-card hover-lift" data-id="${p.id}" style="text-align:left">
+    <div class="person-card hover-lift clickeable" data-id="${p.id}" style="text-align:left">
       <div class="avatar" data-init="${p.init}" style="margin:0 0 10px">${p.init}</div>
       <div class="pc-name">${p.name}</div>
       <div class="pc-role">${p.role}</div>
@@ -3869,10 +3981,161 @@ function renderPersonGrid(filter='all',query=''){
   });
 }
 
+const ORG_LEADERS={
+  'Producto Digital':{init:'CH',name:'Carlos Herrera',role:'Head of Product · Manager',area:'Producto Digital',tags:['Roadmap','Design critique','Priorización','1:1s'],projects:[{name:'Design System v3',tone:'amber'},{name:'Roadmap Q3',tone:'green'}],team:true,how:'Carlos prefiere ver el problema antes que la solución en cualquier reunión.',howSrc:'Capturado por Hilo · vía Gabriela Rojas'},
+  'Tecnología':{init:'DM',name:'Diego Morales',role:'Head of Engineering · Manager',area:'Tecnología',tags:['Arquitectura','APIs','Mentoring'],projects:[{name:'Infraestructura Q3',tone:'green'},{name:'Transbank v2',tone:'amber'}],team:false},
+  'Data & Analytics':{init:'PK',name:'Priya Kapoor',role:'Head of Data · Manager',area:'Data & Analytics',tags:['SQL','Experimentos','Dashboards'],projects:[{name:'Metrics hub',tone:'green'}],team:false},
+  'Diseño':{init:'SR',name:'Sofía Reyes',role:'Head of Design · Manager',area:'Diseño',tags:['Brand','Design ops','Critique'],projects:[{name:'Brand system',tone:'green'}],team:false},
+  'People':{init:'AP',name:'Ana Pizarro',role:'People Director · HR + CEO',area:'People',tags:['Cultura','Onboarding','Políticas'],projects:[{name:'Hilo rollout',tone:'green'}],team:false}
+};
+
 function renderOrgGrid(){
   const grid=$('#orgGrid');
   if(!grid)return;
-  grid.innerHTML=HR_TEAMS.map(t=>`<div class="card org-team-card"><div style="font-weight:500;font-size:14px">${t.name}</div><div style="font-size:12px;color:var(--text-secondary);margin-top:4px">${t.count} personas · Manager: ${t.manager}</div></div>`).join('');
+  grid.innerHTML=HR_TEAMS.map((t,i)=>`<div class="card org-team-card clickeable hover-lift" data-org-idx="${i}" role="button" tabindex="0"><div style="font-weight:500;font-size:14px">${t.name}</div><div style="font-size:12px;color:var(--text-secondary);margin-top:4px">${t.count} personas · Manager: ${t.manager}</div></div>`).join('');
+  grid.querySelectorAll('.org-team-card').forEach(card=>{
+    const open=()=>{
+      const t=HR_TEAMS[card.dataset.orgIdx];
+      openOrgPersonModal(t);
+    };
+    card.addEventListener('click',open);
+    card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});
+  });
+}
+
+function openOrgPersonModal(team){
+  const lead=ORG_LEADERS[team.name]||{
+    init:(team.manager||'??').replace(/[^A-Za-z]/g,'').slice(0,2).toUpperCase()||'??',
+    name:team.manager==='—'?'Dirección':team.manager,
+    role:'Manager · '+team.name,
+    area:team.name,
+    tags:['Liderazgo','Coordinación'],
+    projects:[{name:'Operación del equipo',tone:'green'}],
+    team:false
+  };
+  const teamAvatars=lead.team?TEAM.map(m=>`<button type="button" class="org-mini-avatar clickeable" data-team-id="${m.id}" title="${m.name}"><span class="avatar sm" data-init="${m.init}">${m.init}</span></button>`).join(''):TEAM.slice(0,4).map(m=>`<span class="avatar sm" data-init="${m.init}" title="${m.name}">${m.init}</span>`).join('');
+  const proj= (lead.projects||[]).map(p=>`<div class="org-proj-row"><span>→ ${p.name}</span><span class="tag" style="background:${p.tone==='amber'?'var(--data-soft)':'var(--accent-soft)'};color:${p.tone==='amber'?'var(--data-text)':'var(--accent-text)'}">Activo</span></div>`).join('');
+  const tags=(lead.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('');
+  const how=lead.how?`<div class="org-modal-section"><div class="org-modal-sec-title">Cómo trabaja mejor</div><div class="org-how-card">${lead.how}<div class="org-how-src">${lead.howSrc||''}</div></div></div>`:'';
+  const first=lead.name.split(' ')[0];
+  $('#modalTitle').textContent=lead.name;
+  $('#modalBody').innerHTML=`
+    <div class="org-modal">
+      <div class="org-modal-header">
+        <div class="avatar" data-init="${lead.init}" style="width:52px;height:52px;font-size:18px">${lead.init}</div>
+        <div style="flex:1;min-width:0">
+          <div class="org-modal-name">${lead.name}</div>
+          <div class="org-modal-role">${lead.role}</div>
+          <span class="tag" style="margin-top:6px;display:inline-block">${lead.area}</span>
+        </div>
+        <button type="button" class="panel-close" id="orgModalClose" aria-label="Cerrar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="org-modal-body">
+        <div class="org-modal-section">
+          <div class="org-modal-sec-title">Equipo directo</div>
+          <div class="org-avatar-row">${teamAvatars||'<span style="font-size:12px;color:var(--text-muted)">Sin detalle de equipo en demo</span>'}</div>
+        </div>
+        <div class="org-modal-section">
+          <div class="org-modal-sec-title">Proyectos activos</div>
+          <p style="font-size:10px;color:var(--text-muted);margin:0 0 8px">Leído de Jira</p>
+          ${proj}
+        </div>
+        <div class="org-modal-section">
+          <div class="org-modal-sec-title">Expertise</div>
+          <div class="pc-tags" style="justify-content:flex-start;margin-top:8px">${tags}</div>
+        </div>
+        ${how}
+      </div>
+      <div class="org-modal-footer">
+        <button type="button" class="btn btn-ghost btn-sm" id="orgModalProfile">Ver perfil completo →</button>
+        <button type="button" class="btn btn-primary btn-sm" id="orgModalChat">Habla con Hilo sobre ${first} →</button>
+      </div>
+    </div>`;
+  openModal();
+  syncAvatarColors($('#modalBody'));
+  $('#orgModalClose')?.addEventListener('click',closeModal);
+  $('#orgModalProfile')?.addEventListener('click',()=>{
+    closeModal();
+    const person=PEOPLE.find(p=>p.name===lead.name);
+    if(person){switchScreen('mapa');setTimeout(()=>openPersonPanel(person),300);}
+    else showToast('Perfil completo disponible en Mapa de Conocimiento');
+  });
+  $('#orgModalChat')?.addEventListener('click',()=>{
+    closeModal();
+    const msg=`Cuéntame sobre ${lead.name}`;
+    const go=()=>{
+      switchScreen('chat');
+      setTimeout(()=>{
+        const input=$('#chatInput');
+        if(input){input.value=msg;$('#chatSend')?.click();}
+      },350);
+    };
+    if(currentRole!=='normal'){switchRole('normal');setTimeout(go,350);} else go();
+  });
+  $('#modalBody').querySelectorAll('[data-team-id]').forEach(btn=>{
+    btn.addEventListener('click',e=>{
+      e.stopPropagation();
+      const m=TEAM.find(x=>x.id===btn.dataset.teamId);
+      if(!m)return;
+      const person=PEOPLE.find(p=>p.init===m.init);
+      const lead2={
+        init:m.init,
+        name:m.name,
+        role:m.role+' · Producto Digital',
+        area:'Producto Digital',
+        tags:person?.tags||person?.knowledge||[m.role],
+        projects:person?.activeProjects?person.activeProjects.map(p=>({name:p.name,tone:'green'})):[{name:'En curso',tone:'green'}],
+        team:false
+      };
+      openOrgPersonFromLead(lead2);
+    });
+  });
+}
+
+function openOrgPersonFromLead(lead){
+  const proj=(lead.projects||[]).map(p=>`<div class="org-proj-row"><span>→ ${p.name}</span><span class="tag" style="background:var(--accent-soft);color:var(--accent-text)">Activo</span></div>`).join('');
+  const tags=(lead.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('');
+  const first=lead.name.split(' ')[0];
+  $('#modalTitle').textContent=lead.name;
+  $('#modalBody').innerHTML=`
+    <div class="org-modal">
+      <div class="org-modal-header">
+        <div class="avatar" data-init="${lead.init}" style="width:52px;height:52px;font-size:18px">${lead.init}</div>
+        <div style="flex:1">
+          <div class="org-modal-name">${lead.name}</div>
+          <div class="org-modal-role">${lead.role}</div>
+          <span class="tag" style="margin-top:6px;display:inline-block">${lead.area}</span>
+        </div>
+        <button type="button" class="panel-close" id="orgModalClose" aria-label="Cerrar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="org-modal-body">
+        <div class="org-modal-section"><div class="org-modal-sec-title">Proyectos activos</div><p style="font-size:10px;color:var(--text-muted);margin:0 0 8px">Leído de Jira</p>${proj}</div>
+        <div class="org-modal-section"><div class="org-modal-sec-title">Expertise</div><div class="pc-tags" style="justify-content:flex-start;margin-top:8px">${tags}</div></div>
+      </div>
+      <div class="org-modal-footer">
+        <button type="button" class="btn btn-ghost btn-sm" id="orgModalProfile">Ver perfil completo →</button>
+        <button type="button" class="btn btn-primary btn-sm" id="orgModalChat">Habla con Hilo sobre ${first} →</button>
+      </div>
+    </div>`;
+  openModal();
+  syncAvatarColors($('#modalBody'));
+  $('#orgModalClose')?.addEventListener('click',closeModal);
+  $('#orgModalProfile')?.addEventListener('click',()=>{
+    closeModal();
+    const person=PEOPLE.find(p=>p.name===lead.name);
+    if(person){switchScreen('mapa');setTimeout(()=>openPersonPanel(person),300);}
+  });
+  $('#orgModalChat')?.addEventListener('click',()=>{
+    closeModal();
+    const go=()=>{
+      switchScreen('chat');
+      setTimeout(()=>{
+        const input=$('#chatInput');
+        if(input){input.value=`Cuéntame sobre ${lead.name}`;$('#chatSend')?.click();}
+      },350);
+    };
+    if(currentRole!=='normal'){switchRole('normal');setTimeout(go,350);} else go();
+  });
 }
 
 const TOOL_ICONS={
@@ -4977,7 +5240,7 @@ Te lo cuento para que lo tengas en cuenta 🙂
     }
     if(empathyStep==='free'){
       empathyStep='offer_rrhh';
-      return {reply:'¿Quieres que quede registrado esto para que RRHH pueda ayudar? Puede ser anónimo si prefieres. Tú decides.',pills:['Sí, avisar a RRHH →','No, solo quería contarlo'],delay:1200,skipFollowUp:true};
+      return {reply:'Una cosa más — si sientes que hay algo que quieres que sepa Recursos Humanos, tienes un botón abajo para reportarlo. Puede ser anónimo si prefieres. Tú decides si usarlo o no.',delay:1200,skipFollowUp:true,highlightRrhh:true,pills:['Sí, avisar a RRHH →','No, solo quería contarlo']};
     }
     if(empathyStep==='offer_rrhh'){
       if(t.includes('avisar')||t.includes('rrhh')||(/^sí\b/.test(t)||/^si\b/.test(t))){
@@ -4999,8 +5262,8 @@ Te lo cuento para que lo tengas en cuenta 🙂
     localStorage.setItem('hiloLastCheckin','bad');
     clearPills();
     return hiloResponde(
-      'Oye. ¿Qué pasó?<br><br>No tienes que contarme si no quieres. Pero si hay algo que te tenga así, estoy aquí para escucharte.<br><br>¿Fue algo del trabajo o de afuera?',
-      1500,
+      'Sofía, gracias por contarme.<br><br>¿Qué pasó? No tienes que contarme si no quieres, pero estoy aquí si quieres hablar.',
+      200,
       ['Del trabajo','De afuera'],
       true
     ).then(()=>{
@@ -5101,7 +5364,7 @@ Te lo cuento para que lo tengas en cuenta 🙂
     }
     if(t.includes('más o menos')||t.includes('mas o menos')||t.includes('todavía pesada')||t.includes('todavia pesada')){
       empathyStep='ask_source';
-      return {reply:'Oye. ¿Qué pasó?<br><br>No tienes que contarme si no quieres. Pero si hay algo que te tenga así, estoy aquí para escucharte.<br><br>¿Fue algo del trabajo o de afuera?',pills:['Del trabajo','De afuera'],delay:1500,skipFollowUp:true};
+      return {reply:'Sofía, gracias por contarme.<br><br>¿Qué pasó? No tienes que contarme si no quieres, pero estoy aquí si quieres hablar.',pills:['Del trabajo','De afuera'],delay:1500,skipFollowUp:true};
     }
 
     if(isPriorityTrigger(t)){
@@ -5237,6 +5500,15 @@ Te lo cuento para que lo tengas en cuenta 🙂
     }
     if(result.reply!=null){
       await hiloResponde(result.reply,result.delay||1200,result.pills,result.skipFollowUp);
+    }
+    if(result.highlightRrhh){
+      const btn=$('#btnRrhhReport');
+      if(btn){
+        btn.style.boxShadow='0 0 0 2px var(--human)';
+        btn.style.transform='scale(1.02)';
+        btn.scrollIntoView({behavior:'smooth',block:'nearest'});
+        setTimeout(()=>{btn.style.boxShadow='';btn.style.transform='';},4000);
+      }
     }
     if(result.pills&&result.pills.includes('Del trabajo')&&pillsEl){
       const hint=document.createElement('p');
@@ -5450,43 +5722,139 @@ function setupCheckin(){
   if(mondayEl)mondayEl.textContent=mondayLabels[Math.floor(Math.random()*mondayLabels.length)];
 
   const picker=$('#fridayMoodPicker');
+  const reveal=$('#checkinReveal');
+  const writeOnly=$('#checkinWriteOnly');
+  const writeLink=$('#checkinWriteLink');
+  const commentToggle=$('#checkinCommentToggle');
+  const commentTa=$('#checkinComment');
+  const anonToggle=$('#checkinAnonToggle');
+  const anonHint=$('#checkinAnonHint');
+  const sendBtn=$('#checkinSendBtn');
+  const hint=$('#fridayCheckinHint');
+  const block=$('#fridayCheckinBlock');
+  let selectedMood=null;
+  let selectedEmoji='';
+  let selectedLabel='';
+
+  function syncAnon(toggle,hintEl){
+    const on=toggle?.classList.contains('on');
+    if(hintEl)hintEl.textContent=on?'Solo Hilo verá tu respuesta.':'RRHH verá tu nombre.';
+    if(toggle)toggle.setAttribute('aria-pressed',on?'true':'false');
+  }
+  function wireAnon(toggle,hintEl){
+    if(!toggle)return;
+    toggle.addEventListener('click',()=>{
+      toggle.classList.toggle('on');
+      syncAnon(toggle,hintEl);
+    });
+    syncAnon(toggle,hintEl);
+  }
+  wireAnon(anonToggle,anonHint);
+  wireAnon($('#checkinAnonToggleWrite'),$('#checkinAnonHintWrite'));
+
+  function showReveal(open){
+    if(!reveal)return;
+    reveal.classList.toggle('is-open',open);
+    reveal.setAttribute('aria-hidden',open?'false':'true');
+  }
+
+  function showSentState(emoji,label,anonymous){
+    if(!block)return;
+    const title=anonymous?'Enviado de forma anónima':'Enviado con tu nombre';
+    const sub=anonymous?'Puedes actualizarlo cuando quieras.':'Puedes actualizarlo cuando quieras.';
+    block.innerHTML=`<div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px">Viernes 12:00pm · ¿Cómo estuvo tu semana?</div>
+      <div class="checkin-sent">
+        <div class="checkin-sent-row"><span style="font-size:22px">${emoji}</span><span>${title}</span></div>
+        <div class="checkin-sent-sub">${sub}</div>
+        <button type="button" class="checkin-edit-link" id="checkinEditBtn">Editar →</button>
+      </div>`;
+    $('#checkinEditBtn')?.addEventListener('click',restorePicker);
+  }
+
+  function restorePicker(){
+    sessionStorage.setItem('hiloCheckinEdit','1');
+    location.reload();
+  }
+
   if(!picker)return;
+
   picker.querySelectorAll('.mood-btn').forEach(btn=>{
     btn.addEventListener('click',()=>{
       picker.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('selected'));
       btn.classList.add('selected');
-      const mood=btn.dataset.mood;
-      const block=$('#fridayCheckinBlock');
-      const hint=$('#fridayCheckinHint');
-
-      if(mood==='good'){
-        lastCheckin='good';
-        localStorage.setItem('hiloLastCheckin','good');
-        if(hint)hint.textContent='Me alegra. ¿Hay algo en lo que quieras enfocarte esta semana?';
-        showToast('Check-in guardado · privado ✓');
-      }else if(mood==='neutral'){
-        lastCheckin='neutral';
-        localStorage.setItem('hiloLastCheckin','neutral');
-        if(hint)hint.textContent='Mondays... entendido 😄 ¿Algo en lo que pueda ayudarte a arrancar?';
-        showToast('Check-in guardado · privado ✓');
-      }else if(mood==='bad'){
-        lastCheckin='bad';
-        localStorage.setItem('hiloLastCheckin','bad');
-        if(block){
-          block.innerHTML='<div style="font-size:12px;color:var(--text-secondary);margin-bottom:6px">Viernes 12:00pm · ¿Cómo estuvo tu semana?</div><div style="font-size:18px;margin-top:4px">😔 Difícil</div><p style="font-size:12px;color:var(--text-secondary);margin-top:8px;line-height:1.5">Hilo quiere escucharte. Te llevo al chat.</p>';
-        }
-        pendingEmpathyStart=true;
-        const go=()=>{
-          switchScreen('chat');
-          if(hiloEmpChat)hiloEmpChat.startEmpathyFlow();
-        };
-        if(currentRole!=='normal'){
-          switchRole('normal');
-          setTimeout(go,350);
-        }else setTimeout(go,200);
-      }
+      selectedMood=btn.dataset.mood;
+      selectedEmoji=btn.querySelector('.emoji-face')?.textContent||'';
+      selectedLabel=btn.dataset.label||'';
+      if(writeOnly)writeOnly.hidden=true;
+      if(writeLink)writeLink.style.display='';
+      if(picker)picker.style.display='flex';
+      showReveal(true);
+      if(hint)hint.textContent='Puedes agregar un comentario o enviar ahora.';
     });
   });
+
+  commentToggle?.addEventListener('click',()=>{
+    const open=!commentTa?.classList.contains('is-open');
+    commentTa?.classList.toggle('is-open',open);
+    if(commentToggle)commentToggle.textContent=open?'- Quitar comentario':'+ Agregar un comentario';
+    if(open)commentTa?.focus();
+  });
+
+  writeLink?.addEventListener('click',()=>{
+    showReveal(false);
+    if(picker)picker.style.display='none';
+    writeLink.style.display='none';
+    if(writeOnly)writeOnly.hidden=false;
+    $('#checkinWriteOnlyTa')?.focus();
+  });
+  $('#checkinBackEmojis')?.addEventListener('click',()=>{
+    if(writeOnly)writeOnly.hidden=true;
+    if(picker)picker.style.display='flex';
+    if(writeLink)writeLink.style.display='';
+    if(selectedMood)showReveal(true);
+  });
+
+  function startPesadoChat(){
+    pendingEmpathyStart=true;
+    const go=()=>{
+      switchScreen('chat');
+      setTimeout(()=>{
+        if(hiloEmpChat)hiloEmpChat.startEmpathyFlow();
+      },200);
+    };
+    if(currentRole!=='normal'){
+      switchRole('normal');
+      setTimeout(go,350);
+    }else go();
+  }
+
+  function sendCheckin(fromWrite){
+    const anonymous=(fromWrite?$('#checkinAnonToggleWrite'):anonToggle)?.classList.contains('on')!==false;
+    const mood=fromWrite?(selectedMood||'neutral'):selectedMood;
+    if(!fromWrite&&!mood)return;
+    const emoji=fromWrite?(selectedEmoji||'✏️'):selectedEmoji;
+    const label=fromWrite?(selectedLabel||'Escrito'):selectedLabel;
+    lastCheckin=mood==='bad'?'bad':(mood||'good');
+    localStorage.setItem('hiloLastCheckin',lastCheckin);
+    if(anonymous)showToast('Enviado · Solo Hilo lo leyó ✓');
+    else showToast('Enviado como Sofía Martínez ✓');
+
+    if(mood==='bad'){
+      showSentState(emoji||'😔',label,anonymous);
+      setTimeout(startPesadoChat,450);
+      return;
+    }
+    showSentState(emoji,label,anonymous);
+  }
+
+  sendBtn?.addEventListener('click',()=>sendCheckin(false));
+  $('#checkinSendBtnWrite')?.addEventListener('click',()=>sendCheckin(true));
+
+  // After edit reload, scroll to check-in
+  if(sessionStorage.getItem('hiloCheckinEdit')==='1'){
+    sessionStorage.removeItem('hiloCheckinEdit');
+    setTimeout(()=>$('#checkinCard')?.scrollIntoView({behavior:'smooth',block:'center'}),300);
+  }
 }
 
 function setupChat(){

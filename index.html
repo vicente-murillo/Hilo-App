@@ -792,9 +792,10 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
 .hilo-intro-sub{font-family:var(--font-body);font-size:14px;color:var(--text-secondary);margin-top:6px;line-height:1.4}
 .hilo-intro-divider{border:none;border-top:1px solid var(--border);margin:18px 0}
 .hilo-intro-body{font-family:var(--font-body);font-size:14px;color:var(--text-primary);line-height:1.7;margin-bottom:16px;text-align:center}
-.hilo-intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;text-align:left;max-width:440px;margin:0 auto}
-.hilo-intro-col{font-family:var(--font-body);font-size:12px;color:var(--text-primary);line-height:1.75}
-.hilo-intro-col div{display:flex;align-items:flex-start;gap:6px;justify-content:flex-start}
+.hilo-intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 24px;text-align:left;width:100%;margin:0 auto}
+.hilo-intro-col{display:flex;flex-direction:column;min-width:0}
+.hilo-intro-item{display:flex;align-items:center;gap:8px;font-family:var(--font-body);font-size:13px;color:var(--text-primary);white-space:nowrap;padding:4px 0;line-height:1.3}
+.hilo-intro-item svg{flex-shrink:0;width:14px;height:14px;stroke:var(--accent)}
 .hi-check{color:var(--accent);flex-shrink:0}
 .hi-x{color:var(--human);flex-shrink:0}
 .hilo-intro-privacy{display:flex;align-items:flex-start;justify-content:center;gap:8px;background:var(--accent-soft);border-radius:var(--radius-md);padding:12px 16px;margin-bottom:16px;font-family:var(--font-body);font-size:12px;color:var(--text-secondary);line-height:1.5;text-align:center}
@@ -802,13 +803,16 @@ input[type="checkbox"]:checked,.checkbox.checked,.task-checkbox.completed{backgr
 .hilo-intro-card #btnHiloIntroChat,.hilo-intro-modal #btnHiloIntroChat{width:100%;margin-top:0}
 .hilo-intro-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1100;display:none;align-items:center;justify-content:center;padding:20px}
 .hilo-intro-overlay.open{display:flex}
-.hilo-intro-modal{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-xl);padding:32px 28px 28px;max-width:540px;width:100%;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.2);animation:modalIn .25s var(--ease) forwards;text-align:center}
+.hilo-intro-modal{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-xl);padding:32px 28px 28px;max-width:680px;width:100%;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.2);animation:modalIn .25s var(--ease) forwards;text-align:center}
 .hilo-intro-modal-x{position:absolute;top:14px;right:14px;width:28px;height:28px;border:none;background:transparent;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;line-height:1;border-radius:8px;z-index:2}
 .hilo-intro-modal-x:hover{color:var(--text-primary);background:var(--bg-hover)}
-@media(max-width:700px){
-  .hilo-intro-grid{grid-template-columns:1fr;max-width:280px}
+@media(max-width:720px){
+  .hilo-intro-item{font-size:12px}
   .hilo-intro-img{width:120px;min-height:120px}
   .hilo-intro-title{font-size:20px}
+}
+@media(max-width:560px){
+  .hilo-intro-grid{grid-template-columns:1fr;gap:0}
 }
 
 .meetings-card{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:0 0 8px;margin-bottom:20px}
@@ -3126,33 +3130,33 @@ a:hover,
     <button type="button" class="hilo-intro-modal-x" id="hiloIntroClose" aria-label="Cerrar">×</button>
     <div class="hilo-intro-head">
       <div class="hilo-intro-copy">
-        <div class="hilo-intro-title" id="hiloIntroTitle">¡Hola! Soy Hilo 👋</div>
-        <div class="hilo-intro-sub">Tu asistente laboral virtual, 24/7.</div>
+        <div class="hilo-intro-title" id="hiloIntroTitle">¡Hola Sofía! Soy Hilo 👋</div>
+        <div class="hilo-intro-sub">Tu asistente laboral 24/7</div>
       </div>
       <img src="hilo-cover.png" alt="Hilo" class="hilo-intro-img" width="140" height="162"/>
     </div>
     <hr class="hilo-intro-divider">
-    <p class="hilo-intro-body">Estoy aquí para acompañarte en tu día a día en Arca. Todo lo que conversamos es privado — nunca le cuento nada a tu jefe sin que tú me lo pidas.</p>
+    <p class="hilo-intro-body">Soy tu asistente en Arca. Ya leí un poco sobre tu equipo antes de que llegaras. Puedes preguntarme lo que sea, cuando sea. Lo que hablamos queda entre tú y yo.</p>
     <div class="hilo-intro-grid">
-      <div class="hilo-intro-col do">
-        <div><span class="hi-check">✓</span> Respondo tus dudas al instante</div>
-        <div><span class="hi-check">✓</span> Te preparo para cada reunión</div>
-        <div><span class="hi-check">✓</span> Te aviso si tu reunión se cancela</div>
-        <div><span class="hi-check">✓</span> Guío tu onboarding paso a paso</div>
-        <div><span class="hi-check">✓</span> Recuerdo lo que me cuentas</div>
+      <div class="hilo-intro-col">
+        <div class="hilo-intro-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Tengo contexto de tu cargo, yo te guío.</div>
+        <div class="hilo-intro-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Te digo con quién hablar cuando necesitas algo</div>
+        <div class="hilo-intro-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Guío tu onboarding paso a paso</div>
+        <div class="hilo-intro-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Respondo tus dudas al instante</div>
+        <div class="hilo-intro-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Te preparo para cada reunión</div>
       </div>
-      <div class="hilo-intro-col dont">
-        <div><span class="hi-x">✗</span> No le reporto nada a tu jefe</div>
-        <div><span class="hi-x">✗</span> No te evalúo ni te vigilo</div>
-        <div><span class="hi-x">✗</span> No comparto tus check-ins</div>
-        <div><span class="hi-x">✗</span> No tomo decisiones por ti</div>
-        <div><span class="hi-x">✗</span> No soy un formulario más</div>
+      <div class="hilo-intro-col">
+        <div class="hilo-intro-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Te aviso si tu reunión se cancela</div>
+        <div class="hilo-intro-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Recuerdo lo que me cuentas</div>
+        <div class="hilo-intro-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Tu jefe no sabe lo que me cuentas</div>
+        <div class="hilo-intro-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Tus conversaciones son solo tuyas</div>
+        <div class="hilo-intro-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Siempre decides tú, nunca yo</div>
       </div>
     </div>
     <hr class="hilo-intro-divider">
     <div class="hilo-intro-privacy">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-      <span>Todo lo que hablamos es entre tú y yo. Si alguna vez quieres contarle algo a RRHH, lo decidís tú — no yo.</span>
+      <span>Todo lo que hablamos es entre tú y yo. Si quieres que algo llegue a RRHH, tú lo decides. Nunca yo.</span>
     </div>
     <button type="button" class="btn btn-primary" id="btnHiloIntroChat">¡Habla conmigo! →</button>
   </div>

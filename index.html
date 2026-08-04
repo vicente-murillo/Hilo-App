@@ -948,12 +948,59 @@ input:focus,textarea:focus,select:focus,.chat-input:focus,.focus-ta:focus,.km-se
 .focus-ta{width:100%;min-height:60px;margin-top:10px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;font-family:var(--font-body);font-size:13px;line-height:1.45;background:var(--bg-surface);color:var(--text-primary);resize:vertical}
 .focus-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .home-focus-wrap{margin-bottom:0;min-width:0}
-.focus-card-shell{overflow:hidden;transition:height 250ms ease;height:100%}
+.focus-card-shell{overflow:hidden;transition:height 250ms ease;height:100%;display:flex;flex-direction:column;box-sizing:border-box}
+.midia-top-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  align-items:stretch;
+  margin-bottom:0;
+}
+.midia-top-row > *{min-height:0;height:100%}
+.midia-top-row .home-focus-wrap{height:100%;display:flex;flex-direction:column;min-height:0}
+.midia-top-row .focus-card-shell{margin-bottom:0;flex:1}
+.midia-top-row #checkinCard{
+  display:flex;
+  flex-direction:column;
+  height:100%;
+  margin-bottom:0;
+  max-width:none;
+  box-sizing:border-box;
+}
+#homeMeetingsCard{margin-top:16px;margin-bottom:20px}
 .midia-bottom-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch;margin-bottom:20px}
 .midia-bottom-row .meetings-card{margin-bottom:0;height:100%}
 .midia-bottom-row .home-focus-wrap{height:100%}
 .midia-bottom-row .focus-card-shell{margin-bottom:0}
-@media(max-width:900px){.midia-bottom-row{grid-template-columns:1fr}}
+@media(max-width:900px){
+  .midia-top-row,.midia-bottom-row{grid-template-columns:1fr}
+}
+.focus-ta-row{display:flex;gap:8px;align-items:flex-end;margin-top:10px}
+.focus-ta-row .focus-ta{margin-top:0;flex:1;min-width:0}
+.focus-mic-wrap{position:relative;display:flex;flex-direction:column;align-items:center;flex-shrink:0;padding-bottom:2px}
+.focus-mic-wrap .mic-btn{width:36px;height:36px}
+.focus-mic-tip{
+  position:absolute;
+  bottom:calc(100% + 6px);
+  left:50%;
+  transform:translateX(-50%);
+  font-family:var(--font-body);
+  font-size:10px;
+  color:var(--text-muted);
+  white-space:nowrap;
+  background:var(--color-card);
+  border:1px solid var(--border-light);
+  border-radius:var(--radius-sm);
+  padding:3px 7px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 150ms ease;
+  z-index:2;
+  box-shadow:var(--shadow-xs);
+}
+.focus-mic-wrap:hover .focus-mic-tip,
+.focus-mic-wrap:focus-within .focus-mic-tip{opacity:1}
+.focus-voice-area .voice-bar{margin-top:10px;margin-bottom:0}
 .checkin-card-head{display:flex;align-items:center;justify-content:flex-start;gap:8px;margin-bottom:4px}
 .checkin-card-head h3{margin:0}
 .help-icon-btn{width:28px;height:28px;border-radius:50%;border:1px solid var(--border-subtle);background:var(--bg-card);color:var(--text-muted);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;transition:background 150ms ease,color 150ms ease,border-color 150ms ease}
@@ -971,6 +1018,18 @@ input:focus,textarea:focus,select:focus,.chat-input:focus,.focus-ta:focus,.km-se
 .focus-daily-label{display:flex;align-items:center;gap:6px;font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:10px}
 .focus-daily-label svg{flex-shrink:0;color:var(--text-muted)}
 .focus-daily-divider{height:0;border:none;border-top:0.5px solid var(--border);margin:0 0 12px}
+.focus-points-help{display:flex;align-items:flex-start;gap:8px;margin-top:10px;font-family:var(--font-body);font-size:11px;color:var(--text-secondary);line-height:1.45}
+.focus-points-help svg{flex-shrink:0;margin-top:1px;color:var(--text-muted)}
+.focus-daily-need{margin-top:4px}
+.focus-daily-need-divider{height:0;border:none;border-top:0.5px solid var(--border);margin:12px 0}
+.focus-daily-need-row{display:flex;align-items:center;gap:8px;font-family:var(--font-body);font-size:12px;color:var(--text-secondary);line-height:1.4}
+.focus-daily-need-row svg{flex-shrink:0;color:var(--text-muted)}
+.focus-daily-need-row .focus-daily-need-label{flex:1;min-width:0}
+.focus-daily-need-helper{font-family:var(--font-body);font-size:10px;color:var(--text-muted);line-height:1.45;margin-top:8px}
+.focus-daily-need-helper.is-on{color:var(--accent)!important}
+.predaily-need-row{display:flex;align-items:flex-start;gap:8px;font-family:var(--font-body);font-size:12px;color:var(--text-secondary);line-height:1.45;margin:10px 0 4px;padding:8px 10px;border-radius:var(--radius-md);background:rgba(4,9,13,0.03)}
+.predaily-need-row.warn{background:var(--data-soft);color:var(--data-text)}
+.predaily-need-row.ok{background:var(--accent-soft);color:var(--text-secondary)}
 .focus-daily-meta{font-family:var(--font-body);font-size:11px;color:var(--text-muted);margin-bottom:6px;line-height:1.3}
 .focus-later-note{font-family:var(--font-body);font-size:11px;color:var(--text-muted);margin-top:8px;line-height:1.4}
 .focus-collapsed-row{display:flex;align-items:center;gap:10px;min-height:24px}
@@ -2866,111 +2925,59 @@ html.sidebar-collapsed .sidebar-footer{padding:12px 0 0!important}
           <button type="button" class="btn btn-secondary btn-sm" id="btnVerOnboarding">Ver mi Onboarding</button>
         </div>
 
-        <div class="card hover-none" id="checkinCard">
-          <div class="checkin-card-head">
-            <h3>Tu check-in de esta semana</h3>
-            <button type="button" class="help-icon-btn" id="btnCheckinHelp" aria-label="¿Qué son los check-ins?">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            </button>
-          </div>
-          <div style="padding:12px 0;border-bottom:1px solid var(--border-subtle)">
-            <div style="font-size:12px;color:var(--text-secondary)" id="mondayCheckinLabel">Lunes 9:00am ✓ · Hola Sofía, que tengas una buena semana 👋</div>
-            <div style="font-size:18px;margin-top:4px">😊 Con energía</div>
-          </div>
-          <div style="padding:12px 0" id="fridayCheckinBlock">
-            <div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px">Viernes 12:00pm · ¿Cómo te fue esta semana?</div>
-            <div class="mood-picker mood-picker-5" id="fridayMoodPicker">
-              <button type="button" class="mood-btn emoji-option" data-mood="energy" data-label="Con energía" aria-label="Con energía"><span class="emoji-face">😊</span><span class="emoji-label">Con energía</span></button>
-              <button type="button" class="mood-btn emoji-option" data-mood="good" data-label="Bien" aria-label="Bien"><span class="emoji-face">🙂</span><span class="emoji-label">Bien</span></button>
-              <button type="button" class="mood-btn emoji-option" data-mood="neutral" data-label="Regular" aria-label="Regular"><span class="emoji-face">😐</span><span class="emoji-label">Regular</span></button>
-              <button type="button" class="mood-btn emoji-option" data-mood="tired" data-label="Cansado" aria-label="Cansado"><span class="emoji-face">😕</span><span class="emoji-label">Cansado</span></button>
-              <button type="button" class="mood-btn emoji-option" data-mood="bad" data-label="Pesado" aria-label="Pesado"><span class="emoji-face">😔</span><span class="emoji-label">Pesado</span></button>
-            </div>
-            <div class="checkin-rank-note" id="checkinRankNote">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--data)" stroke-width="2" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 01-10 0V4z"/><path d="M17 4h3v2a3 3 0 01-3 3M7 4H4v2a3 3 0 003 3"/></svg>
-              <span class="checkin-rank-text">⭐ Responder suma +10 pts al ranking</span>
-              <button type="button" class="checkin-rank-link" id="checkinRankLink">Ver ranking →</button>
-            </div>
-            <button type="button" class="checkin-write-link link" data-link id="checkinWriteLink">💬 Quiero escribir algo →</button>
-            <div class="checkin-write-wrap" id="checkinWriteWrap" aria-hidden="true">
-              <textarea class="checkin-free-ta" id="checkinFreeTa" placeholder="Cuéntame lo que quieras..."></textarea>
-            </div>
-            <div class="checkin-reveal" id="checkinReveal" aria-hidden="true">
-              <button type="button" class="btn btn-primary" id="checkinSendBtn" style="width:100%;margin-top:4px">Enviar check-in →</button>
-            </div>
-            <p style="font-size:11px;color:var(--text-muted)" id="fridayCheckinHint">Toca cómo te sientes.</p>
-          </div>
-          <p style="font-family:var(--font-body);font-size:11px;color:var(--text-muted);margin-top:auto;padding-top:12px;line-height:1.55">Hilo registra tu check-in para darte puntos y mostrarte tu historial. Tu empresa solo ve datos agregados del equipo, nunca tu respuesta individual.</p>
-        </div>
-
-        <div class="midia-bottom-row">
-          <div class="meetings-card hover-none" id="homeMeetingsCard">
-            <div class="meetings-card-head">
-              <div class="meetings-card-title">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#36E6B7" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                Tus reuniones hoy
-              </div>
-              <div class="meetings-card-date">Miércoles 22 de julio</div>
-            </div>
-            <div class="meeting-row hover-none">
-              <div class="meeting-time">10:00</div>
-              <div class="meeting-info">
-                <div class="meeting-name">Daily · Producto Digital</div>
-                <div class="meeting-people">Carlos, María Paz, Roberto...</div>
-              </div>
-            </div>
-            <div class="meeting-row hover-lift clickeable" data-meeting-row data-prep-meeting="planning" role="button" tabindex="0">
-              <div class="meeting-time">11:00</div>
-              <div class="meeting-info">
-                <div class="meeting-name">Planning Q3 · Producto Digital</div>
-                <div class="meeting-people">Carlos, María Paz, Roberto...</div>
-              </div>
-              <button type="button" class="btn btn-ghost btn-sm meeting-prep-btn">Prepararme →</button>
-            </div>
-            <div class="meeting-row hover-lift clickeable" data-meeting-row data-prep-meeting="oneone" role="button" tabindex="0">
-              <div class="meeting-time">13:00</div>
-              <div class="meeting-info">
-                <div class="meeting-name">1:1 con Carlos</div>
-                <div class="meeting-people">Solo ustedes dos</div>
-              </div>
-              <button type="button" class="btn btn-ghost btn-sm meeting-prep-btn">Prepararme →</button>
-            </div>
-            <div class="meeting-row cancelled hover-none">
-              <div class="meeting-time">16:30</div>
-              <div class="meeting-info">
-                <div class="meeting-name">Demo Design System v3</div>
-                <div class="meeting-people">+8 personas</div>
-                <span class="meeting-cancel-badge">Cancelada</span>
-                <p class="meeting-cal-note">Hilo actualizó esto desde Google Calendar hace 23 minutos.</p>
-              </div>
-            </div>
-          </div>
-
+        <div class="midia-top-row" id="midiaTopRow">
           <div class="home-focus-wrap" id="homeFocusWrap">
-            <div class="hilo-proactive-card focus focus-card-shell hover-subtle" id="homeFocusCard">
+            <div class="hilo-proactive-card focus focus-card-shell hover-subtle" id="homeFocusCard" data-has-daily="true">
               <div class="focus-panel" id="homeFocusExpanded">
-                <div class="focus-daily-label">
+                <div class="focus-daily-label" id="homeFocusTitle">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                  Daily · 10:00
+                  <span id="homeFocusTitleText">Daily · 10:00</span>
                 </div>
                 <hr class="focus-daily-divider">
                 <div class="hilo-proactive-body">
                   <div class="hilo-avatar-sm">H</div>
                   <div class="msg-bubble">Sofía, ¿en qué vas a estar enfocada hoy? Una línea es suficiente.<br><br>Con esto, Carlos ya sabe en qué está el equipo antes de la daily. A veces ni hace falta tenerla.</div>
                 </div>
-                <textarea class="focus-ta" id="homeFocusInput" placeholder="Ej: Terminando el componente de navegación del Design System..."></textarea>
+                <div class="focus-voice-area">
+                  <div class="voice-bar" id="homeFocusVoiceBar">
+                    <span class="voice-dot"></span>
+                    <span>Escuchando en español...</span>
+                  </div>
+                  <div class="focus-ta-row">
+                    <textarea class="focus-ta" id="homeFocusInput" placeholder="Ej: Terminando el componente de navegación del Design System..."></textarea>
+                    <div class="focus-mic-wrap">
+                      <span class="focus-mic-tip">Grabar por voz</span>
+                      <button type="button" class="mic-btn" id="homeFocusMic" aria-label="Grabar por voz" title="Grabar por voz" onclick="toggleVoice(document.getElementById('homeFocusInput'),this)">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="focus-points-help" id="homeFocusPointsHelp">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12c.6.6 1 1.5 1 2.4V18h6v-1.6c0-.9.4-1.8 1-2.4A7 7 0 0 0 12 2z"/></svg>
+                  <span>Cuéntame con detalle: el proyecto, la tarea específica, una reunión importante, o incluso un bloqueo. Mientras más específico, más puntos ganas.</span>
+                </div>
+                <div class="focus-daily-need" id="homeFocusDailyNeed">
+                  <hr class="focus-daily-need-divider">
+                  <div class="focus-daily-need-row">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    <span class="focus-daily-need-label">¿Necesitas la daily de hoy?</span>
+                    <button type="button" class="toggle" id="homeFocusDailyToggle" aria-label="Necesito la daily de hoy" aria-pressed="false"></button>
+                  </div>
+                  <p class="focus-daily-need-helper" id="homeFocusDailyHelper">Si tienes un bloqueo o una duda importante, avísale a Carlos que sí necesitas la daily hoy.</p>
+                </div>
                 <div class="focus-privacy-note hover-none" id="homeFocusPrivacy">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                   <span id="homeFocusPrivacyText">Carlos verá esta respuesta. Es diferente a tu chat privado con Hilo.</span>
                 </div>
                 <div class="focus-actions">
-                  <button type="button" class="btn btn-primary btn-sm" id="homeFocusSend">Enviar →</button>
+                  <button type="button" class="btn btn-primary btn-sm" id="homeFocusSend">Enviar → +2 pts</button>
                   <button type="button" class="btn btn-ghost btn-sm" id="homeFocusSkip">Saltar por hoy</button>
                 </div>
                 <p class="focus-later-note" id="homeFocusLaterNote">Podrás responder más tarde.</p>
               </div>
               <div class="focus-panel is-hidden" id="homeFocusAnswered" aria-hidden="true">
-                <div class="focus-daily-meta">Daily · 10:00 ✓</div>
+                <div class="focus-daily-meta" id="homeFocusAnsweredMeta">Daily · 10:00 ✓</div>
                 <div class="focus-collapsed-row">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#36E6B7" stroke-width="2" style="flex-shrink:0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                   <span class="focus-collapsed-text answered" id="homeFocusAnsweredText">Foco de hoy:</span>
@@ -2978,13 +2985,92 @@ html.sidebar-collapsed .sidebar-footer{padding:12px 0 0!important}
                 </div>
               </div>
               <div class="focus-panel is-hidden" id="homeFocusSkipped" aria-hidden="true">
-                <div class="focus-daily-meta">Daily · 10:00</div>
+                <div class="focus-daily-meta" id="homeFocusSkippedMeta">Daily · 10:00</div>
                 <div class="focus-collapsed-row">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="flex-shrink:0"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                   <span class="focus-collapsed-text skipped">¿En qué vas a estar enfocada hoy?</span>
                   <button type="button" class="focus-edit-link link" data-link id="homeFocusRespond">Responder →</button>
                 </div>
               </div>
+            </div>
+          </div>
+
+          <div class="card hover-none" id="checkinCard">
+            <div class="checkin-card-head">
+              <h3>Tu check-in de esta semana</h3>
+              <button type="button" class="help-icon-btn" id="btnCheckinHelp" aria-label="¿Qué son los check-ins?">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </button>
+            </div>
+            <div style="padding:12px 0;border-bottom:1px solid var(--border-subtle)">
+              <div style="font-size:12px;color:var(--text-secondary)" id="mondayCheckinLabel">Lunes 9:00am ✓ · Hola Sofía, que tengas una buena semana 👋</div>
+              <div style="font-size:18px;margin-top:4px">😊 Con energía</div>
+            </div>
+            <div style="padding:12px 0" id="fridayCheckinBlock">
+              <div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px">Viernes 12:00pm · ¿Cómo te fue esta semana?</div>
+              <div class="mood-picker mood-picker-5" id="fridayMoodPicker">
+                <button type="button" class="mood-btn emoji-option" data-mood="energy" data-label="Con energía" aria-label="Con energía"><span class="emoji-face">😊</span><span class="emoji-label">Con energía</span></button>
+                <button type="button" class="mood-btn emoji-option" data-mood="good" data-label="Bien" aria-label="Bien"><span class="emoji-face">🙂</span><span class="emoji-label">Bien</span></button>
+                <button type="button" class="mood-btn emoji-option" data-mood="neutral" data-label="Regular" aria-label="Regular"><span class="emoji-face">😐</span><span class="emoji-label">Regular</span></button>
+                <button type="button" class="mood-btn emoji-option" data-mood="tired" data-label="Cansado" aria-label="Cansado"><span class="emoji-face">😕</span><span class="emoji-label">Cansado</span></button>
+                <button type="button" class="mood-btn emoji-option" data-mood="bad" data-label="Pesado" aria-label="Pesado"><span class="emoji-face">😔</span><span class="emoji-label">Pesado</span></button>
+              </div>
+              <div class="checkin-rank-note" id="checkinRankNote">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--data)" stroke-width="2" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 01-10 0V4z"/><path d="M17 4h3v2a3 3 0 01-3 3M7 4H4v2a3 3 0 003 3"/></svg>
+                <span class="checkin-rank-text">⭐ Responder suma +10 pts al ranking</span>
+                <button type="button" class="checkin-rank-link" id="checkinRankLink">Ver ranking →</button>
+              </div>
+              <button type="button" class="checkin-write-link link" data-link id="checkinWriteLink">💬 Quiero escribir algo →</button>
+              <div class="checkin-write-wrap" id="checkinWriteWrap" aria-hidden="true">
+                <textarea class="checkin-free-ta" id="checkinFreeTa" placeholder="Cuéntame lo que quieras..."></textarea>
+              </div>
+              <div class="checkin-reveal" id="checkinReveal" aria-hidden="true">
+                <button type="button" class="btn btn-primary" id="checkinSendBtn" style="width:100%;margin-top:4px">Enviar check-in →</button>
+              </div>
+              <p style="font-size:11px;color:var(--text-muted)" id="fridayCheckinHint">Toca cómo te sientes.</p>
+            </div>
+            <p style="font-family:var(--font-body);font-size:11px;color:var(--text-muted);margin-top:auto;padding-top:12px;line-height:1.55">Hilo registra tu check-in para darte puntos y mostrarte tu historial. Tu empresa solo ve datos agregados del equipo, nunca tu respuesta individual.</p>
+          </div>
+        </div>
+
+        <div class="meetings-card hover-none" id="homeMeetingsCard">
+          <div class="meetings-card-head">
+            <div class="meetings-card-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#36E6B7" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Tus reuniones hoy
+            </div>
+            <div class="meetings-card-date">Miércoles 22 de julio</div>
+          </div>
+          <div class="meeting-row hover-none">
+            <div class="meeting-time">10:00</div>
+            <div class="meeting-info">
+              <div class="meeting-name">Daily · Producto Digital</div>
+              <div class="meeting-people">Carlos, María Paz, Roberto...</div>
+            </div>
+          </div>
+          <div class="meeting-row hover-lift clickeable" data-meeting-row data-prep-meeting="planning" role="button" tabindex="0">
+            <div class="meeting-time">11:00</div>
+            <div class="meeting-info">
+              <div class="meeting-name">Planning Q3 · Producto Digital</div>
+              <div class="meeting-people">Carlos, María Paz, Roberto...</div>
+            </div>
+            <button type="button" class="btn btn-ghost btn-sm meeting-prep-btn">Prepararme →</button>
+          </div>
+          <div class="meeting-row hover-lift clickeable" data-meeting-row data-prep-meeting="oneone" role="button" tabindex="0">
+            <div class="meeting-time">13:00</div>
+            <div class="meeting-info">
+              <div class="meeting-name">1:1 con Carlos</div>
+              <div class="meeting-people">Solo ustedes dos</div>
+            </div>
+            <button type="button" class="btn btn-ghost btn-sm meeting-prep-btn">Prepararme →</button>
+          </div>
+          <div class="meeting-row cancelled hover-none">
+            <div class="meeting-time">16:30</div>
+            <div class="meeting-info">
+              <div class="meeting-name">Demo Design System v3</div>
+              <div class="meeting-people">+8 personas</div>
+              <span class="meeting-cancel-badge">Cancelada</span>
+              <p class="meeting-cal-note">Hilo actualizó esto desde Google Calendar hace 23 minutos.</p>
             </div>
           </div>
         </div>
@@ -5194,6 +5280,17 @@ function showToast(msg){
   t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),2800);
 }
+
+function calculatePoints(text){
+  const words=(text||'').trim().split(/\s+/).filter(w=>w.length>0).length;
+  if(words<=3)return 2;
+  if(words<=8)return 5;
+  return 8;
+}
+
+/** Demo: Sofía's team has a daily at 10:00. Set false to preview Case B (no daily). */
+const HILO_HAS_DAILY_TODAY=true;
+const HILO_DAILY_TIME='10:00';
 
 function showToastCenter(msg,duration=3000){
   const t=$('#toast');
@@ -7447,9 +7544,22 @@ Te lo cuento para que lo tengas en cuenta 🙂
     const stack=mgrProactiveStack();
     if(!stack||$('#mgrPredailyCard'))return;
     if(sessionStorage.getItem('predailyShown')==='1')return;
+    const needDaily=sessionStorage.getItem('hiloDailyNeed')==='1';
     const card=document.createElement('div');
     card.className='hilo-proactive-card predaily';
     card.id='mgrPredailyCard';
+    const needRow=needDaily
+      ?`<div class="predaily-need-row warn" id="predailyNeedRow">⚠️ Sofía marcó que necesita la daily hoy — tiene una duda importante.</div>`
+      :`<div class="predaily-need-row ok" id="predailyNeedRow">Nadie marcó que necesita la daily hoy. Todo el equipo está al día.</div>`;
+    const actions=needDaily
+      ?`<div class="focus-actions">
+        <button type="button" class="btn btn-ghost btn-sm" data-proactive="predaily-detail">Ver detalle de bloqueos →</button>
+        <button type="button" class="btn btn-ghost btn-sm" data-proactive="predaily-done">Marcar daily como lista ✓</button>
+      </div>`
+      :`<div class="focus-actions">
+        <button type="button" class="btn btn-ghost btn-sm" data-proactive="predaily-keep">Hacer la daily igual →</button>
+        <button type="button" class="btn btn-ghost btn-sm" data-proactive="predaily-cancel">Cancelar por hoy →</button>
+      </div>`;
     card.innerHTML=`
       <div class="hilo-proactive-head">
         <div class="hilo-proactive-meta amber">
@@ -7465,8 +7575,8 @@ Te lo cuento para que lo tengas en cuenta 🙂
       <div class="predaily-row">
         <div class="predaily-avatar" style="background:var(--accent-soft);color:var(--accent-text)">SM</div>
         <span class="name">Sofía</span><span>→</span>
-        <span class="focus-text">Design System v3</span>
-        <span class="predaily-pill warn">⚠️ Tiene bloqueo</span>
+        <span class="focus-text">${needDaily?'Duda importante · Design System':'Design System v3'}</span>
+        <span class="predaily-pill ${needDaily?'warn':'ok'}">${needDaily?'⚠️ Necesita daily':'✓ Sin bloqueos'}</span>
       </div>
       <div class="predaily-row">
         <div class="predaily-avatar" style="background:rgba(91,158,255,0.12);color:#3B82F6">RV</div>
@@ -7493,24 +7603,27 @@ Te lo cuento para que lo tengas en cuenta 🙂
         <span class="predaily-pill ok">✓ Sin bloqueos</span>
       </div>
       <div style="height:1px;background:var(--border);margin:10px 0"></div>
-      <div class="predaily-hint">Sofía y Diego tienen bloqueos. Te sugiero empezar por ellos. El resto del equipo va bien.</div>
-      <div class="focus-actions">
-        <button type="button" class="btn btn-ghost btn-sm" data-proactive="predaily-detail">Ver detalle de bloqueos →</button>
-        <button type="button" class="btn btn-ghost btn-sm" data-proactive="predaily-done">Marcar daily como lista ✓</button>
-      </div>`;
+      ${needRow}
+      ${needDaily?`<div class="predaily-hint">Sofía pidió la daily. Te sugiero empezar por ella. Diego también tiene un bloqueo activo.</div>`:''}
+      ${actions}`;
     stack.prepend(card);
     card.querySelector('[data-dismiss-predaily]')?.addEventListener('click',dismissPredailyCard);
     wireCardPills(card,async(action,label)=>{
-      if(action==='predaily-done'){
+      if(action==='predaily-done'||action==='predaily-keep'){
         dismissPredailyCard();
-        showToast('Daily marcada como lista ✓');
+        showToast(action==='predaily-keep'?'Daily confirmada · arrancamos igual ✓':'Daily marcada como lista ✓');
+        return;
+      }
+      if(action==='predaily-cancel'){
+        dismissPredailyCard();
+        showToast('Listo. Le avisamos al equipo que la daily de hoy queda cancelada ✓');
         return;
       }
       if(action==='predaily-detail'){
         clearPills();
         addUserMsg(label);
         await hiloResponde(
-          'Bloqueos activos del equipo:<br><br>Sofía — Bloqueo en aprobación:<br>\'Necesito que Carlos apruebe el componente de navegación antes de continuar. Lo mandé ayer.\'<br><br>Diego — Bloqueo por acceso:<br>\'No tengo acceso a los datos de producción para el dashboard. Lo pedí hace 3 días.\'<br><br>¿Quieres que les avise que los vas a resolver hoy?',
+          'Bloqueos activos del equipo:<br><br>Sofía — Necesita la daily:<br>\'Tengo una duda importante antes de seguir con el Design System.\'<br><br>Diego — Bloqueo por acceso:<br>\'No tengo acceso a los datos de producción para el dashboard. Lo pedí hace 3 días.\'<br><br>¿Quieres que les avise que los vas a resolver hoy?',
           1000,
           ['Sí, avísales →','Yo les escribo'],
           true
@@ -7996,6 +8109,7 @@ function setupHomeFocusAndMeetings(){
   let focusState=sessionStorage.getItem('hiloFocusState')||'default';
   let focusText=sessionStorage.getItem('hiloFocusText')||'';
   let editingFromAnswered=false;
+  let dailyNeedOn=sessionStorage.getItem('hiloDailyNeed')==='1';
 
   const card=$('#homeFocusCard');
   const expanded=$('#homeFocusExpanded');
@@ -8007,10 +8121,54 @@ function setupHomeFocusAndMeetings(){
   const privacyText=$('#homeFocusPrivacyText');
   const laterNote=$('#homeFocusLaterNote');
   const answeredText=$('#homeFocusAnsweredText');
+  const titleText=$('#homeFocusTitleText');
+  const answeredMeta=$('#homeFocusAnsweredMeta');
+  const skippedMeta=$('#homeFocusSkippedMeta');
+  const dailyNeedWrap=$('#homeFocusDailyNeed');
+  const dailyToggle=$('#homeFocusDailyToggle');
+  const dailyHelper=$('#homeFocusDailyHelper');
+  const hasDaily=HILO_HAS_DAILY_TODAY;
 
   function persist(){
     sessionStorage.setItem('hiloFocusState',focusState);
     sessionStorage.setItem('hiloFocusText',focusText);
+    sessionStorage.setItem('hiloDailyNeed',dailyNeedOn?'1':'0');
+  }
+
+  function syncDailyCase(){
+    if(card)card.dataset.hasDaily=hasDaily?'true':'false';
+    if(hasDaily){
+      if(titleText)titleText.textContent='Daily · '+HILO_DAILY_TIME;
+      if(answeredMeta)answeredMeta.textContent='Daily · '+HILO_DAILY_TIME+' ✓';
+      if(skippedMeta)skippedMeta.textContent='Daily · '+HILO_DAILY_TIME;
+      if(dailyNeedWrap)dailyNeedWrap.style.display='';
+    }else{
+      if(titleText)titleText.textContent='Tu día · Foco';
+      if(answeredMeta)answeredMeta.textContent='Tu día · Foco ✓';
+      if(skippedMeta)skippedMeta.textContent='Tu día · Foco';
+      if(dailyNeedWrap)dailyNeedWrap.style.display='none';
+      dailyNeedOn=false;
+    }
+  }
+
+  function syncDailyToggleUI(){
+    if(!dailyToggle||!dailyHelper)return;
+    dailyToggle.classList.toggle('on',dailyNeedOn);
+    dailyToggle.setAttribute('aria-pressed',dailyNeedOn?'true':'false');
+    if(dailyNeedOn){
+      dailyHelper.classList.add('is-on');
+      dailyHelper.textContent='✓ Le avisamos a Carlos que necesitas la daily de hoy.';
+    }else{
+      dailyHelper.classList.remove('is-on');
+      dailyHelper.textContent='Si tienes un bloqueo o una duda importante, avísale a Carlos que sí necesitas la daily hoy.';
+    }
+  }
+
+  function updateSendLabel(){
+    if(!sendBtn||!ta)return;
+    const pts=calculatePoints(ta.value);
+    const isUpdate=sendBtn.dataset.mode==='update';
+    sendBtn.textContent=(isUpdate?'Actualizar → +':'Enviar → +')+pts+' pts';
   }
 
   function setPanelVisible(panel,visible){
@@ -8029,17 +8187,18 @@ function setupHomeFocusAndMeetings(){
     if(!ta||!sendBtn||!privacyText)return;
     if(editingFromAnswered||(focusState==='default'&&focusText)){
       ta.value=focusText;
-      sendBtn.textContent='Actualizar →';
+      sendBtn.dataset.mode='update';
       privacyText.textContent='Carlos verá la versión actualizada.';
       if(laterNote)laterNote.style.display='none';
       if(skipBtn)skipBtn.style.display=editingFromAnswered?'none':'';
     }else{
       ta.value='';
-      sendBtn.textContent='Enviar →';
+      sendBtn.dataset.mode='send';
       privacyText.textContent='Carlos verá esta respuesta. Es diferente a tu chat privado con Hilo.';
       if(laterNote)laterNote.style.display='';
       if(skipBtn)skipBtn.style.display='';
     }
+    updateSendLabel();
   }
 
   function applyState(instant){
@@ -8096,19 +8255,35 @@ function setupHomeFocusAndMeetings(){
   }
 
   if(card){
-    // Migrate legacy dismiss flag → skipped
     if(sessionStorage.getItem('focusShown')==='1'&&!sessionStorage.getItem('hiloFocusState')){
       focusState='skipped';
       persist();
     }
+    syncDailyCase();
+    syncDailyToggleUI();
     card.dataset.view=focusState==='answered'?'answered':(focusState==='skipped'?'skipped':'default');
     applyState(true);
 
+    ta?.addEventListener('input',updateSendLabel);
+    dailyToggle?.addEventListener('click',()=>{
+      if(!hasDaily)return;
+      dailyNeedOn=!dailyNeedOn;
+      persist();
+      syncDailyToggleUI();
+    });
     sendBtn?.addEventListener('click',()=>{
       const val=(ta?.value||'').trim();
       if(!val){ta?.focus();return;}
-      const updating=editingFromAnswered||sendBtn.textContent.includes('Actualizar');
-      goAnswered(val,updating?'Actualizado ✓':'Listo ✓');
+      const pts=calculatePoints(val);
+      const updating=sendBtn.dataset.mode==='update';
+      if(hasDaily){
+        sessionStorage.setItem('hiloDailyNeed',dailyNeedOn?'1':'0');
+      }else{
+        sessionStorage.setItem('hiloDailyNeed','0');
+      }
+      goAnswered(val,updating
+        ?('Actualizado ✓ · +'+pts+' pts')
+        :('Listo. +'+pts+' pts al ranking ✓'));
     });
     skipBtn?.addEventListener('click',()=>goSkipped());
     $('#homeFocusEdit')?.addEventListener('click',()=>goDefault(true));
@@ -8591,6 +8766,7 @@ function toggleVoice(inputEl,micBtn){
       for(let i=0;i<e.results.length;i++)
         txt+=e.results[i][0].transcript;
       activeInput.value=txt;
+      activeInput.dispatchEvent(new Event('input',{bubbles:true}));
     };
     recognition.onend=()=>{
       if(isRecording)recognition.start();
@@ -8609,7 +8785,7 @@ function toggleVoice(inputEl,micBtn){
   micBtn.classList.add('recording');
   inputEl.dataset.ph=inputEl.placeholder;
   inputEl.placeholder='🎙️ Escuchando...';
-  const bar=micBtn.closest('.chat-input-area, .input-area, form, .input-wrapper')
+  const bar=micBtn.closest('.chat-input-area, .input-area, form, .input-wrapper, .focus-voice-area, #homeFocusExpanded, .focus-panel')
     ?.querySelector('.voice-bar');
   if(bar)bar.style.display='flex';
   recognition.start();

@@ -966,8 +966,47 @@ input:focus,textarea:focus,select:focus,.chat-input:focus,.focus-ta:focus,.km-se
 .focus-card-shell{overflow:hidden;transition:height 250ms ease;height:100%;flex:1;display:flex;flex-direction:column;margin-bottom:0!important}
 
 /* ── PROYECTOS TAB ── */
-.proj-toolbar{display:flex;flex-direction:column;gap:12px;margin-bottom:20px}
+.proj-toolbar{display:flex;flex-direction:column;gap:14px;margin-bottom:20px}
 .proj-search{max-width:400px;width:100%}
+.proj-filter-group{display:flex;flex-direction:column;gap:8px}
+.proj-filter-label{font-family:var(--font-body);font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em}
+.proj-filter-group .filter-pills{margin-bottom:0}
+.proj-status-seg{
+  display:inline-flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:2px;
+  padding:3px;
+  background:rgba(4,9,13,0.06);
+  border-radius:var(--radius-md);
+  width:fit-content;
+  max-width:100%;
+}
+.proj-status-chip{
+  appearance:none;
+  border:none!important;
+  background:transparent!important;
+  color:var(--text-secondary)!important;
+  font-family:var(--font-body);
+  font-size:12px!important;
+  font-weight:400!important;
+  padding:6px 12px!important;
+  border-radius:var(--radius-sm)!important;
+  cursor:pointer;
+  transition:all var(--transition-base);
+  box-shadow:none!important;
+  white-space:nowrap;
+}
+.proj-status-chip:hover{color:var(--text-primary)!important}
+.proj-status-chip.active{
+  background:var(--color-card)!important;
+  color:var(--text-primary)!important;
+  font-weight:500!important;
+  box-shadow:var(--shadow-xs)!important;
+}
+.proj-status-chip[data-proj-status="Activo"].active{color:#0A7A5C!important}
+.proj-status-chip[data-proj-status="Pausado"].active{color:#B45309!important}
+.proj-status-chip[data-proj-status="Completado"].active{color:#1D4ED8!important}
 .proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;align-items:stretch}
 .proj-card{background:var(--color-card)!important;border:1px solid var(--border-light)!important;border-radius:var(--radius-lg)!important;box-shadow:var(--shadow-sm)!important;padding:18px;cursor:pointer;transition:border-color 150ms ease,box-shadow 150ms ease;display:flex;flex-direction:column;gap:10px;text-align:left;position:relative;height:100%;box-sizing:border-box}
 .proj-card:hover{border-color:var(--border-medium)!important;box-shadow:var(--shadow-md)!important}
@@ -1166,7 +1205,25 @@ input:focus,textarea:focus,select:focus,.chat-input:focus,.focus-ta:focus,.km-se
 .person-chip:hover{background:var(--accent-mid)}
 .person-chip svg{width:10px;height:10px;stroke:var(--accent-text);flex-shrink:0}
 .search-wrap{position:relative;flex:1}
-.search-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-muted);pointer-events:none}
+.search-wrap > svg{
+  position:absolute;
+  left:12px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--text-muted);
+  pointer-events:none;
+  z-index:1;
+  width:18px;
+  height:18px;
+  flex-shrink:0;
+}
+.search-wrap > input,
+.km-search input,
+#kmSearch,#projSearch{
+  width:100%;
+  box-sizing:border-box;
+  padding-left:40px!important;
+}
 .filter-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
 .pill{padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text-secondary);font-size:12px;cursor:pointer;transition:all .2s}
 .pill.active{background:rgba(10,138,104,0.12);border-color:rgba(10,138,104,0.30);color:#0A8A68;font-weight:600}
@@ -2811,6 +2868,11 @@ textarea,select,.chat-input,.focus-ta,.km-search input,.checkin-comment-ta,.chec
   outline:none!important;
   box-shadow:none!important;
 }
+.search-wrap > input,
+.km-search .search-wrap > input,
+#kmSearch,#projSearch{
+  padding:9px 14px 9px 40px!important;
+}
 .input::placeholder,input::placeholder,textarea::placeholder{color:var(--text-placeholder)!important;opacity:1}
 .input:hover,input:hover:not([type="checkbox"]):not([type="radio"]),textarea:hover,select:hover{border-color:var(--border-strong)!important}
 .input:focus,input:focus:not([type="checkbox"]):not([type="radio"]),textarea:focus,select:focus,
@@ -3505,19 +3567,25 @@ html.sidebar-collapsed .sidebar-footer{padding:12px 0 0!important}
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
               <input type="text" id="projSearch" placeholder="Buscar proyecto...">
             </div>
-            <div class="filter-pills" id="projAreaFilters">
-              <button type="button" class="pill active" data-proj-area="all" data-pill>Todos</button>
-              <button type="button" class="pill" data-proj-area="Producto" data-pill>Producto</button>
-              <button type="button" class="pill" data-proj-area="Tecnología" data-pill>Tecnología</button>
-              <button type="button" class="pill" data-proj-area="Data" data-pill>Data</button>
-              <button type="button" class="pill" data-proj-area="Diseño" data-pill>Diseño</button>
-              <button type="button" class="pill" data-proj-area="Ventas" data-pill>Ventas</button>
+            <div class="proj-filter-group">
+              <span class="proj-filter-label">Área</span>
+              <div class="filter-pills" id="projAreaFilters">
+                <button type="button" class="pill active" data-proj-area="all" data-pill>Todos</button>
+                <button type="button" class="pill" data-proj-area="Producto" data-pill>Producto</button>
+                <button type="button" class="pill" data-proj-area="Tecnología" data-pill>Tecnología</button>
+                <button type="button" class="pill" data-proj-area="Data" data-pill>Data</button>
+                <button type="button" class="pill" data-proj-area="Diseño" data-pill>Diseño</button>
+                <button type="button" class="pill" data-proj-area="Ventas" data-pill>Ventas</button>
+              </div>
             </div>
-            <div class="filter-pills" id="projStatusFilters">
-              <button type="button" class="pill active" data-proj-status="all" data-pill>Todos</button>
-              <button type="button" class="pill" data-proj-status="Activo" data-pill>Activo</button>
-              <button type="button" class="pill" data-proj-status="Pausado" data-pill>Pausado</button>
-              <button type="button" class="pill" data-proj-status="Completado" data-pill>Completado</button>
+            <div class="proj-filter-group">
+              <span class="proj-filter-label">Estado</span>
+              <div class="proj-status-seg" id="projStatusFilters" role="group" aria-label="Filtrar por estado">
+                <button type="button" class="proj-status-chip active" data-proj-status="all">Todos</button>
+                <button type="button" class="proj-status-chip" data-proj-status="Activo">Activo</button>
+                <button type="button" class="proj-status-chip" data-proj-status="Pausado">Pausado</button>
+                <button type="button" class="proj-status-chip" data-proj-status="Completado">Completado</button>
+              </div>
             </div>
           </div>
           <div class="proj-grid" id="projGrid"></div>
@@ -5606,7 +5674,7 @@ function renderProjectsGrid(){
   if(!grid)return;
   const q=($('#projSearch')?.value||'').trim().toLowerCase();
   const area=$('#projAreaFilters .pill.active')?.dataset.projArea||'all';
-  const status=$('#projStatusFilters .pill.active')?.dataset.projStatus||'all';
+  const status=$('#projStatusFilters .proj-status-chip.active')?.dataset.projStatus||'all';
   let list=getVisibleProjects();
   if(area!=='all')list=list.filter(p=>p.area===area);
   if(status!=='all')list=list.filter(p=>p.status===status);
@@ -5785,11 +5853,11 @@ function setupProjectsFilters(){
       renderProjectsGrid();
     });
   });
-  $$('#projStatusFilters .pill').forEach(p=>{
+  $$('#projStatusFilters .proj-status-chip').forEach(p=>{
     if(p.dataset.wired==='1')return;
     p.dataset.wired='1';
     p.addEventListener('click',()=>{
-      $$('#projStatusFilters .pill').forEach(x=>x.classList.remove('active'));
+      $$('#projStatusFilters .proj-status-chip').forEach(x=>x.classList.remove('active'));
       p.classList.add('active');
       renderProjectsGrid();
     });

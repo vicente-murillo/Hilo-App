@@ -36,8 +36,8 @@
 
 
 /* Card rest shadows + consistent borders */
-[class*="card"]:not([class*="card-head"]):not([class*="card-title"]):not([class*="card-date"]):not([class*="card-body"]):not([class*="card-meta"]):not(.user-card),
-[class*="-card"]:not([class*="card-head"]):not([class*="card-title"]):not([class*="card-date"]):not([class*="card-body"]):not([class*="card-meta"]):not(.user-card),.card,
+[class*="card"]:not([class*="card-head"]):not([class*="card-title"]):not([class*="card-date"]):not([class*="card-body"]):not([class*="card-meta"]):not([class*="card-top"]):not([class*="card-summary"]):not([class*="card-link"]):not(.user-card):not(.radio-cards),
+[class*="-card"]:not([class*="card-head"]):not([class*="card-title"]):not([class*="card-date"]):not([class*="card-body"]):not([class*="card-meta"]):not([class*="card-top"]):not([class*="card-summary"]):not([class*="card-link"]):not(.user-card):not(.radio-cards),.card,
 [class*="section-card"],
 [class*="info-card"]{
   background: var(--bg-card);
@@ -48,13 +48,17 @@
 }
 /* Sub-elements that match *card* but are not cards */
 .meetings-card-head,.meetings-card-title,.meetings-card-date,
-[class*="card-head"], [class*="card-title"], [class*="card-date"], [class*="card-body"], [class*="card-meta"]{
+.proj-card-top,.proj-card-title,.proj-card-summary,.proj-card-meta,.proj-card-link,
+.radio-cards,.radio-card-head,
+[class*="card-head"], [class*="card-title"], [class*="card-date"], [class*="card-body"], [class*="card-meta"],
+[class*="card-top"], [class*="card-summary"], [class*="card-link"]{
   box-shadow:none!important;
   border:none!important;
   border-top:none!important;
   border-radius:0!important;
   background:transparent!important;
 }
+.radio-cards{padding:0!important;display:grid}
 .clickeable{cursor:pointer}
 
 
@@ -104,9 +108,13 @@
 
   /* ── TEXT ON DARK ── */
   --text-dark-primary:#FFFFFF;
-  --text-dark-secondary:rgba(255,255,255,0.55);
+  --text-dark-secondary:rgba(255,255,255,0.65);
   --text-dark-muted:rgba(255,255,255,0.30);
   --text-dark-accent:#36E6B7;
+  --nav-hover-bg:rgba(54,230,183,0.10);
+  --nav-active-bg:rgba(54,230,183,0.14);
+  --nav-hover-border:rgba(54,230,183,0.50);
+  --nav-active-border:#36E6B7;
 
   /* ── BORDERS ── */
   --border-light:rgba(4,9,13,0.08);
@@ -269,10 +277,10 @@ svg{display:block;flex-shrink:0}
 
 /* Nav */
 .nav{flex:1;padding:8px 12px;overflow-y:auto}
-.nav-item{display:flex;align-items:center;gap:9px;padding:8px 12px;border-radius:var(--radius-md);color:rgba(255,255,255,0.50);cursor:pointer;margin:1px 0;border:none;background:transparent;width:100%;text-align:left;font-weight:400;font-size:13px;transition:all 150ms ease;box-sizing:border-box;position:relative}
+.nav-item{display:flex;align-items:center;gap:9px;padding:8px 12px 8px 10px;border-radius:var(--radius-md);color:#FFFFFF;cursor:pointer;margin:1px 0;border:none;background:transparent;width:100%;text-align:left;border-left:2px solid transparent;font-weight:400;font-size:13px;transition:all 150ms ease;box-sizing:border-box;position:relative}
 
-.nav-item.active,.nav-item.hover-lift.active,[class*="nav-item"][class*="active"],[aria-current="page"]{color:#36E6B7!important;background:rgba(54,230,183,0.12)!important;font-weight:500!important;border-radius:var(--radius-md);padding:8px 12px;transform:none;box-shadow:none}
-.nav-item.active::before,.nav-item.hover-lift.active::before,[class*="nav-item"][class*="active"]::before,[aria-current="page"]::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:60%;background:#36E6B7;border-radius:0 3px 3px 0}
+.nav-item.active,.nav-item.hover-lift.active,[class*="nav-item"][class*="active"],[aria-current="page"]{color:#FFFFFF!important;background:rgba(54,230,183,0.14)!important;font-weight:600!important;border-radius:var(--radius-md);padding:8px 12px 8px 10px;border-left:2px solid #36E6B7;transform:none;box-shadow:none}
+.nav-item.active::before,.nav-item.hover-lift.active::before,[class*="nav-item"][class*="active"]::before,[aria-current="page"]::before{content:none;display:none}
 
 .nav-item svg{width:16px;height:16px;color:currentColor}
 .nav-item.active svg,[class*="nav-item"][class*="active"] svg,[aria-current="page"] svg{color:#36E6B7!important}
@@ -432,8 +440,9 @@ html.spotlight-active .sidebar{z-index:901}
 .monday-row{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:13px}
 .monday-row .monday-detail{flex:1;font-size:12px;color:var(--text-secondary)}
 .security-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
-.security-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px}
-.security-highlight{display:flex;gap:12px;align-items:flex-start;background:var(--accent-soft);border:1px solid var(--border-accent);border-radius:var(--radius-md);padding:14px 16px;margin-top:14px}
+/* security-card / security-highlight redefined in config block */
+.security-card-legacy{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px}
+.security-highlight-legacy{display:flex;gap:12px;align-items:flex-start;background:var(--accent-soft);border:1px solid var(--border-accent);border-radius:var(--radius-md);padding:14px 16px;margin-top:14px}
 .onboard-active-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;margin-bottom:16px}
 .onboard-task-row{display:flex;align-items:center;gap:8px;font-size:13px;padding:6px 0;color:var(--text-secondary)}
 .onboard-task-row.done{color:var(--text-primary)}
@@ -945,62 +954,70 @@ input:focus,textarea:focus,select:focus,.chat-input:focus,.focus-ta:focus,.km-se
 .hilo-proactive-meta.amber{font-size:12px;font-weight:500;color:var(--data-text)}
 .hilo-proactive-right{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text-muted)}
 .focus-privacy-note{display:flex;align-items:flex-start;gap:6px;margin-top:8px;font-family:var(--font-body);font-size:12px;color:#3D5C55;line-height:1.4}
-.focus-ta{width:100%;min-height:60px;margin-top:10px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;font-family:var(--font-body);font-size:13px;line-height:1.45;background:var(--bg-surface);color:var(--text-primary);resize:vertical}
+.focus-ta{width:100%;min-height:60px;margin-top:0;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;font-family:var(--font-body);font-size:13px;line-height:1.45;background:var(--bg-surface);color:var(--text-primary);resize:vertical}
+.focus-ta-wrap{margin-top:10px;min-width:0}
+.focus-ta-row{display:flex;gap:8px;align-items:flex-end}
+.focus-ta-row .focus-ta{flex:1;min-width:0}
+.focus-ta-row .mic-btn{margin-bottom:2px}
+.focus-mic-tip{display:block;font-family:var(--font-body);font-size:10px;color:var(--text-muted);margin-top:6px;line-height:1.3;opacity:0;transition:opacity 150ms ease;pointer-events:none}
+.focus-ta-wrap:hover .focus-mic-tip,.focus-ta-wrap:focus-within .focus-mic-tip,.focus-ta-wrap .mic-btn.recording ~ .focus-mic-tip,.focus-ta-wrap:has(.mic-btn:hover) .focus-mic-tip,.focus-ta-wrap:has(.mic-btn.recording) .focus-mic-tip{opacity:1}
 .focus-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.home-focus-wrap{margin-bottom:0;min-width:0}
-.focus-card-shell{overflow:hidden;transition:height 250ms ease;height:100%;display:flex;flex-direction:column;box-sizing:border-box}
-.midia-top-row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
-  align-items:stretch;
-  margin-bottom:0;
-}
-.midia-top-row > *{min-height:0;height:100%}
-.midia-top-row .home-focus-wrap{height:100%;display:flex;flex-direction:column;min-height:0}
-.midia-top-row .focus-card-shell{margin-bottom:0;flex:1}
-.midia-top-row #checkinCard{
-  display:flex;
-  flex-direction:column;
-  height:100%;
-  margin-bottom:0;
-  max-width:none;
-  box-sizing:border-box;
-}
-#homeMeetingsCard{margin-top:16px;margin-bottom:20px}
+.home-focus-wrap{margin-bottom:0;min-width:0;height:100%;display:flex;flex-direction:column}
+.focus-card-shell{overflow:hidden;transition:height 250ms ease;height:100%;flex:1;display:flex;flex-direction:column;margin-bottom:0!important}
+
+/* ── PROYECTOS TAB ── */
+.proj-toolbar{display:flex;flex-direction:column;gap:12px;margin-bottom:20px}
+.proj-search{max-width:400px;width:100%}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;align-items:stretch}
+.proj-card{background:var(--color-card)!important;border:1px solid var(--border-light)!important;border-radius:var(--radius-lg)!important;box-shadow:var(--shadow-sm)!important;padding:18px;cursor:pointer;transition:border-color 150ms ease,box-shadow 150ms ease;display:flex;flex-direction:column;gap:10px;text-align:left;position:relative;height:100%;box-sizing:border-box}
+.proj-card:hover{border-color:var(--border-medium)!important;box-shadow:var(--shadow-md)!important}
+.proj-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;background:transparent!important;border:none!important;box-shadow:none!important;padding:0;margin:0}
+.proj-card-title{font-family:var(--font-display);font-size:15px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:6px;line-height:1.3;background:transparent!important;border:none!important;box-shadow:none!important;padding:0;margin:0}
+.proj-card-summary{font-family:var(--font-body);font-size:12px;color:var(--text-secondary);line-height:1.45;margin:0;background:transparent!important;border:none!important;box-shadow:none!important;padding:0;flex:1}
+.proj-card-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:transparent!important;border:none!important;box-shadow:none!important;padding:0;margin:0}
+.proj-avatars{display:flex;align-items:center}
+.proj-avatars .avatar{width:24px;height:24px;font-size:9px;border:2px solid var(--color-card);margin-left:-6px}
+.proj-avatars .avatar:first-child{margin-left:0}
+.proj-avatars-more{font-size:11px;color:var(--text-muted);margin-left:6px}
+.proj-source{font-size:11px;color:var(--text-muted);display:inline-flex;align-items:center;gap:4px}
+.proj-dup-warn{font-size:11px;color:var(--data-text);background:var(--data-soft);border:1px solid var(--border-data);border-radius:var(--radius-md);padding:6px 8px;line-height:1.4;box-shadow:none}
+.proj-lock-btn{width:28px;height:28px;border-radius:var(--radius-sm);border:1px solid var(--border-light);background:var(--color-card);color:var(--text-muted);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:none}
+.proj-lock-btn:hover,.proj-lock-btn.on{color:var(--data-text);border-color:var(--border-data);background:var(--data-soft)}
+.proj-lock-badge{display:inline-flex;align-items:center;gap:4px;color:var(--data-text)}
+.proj-detail-note{font-size:10px;color:var(--text-muted);font-style:italic;margin-top:12px;line-height:1.45}
+.hilo-read-scope{background:var(--color-card);border:1px solid var(--border-light);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:18px 20px;margin-top:0}
+.hilo-read-scope h3{margin:0 0 6px;font-size:14px}
+.hilo-read-scope .scope-sub{font-size:12px;color:var(--text-secondary);margin:0 0 14px;line-height:1.45}
+.hilo-read-scope .scope-group{margin-bottom:14px}
+.hilo-read-scope .scope-group-label{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.hilo-read-scope .scope-note{font-size:10px;color:var(--text-muted);font-style:italic;line-height:1.45;margin:0}
+.hilo-read-scope .scope-check{display:flex;align-items:center;gap:8px;font-family:var(--font-body);font-size:13px;color:var(--text-primary);margin:6px 0;cursor:pointer}
+.hilo-read-scope .scope-check input{accent-color:var(--color-accent-dark);width:15px;height:15px;flex-shrink:0}
+.proj-status-activo{background:var(--color-success-dim)!important;color:#0A7A5C!important}
+.proj-status-pausado{background:var(--color-warning-dim)!important;color:#B45309!important}
+.proj-status-completado{background:var(--color-info-dim)!important;color:#1D4ED8!important}
+.proj-card-link{font-size:12px;color:var(--accent-text);background:transparent!important;border:none!important;box-shadow:none!important;padding:0;cursor:pointer;font-family:var(--font-body);font-weight:500;text-align:left;margin-top:auto}
+.proj-card-link:hover{text-decoration:underline}
+.proj-protect-access{display:none;margin-top:14px}
+.proj-protect-access.show{display:block}
+.proj-access-list{display:flex;flex-direction:column;gap:8px;max-height:200px;overflow:auto;margin-top:8px;padding:10px;background:var(--bg-hover);border-radius:var(--radius-md);border:1px solid var(--border-light)}
+.proj-access-row{display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer}
+.proj-access-row input{accent-color:var(--color-accent-dark)}
+.proj-detail-people{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.proj-detail-person{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--border-light);border-radius:var(--radius-full);background:var(--color-card);cursor:pointer;font-size:12px;font-family:var(--font-body);color:var(--text-primary)}
+.proj-detail-person:hover{border-color:var(--border-accent);background:var(--accent-soft)}
+.proj-detail-person .avatar{width:22px;height:22px;font-size:9px}
+.midia-top-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch;margin-bottom:16px}
+.midia-top-row > *{min-width:0;height:100%}
+.midia-top-row #checkinCard{display:flex;flex-direction:column;height:100%;margin-bottom:0;max-width:none}
+.midia-meetings-row{margin-top:0;margin-bottom:20px}
+.midia-meetings-row .meetings-card{margin-bottom:0}
+@media(max-width:900px){.midia-top-row{grid-template-columns:1fr}}
+/* legacy alias if referenced */
 .midia-bottom-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch;margin-bottom:20px}
 .midia-bottom-row .meetings-card{margin-bottom:0;height:100%}
 .midia-bottom-row .home-focus-wrap{height:100%}
 .midia-bottom-row .focus-card-shell{margin-bottom:0}
-@media(max-width:900px){
-  .midia-top-row,.midia-bottom-row{grid-template-columns:1fr}
-}
-.focus-ta-row{display:flex;gap:8px;align-items:flex-end;margin-top:10px}
-.focus-ta-row .focus-ta{margin-top:0;flex:1;min-width:0}
-.focus-mic-wrap{position:relative;display:flex;flex-direction:column;align-items:center;flex-shrink:0;padding-bottom:2px}
-.focus-mic-wrap .mic-btn{width:36px;height:36px}
-.focus-mic-tip{
-  position:absolute;
-  bottom:calc(100% + 6px);
-  left:50%;
-  transform:translateX(-50%);
-  font-family:var(--font-body);
-  font-size:10px;
-  color:var(--text-muted);
-  white-space:nowrap;
-  background:var(--color-card);
-  border:1px solid var(--border-light);
-  border-radius:var(--radius-sm);
-  padding:3px 7px;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity 150ms ease;
-  z-index:2;
-  box-shadow:var(--shadow-xs);
-}
-.focus-mic-wrap:hover .focus-mic-tip,
-.focus-mic-wrap:focus-within .focus-mic-tip{opacity:1}
-.focus-voice-area .voice-bar{margin-top:10px;margin-bottom:0}
 .checkin-card-head{display:flex;align-items:center;justify-content:flex-start;gap:8px;margin-bottom:4px}
 .checkin-card-head h3{margin:0}
 .help-icon-btn{width:28px;height:28px;border-radius:50%;border:1px solid var(--border-subtle);background:var(--bg-card);color:var(--text-muted);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;transition:background 150ms ease,color 150ms ease,border-color 150ms ease}
@@ -1349,44 +1366,96 @@ input:focus,textarea:focus,select:focus,.chat-input:focus,.focus-ta:focus,.km-se
 .chart-wrap{position:relative;height:200px}
 
 /* Config */
-.config-section{margin-bottom:28px}
+.config-section{margin-bottom:32px;background:transparent;border:none;box-shadow:none;padding:0}
 .config-section h3{margin-bottom:14px}
-.integration-row{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:0}
-.integration-row .icon{width:36px;height:36px;border-radius:8px;background:var(--bg-hover);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.integration-wrap{margin-bottom:8px}
-.integration-actions{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
-.integration-actions .integration-reads{text-align:right;margin-top:0;max-width:200px}
-.integration-reads{font-size:11px;color:var(--text-muted);font-style:italic;margin-top:4px;line-height:1.45}
-.integration-impact{display:flex;gap:8px;align-items:flex-start;background:rgba(230,168,23,0.06);border-left:2px solid var(--data);border-radius:var(--radius-sm);padding:6px 10px;margin-top:6px;font-size:11px;color:var(--text-secondary);line-height:1.45}
-.integration-optional-note{display:flex;gap:10px;align-items:flex-start;background:var(--accent-soft);border:1px solid var(--border-accent);border-radius:var(--radius-md);padding:10px 14px;margin-bottom:14px}
-.integration-summary{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px 16px;margin-top:12px}
+.integration-list{display:flex;flex-direction:column;gap:10px}
+.integration-wrap{
+  margin-bottom:0;
+  background:var(--color-card);
+  border:1px solid var(--border-light);
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-sm);
+  overflow:hidden;
+}
+.integration-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:16px 20px;
+  background:transparent!important;
+  border:none!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  margin-bottom:0;
+}
+.integration-row .icon,.integration-icon{width:36px;height:36px;border-radius:8px;background:var(--color-accent-dim);color:var(--color-accent-dark);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px}
+.integration-icon svg{width:18px;height:18px}
+.integration-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.integration-title-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.integration-title-row strong{font-size:13px;font-weight:600;color:var(--text-primary)}
+.integration-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.integration-actions .btn{min-width:112px;justify-content:center}
+.integration-reads{font-size:11px;color:var(--text-muted);font-style:italic;margin:0;line-height:1.45}
+.integration-wrap.has-impact{/* same shell as other wraps */}
+.integration-impact{display:flex;gap:8px;align-items:flex-start;background:var(--data-soft);border:none;border-top:1px solid var(--border-light);border-radius:0;padding:10px 20px 12px;margin:0;font-size:11px;color:var(--text-secondary);line-height:1.45;box-shadow:none}
+.integration-impact svg{flex-shrink:0;margin-top:1px;color:var(--data)}
+.integration-optional-note{display:flex;gap:10px;align-items:flex-start;background:var(--color-accent-dim);border:1px solid var(--border-accent);border-radius:var(--radius-md);box-shadow:none;padding:12px 14px;margin-bottom:12px}
+.integration-summary{background:var(--color-card);border:1px solid var(--border-light);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:14px 16px;margin-top:14px}
 .integration-summary-row{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--text-secondary);padding:5px 0;line-height:1.45}
-.integration-summary-row::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:6px}
+.integration-summary-row::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--color-accent);flex-shrink:0;margin-top:6px}
+.integration-status{display:inline-flex;align-items:center;gap:6px}
+.config-hris-hint{font-size:12px;color:var(--text-muted);margin:10px 0 12px;line-height:1.5}
 .hilo-memory-label{font-size:12px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.08em;margin:24px 0 12px}
-.hilo-memory-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:18px 20px}
+.hilo-memory-card{background:var(--color-card)!important;border:1px solid var(--border-light)!important;border-radius:var(--radius-lg)!important;box-shadow:var(--shadow-sm)!important;padding:18px 20px}
 .hilo-memory-header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:14px;flex-wrap:wrap}
 .hilo-memory-title{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-size:14px;font-weight:500;color:var(--text-primary)}
-.hilo-memory-explainer{display:flex;gap:10px;align-items:flex-start;background:var(--accent-soft);border-radius:var(--radius-md);padding:12px 14px;margin-bottom:16px}
+.hilo-memory-explainer{display:flex;gap:10px;align-items:flex-start;background:var(--color-accent-dim);border-radius:var(--radius-md);padding:12px 14px;margin-bottom:16px}
 .hilo-memory-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;text-align:center;margin:16px 0}
 .hilo-memory-stat-val{font-family:var(--font-mono);font-weight:700;font-size:28px;line-height:1.1}
 .hilo-memory-stat-lbl{font-size:12px;color:var(--text-secondary);margin-top:6px;line-height:1.35}
-.hilo-memory-divider{height:1px;background:var(--border);margin:16px 0}
+.hilo-memory-divider{height:1px;background:var(--border-light);margin:16px 0}
 .hilo-memory-source{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px 12px;margin-bottom:10px;font-size:12px}
 .hilo-memory-source-name{display:flex;align-items:center;gap:8px;font-weight:500;white-space:nowrap}
-.hilo-memory-bar{height:4px;border-radius:100px;background:var(--bg-hover);overflow:hidden;min-width:0}
-.hilo-memory-bar-fill{height:100%;border-radius:100px;background:var(--accent);opacity:.75}
+.hilo-memory-bar{height:4px;border-radius:100px;background:rgba(4,9,13,0.08);overflow:hidden;min-width:0}
+.hilo-memory-bar-fill{height:100%;border-radius:100px;background:var(--color-accent);opacity:.75}
 .hilo-memory-source-count{font-size:11px;color:var(--text-muted);text-align:right;white-space:nowrap}
-.hilo-memory-privacy{display:flex;gap:8px;align-items:flex-start;border-top:0.5px solid var(--border);padding-top:10px;margin-top:10px;font-size:11px;color:var(--text-muted);line-height:1.55}
+.hilo-memory-privacy{display:flex;gap:8px;align-items:flex-start;border-top:0.5px solid var(--border-light);padding-top:10px;margin-top:10px;font-size:11px;color:var(--text-muted);line-height:1.55}
+.radio-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;background:transparent!important;border:none!important;box-shadow:none!important;padding:0!important}
+.radio-card{padding:16px;border:1.5px solid var(--border-light)!important;border-radius:var(--radius-md)!important;cursor:pointer;transition:all var(--transition-base);background:var(--color-card)!important;box-shadow:var(--shadow-sm)!important}
+.radio-card:hover{border-color:var(--border-medium)!important}
+.radio-card.selected{border:1.5px solid var(--color-accent-dark)!important;background:var(--color-accent-dim)!important;box-shadow:none!important}
+.radio-card-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.radio-card h4{font-size:14px;margin:0;font-weight:600;color:var(--text-primary)}
+.radio-card p{font-size:12px;color:var(--text-secondary);margin:0;line-height:1.45}
+.radio-dot{width:16px;height:16px;min-width:16px;border-radius:50%;border:1.5px solid rgba(4,9,13,0.25);background:#FFFFFF;display:inline-flex;align-items:center;justify-content:center;position:relative;flex-shrink:0;transition:all 150ms ease}
+.radio-card.selected .radio-dot{border-color:var(--color-accent-dark)}
+.radio-card.selected .radio-dot::after{content:'';width:8px;height:8px;border-radius:50%;background:var(--color-accent-dark);display:block}
+.tracking-radios{display:flex;flex-direction:column;gap:10px}
+.tracking-radios .radio-card{padding:14px 16px}
+.tracking-radio-label{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:14px;font-weight:500;margin-bottom:4px;flex:1}
+.module-pill{display:inline-flex;align-items:center;gap:6px;border-radius:var(--radius-full);padding:4px 12px;font-family:var(--font-body);font-size:12px;font-weight:500;line-height:1.3}
+.module-pill svg{width:12px;height:12px;flex-shrink:0}
+.module-pill-active{background:var(--color-success-dim);color:#0A7A5C}
+.module-pill-upcoming{background:var(--data-soft);color:var(--data-text)}
+.modules-card .toggle-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--border-light)}
+.modules-card .toggle-row:last-child{border-bottom:none;padding-bottom:0}
+.modules-card .toggle-row:first-child{padding-top:0}
+.comm-preview-card{background:var(--color-card);border:1px solid var(--border-light);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);overflow:hidden;max-width:360px;margin:0 auto}
+.comm-preview-head{background:var(--color-accent-dim);padding:12px 16px;border-bottom:1px solid var(--border-light);font-family:var(--font-body);font-size:12px;font-weight:600;color:var(--text-secondary)}
+.comm-preview-body{padding:14px;background:#1A1D21}
+.config-schedule-card{margin-top:16px;font-size:13px}
+.config-schedule-row{display:flex;align-items:flex-start;gap:8px;margin:0;line-height:1.5;color:var(--text-primary)}
+.config-schedule-row + .config-schedule-row{margin-top:8px}
+.config-schedule-row svg{flex-shrink:0;margin-top:2px;color:var(--text-muted)}
+.identity-card{background:var(--color-card)!important;border:1px solid var(--border-light)!important;border-radius:var(--radius-lg)!important;box-shadow:var(--shadow-sm)!important;padding:18px 20px;margin-bottom:0}
+.security-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.security-card{background:var(--color-card)!important;border:1px solid var(--border-light)!important;border-radius:var(--radius-md)!important;box-shadow:var(--shadow-sm)!important;padding:14px}
+.security-highlight{display:flex;gap:12px;align-items:flex-start;background:var(--data-soft)!important;border:1px solid var(--border-data)!important;border-radius:var(--radius-md)!important;box-shadow:var(--shadow-sm)!important;padding:14px 16px;margin-top:14px}
 .km-active-pill{display:flex;align-items:center;gap:6px;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:6px 10px;font-size:12px;margin-bottom:6px}
 .km-active-pill .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .org-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:20px}
 .org-team-card{padding:14px 16px}
-.radio-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.radio-card{padding:16px;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:all .2s;background:var(--bg-card)}
-
-.radio-card.selected{border-color:var(--accent-text);background:var(--accent-soft)}
-.radio-card h4{font-size:14px;margin-bottom:4px}
-.radio-card p{font-size:12px;color:var(--text-secondary)}
 .toggle-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border)}
 .toggle-row:last-child{border-bottom:none}
 .toggle{width:44px;height:24px;border-radius:12px;background:var(--bg-hover);border:none;cursor:pointer;position:relative;transition:background .2s}
@@ -1489,7 +1558,7 @@ input:focus,textarea:focus,select:focus,.chat-input:focus,.focus-ta:focus,.km-se
 .benefit-accesible{border-left:4px solid var(--data)}
 
 /* Light mode card polish */
- .card,.metric-card,.benefit-active-card,.benefit-pool-card,.onboard-card,.moment-card,.alert-card,.phase-card,.team-row,.cargo-row,.memory-item,.chart-card,.stat-box,.integration-row,.radio-card,.countdown-bar{
+ .card,.metric-card,.benefit-active-card,.benefit-pool-card,.onboard-card,.moment-card,.alert-card,.phase-card,.team-row,.cargo-row,.memory-item,.chart-card,.stat-box,.radio-card,.countdown-bar,.integration-wrap,.proj-card{
   background:#FFFFFF;
   border:1px solid rgba(15,31,28,0.08);
   box-shadow:0 1px 3px rgba(15,31,28,0.06),0 4px 12px rgba(15,31,28,0.04);
@@ -1545,7 +1614,7 @@ html.sidebar-collapsed .user-card{justify-content:center}
 
 /* Company identity (config) */
 .identity-section-label{font-size:11px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;font-weight:600}
-.identity-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px;margin-bottom:16px}
+.identity-card{background:var(--color-card)!important;border:1px solid var(--border-light)!important;border-radius:var(--radius-lg)!important;box-shadow:var(--shadow-sm)!important;padding:18px 20px;margin-bottom:0}
 .identity-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .identity-col-label{font-size:10px;color:var(--text-muted);margin-bottom:8px}
 .identity-logo-preview{width:72px;height:72px;background:var(--bg-surface);border:1.5px solid var(--border);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin-bottom:8px}
@@ -1567,8 +1636,8 @@ html.sidebar-collapsed .user-card{justify-content:center}
 /* ═══════════════════════════════════
    CARD CONSISTENCY
    ═══════════════════════════════════ */
-[class*="card"]:not([class*="card-head"]):not([class*="card-title"]):not([class*="card-date"]):not([class*="card-body"]):not([class*="card-meta"]):not(.user-card),
-[class*="-section"],.card {
+[class*="card"]:not([class*="card-head"]):not([class*="card-title"]):not([class*="card-date"]):not([class*="card-body"]):not([class*="card-meta"]):not([class*="card-top"]):not([class*="card-summary"]):not([class*="card-link"]):not(.user-card):not(.radio-cards),
+.card {
   background: var(--bg-card);
   border: 1px solid rgba(15,31,28,0.08);
   border-radius: var(--radius-lg);
@@ -1581,6 +1650,9 @@ html.sidebar-collapsed .user-card{justify-content:center}
   border: 1px solid rgba(15,31,28,0.08);
   max-width: none;
   margin-bottom: 16px;
+}
+.midia-top-row #checkinCard {
+  margin-bottom: 0;
 }
 /* Soft-state cards keep tinted background, same border/shadow */
 .hilo-proactive-card.meeting,.hilo-proactive-card.predaily,.hilo-proactive-card.cancelled-meeting {
@@ -1644,17 +1716,22 @@ nav.nav,.nav {
 * {
   box-shadow: none;
 }
-[class*="card"]:not([class*="card-head"]):not([class*="card-title"]):not([class*="card-date"]):not([class*="card-body"]):not([class*="card-meta"]):not(.user-card),
-[class*="-section"]:not(.ws-section):not(.pm-section):not(.tm-section),.card {
+[class*="card"]:not([class*="card-head"]):not([class*="card-title"]):not([class*="card-date"]):not([class*="card-body"]):not([class*="card-meta"]):not([class*="card-top"]):not([class*="card-summary"]):not([class*="card-link"]):not(.user-card):not(.radio-cards),
+.card {
   box-shadow: var(--card-shadow);
 }
-.ws-section,.pm-section,.tm-section{box-shadow:none!important;background:transparent!important}
+.ws-section,.pm-section,.tm-section,.config-section{box-shadow:none!important;background:transparent!important;border:none!important}
 .meetings-card-head,.meetings-card-title,.meetings-card-date,
+.proj-card-top,.proj-card-title,.proj-card-summary,.proj-card-meta,.proj-card-link,
+.radio-cards,.radio-card-head,
 [class*="card-head"],
 [class*="card-title"],
 [class*="card-date"],
 [class*="card-body"],
-[class*="card-meta"] {
+[class*="card-meta"],
+[class*="card-top"],
+[class*="card-summary"],
+[class*="card-link"] {
   box-shadow: none !important;
   border: none !important;
   background: transparent !important;
@@ -1674,8 +1751,9 @@ html.sidebar-collapsed .nav-item .nav-tip {
 /* 2. Sidebar nav items */
 .sidebar-nav-item:hover,.nav-item:hover,
 [data-nav-item]:hover {
-  background-color: rgba(255,255,255,0.06);
-  color: rgba(255,255,255,0.80);
+  background-color: rgba(54,230,183,0.10);
+  color: #FFFFFF;
+  border-left: 2px solid rgba(54,230,183,0.50);
   border-radius: var(--radius-md);
   font-weight: 400;
   cursor: pointer;
@@ -1685,9 +1763,10 @@ html.sidebar-collapsed .nav-item .nav-tip {
 [data-nav-item].active:hover,
 [class*="nav-item"][class*="active"]:hover,
 [aria-current="page"]:hover {
-  background-color: rgba(54,230,183,0.12) !important;
-  color: #36E6B7 !important;
-  font-weight: 500;
+  background-color: rgba(54,230,183,0.14) !important;
+  color: #FFFFFF !important;
+  border-left: 2px solid #36E6B7 !important;
+  font-weight: 600;
   border-radius: var(--radius-md);
 }
 
@@ -2144,7 +2223,7 @@ html,body{
   display:flex!important;
   align-items:center!important;
   gap:9px!important;
-  padding:8px 12px!important;
+  padding:8px 12px 8px 10px!important;
   margin:1px 0!important;
   border-radius:var(--radius-md)!important;
   font-size:13px!important;
@@ -2152,55 +2231,48 @@ html,body{
   cursor:pointer;
   transition:all 150ms ease!important;
   border:none!important;
-  border-left:none!important;
+  border-left:2px solid transparent!important;
   width:100%!important;
   box-sizing:border-box!important;
   background:transparent!important;
-  color:rgba(255,255,255,0.50)!important;
+  color:var(--text-dark-primary)!important;
   text-align:left;
   position:relative!important;
   overflow:hidden!important;
 }
 .nav-item:hover,.sidebar-nav-item:hover,[data-nav-item]:hover{
-  background:rgba(255,255,255,0.06)!important;
-  color:rgba(255,255,255,0.80)!important;
+  background:var(--nav-hover-bg)!important;
+  color:var(--text-dark-primary)!important;
+  border-left:2px solid var(--nav-hover-border)!important;
   border-radius:var(--radius-md)!important;
   font-weight:400!important;
 }
 .nav-item.active,.nav-item.hover-lift.active,[class*="nav-item"][class*="active"],[aria-current="page"],
 .nav-item.active:hover,.nav-item.hover-lift.active:hover,[class*="nav-item"][class*="active"]:hover,[aria-current="page"]:hover{
-  background:rgba(54,230,183,0.12)!important;
-  color:#36E6B7!important;
-  font-weight:500!important;
+  background:var(--nav-active-bg)!important;
+  color:var(--text-dark-primary)!important;
+  font-weight:600!important;
   border-radius:var(--radius-md)!important;
-  border-left:none!important;
-  padding:8px 12px!important;
+  border-left:2px solid var(--nav-active-border)!important;
+  padding:8px 12px 8px 10px!important;
   box-shadow:none!important;
 }
 .nav-item.active::before,
 .nav-item.hover-lift.active::before,
 [class*="nav-item"][class*="active"]::before,
 [aria-current="page"]::before{
-  content:''!important;
-  position:absolute!important;
-  left:0!important;
-  top:50%!important;
-  transform:translateY(-50%)!important;
-  width:3px!important;
-  height:60%!important;
-  background:#36E6B7!important;
-  border-radius:0 3px 3px 0!important;
-  display:block!important;
+  content:none!important;
+  display:none!important;
 }
 .nav-item svg{
-  color:rgba(255,255,255,0.35)!important;
+  color:rgba(255,255,255,0.85)!important;
   width:16px!important;
   height:16px!important;
   font-size:16px!important;
   flex-shrink:0;
 }
-.nav-item:hover svg{color:rgba(255,255,255,0.70)!important}
-.nav-item.active svg,[class*="nav-item"][class*="active"] svg,[aria-current="page"] svg{color:#36E6B7!important}
+.nav-item:hover svg{color:#FFFFFF!important}
+.nav-item.active svg,[class*="nav-item"][class*="active"] svg,[aria-current="page"] svg{color:#FFFFFF!important}
 .nav-pct{
   background:rgba(54,230,183,0.15)!important;
   color:#36E6B7!important;
@@ -2211,19 +2283,19 @@ html,body{
   margin-left:auto!important;
   border:none!important;
 }
-.nav-item.active .nav-pct{background:rgba(54,230,183,0.15)!important;color:#36E6B7!important}
+.nav-item.active .nav-pct{background:rgba(54,230,183,0.20)!important;color:#FFFFFF!important}
 
 html.sidebar-collapsed .nav-item{
-  border-left:none!important;
+  border-left:2px solid transparent!important;
   padding:8px 0!important;
   justify-content:center!important;
   gap:0!important;
 }
 html.sidebar-collapsed .nav-item.active,
 html.sidebar-collapsed .nav-item.active:hover{
-  border-left:none!important;
-  background:rgba(54,230,183,0.12)!important;
-  color:#36E6B7!important;
+  border-left:2px solid var(--nav-active-border)!important;
+  background:var(--nav-active-bg)!important;
+  color:var(--text-dark-primary)!important;
   padding:8px 0!important;
   border-radius:var(--radius-md)!important;
 }
@@ -2238,8 +2310,8 @@ html.sidebar-collapsed .nav-item.active:hover{
   width:100%!important;
   border-radius:var(--radius-md)!important;
 }
-.sidebar-intro-btn:hover{background:rgba(255,255,255,0.06)!important}
-.sidebar-intro-title{color:var(--text-dark-accent)!important;font-weight:700!important;font-size:15px!important}
+.sidebar-intro-btn:hover{background:var(--nav-hover-bg)!important}
+.sidebar-intro-title{color:var(--text-dark-primary)!important;font-weight:700!important;font-size:15px!important}
 .sidebar-intro-sub{color:var(--text-dark-secondary)!important}
 .sidebar-footer{
   padding:12px 0 0!important;
@@ -2249,7 +2321,7 @@ html.sidebar-collapsed .nav-item.active:hover{
   margin-right:0!important;
 }
 .sidebar-tutorial-row{
-  color:rgba(255,255,255,0.50)!important;
+  color:var(--text-dark-primary)!important;
   border:none!important;
   background:transparent!important;
   border-radius:var(--radius-md)!important;
@@ -2266,13 +2338,13 @@ html.sidebar-collapsed .nav-item.active:hover{
   transition:all 150ms ease!important;
 }
 .sidebar-tutorial-row:hover{
-  background:rgba(255,255,255,0.06)!important;
-  color:rgba(255,255,255,0.85)!important;
+  background:var(--nav-hover-bg)!important;
+  color:var(--text-dark-primary)!important;
 }
-.sidebar-tutorial-row svg,.sidebar-tutorial-row .chev{color:rgba(255,255,255,0.35)!important}
-.sidebar-tutorial-row:hover svg,.sidebar-tutorial-row:hover .chev{color:rgba(255,255,255,0.70)!important}
+.sidebar-tutorial-row svg,.sidebar-tutorial-row .chev{color:rgba(255,255,255,0.70)!important}
+.sidebar-tutorial-row:hover svg,.sidebar-tutorial-row:hover .chev{color:#FFFFFF!important}
 .user-card{
-  color:rgba(255,255,255,0.50)!important;
+  color:var(--text-dark-primary)!important;
   padding:8px 12px 8px 10px!important;
   margin:0!important;
   border-radius:var(--radius-md)!important;
@@ -2286,11 +2358,11 @@ html.sidebar-collapsed .nav-item.active:hover{
   transition:all 150ms ease!important;
 }
 .user-card:hover{
-  background:rgba(255,255,255,0.06)!important;
-  color:rgba(255,255,255,0.85)!important;
+  background:var(--nav-hover-bg)!important;
+  color:var(--text-dark-primary)!important;
 }
 .user-name{color:var(--text-dark-primary)!important}
-.user-role{color:var(--text-dark-muted)!important}
+.user-role{color:var(--text-dark-secondary)!important}
 #sidebarAvatar,.user-card .avatar{background:#0A8A68!important;color:#FFFFFF!important}
 
 .sidebar-toggle{
@@ -2752,14 +2824,83 @@ textarea,select,.chat-input,.focus-ta,.km-search input,.checkin-comment-ta,.chec
 .textarea,textarea{resize:vertical;min-height:80px;line-height:1.6}
 
 /* ── CARDS ── */
-[class*="card"]:not([class*="card-head"]):not([class*="card-title"]):not([class*="card-date"]):not([class*="card-body"]):not([class*="card-meta"]):not(.user-card),
-[class*="-card"]:not([class*="card-head"]):not([class*="card-title"]):not([class*="card-date"]):not([class*="card-body"]):not([class*="card-meta"]):not(.user-card),
+[class*="card"]:not([class*="card-head"]):not([class*="card-title"]):not([class*="card-date"]):not([class*="card-body"]):not([class*="card-meta"]):not([class*="card-top"]):not([class*="card-summary"]):not([class*="card-link"]):not(.user-card):not(.radio-cards),
+[class*="-card"]:not([class*="card-head"]):not([class*="card-title"]):not([class*="card-date"]):not([class*="card-body"]):not([class*="card-meta"]):not([class*="card-top"]):not([class*="card-summary"]):not([class*="card-link"]):not(.user-card):not(.radio-cards),
 .card,.metric-card,.benefit-active-card,.benefit-pool-card,.onboard-card,.moment-card,.alert-card,.phase-card,
-.team-row,.cargo-row,.memory-item,.chart-card,.stat-box,.integration-row,.radio-card,.countdown-bar{
+.team-row,.cargo-row,.memory-item,.chart-card,.stat-box,.radio-card,.countdown-bar{
   background:var(--color-card)!important;
   border:1px solid var(--border-light)!important;
   border-radius:var(--radius-lg)!important;
   box-shadow:var(--shadow-sm)!important;
+}
+#screen-config .integration-wrap{
+  background:var(--color-card)!important;
+  border:1px solid var(--border-light)!important;
+  border-radius:var(--radius-lg)!important;
+  box-shadow:var(--shadow-sm)!important;
+  overflow:hidden;
+}
+#screen-config .integration-row,
+#screen-config .integration-wrap .integration-row{
+  background:transparent!important;
+  border:none!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+  padding:16px 20px!important;
+}
+#screen-config .radio-card{
+  border-radius:var(--radius-md)!important;
+}
+#screen-config .radio-card.selected{
+  border:1.5px solid var(--color-accent-dark)!important;
+  background:var(--color-accent-dim)!important;
+  box-shadow:none!important;
+}
+#screen-config .radio-cards{
+  background:transparent!important;
+  border:none!important;
+  box-shadow:none!important;
+  padding:0!important;
+}
+#screen-config .security-card,
+#screen-config .identity-card,
+#screen-config .hilo-memory-card,
+#screen-config .integration-summary,
+#screen-config .modules-card,
+#screen-config .comm-preview-card,
+#screen-config .security-highlight,
+#screen-config .hilo-read-scope{
+  border:1px solid var(--border-light)!important;
+  box-shadow:var(--shadow-sm)!important;
+  background:var(--color-card)!important;
+}
+#screen-config .security-highlight{
+  background:var(--data-soft)!important;
+  border-color:var(--border-data)!important;
+}
+#screen-config .config-section{
+  background:transparent!important;
+  border:none!important;
+  box-shadow:none!important;
+  padding:0!important;
+  margin-bottom:32px;
+}
+#screen-config .identity-card{margin-bottom:0!important}
+#screen-config .hilo-read-scope{margin-top:0}
+#screen-config .integration-list{gap:10px}
+#screen-config .integration-impact{
+  border-radius:0!important;
+  box-shadow:none!important;
+  border:none!important;
+  border-top:1px solid var(--border-light)!important;
+}
+#screen-config .integration-optional-note{
+  box-shadow:none!important;
+}
+#screen-config .radio-card-head{
+  background:transparent!important;
+  border:none!important;
+  box-shadow:none!important;
 }
 .card{padding:20px}
 .card-clickable,.person-card.hover-lift,.team-row{cursor:pointer;transition:all var(--transition-base)}
@@ -2938,20 +3079,18 @@ html.sidebar-collapsed .sidebar-footer{padding:12px 0 0!important}
                   <div class="hilo-avatar-sm">H</div>
                   <div class="msg-bubble">Sofía, ¿en qué vas a estar enfocada hoy? Una línea es suficiente.<br><br>Con esto, Carlos ya sabe en qué está el equipo antes de la daily. A veces ni hace falta tenerla.</div>
                 </div>
-                <div class="focus-voice-area">
+                <div class="focus-ta-wrap input-wrapper" id="homeFocusVoiceWrap">
                   <div class="voice-bar" id="homeFocusVoiceBar">
                     <span class="voice-dot"></span>
                     <span>Escuchando en español...</span>
                   </div>
                   <div class="focus-ta-row">
                     <textarea class="focus-ta" id="homeFocusInput" placeholder="Ej: Terminando el componente de navegación del Design System..."></textarea>
-                    <div class="focus-mic-wrap">
-                      <span class="focus-mic-tip">Grabar por voz</span>
-                      <button type="button" class="mic-btn" id="homeFocusMic" aria-label="Grabar por voz" title="Grabar por voz" onclick="toggleVoice(document.getElementById('homeFocusInput'),this)">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
-                      </button>
-                    </div>
+                    <button type="button" class="mic-btn" id="homeFocusMic" aria-label="Grabar por voz" title="Grabar por voz" onclick="toggleVoice(document.getElementById('homeFocusInput'),this)">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                    </button>
                   </div>
+                  <span class="focus-mic-tip">Grabar por voz</span>
                 </div>
                 <div class="focus-points-help" id="homeFocusPointsHelp">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12c.6.6 1 1.5 1 2.4V18h6v-1.6c0-.9.4-1.8 1-2.4A7 7 0 0 0 12 2z"/></svg>
@@ -3033,44 +3172,46 @@ html.sidebar-collapsed .sidebar-footer{padding:12px 0 0!important}
           </div>
         </div>
 
-        <div class="meetings-card hover-none" id="homeMeetingsCard">
-          <div class="meetings-card-head">
-            <div class="meetings-card-title">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#36E6B7" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              Tus reuniones hoy
+        <div class="midia-meetings-row">
+          <div class="meetings-card hover-none" id="homeMeetingsCard">
+            <div class="meetings-card-head">
+              <div class="meetings-card-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#36E6B7" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Tus reuniones hoy
+              </div>
+              <div class="meetings-card-date">Miércoles 22 de julio</div>
             </div>
-            <div class="meetings-card-date">Miércoles 22 de julio</div>
-          </div>
-          <div class="meeting-row hover-none">
-            <div class="meeting-time">10:00</div>
-            <div class="meeting-info">
-              <div class="meeting-name">Daily · Producto Digital</div>
-              <div class="meeting-people">Carlos, María Paz, Roberto...</div>
+            <div class="meeting-row hover-none">
+              <div class="meeting-time">10:00</div>
+              <div class="meeting-info">
+                <div class="meeting-name">Daily · Producto Digital</div>
+                <div class="meeting-people">Carlos, María Paz, Roberto...</div>
+              </div>
             </div>
-          </div>
-          <div class="meeting-row hover-lift clickeable" data-meeting-row data-prep-meeting="planning" role="button" tabindex="0">
-            <div class="meeting-time">11:00</div>
-            <div class="meeting-info">
-              <div class="meeting-name">Planning Q3 · Producto Digital</div>
-              <div class="meeting-people">Carlos, María Paz, Roberto...</div>
+            <div class="meeting-row hover-lift clickeable" data-meeting-row data-prep-meeting="planning" role="button" tabindex="0">
+              <div class="meeting-time">11:00</div>
+              <div class="meeting-info">
+                <div class="meeting-name">Planning Q3 · Producto Digital</div>
+                <div class="meeting-people">Carlos, María Paz, Roberto...</div>
+              </div>
+              <button type="button" class="btn btn-ghost btn-sm meeting-prep-btn">Prepararme →</button>
             </div>
-            <button type="button" class="btn btn-ghost btn-sm meeting-prep-btn">Prepararme →</button>
-          </div>
-          <div class="meeting-row hover-lift clickeable" data-meeting-row data-prep-meeting="oneone" role="button" tabindex="0">
-            <div class="meeting-time">13:00</div>
-            <div class="meeting-info">
-              <div class="meeting-name">1:1 con Carlos</div>
-              <div class="meeting-people">Solo ustedes dos</div>
+            <div class="meeting-row hover-lift clickeable" data-meeting-row data-prep-meeting="oneone" role="button" tabindex="0">
+              <div class="meeting-time">13:00</div>
+              <div class="meeting-info">
+                <div class="meeting-name">1:1 con Carlos</div>
+                <div class="meeting-people">Solo ustedes dos</div>
+              </div>
+              <button type="button" class="btn btn-ghost btn-sm meeting-prep-btn">Prepararme →</button>
             </div>
-            <button type="button" class="btn btn-ghost btn-sm meeting-prep-btn">Prepararme →</button>
-          </div>
-          <div class="meeting-row cancelled hover-none">
-            <div class="meeting-time">16:30</div>
-            <div class="meeting-info">
-              <div class="meeting-name">Demo Design System v3</div>
-              <div class="meeting-people">+8 personas</div>
-              <span class="meeting-cancel-badge">Cancelada</span>
-              <p class="meeting-cal-note">Hilo actualizó esto desde Google Calendar hace 23 minutos.</p>
+            <div class="meeting-row cancelled hover-none">
+              <div class="meeting-time">16:30</div>
+              <div class="meeting-info">
+                <div class="meeting-name">Demo Design System v3</div>
+                <div class="meeting-people">+8 personas</div>
+                <span class="meeting-cancel-badge">Cancelada</span>
+                <p class="meeting-cal-note">Hilo actualizó esto desde Google Calendar hace 23 minutos.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -3307,6 +3448,7 @@ html.sidebar-collapsed .sidebar-footer{padding:12px 0 0!important}
         <div class="personas-tabs" role="tablist" aria-label="Vistas de Personas">
           <button type="button" class="personas-tab active" role="tab" aria-selected="true" data-personas-tab="mapa" id="personasTabMapa">Mapa de conocimiento</button>
           <button type="button" class="personas-tab" role="tab" aria-selected="false" data-personas-tab="organigrama" id="personasTabOrg">Organigrama</button>
+          <button type="button" class="personas-tab" role="tab" aria-selected="false" data-personas-tab="proyectos" id="personasTabProyectos">Proyectos</button>
         </div>
         <div class="personas-pane" id="personasPaneMapa" data-personas-pane="mapa" role="tabpanel">
           <div class="km-layout">
@@ -3357,6 +3499,30 @@ html.sidebar-collapsed .sidebar-footer{padding:12px 0 0!important}
           <p class="section-label">Equipos</p>
           <div class="org-grid" id="orgGrid"></div>
         </div>
+        <div class="personas-pane is-hidden" id="personasPaneProyectos" data-personas-pane="proyectos" role="tabpanel" hidden>
+          <div class="proj-toolbar">
+            <div class="search-wrap proj-search">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+              <input type="text" id="projSearch" placeholder="Buscar proyecto...">
+            </div>
+            <div class="filter-pills" id="projAreaFilters">
+              <button type="button" class="pill active" data-proj-area="all" data-pill>Todos</button>
+              <button type="button" class="pill" data-proj-area="Producto" data-pill>Producto</button>
+              <button type="button" class="pill" data-proj-area="Tecnología" data-pill>Tecnología</button>
+              <button type="button" class="pill" data-proj-area="Data" data-pill>Data</button>
+              <button type="button" class="pill" data-proj-area="Diseño" data-pill>Diseño</button>
+              <button type="button" class="pill" data-proj-area="Ventas" data-pill>Ventas</button>
+            </div>
+            <div class="filter-pills" id="projStatusFilters">
+              <button type="button" class="pill active" data-proj-status="all" data-pill>Todos</button>
+              <button type="button" class="pill" data-proj-status="Activo" data-pill>Activo</button>
+              <button type="button" class="pill" data-proj-status="Pausado" data-pill>Pausado</button>
+              <button type="button" class="pill" data-proj-status="Completado" data-pill>Completado</button>
+            </div>
+          </div>
+          <div class="proj-grid" id="projGrid"></div>
+        </div>
+
       </section>
 
       <!-- EMPLEADO: Perfil -->
@@ -3730,128 +3896,215 @@ html.sidebar-collapsed .sidebar-footer{padding:12px 0 0!important}
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#36E6B7" stroke-width="2" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
             <p style="font-size:12px;color:var(--text-secondary);line-height:1.55;margin:0">Las integraciones son opcionales. Sin ellas, Hilo construye el conocimiento vía check-ins y entrevistas — es más lento al inicio, no menos efectivo. Cada integración que conectas acelera y enriquece lo que Hilo aprende.</p>
           </div>
-          <div style="background:var(--accent-soft);border:1px solid var(--border-accent);border-radius:var(--radius-md);padding:12px 14px;margin-bottom:14px;display:flex;gap:10px;align-items:flex-start">
+          <div class="integration-optional-note" style="margin-bottom:14px">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#36E6B7" stroke-width="2" style="flex-shrink:0;margin-top:2px"><path d="M12 3l1.5 4.5H18l-3.5 2.5 1.5 4.5L12 12l-4 2.5 1.5-4.5L6 7.5h4.5z"/></svg>
             <div>
               <div style="font-family:var(--font-body);font-size:13px;font-weight:500;color:var(--text-primary);margin-bottom:4px">Hilo lee estas herramientas para enriquecer el conocimiento de la empresa.</div>
               <div style="font-family:var(--font-body);font-size:12px;color:var(--text-secondary);line-height:1.5">No reemplaza ninguna herramienta. Las conecta para entender quién sabe qué y quién trabaja en qué.</div>
             </div>
           </div>
+          <div class="integration-list">
           <div class="integration-wrap">
             <div class="integration-row hover-subtle" id="slackConnectRow">
-              <div class="icon">💬</div>
-              <div style="flex:1"><strong>Slack</strong></div>
-              <span id="slackStatus" class="integration-status" style="font-size:12px;color:var(--success-text);white-space:nowrap"><span class="status-dot good" role="img" aria-label="Estado: Bien" title="Bien"></span><span aria-hidden="true">🟢 Conectado</span></span>
-              <div class="integration-actions">
-                <button class="btn btn-ghost btn-sm" id="btnSlackConnect">Configurar →</button>
+              <div class="integration-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
+              <div class="integration-body">
+                <div class="integration-title-row">
+                  <strong>Slack</strong>
+                  <span class="pill-success" id="slackStatus">Conectado</span>
+                </div>
                 <p class="integration-reads">Lee canales y temas para entender cómo se comunica el equipo.</p>
               </div>
+              <div class="integration-actions">
+                <button type="button" class="btn btn-ghost btn-sm" id="btnSlackConnect">Configurar →</button>
+              </div>
             </div>
           </div>
           <div class="integration-wrap">
             <div class="integration-row hover-subtle">
-              <div class="icon">📋</div>
-              <div style="flex:1"><strong>Jira</strong></div>
-              <span class="integration-status" style="color:var(--success-text);font-size:12px;white-space:nowrap"><span class="status-dot good" role="img" aria-label="Estado: Bien" title="Bien"></span><span aria-hidden="true">🟢 Conectado</span></span>
-              <div class="integration-actions">
-                <button class="btn btn-ghost btn-sm">Configurar →</button>
+              <div class="integration-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l4 8-4 4-4-4 4-8z"/><path d="M12 14l4 4-4 4-4-4 4-4z"/></svg></div>
+              <div class="integration-body">
+                <div class="integration-title-row">
+                  <strong>Jira</strong>
+                  <span class="pill-success">Conectado</span>
+                </div>
                 <p class="integration-reads">Lee proyectos, tickets y asignaciones para saber en qué trabaja cada persona.</p>
               </div>
-            </div>
-          </div>
-          <div class="integration-wrap">
-            <div class="integration-row hover-subtle">
-              <div class="icon">📝</div>
-              <div style="flex:1"><strong>Notion</strong></div>
-              <span class="integration-status" style="color:var(--success-text);font-size:12px;white-space:nowrap"><span class="status-dot good" role="img" aria-label="Estado: Bien" title="Bien"></span><span aria-hidden="true">🟢 Conectado</span></span>
               <div class="integration-actions">
-                <button class="btn btn-ghost btn-sm">Configurar →</button>
-                <p class="integration-reads">Lee páginas y bases de datos para entender procesos y decisiones documentadas.</p>
+                <button type="button" class="btn btn-ghost btn-sm">Configurar →</button>
               </div>
             </div>
           </div>
           <div class="integration-wrap">
             <div class="integration-row hover-subtle">
-              <div class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
-              <div style="flex:1"><strong>Confluence</strong></div>
-              <span style="color:var(--text-muted);font-size:12px;white-space:nowrap" role="img" aria-label="Estado: No conectado" title="No conectado">⚪ No conectado</span>
-              <button class="btn btn-ghost btn-sm">Conectar →</button>
+              <div class="integration-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h12l4 4v12H4z"/><path d="M8 8h5M8 12h8M8 16h6"/></svg></div>
+              <div class="integration-body">
+                <div class="integration-title-row">
+                  <strong>Notion</strong>
+                  <span class="pill-success">Conectado</span>
+                </div>
+                <p class="integration-reads">Lee páginas y bases de datos para entender procesos y decisiones documentadas.</p>
+              </div>
+              <div class="integration-actions">
+                <button type="button" class="btn btn-ghost btn-sm">Configurar →</button>
+              </div>
+            </div>
+          </div>
+          <div class="integration-wrap has-impact">
+            <div class="integration-row hover-subtle">
+              <div class="integration-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+              <div class="integration-body">
+                <div class="integration-title-row">
+                  <strong>Confluence</strong>
+                  <span class="pill-neutral">No conectado</span>
+                </div>
+                
+              </div>
+              <div class="integration-actions">
+                <button type="button" class="btn btn-ghost btn-sm">Conectar →</button>
+              </div>
             </div>
             <div class="integration-impact">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--data)" stroke-width="2" style="flex-shrink:0;margin-top:1px"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
               <span>Sin Confluence, Hilo no lee tu documentación interna existente. La construirá desde cero vía entrevistas y conversaciones.</span>
             </div>
           </div>
-          <div class="integration-wrap">
+          <div class="integration-wrap has-impact">
             <div class="integration-row hover-subtle">
-              <div class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
-              <div style="flex:1"><strong>Linear</strong></div>
-              <span style="color:var(--text-muted);font-size:12px;white-space:nowrap" role="img" aria-label="Estado: No conectado" title="No conectado">⚪ No conectado</span>
-              <button class="btn btn-ghost btn-sm">Conectar →</button>
+              <div class="integration-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+              <div class="integration-body">
+                <div class="integration-title-row">
+                  <strong>Linear</strong>
+                  <span class="pill-neutral">No conectado</span>
+                </div>
+                
+              </div>
+              <div class="integration-actions">
+                <button type="button" class="btn btn-ghost btn-sm">Conectar →</button>
+              </div>
             </div>
             <div class="integration-impact">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--data)" stroke-width="2" style="flex-shrink:0;margin-top:1px"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
               <span>Sin Linear, Hilo no detecta proyectos e issues automáticamente. Los capturará vía check-ins mensuales de proyectos.</span>
             </div>
           </div>
           <div class="integration-wrap">
             <div class="integration-row hover-subtle">
-              <div class="icon">📧</div>
-              <div style="flex:1"><strong>Google Workspace</strong></div>
-              <span class="integration-status" style="color:var(--success-text);font-size:12px;white-space:nowrap"><span class="status-dot good" role="img" aria-label="Estado: Bien" title="Bien"></span><span aria-hidden="true">🟢 Conectado</span></span>
-              <div class="integration-actions">
-                <button class="btn btn-ghost btn-sm">Configurar →</button>
+              <div class="integration-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
+              <div class="integration-body">
+                <div class="integration-title-row">
+                  <strong>Google Workspace</strong>
+                  <span class="pill-success">Conectado</span>
+                </div>
                 <p class="integration-reads">Lee calendario y reuniones para entender patrones de colaboración.</p>
+              </div>
+              <div class="integration-actions">
+                <button type="button" class="btn btn-ghost btn-sm">Configurar →</button>
               </div>
             </div>
           </div>
-          <div class="integration-wrap">
+          <div class="integration-wrap has-impact">
             <div class="integration-row hover-subtle">
-              <div class="icon">⚙</div>
-              <div style="flex:1"><strong>GitHub</strong></div>
-              <span style="color:var(--text-muted);font-size:12px;white-space:nowrap" role="img" aria-label="Estado: No conectado" title="No conectado">⚪ No conectado</span>
-              <button class="btn btn-ghost btn-sm">Conectar →</button>
+              <div class="integration-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0112 6.8c.85 0 1.7.11 2.5.34 1.9-1.29 2.74-1.02 2.74-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.85-2.34 4.7-4.57 4.95.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg></div>
+              <div class="integration-body">
+                <div class="integration-title-row">
+                  <strong>GitHub</strong>
+                  <span class="pill-neutral">No conectado</span>
+                </div>
+                
+              </div>
+              <div class="integration-actions">
+                <button type="button" class="btn btn-ghost btn-sm">Conectar →</button>
+              </div>
             </div>
             <div class="integration-impact">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--data)" stroke-width="2" style="flex-shrink:0;margin-top:1px"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
               <span>Sin GitHub, Hilo no puede mapear el expertise técnico real de tu equipo de desarrollo. Lo detectará vía conversaciones con los empleados.</span>
             </div>
           </div>
-          <div class="integration-wrap">
+          <div class="integration-wrap has-impact">
             <div class="integration-row hover-subtle">
-              <div class="icon">📹</div>
-              <div style="flex:1"><strong>Zoom / Google Meet</strong></div>
-              <span style="color:var(--text-muted);font-size:12px;white-space:nowrap" role="img" aria-label="Estado: No conectado" title="No conectado">⚪ No conectado</span>
-              <button class="btn btn-ghost btn-sm">Conectar →</button>
+              <div class="integration-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+              <div class="integration-body">
+                <div class="integration-title-row">
+                  <strong>Zoom / Google Meet</strong>
+                  <span class="pill-neutral">No conectado</span>
+                </div>
+                
+              </div>
+              <div class="integration-actions">
+                <button type="button" class="btn btn-ghost btn-sm">Conectar →</button>
+              </div>
             </div>
             <div class="integration-impact">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--data)" stroke-width="2" style="flex-shrink:0;margin-top:1px"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
               <span>Sin esta conexión Hilo no lee transcripciones de reuniones. No podrá detectar proyectos activos ni conocimiento compartido en calls.</span>
             </div>
           </div>
+          </div>
+
           <div class="integration-summary">
             <p style="font-size:13px;font-weight:500;margin-bottom:10px">Lo que Hilo construye con todo esto</p>
             <div class="integration-summary-row">Mapa de quién sabe qué en tiempo real</div>
             <div class="integration-summary-row">Contexto de proyectos para el onboarding</div>
             <div class="integration-summary-row">Preguntas inteligentes en entrevistas de salida basadas en trabajo real</div>
           </div>
-          <div class="integration-wrap" style="margin-top:16px">
-            <div class="integration-row hover-subtle"><div class="icon">👥</div><div style="flex:1"><strong>BambooHR</strong></div><span class="integration-status" style="color:var(--data-text);font-size:12px"><span class="status-dot warn" role="img" aria-label="Estado: Atención" title="Atención"></span><span aria-hidden="true">🟡 Pendiente</span></span><button class="btn btn-ghost btn-sm">Conectar →</button></div>
+          <div class="integration-list" style="margin-top:16px">
+          <div class="integration-wrap has-impact">
+            <div class="integration-row hover-subtle">
+              <div class="integration-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+              <div class="integration-body">
+                <div class="integration-title-row">
+                  <strong>BambooHR</strong>
+                  <span class="pill-warning">Pendiente</span>
+                </div>
+                
+              </div>
+              <div class="integration-actions">
+                <button type="button" class="btn btn-ghost btn-sm">Conectar →</button>
+              </div>
+            </div>
             <div class="integration-impact">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--data)" stroke-width="2" style="flex-shrink:0;margin-top:1px"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
               <span>Sin esta conexión Hilo no puede importar la estructura de tu empresa automáticamente. Deberás configurar los cargos manualmente.</span>
             </div>
           </div>
           <div class="integration-wrap">
-            <div class="integration-row hover-subtle"><div class="icon">📊</div><div style="flex:1"><strong>Workday</strong></div><span style="color:var(--text-muted);font-size:12px" role="img" aria-label="Estado: No conectado" title="No conectado">⚪ No conectado</span><button class="btn btn-ghost btn-sm">Conectar →</button></div>
+            <div class="integration-row hover-subtle">
+              <div class="integration-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
+              <div class="integration-body">
+                <div class="integration-title-row">
+                  <strong>Workday</strong>
+                  <span class="pill-neutral">No conectado</span>
+                </div>
+                
+              </div>
+              <div class="integration-actions">
+                <button type="button" class="btn btn-ghost btn-sm">Conectar →</button>
+              </div>
+            </div>
+          </div>
           </div>
           <p class="config-hris-hint">¿No sabes qué es un HRIS? Es el sistema donde gestionas contratos, cargos y datos de tus empleados. Los más comunes: BambooHR, Workday y Buk.</p>
-          <div class="integration-wrap">
-            <div class="integration-row hover-subtle"><div class="icon">💼</div><div style="flex:1"><strong>Microsoft Teams</strong></div><span style="color:var(--text-muted);font-size:12px" role="img" aria-label="Estado: No conectado" title="No conectado">⚪ No conectado</span><button class="btn btn-ghost btn-sm">Conectar →</button></div>
+          <div class="integration-list">
+          <div class="integration-wrap has-impact">
+            <div class="integration-row hover-subtle">
+              <div class="integration-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="14" height="12" rx="2"/><path d="M16 9h4a2 2 0 012 2v6a2 2 0 01-2 2h-4M9 7V5a2 2 0 012-2h0a2 2 0 012 2v2"/></svg></div>
+              <div class="integration-body">
+                <div class="integration-title-row">
+                  <strong>Microsoft Teams</strong>
+                  <span class="pill-neutral">No conectado</span>
+                </div>
+                
+              </div>
+              <div class="integration-actions">
+                <button type="button" class="btn btn-ghost btn-sm">Conectar →</button>
+              </div>
+            </div>
             <div class="integration-impact">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--data)" stroke-width="2" style="flex-shrink:0;margin-top:1px"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
               <span>Sin Teams, Hilo usa email o Slack como canal de check-ins. Selecciona tu canal en la sección de comunicación abajo.</span>
             </div>
+          </div>
           </div>
 
           <p class="hilo-memory-label">Memoria de Hilo</p>
@@ -3925,21 +4178,29 @@ html.sidebar-collapsed .sidebar-footer{padding:12px 0 0!important}
         <div class="config-section">
           <h3>¿Cómo se comunica tu equipo?</h3>
           <div class="radio-cards" id="commRadios">
-            <div class="radio-card selected" data-comm="slack"><h4>◉ Slack</h4><p>Check-ins directos en DM. 0 costo adicional.</p></div>
-            <div class="radio-card" data-comm="email"><h4>○ Email corporativo</h4><p>Universal. $20–100/mes incluido.</p></div>
-            <div class="radio-card" data-comm="whatsapp"><h4>○ WhatsApp Business</h4><p>Para equipos en terreno. ~$50/mes incluido.</p></div>
-            <div class="radio-card" data-comm="combo"><h4>○ Combinación</h4><p>Configura por equipo.</p></div>
+            <div class="radio-card selected" data-comm="slack">
+              <div class="radio-card-head"><span class="radio-dot" aria-hidden="true"></span><h4>Slack</h4></div>
+              <p>Check-ins directos en DM. 0 costo adicional.</p>
+            </div>
+            <div class="radio-card" data-comm="email">
+              <div class="radio-card-head"><span class="radio-dot" aria-hidden="true"></span><h4>Email corporativo</h4></div>
+              <p>Universal. $20–100/mes incluido.</p>
+            </div>
+            <div class="radio-card" data-comm="whatsapp">
+              <div class="radio-card-head"><span class="radio-dot" aria-hidden="true"></span><h4>WhatsApp Business</h4></div>
+              <p>Para equipos en terreno. ~$50/mes incluido.</p>
+            </div>
+            <div class="radio-card" data-comm="combo">
+              <div class="radio-card-head"><span class="radio-dot" aria-hidden="true"></span><h4>Combinación</h4></div>
+              <p>Configura por equipo.</p>
+            </div>
           </div>
           <div id="commMockupWrap" style="margin-top:16px">
             <p style="font-size:12px;color:var(--text-secondary);margin-bottom:10px;text-align:center">Así le llega a cada empleado:</p>
             <div id="commMockupSlack" class="comm-mockup">
-              <div style="background:#1A1D21;border-radius:12px;padding:14px;max-width:320px;margin:0 auto">
-                <div style="display:flex;align-items:center;gap:6px;margin-bottom:12px">
-                  <span style="width:8px;height:8px;border-radius:50%;background:#FF5F57"></span>
-                  <span style="width:8px;height:8px;border-radius:50%;background:#FFBD2E"></span>
-                  <span style="width:8px;height:8px;border-radius:50%;background:#28CA41"></span>
-                  <span style="flex:1;text-align:center;font-family:system-ui;font-size:12px;color:#fff">Direct Messages</span>
-                </div>
+              <div class="comm-preview-card">
+                <div class="comm-preview-head">Vista previa · Slack</div>
+                <div class="comm-preview-body">
                 <div style="margin-bottom:14px">
                   <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
                     <div style="width:24px;height:24px;border-radius:50%;background:#0A8A68;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#FFFFFF">H</div>
@@ -3967,11 +4228,14 @@ html.sidebar-collapsed .sidebar-footer{padding:12px 0 0!important}
                     <span style="background:#2a2d31;border:1px solid rgba(255,255,255,0.15);border-radius:16px;padding:4px 10px;font-family:system-ui;font-size:12px;color:#fff">😔 Difícil</span>
                   </div>
                 </div>
+                </div>
               </div>
               <p style="font-size:11px;color:var(--text-muted);text-align:center;margin-top:10px">5 segundos. Sin abrir ninguna app. Responde directamente en Slack.</p>
             </div>
             <div id="commMockupEmail" class="comm-mockup" style="display:none">
-              <div style="background:#fff;border-radius:12px;padding:14px;max-width:360px;margin:0 auto;box-shadow:0 2px 12px rgba(0,0,0,0.08);border:1px solid rgba(0,0,0,0.06)">
+              <div class="comm-preview-card" style="background:var(--color-card)">
+                <div class="comm-preview-head">Vista previa · Email</div>
+                <div style="padding:14px">
                 <p style="font-size:12px;color:#666;margin-bottom:4px">De: Hilo &lt;hola@hilohq.com&gt;</p>
                 <p style="font-size:14px;font-weight:600;color:#111;margin-bottom:10px">Buenos días Sofía 👋</p>
                 <p style="font-size:13px;color:#333;line-height:1.5">Hola Sofía, que tengas una buena semana 👋<br>¿En qué puedo ayudarte hoy?</p>
@@ -3979,6 +4243,7 @@ html.sidebar-collapsed .sidebar-footer{padding:12px 0 0!important}
                   <span style="background:var(--accent-action);color:#FFFFFF;border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600">😊 Con energía</span>
                   <span style="background:var(--accent-action);color:#FFFFFF;border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600">😐 Normal</span>
                   <span style="background:var(--accent-action);color:#FFFFFF;border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600">😔 Pesado</span>
+                </div>
                 </div>
               </div>
               <p style="font-size:11px;color:var(--text-muted);text-align:center;margin-top:10px">Responde directamente desde tu email. Sin contraseñas. Sin apps.</p>
@@ -3999,9 +4264,15 @@ html.sidebar-collapsed .sidebar-footer{padding:12px 0 0!important}
               </div>
             </div>
           </div>
-          <div class="card" style="margin-top:16px;font-size:13px">
-            <p>📅 Lunes · 9:00am — Hola Sofía, que tengas una buena semana 👋</p>
-            <p style="margin-top:8px">📅 Viernes · 12:00pm — ¿Cómo te fue esta semana?</p>
+          <div class="card config-schedule-card">
+            <p class="config-schedule-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span>Lunes · 9:00am — Hola Sofía, que tengas una buena semana 👋</span>
+            </p>
+            <p class="config-schedule-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span>Viernes · 12:00pm — ¿Cómo te fue esta semana?</span>
+            </p>
             <a href="#" style="font-size:12px;color:var(--accent-text);margin-top:12px;display:inline-block">Cambiar horario →</a>
           </div>
         </div>
@@ -4010,32 +4281,60 @@ html.sidebar-collapsed .sidebar-footer{padding:12px 0 0!important}
           <p style="font-size:12px;color:var(--text-muted);line-height:1.5;margin:0 0 14px">Elige cómo Hilo ayuda a los managers a saber en qué trabaja su equipo sin interrumpir a las personas.</p>
           <div class="tracking-radios radio-cards" id="trackingRadios">
             <div class="radio-card selected" data-tracking="assisted">
-              <div class="tracking-radio-label"><span>◉ Daily asistida por Hilo</span><span class="tracking-badge">Recomendado</span></div>
+              <div class="radio-card-head">
+                <span class="radio-dot" aria-hidden="true"></span>
+                <div class="tracking-radio-label"><span>Daily asistida por Hilo</span><span class="tracking-badge">Recomendado</span></div>
+              </div>
               <p>Hilo pregunta el foco diario a cada persona a las 9:00am. El manager recibe un resumen 2 minutos antes de la daily. La reunión dura la mitad.</p>
             </div>
             <div class="radio-card" data-tracking="replace">
-              <div class="tracking-radio-label"><span>○ Sin daily — Hilo reemplaza</span></div>
+              <div class="radio-card-head">
+                <span class="radio-dot" aria-hidden="true"></span>
+                <div class="tracking-radio-label"><span>Sin daily — Hilo reemplaza</span></div>
+              </div>
               <p>El manager ve el foco del equipo directamente en Hilo, sin reunión. Hilo detecta bloqueos y los notifica.</p>
             </div>
             <div class="radio-card" data-tracking="none">
-              <div class="tracking-radio-label"><span>○ Sin ninguno</span></div>
+              <div class="radio-card-head">
+                <span class="radio-dot" aria-hidden="true"></span>
+                <div class="tracking-radio-label"><span>Sin ninguno</span></div>
+              </div>
               <p>No activar seguimiento de foco diario.</p>
             </div>
           </div>
         </div>
         <div class="config-section">
           <h3>Módulos contratados</h3>
-          <div class="card">
-            <div class="toggle-row"><div><strong class="tag-onboarding">✅ Onboarding Inteligente</strong></div><span style="color:var(--accent-text);font-size:12px">Activo</span></div>
+          <div class="card modules-card">
+            <div class="toggle-row"><div><span class="module-pill module-pill-active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Onboarding Inteligente</span></div><span style="color:var(--accent-text);font-size:12px">Activo</span></div>
             <div class="toggle-row" style="align-items:flex-start">
-              <div><strong class="tag-pulso">🔜 Pulso Real · Fase 2</strong></div>
-              <span style="font-size:10px;font-weight:600;padding:4px 10px;border-radius:20px;background:var(--data-soft);color:var(--data-text);border:1px solid var(--border-data);white-space:nowrap">Próximamente</span>
+              <div><span class="module-pill module-pill-upcoming"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Pulso Real · Fase 2</span></div>
+              <span class="pill-warning">Próximamente</span>
             </div>
-            <div class="toggle-row"><div><strong class="tag-memoria">✅ Memoria Institucional</strong></div><span style="color:var(--accent-text);font-size:12px">Activo</span></div>
-            <div class="toggle-row"><div><strong class="tag-mapa">✅ Mapa de Conocimiento</strong></div><span style="color:var(--accent-text);font-size:12px">Activo</span></div>
+            <div class="toggle-row"><div><span class="module-pill module-pill-active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Memoria Institucional</span></div><span style="color:var(--accent-text);font-size:12px">Activo</span></div>
+            <div class="toggle-row"><div><span class="module-pill module-pill-active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Mapa de Conocimiento</span></div><span style="color:var(--accent-text);font-size:12px">Activo</span></div>
           </div>
           <p style="font-size:11px;color:var(--text-muted);margin-top:10px;line-height:1.5">El módulo de Pulso (señales de bienestar del equipo) se activa cuando el grafo de conocimiento ya está nutrido. Llega en Fase 2.</p>
           <p style="font-size:12px;color:var(--text-secondary);margin-top:12px">Plan Completo · 320 empleados · $8 USD/emp/mes</p>
+        </div>
+        <div class="config-section">
+          <div class="hilo-read-scope" id="hiloReadScope">
+            <h3>QUÉ PUEDE LEER HILO</h3>
+            <p class="scope-sub">Elige qué calendarios y canales NO están conectados a Hilo. El resto se sincroniza normalmente.</p>
+            <div class="scope-group">
+              <div class="scope-group-label">Calendarios</div>
+              <label class="scope-check"><input type="checkbox" checked> Calendario general</label>
+              <label class="scope-check"><input type="checkbox"> Calendario Directorio</label>
+              <label class="scope-check"><input type="checkbox"> Calendario Legal</label>
+            </div>
+            <div class="scope-group">
+              <div class="scope-group-label">Canales de Slack</div>
+              <label class="scope-check"><input type="checkbox" checked> #general</label>
+              <label class="scope-check"><input type="checkbox" checked> #producto-digital</label>
+              <label class="scope-check"><input type="checkbox"> #leadership-privado</label>
+            </div>
+            <p class="scope-note">Los canales o calendarios no marcados nunca son leídos por Hilo — ni siquiera técnicamente tiene acceso a ellos.</p>
+          </div>
         </div>
         <div class="config-section">
           <h3 style="font-size:12px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.06em">Seguridad y privacidad</h3>
@@ -4061,7 +4360,7 @@ html.sidebar-collapsed .sidebar-footer{padding:12px 0 0!important}
               <p style="font-size:12px;color:var(--text-secondary);line-height:1.5">Diseñado para cumplir la nueva ley de protección de datos en Chile desde el día 1. Vigencia: 1 de diciembre de 2026.</p>
             </div>
           </div>
-          <div class="security-highlight" style="background:var(--data-soft);border-color:var(--border-data)">
+          <div class="security-highlight">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--data)" stroke-width="2" style="flex-shrink:0"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             <div>
               <div style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;margin-bottom:6px">Ley 21.719 · Chile</div>
@@ -4389,7 +4688,7 @@ let pendingBenefit=null;
 
 const PEOPLE=[
   {id:'mp',init:'MP',name:'María Paz Lagos',role:'UX Researcher',team:'Producto Digital',dept:'producto',years:'2 años en Arca',gradient:'#8b5cf6',tags:['UX Research','Figma','Tests de usabilidad'],bio:'Referente en research cualitativo en Arca. Lideró el rediseño del onboarding de usuarios en 2023.',projects:[['Rediseño onboarding','2023'],['Checkout UX study','2024'],['App mobile research','2024']],activeProjects:[{name:'Research usuarios Q2',dot:'var(--success)',tool:'notion'},{name:'Onboarding usuarios mobile',dot:'var(--data)',tool:'jira'}],knowledge:['Proceso de testing con usuarios reales','Plantillas de entrevistas en Notion']},
-  {id:'rv',init:'RV',name:'Roberto Vargas',role:'Frontend Dev',team:'Tecnología',dept:'tecnologia',years:'4 años en Arca',gradient:'#3b82f6',tags:['React','Design Systems','Figma handoff'],bio:'Principal implementador de diseños. Conoce cada detalle del design system y handoff con diseño.',projects:[['Design System v2','2022'],['Checkout frontend','2023'],['Dashboard pagos','2024']],activeProjects:[{name:'Integración Transbank v2',dot:'var(--data)',tool:'jira'},{name:'Infraestructura deploy Q3',dot:'var(--success)',tool:'linear'}],knowledge:['Handoff Figma → React','Tokens y variables CSS']},
+  {id:'rv',init:'RV',name:'Roberto Vargas',role:'Frontend Dev',team:'Tecnología',dept:'tecnologia',years:'4 años en Arca',gradient:'#3b82f6',tags:['React','Design Systems','Figma handoff'],bio:'Principal implementador de diseños. Conoce cada detalle del design system y handoff con diseño.',projects:[['Design System v2','2022'],['Checkout frontend','2023'],['Dashboard pagos','2024']],activeProjects:[{name:'Integración Transbank v2',dot:'var(--data)',tool:'jira'},{name:'Proyecto Fénix',dot:'var(--data)',tool:'confluence',projectId:'fenix'},{name:'Infraestructura deploy Q3',dot:'var(--success)',tool:'linear'}],knowledge:['Handoff Figma → React','Tokens y variables CSS']},
   {id:'df',init:'DF',name:'Diego Fuentes',role:'Data Analyst',team:'Data',dept:'data',years:'3 años en Arca',gradient:'#f97316',tags:['Research cuantitativo','SQL','Mixpanel'],bio:'Especialista en research cuantitativo y métricas de producto.',projects:[['Funnel analytics','2023'],['Cohort retention','2024']],activeProjects:[{name:'Dashboard analytics interno',dot:'var(--success)',tool:'jira'}],knowledge:['Queries Mixpanel','Dashboards Looker']},
   {id:'ct',init:'CT',name:'Camila Torres',role:'Product Manager',team:'Producto Digital',dept:'producto',years:'1.5 años en Arca',gradient:'#22c55e',tags:['Roadmap','OKRs','Stakeholders'],bio:'PM del squad de pagos. Referente en priorización y stakeholders.',projects:[['Roadmap Q2','2024']],knowledge:['OKRs trimestrales','Proceso de priorización']},
   {id:'fo',init:'FO',name:'Felipe Ortiz',role:'Backend Dev',team:'Tecnología',dept:'tecnologia',years:'5 años en Arca',gradient:'#ef4444',tags:['Integraciones','Transbank','APIs'],bio:'Experto en integraciones de pago y Transbank.',projects:[['API Transbank','2022'],['Gateway pagos','2023']],knowledge:['Timeouts Transbank','Webhooks de pago']},
@@ -4426,6 +4725,24 @@ const TEAM=[
 
 const HR_TEAMS=[
   {name:'Producto Digital',count:8,manager:'Carlos Herrera',status:'ok'},{name:'Tecnología',count:24,manager:'Diego Morales',status:'warn'},{name:'Data & Analytics',count:12,manager:'Priya Kapoor',status:'ok'},{name:'Diseño',count:6,manager:'Sofía Reyes',status:'ok'},{name:'Ventas',count:18,manager:'Marco Torres',status:'alert'},{name:'Marketing',count:9,manager:'Carla Vega',status:'ok'},{name:'Finanzas',count:15,manager:'Roberto Pinto',status:'ok'},{name:'Legal',count:4,manager:'Ana Mora',status:'ok'},{name:'Customer Success',count:22,manager:'Felipe González',status:'warn'},{name:'Operaciones',count:31,manager:'Luis Herrera',status:'ok'},{name:'People',count:5,manager:'Ana Pizarro',status:'ok'},{name:'Ejecutivos',count:6,manager:'—',status:'ok'}
+];
+
+const DEMO_EMPLOYEE_ID='sm';
+const PROJECT_SOURCE_META={
+  confluence:{label:'Confluence',icon:'📄',tool:'Confluence',url:'https://confluence.atlassian.com/'},
+  jira:{label:'Jira',icon:'📋',tool:'Jira',url:'https://www.atlassian.com/software/jira'},
+  notion:{label:'Notion',icon:'📝',tool:'Notion',url:'https://www.notion.so/'},
+  linear:{label:'Linear',icon:'🔗',tool:'Linear',url:'https://linear.app/'}
+};
+const PROJECTS=[
+  {id:'fenix',name:'Fénix',status:'Activo',area:'Tecnología',summary:'Modernización confidencial de la plataforma de pagos core. Migración gradual sin downtime y con controles de acceso estrictos.',people:['fo','am','ct','rv'],source:'confluence',protected:true,accessIds:['fo','am'],duplicate:null},
+  {id:'dsv3',name:'Design System v3',status:'Activo',area:'Diseño',summary:'Nueva versión del sistema de diseño de Arca: tokens, componentes y documentación para producto y marketing.',people:['sm','js','mp','rv','ct'],source:'notion',protected:false,accessIds:[],duplicate:{name:'Design Tokens Unificados',team:'Diseño'}},
+  {id:'transbank',name:'Integración Transbank v2',status:'Activo',area:'Tecnología',summary:'Segunda versión de la integración de pagos con Transbank, incluyendo retries y monitoreo de timeouts.',people:['rv','fo','vc'],source:'jira',protected:false,accessIds:[],duplicate:null},
+  {id:'research-q2',name:'Research usuarios Q2',status:'Activo',area:'Producto',summary:'Investigación cualitativa y cuantitativa del onboarding mobile para priorizar el roadmap de producto.',people:['mp','ct','df','sm'],source:'notion',protected:false,accessIds:[],duplicate:null},
+  {id:'analytics',name:'Dashboard analytics interno',status:'Pausado',area:'Data',summary:'Hub interno de métricas de producto y retención. Pausado hasta liberar accesos a datos de producción.',people:['df','pk'],source:'jira',protected:false,accessIds:[],duplicate:null},
+  {id:'brand',name:'Brand refresh',status:'Completado',area:'Diseño',summary:'Actualización de marca visual y motion guidelines para canales digitales y presentaciones internas.',people:['js','sr'],source:'notion',protected:false,accessIds:[],duplicate:null},
+  {id:'pipeline',name:'Pipeline ventas Q3',status:'Activo',area:'Ventas',summary:'Seguimiento unificado del pipeline comercial y handoff a Customer Success para cuentas enterprise.',people:['mt'],source:'linear',protected:false,accessIds:[],duplicate:null},
+  {id:'infra',name:'Infraestructura deploy Q3',status:'Activo',area:'Tecnología',summary:'Mejoras de CI/CD y despliegues en AWS para reducir tiempo de release del equipo de producto.',people:['am','rv','fo'],source:'linear',protected:false,accessIds:[],duplicate:null}
 ];
 
 const MEMORY=[
@@ -4943,8 +5260,9 @@ function adminTourActionComplete(key){
 function simulateSlackConnect(){
   const el=$('#slackStatus');
   if(el){
-    el.innerHTML='<span class="status-dot good" role="img" aria-label="Estado: Bien" title="Bien"></span><span aria-hidden="true">🟢 Conectado</span>';
-    el.style.color='var(--success-text)';
+    el.className='pill-success';
+    el.textContent='Conectado';
+    el.removeAttribute('style');
   }
   const b=$('#btnSlackConnect');
   if(b){b.textContent='Configurar →';b.classList.remove('btn-primary');b.classList.add('btn-ghost');}
@@ -5193,7 +5511,7 @@ function resolveScreenId(id){
 }
 
 function setPersonasTab(tab){
-  const want=tab==='organigrama'?'organigrama':'mapa';
+  const want=tab==='organigrama'?'organigrama':(tab==='proyectos'?'proyectos':'mapa');
   $$('.personas-tab').forEach(btn=>{
     const on=btn.dataset.personasTab===want;
     btn.classList.toggle('active',on);
@@ -5201,19 +5519,25 @@ function setPersonasTab(tab){
   });
   const paneMapa=$('#personasPaneMapa');
   const paneOrg=$('#personasPaneOrg');
+  const paneProj=$('#personasPaneProyectos');
   if(!paneMapa||!paneOrg)return;
+  [paneMapa,paneOrg,paneProj].forEach(p=>{
+    if(!p)return;
+    p.classList.add('is-hidden');
+    p.hidden=true;
+  });
   if(want==='mapa'){
-    paneOrg.classList.add('is-hidden');
-    paneOrg.hidden=true;
     paneMapa.hidden=false;
     paneMapa.classList.remove('is-hidden');
     renderPersonGrid($('.pill.active')?.dataset.filter||'all',$('#kmSearch')?.value||'');
-  }else{
-    paneMapa.classList.add('is-hidden');
-    paneMapa.hidden=true;
+  }else if(want==='organigrama'){
     paneOrg.hidden=false;
     paneOrg.classList.remove('is-hidden');
     renderOrgGrid();
+  }else if(paneProj){
+    paneProj.hidden=false;
+    paneProj.classList.remove('is-hidden');
+    renderProjectsGrid();
   }
 }
 
@@ -5223,19 +5547,251 @@ function setupPersonasTabs(){
       const next=btn.dataset.personasTab;
       const paneMapa=$('#personasPaneMapa');
       const paneOrg=$('#personasPaneOrg');
-      const current=paneOrg&&!paneOrg.classList.contains('is-hidden')?'organigrama':'mapa';
+      const paneProj=$('#personasPaneProyectos');
+      let current='mapa';
+      if(paneOrg&&!paneOrg.classList.contains('is-hidden'))current='organigrama';
+      if(paneProj&&!paneProj.classList.contains('is-hidden'))current='proyectos';
       if(next===current)return;
-      const leaving=current==='mapa'?paneMapa:paneOrg;
+      const leaving=current==='mapa'?paneMapa:(current==='organigrama'?paneOrg:paneProj);
       leaving?.classList.add('is-fading');
       setTimeout(()=>{
         leaving?.classList.remove('is-fading');
         setPersonasTab(next);
-        const entering=next==='mapa'?paneMapa:paneOrg;
+        const entering=next==='mapa'?paneMapa:(next==='organigrama'?paneOrg:paneProj);
         if(entering){
           entering.classList.add('is-fading');
           requestAnimationFrame(()=>requestAnimationFrame(()=>entering.classList.remove('is-fading')));
         }
       },150);
+    });
+  });
+}
+
+const EXTRA_PEOPLE={
+  pk:{id:'pk',init:'PK',name:'Priya Kapoor',role:'Head of Data',team:'Data'},
+  sr:{id:'sr',init:'SR',name:'Sofía Reyes',role:'Head of Design',team:'Diseño'},
+  mt:{id:'mt',init:'MT',name:'Marco Torres',role:'Head of Sales',team:'Ventas'},
+  ch:{id:'ch',init:'CH',name:'Carlos Herrera',role:'Head of Product',team:'Producto Digital'},
+  sm:{id:'sm',init:'SM',name:'Sofía Martínez',role:'Product Designer',team:'Producto Digital'}
+};
+
+function findProjectPerson(id){
+  return PEOPLE.find(p=>p.id===id)||TEAM.find(p=>p.id===id)||EXTRA_PEOPLE[id]||null;
+}
+
+function canViewProject(proj){
+  if(!proj||!proj.protected)return true;
+  if(currentRole==='manager'||currentRole==='admin')return true;
+  return (proj.accessIds||[]).includes(DEMO_EMPLOYEE_ID);
+}
+
+function projectStatusClass(status){
+  if(status==='Activo')return 'proj-status-activo pill-success';
+  if(status==='Pausado')return 'proj-status-pausado pill-warning';
+  return 'proj-status-completado pill-neutral';
+}
+
+function truncateText(str,n){
+  const s=(str||'').trim();
+  if(s.length<=n)return s;
+  return s.slice(0,n-1).trimEnd()+'…';
+}
+
+function getVisibleProjects(){
+  return PROJECTS.filter(canViewProject);
+}
+
+function renderProjectsGrid(){
+  const grid=$('#projGrid');
+  if(!grid)return;
+  const q=($('#projSearch')?.value||'').trim().toLowerCase();
+  const area=$('#projAreaFilters .pill.active')?.dataset.projArea||'all';
+  const status=$('#projStatusFilters .pill.active')?.dataset.projStatus||'all';
+  let list=getVisibleProjects();
+  if(area!=='all')list=list.filter(p=>p.area===area);
+  if(status!=='all')list=list.filter(p=>p.status===status);
+  if(q)list=list.filter(p=>(p.name+' '+p.summary+' '+p.area).toLowerCase().includes(q));
+  const canProtect=currentRole==='manager'||currentRole==='admin';
+  if(!list.length){
+    grid.innerHTML=`<p style="font-size:13px;color:var(--text-muted);grid-column:1/-1">No hay proyectos con esos filtros.</p>`;
+    return;
+  }
+  grid.innerHTML=list.map(p=>{
+    const src=PROJECT_SOURCE_META[p.source]||PROJECT_SOURCE_META.notion;
+    const people=p.people.map(findProjectPerson).filter(Boolean);
+    const shown=people.slice(0,4);
+    const more=people.length-shown.length;
+    const lockBadge=p.protected&&canProtect?`<span class="proj-lock-badge" title="Proyecto protegido"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span>`:'';
+    const lockBtn=canProtect?`<button type="button" class="proj-lock-btn${p.protected?' on':''}" data-proj-lock="${p.id}" aria-label="Marcar como protegido" title="Marcar como protegido"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></button>`:'';
+    const dup=p.duplicate?`<div class="proj-dup-warn">⚠️ Posible duplicación con ${p.duplicate.name} en ${p.duplicate.team}</div>`:'';
+    const avatars=shown.map(pe=>`<span class="avatar" data-init="${pe.init}">${pe.init}</span>`).join('')+(more>0?`<span class="proj-avatars-more">+${more}</span>`:'');
+    return `<article class="proj-card" data-proj-id="${p.id}" role="button" tabindex="0">
+      <div class="proj-card-top">
+        <div class="proj-card-title">${lockBadge}${p.name}</div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span class="${projectStatusClass(p.status)}">${p.status}</span>
+          ${lockBtn}
+        </div>
+      </div>
+      <p class="proj-card-summary">${truncateText(p.summary,100)}</p>
+      <div class="proj-card-meta">
+        <span class="tag">${p.area}</span>
+        <span class="proj-source">${src.icon} ${src.label}</span>
+      </div>
+      <div class="proj-avatars">${avatars}</div>
+      ${dup}
+      <button type="button" class="proj-card-link" data-proj-open-ext="${p.id}">Ver en ${src.tool} →</button>
+    </article>`;
+  }).join('');
+  syncAvatarColors(grid);
+  grid.querySelectorAll('.proj-card').forEach(card=>{
+    const open=()=>openProjectModal(card.dataset.projId);
+    card.addEventListener('click',e=>{
+      if(e.target.closest('[data-proj-lock]')||e.target.closest('[data-proj-open-ext]'))return;
+      open();
+    });
+    card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});
+  });
+  grid.querySelectorAll('[data-proj-lock]').forEach(btn=>{
+    btn.addEventListener('click',e=>{
+      e.stopPropagation();
+      openProtectProjectModal(btn.dataset.projLock);
+    });
+  });
+  grid.querySelectorAll('[data-proj-open-ext]').forEach(btn=>{
+    btn.addEventListener('click',e=>{
+      e.stopPropagation();
+      const proj=PROJECTS.find(x=>x.id===btn.dataset.projOpenExt);
+      const src=PROJECT_SOURCE_META[proj?.source]||PROJECT_SOURCE_META.notion;
+      window.open(src.url,'_blank','noopener,noreferrer');
+    });
+  });
+}
+
+function openProjectModal(projectId){
+  const p=PROJECTS.find(x=>x.id===projectId);
+  if(!p||!canViewProject(p))return;
+  const src=PROJECT_SOURCE_META[p.source]||PROJECT_SOURCE_META.notion;
+  const canProtect=currentRole==='manager'||currentRole==='admin';
+  const people=p.people.map(findProjectPerson).filter(Boolean);
+  const lockTitle=p.protected&&canProtect?`<span class="proj-lock-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span>`:'';
+  const peopleHtml=people.map(pe=>`
+    <button type="button" class="proj-detail-person" data-open-person="${pe.id||pe.init}">
+      <span class="avatar" data-init="${pe.init}">${pe.init}</span>
+      <span>${pe.name}</span>
+    </button>`).join('')||`<span style="font-size:12px;color:var(--text-muted)">Sin personas asignadas</span>`;
+  $('#modalTitle').textContent=p.name;
+  $('#modalBody').innerHTML=`
+    <div class="pm-modal">
+      <div class="pm-header">
+        <div class="pm-nav"><span></span><button type="button" class="pm-x" id="pmClose" aria-label="Cerrar">×</button></div>
+        <div class="pm-head-row" style="align-items:flex-start">
+          <div style="min-width:0;flex:1">
+            <div class="pm-name" style="display:flex;align-items:center;gap:8px">${lockTitle}${p.name}</div>
+            <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+              <span class="${projectStatusClass(p.status)}">${p.status}</span>
+              <span class="tag">${p.area}</span>
+              ${canProtect?`<button type="button" class="proj-lock-btn${p.protected?' on':''}" id="projDetailLock" aria-label="Marcar como protegido"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></button>`:''}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pm-body">
+        <div class="pm-section">
+          <div class="pm-label">Resumen</div>
+          <p class="pm-text">${p.summary}</p>
+        </div>
+        <div class="pm-section">
+          <div class="pm-label">Equipo asignado</div>
+          <div class="proj-detail-people">${peopleHtml}</div>
+        </div>
+        <div class="pm-section" style="border-bottom:none">
+          <div class="pm-label">Fuente</div>
+          <p class="pm-text" style="margin-bottom:10px">${src.icon} ${src.label}</p>
+          <a class="btn btn-primary btn-sm" href="${src.url}" target="_blank" rel="noopener noreferrer">Ver en ${src.tool} →</a>
+          <p class="proj-detail-note">Hilo muestra un resumen. El detalle completo vive en tu herramienta conectada.</p>
+        </div>
+      </div>
+    </div>`;
+  openModal();
+  syncAvatarColors($('#modalBody'));
+  $('#pmClose')?.addEventListener('click',closeModal);
+  $('#projDetailLock')?.addEventListener('click',()=>openProtectProjectModal(p.id));
+  $('#modalBody')?.querySelectorAll('[data-open-person]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const id=btn.dataset.openPerson;
+      const person=PEOPLE.find(x=>x.id===id||x.init===id)||findProjectPerson(id);
+      if(!person)return;
+      if(person.bio!==undefined)openPersonModal(person,'mapa');
+      else openPersonModal({...person,bio:`${person.role||''}${person.team?' · '+person.team:''}.`,tags:person.tags||[],projects:[],knowledge:[]},'mapa');
+    });
+  });
+}
+
+function openProtectProjectModal(projectId){
+  const p=PROJECTS.find(x=>x.id===projectId);
+  if(!p||!(currentRole==='manager'||currentRole==='admin'))return;
+  const roster=[...PEOPLE];
+  TEAM.forEach(t=>{if(!roster.some(r=>r.id===t.id))roster.push(t);});
+  const access=new Set(p.accessIds||[]);
+  const rows=roster.map(pe=>{
+    const checked=access.has(pe.id)?'checked':'';
+    return `<label class="proj-access-row"><input type="checkbox" value="${pe.id}" ${checked}><span class="avatar sm" data-init="${pe.init}">${pe.init}</span><span>${pe.name}</span></label>`;
+  }).join('');
+  $('#modalTitle').textContent='Marcar como protegido';
+  $('#modalBody').innerHTML=`
+    <p style="font-size:13px;line-height:1.55;color:var(--text-secondary);margin:0 0 16px">Este proyecto seguirá existiendo para Hilo, pero no aparecerá en el Mapa de Conocimiento ni en Proyectos para quienes no tengan acceso. Si alguien pregunta por él, Hilo te avisará.</p>
+    <div class="toggle-row" style="margin-bottom:4px">
+      <div style="font-size:13px;font-weight:500">Proyecto protegido</div>
+      <button type="button" class="toggle${p.protected?' on':''}" id="projProtectToggle" aria-pressed="${p.protected?'true':'false'}"></button>
+    </div>
+    <div class="proj-protect-access${p.protected?' show':''}" id="projProtectAccess">
+      <div style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:4px">¿Quién tiene acceso?</div>
+      <div class="proj-access-list" id="projAccessList">${rows}</div>
+    </div>
+    <button type="button" class="btn btn-primary" style="width:100%;margin-top:18px" id="projProtectSave">Guardar →</button>`;
+  openModal();
+  syncAvatarColors($('#modalBody'));
+  const toggle=$('#projProtectToggle');
+  const accessWrap=$('#projProtectAccess');
+  toggle?.addEventListener('click',()=>{
+    toggle.classList.toggle('on');
+    const on=toggle.classList.contains('on');
+    toggle.setAttribute('aria-pressed',on?'true':'false');
+    accessWrap?.classList.toggle('show',on);
+  });
+  $('#projProtectSave')?.addEventListener('click',()=>{
+    const on=!!$('#projProtectToggle')?.classList.contains('on');
+    p.protected=on;
+    p.accessIds=on?[...$$('#projAccessList input:checked')].map(i=>i.value):[];
+    closeModal();
+    showToast(on?`Proyecto ${p.name} marcado como protegido ✓`:`Protección quitada de ${p.name} ✓`);
+    renderProjectsGrid();
+  });
+}
+
+function setupProjectsFilters(){
+  const search=$('#projSearch');
+  if(search&&search.dataset.wired!=='1'){
+    search.dataset.wired='1';
+    search.addEventListener('input',()=>renderProjectsGrid());
+  }
+  $$('#projAreaFilters .pill').forEach(p=>{
+    if(p.dataset.wired==='1')return;
+    p.dataset.wired='1';
+    p.addEventListener('click',()=>{
+      $$('#projAreaFilters .pill').forEach(x=>x.classList.remove('active'));
+      p.classList.add('active');
+      renderProjectsGrid();
+    });
+  });
+  $$('#projStatusFilters .pill').forEach(p=>{
+    if(p.dataset.wired==='1')return;
+    p.dataset.wired='1';
+    p.addEventListener('click',()=>{
+      $$('#projStatusFilters .pill').forEach(x=>x.classList.remove('active'));
+      p.classList.add('active');
+      renderProjectsGrid();
     });
   });
 }
@@ -6154,7 +6710,7 @@ function renderPersonGrid(filter='all',query=''){
 
 const ORG_LEADERS={
   'Producto Digital':{init:'CH',name:'Carlos Herrera',role:'Head of Product · Manager',area:'Producto Digital',tags:['Roadmap','Design critique','Priorización','1:1s'],projects:[{name:'Design System v3',tone:'amber'},{name:'Roadmap Q3',tone:'green'}],team:true,how:'Carlos prefiere ver el problema antes que la solución en cualquier reunión.',howSrc:'Capturado por Hilo · vía Gabriela Rojas'},
-  'Tecnología':{init:'DM',name:'Diego Morales',role:'Head of Engineering · Manager',area:'Tecnología',tags:['Arquitectura','APIs','Mentoring'],projects:[{name:'Infraestructura Q3',tone:'green'},{name:'Transbank v2',tone:'amber'}],team:false},
+  'Tecnología':{init:'DM',name:'Diego Morales',role:'Head of Engineering · Manager',area:'Tecnología',tags:['Arquitectura','APIs','Mentoring'],projects:[{name:'Infraestructura Q3',tone:'green'},{name:'Transbank v2',tone:'amber'},{name:'Fénix',tone:'amber',projectId:'fenix'}],team:false},
   'Data & Analytics':{init:'PK',name:'Priya Kapoor',role:'Head of Data · Manager',area:'Data & Analytics',tags:['SQL','Experimentos','Dashboards'],projects:[{name:'Metrics hub',tone:'green'}],team:false},
   'Diseño':{init:'SR',name:'Sofía Reyes',role:'Head of Design · Manager',area:'Diseño',tags:['Brand','Design ops','Critique'],projects:[{name:'Brand system',tone:'green'}],team:false},
   'People':{init:'AP',name:'Ana Pizarro',role:'People Director · HR + CEO',area:'People',tags:['Cultura','Onboarding','Políticas'],projects:[{name:'Hilo rollout',tone:'green'}],team:false}
@@ -6313,7 +6869,10 @@ function openTeamModal(team){
   previousTeamName=team.name;
   const lead=ORG_LEADERS[team.name];
   const members=getTeamMembers(team.name);
-  const projects=lead?.projects||[{name:'Operación del equipo',tone:'green'}];
+  const projects=(lead?.projects||[{name:'Operación del equipo',tone:'green'}]).filter(p=>{
+    if(!p.projectId)return true;
+    return canViewProject(PROJECTS.find(x=>x.id===p.projectId));
+  });
   const expertise=[...new Set([
     ...(lead?.tags||[]),
     ...members.flatMap(m=>{
@@ -6327,12 +6886,16 @@ function openTeamModal(team){
       <span class="person-chip-name">${m.name}</span>
       <span class="person-chip-role">${m.role||''}</span>
     </button>`).join(''):`<span style="font-size:12px;color:var(--text-muted)">Sin detalle de miembros en demo</span>`;
-  const projHtml=projects.map(p=>`
-    <div class="tm-proj-row">
+  const canProtect=currentRole==='manager'||currentRole==='admin';
+  const projHtml=projects.map(p=>{
+    const proj=p.projectId?PROJECTS.find(x=>x.id===p.projectId):null;
+    const lock=proj?.protected&&canProtect?`<span class="proj-lock-badge" style="margin-right:4px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span>`:'';
+    return `<div class="tm-proj-row">
       <span class="dot" style="background:${p.tone==='amber'?'var(--data)':'var(--accent)'}"></span>
-      <span style="flex:1">${p.name}</span>
+      <span style="flex:1;display:inline-flex;align-items:center">${lock}${p.name}</span>
       <span class="pm-activo">Activo</span>
-    </div>`).join('');
+    </div>`;
+  }).join('');
   const tagsHtml=expertise.map(t=>`<span class="tag">${t}</span>`).join('')||`<span style="font-size:12px;color:var(--text-muted)">Sin tags aún</span>`;
   const managerLabel=team.manager&&team.manager!=='—'?'Manager: '+team.manager:(lead?'Manager: '+lead.name:'');
   $('#modalTitle').textContent=team.name;
@@ -6388,10 +6951,18 @@ const TOOL_ICONS={
 
 function renderActiveProjectsHtml(person){
   if(!person.activeProjects?.length)return '';
-  const rows=person.activeProjects.map(p=>{
+  const canProtect=currentRole==='manager'||currentRole==='admin';
+  const rows=person.activeProjects.filter(p=>{
+    if(!p.projectId)return true;
+    const proj=PROJECTS.find(x=>x.id===p.projectId);
+    return canViewProject(proj);
+  }).map(p=>{
+    const proj=p.projectId?PROJECTS.find(x=>x.id===p.projectId):null;
     const amber=p.dot==='var(--data)'||p.tone==='amber';
-    return `<div class="pm-work-row"><span class="dot${amber?' amber':''}"${amber?'':` style="background:${p.dot||'var(--accent)'}"`}></span><span style="flex:1">${p.name}</span><span class="pm-activo">Activo</span></div>`;
+    const lock=proj?.protected&&canProtect?`<span class="proj-lock-badge" style="margin-right:4px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span>`:'';
+    return `<div class="pm-work-row"><span class="dot${amber?' amber':''}"${amber?'':` style="background:${p.dot||'var(--accent)'}"`}></span><span style="flex:1;display:inline-flex;align-items:center">${lock}${p.name}</span><span class="pm-activo">Activo</span></div>`;
   }).join('');
+  if(!rows)return '';
   return `<div class="pm-section"><div class="pm-label">Trabajando en</div><p class="pm-source">Leído de Jira · Notion · Linear</p>${rows}<p class="pm-note">Detectado automáticamente por Hilo.</p></div>`;
 }
 
@@ -6933,14 +7504,8 @@ function setupCommMockup(){
   });
   $('#trackingRadios')?.querySelectorAll('.radio-card').forEach(c=>{
     c.addEventListener('click',()=>{
-      $$('#trackingRadios .radio-card').forEach(x=>{
-        x.classList.remove('selected');
-        const lab=x.querySelector('.tracking-radio-label span');
-        if(lab)lab.textContent=lab.textContent.replace(/^[◉○]\s*/,'○ ');
-      });
+      $$('#trackingRadios .radio-card').forEach(x=>x.classList.remove('selected'));
       c.classList.add('selected');
-      const lab=c.querySelector('.tracking-radio-label span');
-      if(lab)lab.textContent=lab.textContent.replace(/^[◉○]\s*/,'◉ ');
     });
   });
 }
@@ -7632,7 +8197,56 @@ Te lo cuento para que lo tengas en cuenta 🙂
     });
   }
 
+  function dismissProtectedAlertCard(){
+    const card=$('#mgrProtectedAlert');
+    if(card)card.remove();
+    sessionStorage.setItem('protectedAlertShown','1');
+  }
+
+  function renderProtectedProjectAlert(){
+    const stack=mgrProactiveStack();
+    if(!stack||$('#mgrProtectedAlert'))return;
+    if(sessionStorage.getItem('protectedAlertShown')==='1')return;
+    const card=document.createElement('div');
+    card.className='hilo-proactive-card cancelled-meeting';
+    card.id='mgrProtectedAlert';
+    card.innerHTML=`
+      <div class="hilo-proactive-head">
+        <div class="hilo-proactive-meta amber">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--data-text)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><rect x="9" y="11" width="6" height="5" rx="1"/><path d="M10 11V9a2 2 0 014 0v2"/></svg>
+          Alerta de proyecto protegido
+        </div>
+        <button type="button" class="hilo-proactive-dismiss" aria-label="Cerrar" data-dismiss-protected>×</button>
+      </div>
+      <div class="hilo-proactive-body">
+        <div class="hilo-avatar-sm">H</div>
+        <div class="msg-bubble">Roberto preguntó sobre el proyecto Fénix. No tiene acceso — puede ser solo curiosidad, o quizás vale la pena revisar si debería tener acceso.</div>
+      </div>
+      <div class="hilo-proactive-pills" style="padding-left:34px">
+        <button type="button" class="quick-pill pill-reply" data-proactive="protect-grant">Dar acceso a Roberto →</button>
+        <button type="button" class="quick-pill pill-reply" data-proactive="protect-ignore">Ignorar por ahora →</button>
+      </div>`;
+    stack.prepend(card);
+    card.querySelector('[data-dismiss-protected]')?.addEventListener('click',dismissProtectedAlertCard);
+    wireCardPills(card,async(action)=>{
+      if(action==='protect-grant'){
+        const fenix=PROJECTS.find(x=>x.id==='fenix');
+        if(fenix){
+          fenix.protected=true;
+          if(!fenix.accessIds.includes('rv'))fenix.accessIds.push('rv');
+        }
+        dismissProtectedAlertCard();
+        showToast('Listo. Roberto ahora tiene acceso al proyecto Fénix ✓');
+        return;
+      }
+      if(action==='protect-ignore'){
+        dismissProtectedAlertCard();
+      }
+    });
+  }
+
   function initMgrProactiveCards(){
+    renderProtectedProjectAlert();
     renderPredailyCard();
   }
 
@@ -7836,6 +8450,16 @@ Te lo cuento para que lo tengas en cuenta 🙂
       return {reply:'Aquí estoy si necesitas algo. ¿En qué puedo ayudarte hoy?'};
     }
 
+    const fenixProj=PROJECTS.find(x=>x.id==='fenix');
+    if((t.includes('fénix')||t.includes('fenix'))&&fenixProj?.protected&&!canViewProject(fenixProj)){
+      return {
+        reply:'Ese es un proyecto protegido todavía. Existe, pero el equipo a cargo no lo ha compartido más ampliamente. Cuando se pueda, vas a saber más. Por ahora no puedo darte detalles.',
+        delay:1200,
+        skipFollowUp:true,
+        noPills:true
+      };
+    }
+
     if(isPriorityTrigger(t)){
       priorityFlow='ask';
       return {
@@ -8024,7 +8648,8 @@ Te lo cuento para que lo tengas en cuenta 🙂
       return;
     }
     if(result.reply!=null){
-      const msgEl=await hiloResponde(result.reply,result.delay||1200,result.pills,result.skipFollowUp);
+      if(result.noPills)clearPills();
+      const msgEl=await hiloResponde(result.reply,result.delay||1200,result.noPills?null:result.pills,result.skipFollowUp);
       if(result.pills&&result.pills.includes('Del trabajo')&&msgEl){
         const hint=document.createElement('p');
         hint.style.cssText='width:100%;font-size:11px;color:var(--text-muted);margin:4px 0 0';
@@ -8482,6 +9107,7 @@ function setupChat(){
   $('#btnCheckinHelp')?.addEventListener('click',openCheckinHelpModal);
   $('#btnVerOnboarding')?.addEventListener('click',()=>safeNavigate('journey'));
   setupPersonasTabs();
+  setupProjectsFilters();
   $('#btnHiloIntroChat')?.addEventListener('click',()=>{
     closeHiloIntroModal();
     if(currentRole!=='normal'){switchRole('normal');setTimeout(()=>safeNavigate('chat'),350);}
@@ -8748,6 +9374,9 @@ function toggleVoice(inputEl,micBtn){
       inputEl.dataset.ph||'';
     document.querySelectorAll('.voice-bar')
       .forEach(el=>el.style.display='none');
+    if(activeInput){
+      activeInput.dispatchEvent(new Event('input',{bubbles:true}));
+    }
     activeInput=null;activeMicBtn=null;
     return;
   }
@@ -8777,6 +9406,9 @@ function toggleVoice(inputEl,micBtn){
         activeMicBtn.classList.remove('recording');
       document.querySelectorAll('.voice-bar')
         .forEach(el=>el.style.display='none');
+      if(activeInput){
+        activeInput.dispatchEvent(new Event('input',{bubbles:true}));
+      }
     };
   }
   activeInput=inputEl;
@@ -8785,7 +9417,7 @@ function toggleVoice(inputEl,micBtn){
   micBtn.classList.add('recording');
   inputEl.dataset.ph=inputEl.placeholder;
   inputEl.placeholder='🎙️ Escuchando...';
-  const bar=micBtn.closest('.chat-input-area, .input-area, form, .input-wrapper, .focus-voice-area, #homeFocusExpanded, .focus-panel')
+  const bar=micBtn.closest('.chat-input-area, .input-area, form, .input-wrapper, .focus-ta-wrap')
     ?.querySelector('.voice-bar');
   if(bar)bar.style.display='flex';
   recognition.start();

@@ -1109,7 +1109,16 @@ input:focus,textarea:focus,select:focus,.chat-input:focus,.focus-ta:focus,.km-se
 .hi-x{color:var(--human-text);flex-shrink:0}
 .hilo-intro-privacy{display:flex;align-items:flex-start;justify-content:center;gap:8px;background:var(--accent-soft);border-radius:var(--radius-md);padding:12px 16px;margin-bottom:16px;font-family:var(--font-body);font-size:12px;color:var(--text-secondary);line-height:1.5;text-align:center}
 .hilo-intro-privacy span{flex:1}
-.hilo-intro-card #btnHiloIntroChat,.hilo-intro-modal #btnHiloIntroChat{width:100%;margin-top:0}
+.hilo-intro-actions{display:flex;gap:10px;width:100%;align-items:stretch}
+.hilo-intro-actions .btn{
+  flex:1 1 0;
+  width:0;
+  margin-top:0;
+  justify-content:center;
+  min-height:40px;
+  box-sizing:border-box;
+  padding:9px 18px!important;
+}
 .hilo-intro-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1100;display:none;align-items:center;justify-content:center;padding:20px}
 .hilo-intro-overlay.open{display:flex}
 .hilo-intro-modal{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-xl);padding:32px 28px 28px;max-width:680px;width:100%;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.2);animation:modalIn .25s var(--ease) forwards;text-align:center}
@@ -4599,7 +4608,10 @@ html.sidebar-collapsed .sidebar-footer{padding:12px 0 0!important}
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#36E6B7" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
       <span>Todo lo que hablamos es entre tú y yo. Si quieres que algo llegue a RRHH, tú lo decides. Nunca yo.</span>
     </div>
-    <button type="button" class="btn btn-primary" id="btnHiloIntroChat">¡Habla conmigo! →</button>
+    <div class="hilo-intro-actions">
+      <button type="button" class="btn btn-primary" id="btnHiloIntroChat">¡Habla conmigo!</button>
+      <button type="button" class="btn btn-secondary" id="btnHiloIntroUnderstood">Entendido</button>
+    </div>
   </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
@@ -5962,6 +5974,7 @@ function shouldAutoShowHiloIntro(){
 function setupHiloIntroModal(){
   const ov=$('#hiloIntroOverlay');
   $('#hiloIntroClose')?.addEventListener('click',()=>closeHiloIntroModal());
+  $('#btnHiloIntroUnderstood')?.addEventListener('click',()=>closeHiloIntroModal());
   ov?.addEventListener('click',e=>{if(e.target===ov)closeHiloIntroModal();});
   $('#btnOpenHiloIntro')?.addEventListener('click',()=>openHiloIntroModal());
   window.openHiloIntroModal=openHiloIntroModal;
